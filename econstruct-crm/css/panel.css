@@ -1,0 +1,174 @@
+/* eConstruct CRM — Slide-Out Detail Panel */
+
+.panel-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(28,28,30,0.4);
+  backdrop-filter: blur(2px);
+  z-index: 200;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-slow);
+}
+.panel-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.detail-panel {
+  position: fixed;
+  top: 0;
+  right: -500px;
+  width: 480px;
+  height: 100vh;
+  background: var(--white);
+  z-index: 201;
+  transition: right var(--transition-slow);
+  display: flex;
+  flex-direction: column;
+  box-shadow: -8px 0 32px rgba(28,28,30,0.12);
+}
+.detail-panel.active {
+  right: 0;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.panel-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--charcoal);
+}
+.panel-close {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: var(--off-white);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: all var(--transition);
+}
+.panel-close:hover { background: var(--border); color: var(--charcoal); }
+.panel-close svg { width: 16px; height: 16px; }
+
+.panel-body {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.panel-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.panel-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.contact-card { display: flex; flex-direction: column; gap: 8px; }
+.contact-name { font-size: 18px; font-weight: 700; color: var(--charcoal); }
+.contact-row { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.contact-row svg { width: 14px; height: 14px; color: var(--text-muted); flex-shrink: 0; }
+.contact-row a { color: var(--gold-dark); text-decoration: none; font-weight: 500; }
+.contact-row a:hover { text-decoration: underline; }
+
+.editable-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--off-white);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+}
+.editable-field:hover { background: var(--gold-bg); }
+.editable-label {
+  font-size: 11px; font-weight: 600; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.3px; width: 80px; flex-shrink: 0;
+}
+.editable-value {
+  font-size: 14px; font-weight: 600; color: var(--charcoal); flex: 1;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.editable-value[contenteditable="true"] {
+  outline: none; background: var(--white); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--gold);
+}
+.edit-pencil {
+  width: 14px; height: 14px; color: var(--text-muted); cursor: pointer; opacity: 0;
+  transition: opacity var(--transition); flex-shrink: 0;
+}
+.editable-field:hover .edit-pencil { opacity: 1; }
+.edit-actions { display: none; gap: 4px; }
+.edit-actions.visible { display: flex; }
+.edit-actions button {
+  font-family: inherit; font-size: 10px; font-weight: 600; padding: 3px 8px;
+  border-radius: 4px; cursor: pointer; border: none;
+}
+.edit-save { background: var(--gold); color: var(--white); }
+.edit-cancel { background: var(--border); color: var(--text-secondary); }
+
+.stage-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.stage-pill {
+  padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 600;
+  cursor: pointer; border: 2px solid transparent; transition: all var(--transition);
+  font-family: inherit; background: var(--off-white); color: var(--text-secondary);
+}
+.stage-pill:hover { background: var(--gold-bg); }
+.stage-pill.active-pill { background: var(--gold); color: var(--white); border-color: var(--gold); }
+
+.score-ring-container { display: flex; align-items: center; gap: 16px; }
+.score-ring-wrap { position: relative; width: 64px; height: 64px; }
+.score-ring-wrap svg { width: 64px; height: 64px; transform: rotate(-90deg); }
+.score-ring-bg { fill: none; stroke: var(--border); stroke-width: 4; }
+.score-ring-fill { fill: none; stroke: var(--gold); stroke-width: 4; stroke-linecap: round; transition: stroke-dashoffset 0.6s ease; }
+.score-ring-value {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-size: 18px; font-weight: 700; color: var(--charcoal); font-variant-numeric: tabular-nums lining-nums;
+}
+.score-ring-label { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
+
+.notes-input-wrap { display: flex; gap: 8px; }
+.notes-textarea {
+  flex: 1; resize: none; border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 10px 12px; font-family: inherit; font-size: 13px; height: 60px;
+  outline: none; transition: border-color var(--transition); color: var(--charcoal);
+}
+.notes-textarea::placeholder { color: var(--text-muted); }
+.notes-textarea:focus { border-color: var(--gold); }
+.note-item { padding: 12px; background: var(--off-white); border-radius: var(--radius-sm); font-size: 13px; color: var(--charcoal); line-height: 1.5; }
+.note-meta { font-size: 11px; color: var(--text-muted); margin-top: 6px; font-weight: 500; }
+
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before { content: ''; position: absolute; left: 7px; top: 4px; bottom: 4px; width: 2px; background: var(--border); }
+.timeline-item { position: relative; padding-bottom: 16px; padding-left: 8px; }
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-dot {
+  position: absolute; left: -21px; top: 4px; width: 12px; height: 12px;
+  border-radius: 50%; background: var(--white); border: 2px solid var(--gold);
+}
+.timeline-dot.filled { background: var(--gold); }
+.timeline-event { font-size: 13px; color: var(--charcoal); font-weight: 500; }
+.timeline-time { font-size: 11px; color: var(--text-muted); margin-top: 2px; font-variant-numeric: tabular-nums lining-nums; }
+
+.sparkline-svg { display: block; }
+

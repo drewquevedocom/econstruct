@@ -1,0 +1,54 @@
+/* eConstruct CRM — Leads Page */
+
+.leads-filters {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.filter-select {
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--charcoal);
+  background: var(--white);
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transition);
+  appearance: auto;
+}
+.filter-select:focus { border-color: var(--gold); }
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.filter-group input[type="range"] {
+  width: 100px;
+  accent-color: var(--gold);
+}
+
+/* Bulk actions bar */
+.bulk-bar {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 20px;
+  background: var(--charcoal);
+  border-radius: var(--radius-sm);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 600;
+}
+.bulk-bar.visible { display: flex; }
+.bulk-bar .bulk-count { color: var(--gold-light); }
+.bulk-bar .btn { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: var(--white); font-size: 11px; }
+.bulk-bar .btn:hover { background: rgba(255,255,255,0.2); }
+

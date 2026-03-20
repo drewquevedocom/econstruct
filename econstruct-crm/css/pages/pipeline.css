@@ -1,0 +1,123 @@
+/* eConstruct CRM — Pipeline Page */
+
+.kanban-summary {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  padding: 16px 24px;
+  background: var(--white);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+.kanban-summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.kanban-summary-label {
+  font-size: 11px; font-weight: 600; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.kanban-summary-value {
+  font-size: 22px; font-weight: 700; color: var(--charcoal);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.kanban-board {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+.kanban-col {
+  min-width: 230px;
+  max-width: 230px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.kanban-col-header {
+  padding: 12px 14px;
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.kanban-col-name {
+  font-size: 12px; font-weight: 700; color: var(--charcoal);
+  text-transform: uppercase; letter-spacing: 0.3px;
+}
+.kanban-col-count {
+  font-size: 11px; font-weight: 600; color: var(--text-muted);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.kanban-col-value {
+  font-size: 10px; font-weight: 600; color: var(--gold-dark);
+  margin-top: 2px;
+}
+.kanban-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 60px;
+}
+.kanban-card {
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.kanban-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--border);
+}
+.kanban-card[draggable="true"] {
+  cursor: grab;
+}
+.kanban-card[draggable="true"]:active {
+  cursor: grabbing;
+}
+.kanban-card.dragging {
+  opacity: 0.4;
+  transform: rotate(2deg);
+  box-shadow: var(--shadow-lg);
+}
+.kanban-cards.drop-zone {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+}
+.kanban-cards.drop-zone-active {
+  border-color: var(--gold);
+  background: rgba(184, 150, 62, 0.06);
+}
+.kanban-empty {
+  padding: 16px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.kanban-card.score-high-card { border-left: 3px solid var(--gold); }
+.kanban-card.score-mid-card { border-left: 3px solid var(--border); }
+.kanban-card-address {
+  font-size: 13px; font-weight: 600; color: var(--charcoal);
+  line-height: 1.3;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.kanban-card-contact { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+.kanban-card-bottom {
+  display: flex; align-items: center; justify-content: space-between; gap: 6px;
+}
+.kanban-card-value { font-size: 13px; font-weight: 700; color: var(--charcoal); font-variant-numeric: tabular-nums lining-nums; }
+.kanban-card-meta { display: flex; align-items: center; gap: 6px; }
+

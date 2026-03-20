@@ -1,0 +1,18 @@
+/* eConstruct CRM — Reset & Base */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  color: #1C1C1E;
+  background: #F8F6F2;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* Tabular nums */
+.tabular { font-variant-numeric: tabular-nums lining-nums; }

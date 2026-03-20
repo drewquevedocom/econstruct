@@ -1,0 +1,80 @@
+/* eConstruct CRM — Fire Intel Page */
+
+.zone-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.zone-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.zone-card:hover { box-shadow: var(--shadow-md); }
+.zone-header {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.zone-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700; font-size: 16px; color: var(--charcoal);
+}
+.zone-zip {
+  font-size: 12px; font-weight: 600; color: var(--gold-dark);
+  background: var(--gold-bg); padding: 3px 10px; border-radius: 100px;
+}
+.zone-stats {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+}
+.zone-stat {
+  padding: 10px; background: var(--off-white); border-radius: var(--radius-sm); text-align: center;
+}
+.zone-stat-val {
+  font-size: 20px; font-weight: 700; color: var(--charcoal); font-variant-numeric: tabular-nums lining-nums; line-height: 1;
+}
+.zone-stat-lbl { font-size: 10px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; margin-top: 3px; }
+.zone-bar {
+  height: 8px; background: var(--border-light); border-radius: 4px; overflow: hidden; display: flex;
+}
+.zone-bar-seg { height: 100%; transition: width 0.6s ease; }
+
+.news-feed {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+.news-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.news-item:last-child { border-bottom: none; }
+.news-tag {
+  font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px;
+  text-transform: uppercase; letter-spacing: 0.3px; flex-shrink: 0; margin-top: 2px;
+}
+.news-tag-permits { background: #E3F2FD; color: #1565C0; }
+.news-tag-funding { background: var(--success-bg); color: var(--success); }
+.news-tag-insurance { background: #FFF3E0; color: #E65100; }
+.news-tag-regulation { background: #EDE7F6; color: #5E35B1; }
+.news-tag-market { background: var(--gold-bg); color: var(--gold-dark); }
+.news-content { flex: 1; }
+.news-headline { font-size: 13px; font-weight: 600; color: var(--charcoal); line-height: 1.4; }
+.news-meta { font-size: 11px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
+a.news-headline {
+  text-decoration: none;
+  display: block;
+  transition: color var(--transition);
+}
+a.news-headline:hover { color: var(--gold-dark); }
+a.news-headline:hover::after {
+  content: ' ↗';
+  font-size: 10px;
+}
+

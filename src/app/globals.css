@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+:root {
+  --background: #FFFFFF;
+  --secondary-background: #F8F6F2;
+  --brand-dark: #1C1C1E;
+  --accent-gold: #B8963E;
+  --body-text: #6B6B6B;
+  --badge-navy: #1A2744;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-secondary: var(--secondary-background);
+  --color-brand-dark: var(--brand-dark);
+  --color-accent-gold: var(--accent-gold);
+  --color-body-text: var(--body-text);
+  --color-badge-navy: var(--badge-navy);
+  
+  --font-heading: var(--font-playfair);
+  --font-body: var(--font-jakarta);
+}
+
+body {
+  background: var(--background);
+  color: var(--body-text);
+  font-family: var(--font-body), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), serif;
+  color: var(--brand-dark);
+}

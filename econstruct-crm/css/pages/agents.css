@@ -1,0 +1,81 @@
+/* eConstruct CRM — Agents Page */
+
+.agents-health {
+  padding: 16px 24px;
+  background: var(--white);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.health-bar {
+  flex: 1; height: 8px; background: var(--border-light); border-radius: 4px; overflow: hidden;
+}
+.health-bar-fill { height: 100%; background: var(--success); border-radius: 4px; width: 100%; }
+.health-text { font-size: 14px; font-weight: 700; color: var(--charcoal); }
+.health-status { font-size: 12px; font-weight: 600; color: var(--success); }
+
+.agents-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.agent-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all var(--transition);
+}
+.agent-card:hover { box-shadow: var(--shadow-md); }
+.agent-card-header {
+  display: flex; align-items: center; gap: 12px;
+}
+.agent-card-dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+}
+.agent-card-dot.running { background: var(--success); box-shadow: 0 0 0 3px rgba(46,125,50,0.15); }
+.agent-card-dot.idle-dot { background: var(--gold); box-shadow: 0 0 0 3px rgba(184,150,62,0.15); }
+.agent-card-name {
+  flex: 1; font-size: 14px; font-weight: 700; color: var(--charcoal);
+}
+.agent-card-status {
+  font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 100px;
+}
+.agent-card-status.status-running { background: var(--success-bg); color: var(--success); }
+.agent-card-status.status-idle { background: var(--gold-bg); color: var(--gold-dark); }
+.agent-card-metrics {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+}
+.agent-metric {
+  padding: 10px; background: var(--off-white); border-radius: var(--radius-sm);
+}
+.agent-metric-val { font-size: 18px; font-weight: 700; color: var(--charcoal); font-variant-numeric: tabular-nums lining-nums; line-height: 1; }
+.agent-metric-lbl { font-size: 10px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; margin-top: 3px; }
+.agent-activity-log {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.agent-log-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; color: var(--text-secondary);
+  padding: 6px 10px; background: var(--off-white); border-radius: 4px;
+}
+.agent-log-time { font-weight: 600; color: var(--text-muted); font-variant-numeric: tabular-nums lining-nums; flex-shrink: 0; }
+.agent-card-directive {
+  font-size: 11px;
+  font-style: italic;
+  color: var(--text-muted);
+  line-height: 1.5;
+  padding: 8px 12px;
+  background: var(--gold-bg);
+  border-left: 2px solid var(--gold);
+  border-radius: 4px;
+  margin: -8px 0 0 0;
+}
+

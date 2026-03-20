@@ -1,0 +1,89 @@
+/* eConstruct CRM — Outreach Page */
+
+.campaigns-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.campaign-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all var(--transition);
+}
+.campaign-card:hover { box-shadow: var(--shadow-md); }
+.campaign-card-header {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.campaign-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--charcoal);
+}
+.status-pill {
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.status-active { background: var(--success-bg); color: var(--success); }
+.status-paused { background: var(--gold-bg); color: var(--gold-dark); }
+.campaign-stats {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.campaign-stat-row {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 13px;
+}
+.campaign-stat-label { color: var(--text-secondary); font-weight: 500; }
+.campaign-stat-value { font-weight: 600; color: var(--charcoal); font-variant-numeric: tabular-nums lining-nums; }
+.rate-bar {
+  height: 6px;
+  background: var(--border-light);
+  border-radius: 3px;
+  overflow: hidden;
+  width: 100%;
+}
+.rate-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--gold);
+  transition: width 0.6s ease;
+}
+
+.email-queue-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+.email-queue-list {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.email-queue-item {
+  display: flex; align-items: center; gap: 16px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--off-white);
+  transition: background var(--transition);
+}
+.email-queue-item:hover { background: var(--gold-bg); }
+.email-queue-info { flex: 1; min-width: 0; }
+.email-queue-subject { font-size: 13px; font-weight: 600; color: var(--charcoal); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.email-queue-recipient { font-size: 12px; color: var(--text-muted); font-weight: 500; margin-top: 2px; }
+.email-queue-time { font-size: 11px; color: var(--text-muted); font-weight: 500; font-variant-numeric: tabular-nums lining-nums; white-space: nowrap; }
+.email-queue-actions { display: flex; gap: 6px; }
+
+.outreach-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
