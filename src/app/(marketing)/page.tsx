@@ -3,10 +3,13 @@ import Hero from "@/components/Hero";
 import AwardsSection from "@/components/AwardsSection";
 import ServicesSpaciaz from "@/components/ServicesSpaciaz";
 import FeaturedProject from "@/components/FeaturedProject";
+import ProcessSection from "@/components/ProcessSection";
 import StatsSection from "@/components/StatsSection";
+import WhyChooseUs from "@/components/WhyChooseUs";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import GatekeeperCTA from "@/components/GatekeeperCTA";
 import BlogPreview from "@/components/BlogPreview";
+import FinalCTA from "@/components/FinalCTA";
 import ConsultationCTA from "@/components/ConsultationCTA";
 import TrustBar from "@/components/TrustBar";
 import { generateLocalBusinessSchema } from "@/lib/schema";
@@ -40,10 +43,13 @@ export default function Home() {
           <AwardsSection />
           <ServicesSpaciaz />
           <FeaturedProject />
+          <ProcessSection />
           <StatsSection />
+          <WhyChooseUs />
           <TestimonialsSection />
           <GatekeeperCTA />
           <BlogPreview />
+          <FinalCTA />
           <ConsultationCTA />
         </main>
       </div>

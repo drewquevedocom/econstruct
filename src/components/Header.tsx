@@ -31,41 +31,63 @@ export default function Header() {
           <Link href="/" className="flex items-center z-50 shrink-0">
             <div className="h-7 md:h-[30px] flex items-center relative overflow-visible group">
               
-              {/* Subtle White "Tracing Trace" Glow tightly bounded behind ONLY the 'e' box */}
-              <motion.div 
-                className="absolute left-0 top-0 bottom-0 w-[14%] rounded-[5px] overflow-hidden mix-blend-screen"
-                style={{ zIndex: 0 }}
-              >
-                {/* Breathing dot inside the E */}
-                <motion.div
-                  className="w-[80%] h-[80%] absolute left-[10%] top-[10%] bg-white/70 blur-md rounded-full"
-                  animate={{
-                    opacity: [0, 0.5, 0.9, 0.5, 0],
-                    scale: [0.8, 1.1, 1.2, 1.1, 0.8],
-                    x: ["-25%", "25%", "25%", "-25%", "-25%"],
-                    y: ["-25%", "-25%", "25%", "25%", "-25%"]
-                  }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-              </motion.div>
-
               {/* Dual-Image Split Hack for Perfect Logo Control */}
               <div className="h-full relative flex items-center">
                 {/* 1. The Red 'e' Box (Original logo clipped to the left side) */}
-                <img 
-                  src="/econstruct_logo.png" 
-                  alt="eConstruct" 
+                <img
+                  src="/econstruct_logo.png"
+                  alt="eConstruct"
                   className="h-full w-auto object-contain relative z-20"
-                  style={{ 
+                  style={{
                     clipPath: "polygon(0 0, 16% 0, 16% 100%, 0 100%)",
-                    // Enhancing the red to make it "manly, fresh, stand out" and full opacity
                     filter: "saturate(1.4) contrast(1.15) brightness(1.1) drop-shadow(0px 4px 12px rgba(220, 38, 38, 0.5))"
                   }}
                 />
+
+                {/* Strong gold glow locked inside the 'e' box */}
+                <motion.div
+                  className="absolute top-0 left-0 pointer-events-none z-10"
+                  style={{
+                    width: "16%",
+                    height: "100%",
+                    clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+                    overflow: "hidden",
+                  }}
+                >
+                  <motion.div
+                    className="absolute inset-0 rounded-sm"
+                    style={{
+                      background: "radial-gradient(circle at center, rgba(184, 150, 62, 0.95) 0%, rgba(212, 175, 55, 0.6) 40%, rgba(184, 150, 62, 0) 75%)",
+                      mixBlendMode: "screen",
+                    }}
+                    animate={{
+                      opacity: [0.5, 1, 0.6, 1, 0.5],
+                      scale: [0.85, 1.15, 0.9, 1.2, 0.85],
+                    }}
+                    transition={{
+                      duration: 3.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
+                  <motion.div
+                    className="absolute inset-0"
+                    style={{
+                      background: "radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.7) 0%, transparent 55%)",
+                      mixBlendMode: "screen",
+                    }}
+                    animate={{
+                      opacity: [0, 0.8, 0.3, 0.9, 0],
+                      scale: [0.6, 1.0, 0.7, 1.1, 0.6],
+                    }}
+                    transition={{
+                      duration: 5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 0.8,
+                    }}
+                  />
+                </motion.div>
                 
                 {/* 2. The 'construct' Text (Inverted strictly to white) */}
                 <img 

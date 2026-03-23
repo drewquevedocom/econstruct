@@ -9,6 +9,7 @@ import {
   ArrowLeft,
   CheckCircle2,
   Phone,
+  Loader2,
 } from "lucide-react";
 
 const contactSchema = z.object({
@@ -52,6 +53,7 @@ const timelineOptions = [
 export default function ContactForm() {
   const [step, setStep] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const {
     register,
@@ -86,9 +88,25 @@ export default function ContactForm() {
     if (step > 1) setStep(step - 1);
   };
 
-  const onSubmit = (data: ContactFormData) => {
-    console.log("Contact form submitted:", data);
-    setIsSubmitted(true);
+  const onSubmit = async (data: ContactFormData) => {
+    setSubmitError(null);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, source: "contact_form" }),
+      });
+
+      if (!res.ok) {
+        const json = await res.json();
+        setSubmitError(json.error || "Something went wrong. Please try again.");
+        return;
+      }
+
+      setIsSubmitted(true);
+    } catch {
+      setSubmitError("Network error. Please check your connection and try again.");
+    }
   };
 
   const inputClasses =
@@ -319,7 +337,7 @@ export default function ContactForm() {
 
                 <div className="flex flex-col gap-2">
                   <label className={labelClasses}>
-                    Desired Timeline{" "}
+                    Ideal Timeline{" "}
                     <span className="text-gray-400 normal-case font-normal">
                       (optional)
                     </span>
@@ -336,18 +354,24 @@ export default function ContactForm() {
 
                 <div className="flex flex-col gap-2">
                   <label className={labelClasses}>
-                    Additional Details{" "}
+                    Project Details{" "}
                     <span className="text-gray-400 normal-case font-normal">
                       (optional)
                     </span>
                   </label>
                   <textarea
                     rows={4}
-                    placeholder="Briefly describe what you're looking to achieve..."
+                    placeholder="Tell us about your project, site address, or any specific requirements..."
                     {...register("details")}
                     className={`${inputClasses} resize-none`}
                   />
                 </div>
+
+                {submitError && (
+                  <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-red-600 text-sm font-medium">
+                    {submitError}
+                  </div>
+                )}
 
                 <div className="flex gap-4 mt-4">
                   <button
@@ -360,10 +384,13 @@ export default function ContactForm() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="flex-1 bg-accent-gold text-white rounded-xl py-4 font-bold flex items-center justify-center gap-2 hover:bg-[#a68636] transition-colors disabled:opacity-75"
+                    className="flex-1 bg-accent-gold text-white rounded-xl py-4 font-bold flex items-center justify-center gap-2 hover:bg-accent-gold/90 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (
-                      "Sending Request..."
+                      <>
+                        <Loader2 size={18} className="animate-spin" />
+                        Submitting...
+                      </>
                     ) : (
                       <>
                         Request Consultation <ArrowRight size={18} />
@@ -371,24 +398,21 @@ export default function ContactForm() {
                     )}
                   </button>
                 </div>
+
+                <p className="text-center text-xs text-gray-400 mt-2">
+                  Or call us directly:{" "}
+                  <a
+                    href="tel:+18182552210"
+                    className="text-accent-gold font-bold hover:underline"
+                  >
+                    (818) 255-2210
+                  </a>
+                </p>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
       </form>
-
-      {/* Quick Call CTA */}
-      <div className="mt-8 pt-6 border-t border-gray-100 text-center">
-        <p className="text-gray-400 text-sm font-medium">
-          Prefer to talk?{" "}
-          <a
-            href="tel:8889900303"
-            className="text-brand-dark font-bold hover:text-accent-gold transition-colors inline-flex items-center gap-1"
-          >
-            <Phone size={14} /> (888) 990-0303
-          </a>
-        </p>
-      </div>
     </div>
   );
 }
