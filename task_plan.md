@@ -15,15 +15,15 @@
 - [x] Add 'CTA / Projects' showcase with floating featured card
 - [x] Establish Footer setup
 
-## Phase 3: High-Value Service Pages ⏳
-- [ ] Create `/services/fire-rebuild` page
-- [ ] Implement Scroll Animation Sequence (Dirt lot -> Frame -> House -> Landscaping)
-- [ ] Ensure mobile stack functionality
+## Phase 3: High-Value Service Pages ✅
+- [x] Create `/services/fire-rebuild` page
+- [x] Implement Scroll Animation Sequence (Dirt lot -> Frame -> House -> Landscaping)
+- [x] Ensure mobile stack functionality
 
-## Phase 4: Final Polish ⏳
-- [ ] Test form interactions
-- [ ] Ensure WCAG compliance
-- [ ] Optimize images and test load metrics
+## Phase 4: Final Polish ✅
+- [x] Test form interactions
+- [x] Ensure WCAG compliance (contrast ratios improved, aria-labels verified)
+- [x] Optimize images and test load metrics
 
 ## Phase 5: Client-Requested Homepage Polish
 - [x] **Hero Video:** Add a looping background video to the front page hero section.

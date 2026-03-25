@@ -92,7 +92,7 @@ export default function WhyChooseUs() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-white/50 font-medium text-lg max-w-2xl mx-auto"
+            className="text-white/70 font-medium text-lg max-w-2xl mx-auto"
           >
             The difference between a contractor and a construction partner.
           </motion.p>

@@ -16,6 +16,7 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 import Button from "@/components/ui/Button";
 import AccordionItem from "@/components/ui/AccordionItem";
 import ConsultationCTA from "@/components/ConsultationCTA";
+import FireRebuildTimelapse from "@/components/FireRebuildTimelapse";
 import Image from "next/image";
 import {
   Flame,
@@ -192,6 +193,9 @@ export default function FireRebuildPage() {
           </div>
         </Container>
       </section>
+
+      {/* Scroll Timelapse — Dirt lot to finished home */}
+      <FireRebuildTimelapse />
 
       {/* Why Choose eConstruct */}
       <section className="py-24 md:py-32">

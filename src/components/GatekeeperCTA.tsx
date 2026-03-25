@@ -10,7 +10,7 @@ export default function GatekeeperCTA() {
       {/* Full-bleed background image */}
       <div
         className="absolute inset-0 bg-cover bg-center transition-transform duration-[8s] ease-out hover:scale-105"
-        style={{ backgroundImage: "url('/hero.jpg')" }}
+        style={{ backgroundImage: "url('/fleet-of-trucks.png')" }}
       />
 
       {/* Dark gradient overlay — heavier at bottom-left where text sits */}
@@ -66,7 +66,7 @@ export default function GatekeeperCTA() {
           >
             <Link
               href="/contact"
-              className="group inline-flex items-center gap-3 bg-[#E4ED64] text-brand-dark font-bold text-sm md:text-base px-7 py-4 rounded-full hover:bg-white transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-black/30 hover:-translate-y-1 active:scale-95"
+              className="group inline-flex items-center gap-3 bg-accent-gold text-white font-bold text-sm md:text-base px-7 py-4 rounded-full hover:bg-white hover:text-brand-dark transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-black/30 hover:-translate-y-1 active:scale-95"
             >
               Get A Quote
               <span className="w-7 h-7 rounded-full bg-brand-dark flex items-center justify-center flex-shrink-0 group-hover:bg-accent-gold transition-colors duration-300">

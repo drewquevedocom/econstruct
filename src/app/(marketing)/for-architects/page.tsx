@@ -101,7 +101,7 @@ export default function ForArchitectsPage() {
             <AnimatedSection>
               <div className="relative rounded-3xl overflow-hidden aspect-[4/3] bg-gray-200">
                 <Image
-                  src="/projects/architectural-fidelity.jpg"
+                  src="/custom_home_service.png"
                   alt="eConstruct architectural fidelity — design intent preserved in construction"
                   fill
                   className="object-cover"

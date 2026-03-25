@@ -94,9 +94,9 @@ const awards = [
     image: "/award_2024.png",
     icon: <RosetteIcon />,
     year: "2024",
-    title: "Best Restaurant\nContractor",
+    title: "Best Residential\nContractor",
     subtitle: "LosAngelesContractors.org",
-    detail: "Recognized for excellence in commercial restaurant builds across Los Angeles County.",
+    detail: "Recognized for excellence in high-end residential construction across Los Angeles County.",
   },
   {
     image: "/award_2022.png",

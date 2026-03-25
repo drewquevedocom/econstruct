@@ -148,11 +148,11 @@ function ServiceCard({
           <div className="md:absolute md:bottom-12 md:right-12 mt-4 md:mt-0 flex justify-end">
             <Link
               href={service.href}
-              className="group w-14 h-14 bg-[#E4ED64] rounded-full flex items-center justify-center hover:bg-brand-dark transition-all duration-300 shadow-[0_8px_20px_rgba(228,237,100,0.3)]"
+              className="group w-14 h-14 bg-accent-gold rounded-full flex items-center justify-center hover:bg-brand-dark transition-all duration-300 shadow-[0_8px_20px_rgba(184,150,62,0.3)]"
             >
               <ArrowUpRight
                 size={22}
-                className="text-brand-dark group-hover:text-white transition-colors"
+                className="text-white group-hover:text-white transition-colors"
                 strokeWidth={2.5}
               />
             </Link>
