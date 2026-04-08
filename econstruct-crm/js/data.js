@@ -17,7 +17,45 @@ const PAGE_TITLES = {
   settings: 'Settings'
 };
 
-const leads = [
+// ============ STORAGE ============
+const STORAGE_KEY = 'econstruct_leads';
+
+function saveLeads() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(leads)); }
+  catch(e) { console.warn('eConstruct: localStorage save failed', e); }
+}
+
+function loadLeads() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        leads.length = 0;
+        parsed.forEach(l => leads.push(l));
+        return true;
+      }
+    }
+  } catch(e) { console.warn('eConstruct: localStorage load failed', e); }
+  return false;
+}
+
+function nextLeadId() {
+  if (leads.length === 0) return 1;
+  return Math.max(...leads.map(l => l.id)) + 1;
+}
+
+// ============ TIMELINE HELPER ============
+function addTimelineEntry(lead, event) {
+  if (!lead.timeline) lead.timeline = [];
+  const now = new Date();
+  const timeStr = now.toLocaleDateString('en-US', { month:'short', day:'numeric' })
+    + ', ' + now.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit' });
+  lead.timeline.push({ event, time: timeStr, filled: true });
+  lead.activity = 'Just now';
+}
+
+let leads = [
   { id:1, address:'1247 Palisades Beach Rd, 90272', contact:'Michael Chen', phone:'310-555-0142', email:'mchen@gmail.com', score:96, value:'$4.2M', valueNum:4200000, stage:'Proposal', source:'LADBS', type:'New Construction', activity:'2h ago',
     notes: [
       { text:'Initial contact via email — very responsive. Has architect (Marmol Radziner) already retained.', time:'Mar 13, 2:15 PM', author:'System' },
@@ -98,3 +136,6 @@ const leads = [
     ]
   }
 ];
+
+// Restore persisted data or seed localStorage on first visit
+if (!loadLeads()) { saveLeads(); }

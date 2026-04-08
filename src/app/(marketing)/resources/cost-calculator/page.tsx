@@ -10,7 +10,7 @@ import ConsultationCTA from "@/components/ConsultationCTA";
 export const metadata: Metadata = generatePageMetadata({
   title: "Construction Cost Calculator | Estimate Your LA Home Build",
   description:
-    "Get a free preliminary cost estimate for your Los Angeles luxury home build, fire rebuild, modernization, or ADU. Interactive calculator with real market pricing from eConstruct Inc.",
+    "Get a free preliminary cost estimate for your Los Angeles luxury home build, fire rebuild, modernization, or ADU. Interactive calculator with real market pricing from econstruct Inc.",
   path: "/resources/cost-calculator",
 });
 

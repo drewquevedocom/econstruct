@@ -19,9 +19,9 @@ import Button from "@/components/ui/Button";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "For Architects — Partner with eConstruct",
+  title: "For Architects — Partner with econstruct",
   description:
-    "We don't cut corners on your plans. eConstruct delivers architectural intent with premium craftsmanship and WUI compliance across Los Angeles.",
+    "We don't cut corners on your plans. econstruct delivers architectural intent with premium craftsmanship and WUI compliance across Los Angeles.",
   path: "/for-architects",
   noIndex: true,
 });
@@ -59,7 +59,7 @@ export default function ForArchitectsPage() {
     <>
       <PageHero
         title="Your Design Vision. Fully Realized."
-        subtitle="We don't cut corners on your plans. eConstruct delivers architectural intent with premium craftsmanship and WUI compliance."
+        subtitle="We don't cut corners on your plans. econstruct delivers architectural intent with premium craftsmanship and WUI compliance."
       />
 
       {/* Value Props */}
@@ -67,7 +67,7 @@ export default function ForArchitectsPage() {
         <Container>
           <SectionHeader
             badge={["Architect Partnership"]}
-            title="Why Architects Choose eConstruct"
+            title="Why Architects Choose econstruct"
             subtitle="We build what you design — faithfully, precisely, and to the highest standard."
           />
 
@@ -102,7 +102,7 @@ export default function ForArchitectsPage() {
               <div className="relative rounded-3xl overflow-hidden aspect-[4/3] bg-gray-200">
                 <Image
                   src="/projects/architectural-fidelity.jpg"
-                  alt="eConstruct architectural fidelity — design intent preserved in construction"
+                  alt="econstruct architectural fidelity — design intent preserved in construction"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -174,14 +174,14 @@ export default function ForArchitectsPage() {
         </Container>
       </section>
 
-      {/* CTA: Partner with eConstruct */}
+      {/* CTA: Partner with econstruct */}
       <section className="py-24 md:py-32">
         <Container>
           <AnimatedSection>
             <div className="text-center max-w-2xl mx-auto">
               <SectionHeader
                 badge={["Get Started"]}
-                title="Partner with eConstruct"
+                title="Partner with econstruct"
                 subtitle="We're always looking to collaborate with architects who share our commitment to quality. Let's build something remarkable together."
               />
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

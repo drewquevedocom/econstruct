@@ -1,6 +1,6 @@
 export const COMPANY = {
-  name: "eConstruct Inc.",
-  shortName: "eConstruct",
+  name: "econstruct Inc.",
+  shortName: "econstruct",
   tagline: "Los Angeles' Premier High-End Home Builder",
   phone: {
     primary: "888-990-0303",
@@ -42,13 +42,16 @@ export const NAV_LINKS = [
     label: "Services",
     href: "/services",
     children: [
-      { label: "Fire Rebuild", href: "/services/fire-rebuild" },
-      { label: "Luxury Modernization", href: "/services/luxury-modernization" },
-      { label: "Ground-Up Custom Homes", href: "/services/custom-homes" },
-      { label: "ADU & Additions", href: "/services/adu-construction" },
+      { label: "Luxury Home Building", href: "/services/luxury-home-builder-los-angeles" },
+      { label: "Fire Rebuild", href: "/services/fire-rebuild-contractor-los-angeles" },
+      { label: "Custom Home Construction", href: "/services/custom-home-construction-los-angeles" },
+      { label: "Home Additions", href: "/services/home-additions-los-angeles" },
+      { label: "Kitchen Remodel", href: "/services/kitchen-remodel-los-angeles" },
+      { label: "Bathroom Remodel", href: "/services/bathroom-remodel-los-angeles" },
+      { label: "Commercial Tenant Improvement", href: "/services/commercial-tenant-improvement-los-angeles" },
     ],
   },
-  { label: "Our Work", href: "/our-work" },
+  { label: "Projects", href: "/projects" },
   { label: "About", href: "/about" },
-  { label: "Resources", href: "/resources" },
+  { label: "Contact", href: "/contact" },
 ] as const;

@@ -54,7 +54,7 @@ export default function ProcessSection() {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-dark tracking-tight"
           >
-            The eConstruct Process
+            The econstruct Process
           </motion.h2>
         </div>
 

@@ -8,7 +8,7 @@ function renderKanban() {
   board.innerHTML = '';
 
   STAGES.forEach(stage => {
-    const stageLeads = leads.filter(l => l.stage === stage);
+    const stageLeads = leads.filter(l => l.stage === stage && !l.archived);
     const totalValue = stageLeads.reduce((sum, l) => sum + l.valueNum, 0);
 
     const col = document.createElement('div');
@@ -108,9 +108,14 @@ function onColumnDrop(e, newStage) {
   const lead = leads.find(l => l.id === draggedLeadId);
   if (!lead || lead.stage === newStage) return;
 
+  const prevStage = lead.stage;
   lead.stage = newStage;
+  addTimelineEntry(lead, 'Stage changed: ' + prevStage + ' → ' + newStage);
+  saveLeads();
   renderKanban();
   // Update other views
-  if (typeof renderTable === 'function') renderTable(leads);
-  if (typeof renderTable2 === 'function') renderTable2(leads);
+  if (typeof renderTable  === 'function') renderTable(leads.filter(l => !l.archived));
+  if (typeof renderTable2 === 'function') renderTable2(leads.filter(l => !l.archived));
+  // Fire outreach email when dragged into Outreach column
+  if (newStage === 'Outreach' && typeof sendOutreachEmail === 'function') sendOutreachEmail(lead);
 }

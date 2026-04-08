@@ -73,11 +73,17 @@ function filterLeads(query) {
 function cycleStage(e, leadId) {
   e.stopPropagation();
   const lead = leads.find(l => l.id === leadId);
+  const prevStage = lead.stage;
   const idx = STAGES.indexOf(lead.stage);
   lead.stage = STAGES[(idx + 1) % STAGES.length];
-  renderTable(leads);
-  renderTable2(leads);
+  addTimelineEntry(lead, 'Stage changed: ' + prevStage + ' → ' + lead.stage);
+  saveLeads();
+  renderTable(leads.filter(l => !l.archived));
+  renderTable2(leads.filter(l => !l.archived));
   renderKanban();
+  if (lead.stage === 'Outreach' && prevStage !== 'Outreach') {
+    if (typeof sendOutreachEmail === 'function') sendOutreachEmail(lead);
+  }
 }
 
 // ============ EXPORT CSV ============
@@ -102,6 +108,7 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     if (playbookOpen) { togglePlaybook(); return; }
     if (aliceOpen) { toggleAlice(); return; }
+    closeAddLeadModal();
     closePanel();
   }
 });
@@ -133,7 +140,7 @@ function saveEmail(btn) {
   subject.style.background = '';
 
   const actionsDiv = btn.parentElement;
-  actionsDiv.innerHTML = '<button class="btn" style="padding:5px 10px;font-size:11px;" onclick="alert(\'Email sent!\')">Send</button><button class="btn" style="padding:5px 10px;font-size:11px;" onclick="editEmail(this)">Edit</button>';
+  actionsDiv.innerHTML = '<button class="btn" style="padding:5px 10px;font-size:11px;" onclick="sendQueueEmail(this)">Send</button><button class="btn" style="padding:5px 10px;font-size:11px;" onclick="editEmail(this)">Edit</button>';
 }
 
 function cancelEmail(btn, origText) {
@@ -147,11 +154,11 @@ function cancelEmail(btn, origText) {
   subject.style.background = '';
 
   const actionsDiv = btn.parentElement;
-  actionsDiv.innerHTML = '<button class="btn" style="padding:5px 10px;font-size:11px;" onclick="alert(\'Email sent!\')">Send</button><button class="btn" style="padding:5px 10px;font-size:11px;" onclick="editEmail(this)">Edit</button>';
+  actionsDiv.innerHTML = '<button class="btn" style="padding:5px 10px;font-size:11px;" onclick="sendQueueEmail(this)">Send</button><button class="btn" style="padding:5px 10px;font-size:11px;" onclick="editEmail(this)">Edit</button>';
 }
 
 // ============ INIT ============
 document.addEventListener('DOMContentLoaded', () => {
-  renderTable(leads);
+  renderTable(leads.filter(l => !l.archived));
   initAliceConversation();
 });

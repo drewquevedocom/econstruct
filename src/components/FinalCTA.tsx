@@ -7,54 +7,23 @@ import { COMPANY } from "@/lib/constants";
 export default function FinalCTA() {
   return (
     <section className="py-28 md:py-36 bg-[#F8F6F2] relative overflow-hidden">
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-[0.12]"
+        style={{ backgroundImage: "url('/make_wider_2K_202604072157.png')" }}
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(248,246,242,0.92)_0%,rgba(248,246,242,0.94)_100%)]" />
       {/* Subtle decorative elements */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-accent-gold/30 to-transparent" />
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-accent-gold/30 to-transparent" />
 
       <div className="container mx-auto px-6 max-w-4xl relative z-10">
         <div className="text-center">
-          {/* Eyebrow */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="border border-brand-dark/20 uppercase tracking-widest text-[10px] font-bold px-4 py-1.5 rounded-full text-brand-dark w-fit mx-auto mb-8 flex gap-2 items-center"
-          >
-            <span>LET&apos;S</span>
-            <span className="text-accent-gold">&bull;</span>
-            <span>BUILD</span>
-          </motion.div>
-
-          {/* Headline */}
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl lg:text-[3.75rem] font-bold text-brand-dark tracking-tight leading-[1.1] mb-6"
-          >
-            Ready to Rebuild
-            <br />
-            <span className="text-accent-gold">Your Vision?</span>
-          </motion.h2>
-
-          {/* Subheadline */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-gray-500 font-medium text-lg md:text-xl max-w-xl mx-auto mb-12 leading-relaxed"
-          >
-            Partner with Los Angeles&apos; premier construction experts.
-            Your consultation is complimentary and commitment-free.
-          </motion.p>
-
           {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.1 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <Link
@@ -81,7 +50,7 @@ export default function FinalCTA() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.25 }}
             className="mt-14 flex flex-wrap justify-center gap-x-8 gap-y-2 text-xs font-semibold text-gray-400 uppercase tracking-wider"
           >
             <span>{COMPANY.license.display}</span>

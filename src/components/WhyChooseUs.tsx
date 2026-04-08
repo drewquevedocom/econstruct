@@ -55,25 +55,25 @@ const valueProps = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-28 md:py-36 bg-[#1C1C1E] overflow-hidden relative">
+    <section className="py-24 md:py-32 bg-[#f6f2ea] overflow-hidden relative">
       {/* Subtle texture overlay */}
       <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        className="absolute inset-0 opacity-[0.025] pointer-events-none"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
+            "radial-gradient(circle at 1px 1px, rgba(0,0,0,0.18) 1px, transparent 0)",
           backgroundSize: "32px 32px",
         }}
       />
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         {/* Header */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-16 md:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="border border-white/20 uppercase tracking-widest text-[10px] font-bold px-4 py-1.5 rounded-full text-white/60 w-fit mx-auto mb-6 flex gap-2 items-center"
+            className="border border-black/10 uppercase tracking-widest text-[10px] font-bold px-4 py-1.5 rounded-full text-black/55 w-fit mx-auto mb-6 flex gap-2 items-center bg-white/60 backdrop-blur-sm"
           >
             <span>WHY</span>
             <span className="text-accent-gold">&bull;</span>
@@ -83,7 +83,7 @@ export default function WhyChooseUs() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-5"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-dark tracking-tight mb-5"
           >
             Built Different
           </motion.h2>
@@ -92,14 +92,14 @@ export default function WhyChooseUs() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-white/50 font-medium text-lg max-w-2xl mx-auto"
+            className="text-black/60 font-medium text-lg max-w-2xl mx-auto"
           >
             The difference between a contractor and a construction partner.
           </motion.p>
         </div>
 
         {/* Value Props Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/[0.06] rounded-3xl overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {valueProps.map((prop, i) => (
             <motion.div
               key={prop.title}
@@ -107,19 +107,19 @@ export default function WhyChooseUs() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="group bg-[#1C1C1E] p-10 md:p-14 hover:bg-[#242426] transition-colors duration-500 relative"
+              className="group relative overflow-hidden rounded-3xl border border-black/8 bg-white p-8 md:p-12 shadow-[0_18px_45px_rgba(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_55px_rgba(0,0,0,0.08)]"
             >
               {/* Gold accent line on hover */}
               <div className="absolute top-0 left-0 w-0 h-[2px] bg-accent-gold group-hover:w-full transition-all duration-700" />
 
-              <div className="text-white/30 group-hover:text-accent-gold transition-colors duration-500 mb-8">
+              <div className="text-black/30 group-hover:text-accent-gold transition-colors duration-500 mb-8">
                 {prop.icon}
               </div>
 
-              <h3 className="text-xl md:text-2xl font-bold text-white mb-4 leading-tight">
+              <h3 className="text-xl md:text-2xl font-bold text-brand-dark mb-4 leading-tight">
                 {prop.title}
               </h3>
-              <p className="text-white/45 font-medium leading-relaxed text-[15px]">
+              <p className="text-black/60 font-medium leading-relaxed text-[15px]">
                 {prop.description}
               </p>
             </motion.div>

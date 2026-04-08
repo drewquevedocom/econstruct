@@ -1,23 +1,12 @@
 import Link from "next/link";
 import { Phone, Mail, MapPin } from "lucide-react";
+import Logo from "@/components/Logo";
+import GatekeeperCTA from "@/components/GatekeeperCTA";
 
 export default function Footer() {
   return (
     <>
-      {/* Global Pre-Footer CTA */}
-      <section className="bg-badge-navy text-white py-20 px-6">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl md:text-5xl font-heading text-white mb-6">
-            Ready to Build the Extraordinary?
-          </h2>
-          <p className="text-white/80 mb-10 text-lg md:text-xl font-medium max-w-2xl mx-auto">
-            Experience the pinnacle of high-end residential construction. Fast execution, uncompromising quality, and maximum ROI.
-          </p>
-          <Link href="/contact" className="inline-block bg-accent-gold text-white px-8 py-4 rounded-md font-bold text-lg hover:bg-white hover:text-accent-gold transition-colors duration-300 shadow-lg">
-            Schedule Your Consultation
-          </Link>
-        </div>
-      </section>
+      <GatekeeperCTA />
 
       {/* Global Footer */}
       <footer className="bg-brand-dark text-white pt-20 pb-10 px-6">
@@ -25,23 +14,30 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
             {/* Col 1 */}
             <div>
-              <h3 className="text-2xl font-heading text-white mb-6">E-Construct</h3>
-              <p className="text-white/70 mb-6 font-medium leading-relaxed">
-                Los Angeles' premier high-end residential contractor. Setting the standard for luxury builds and rapid fire rebuilds.
-              </p>
-              <div className="text-white/50 text-sm font-semibold tracking-wide">
-                CA License #964015
+              <div className="mb-6">
+                <Logo height={40} tone="dark" glow="none" />
               </div>
+              <p className="text-white/70 mb-6 font-medium leading-relaxed">
+                Los Angeles&apos; premier high-end residential contractor. Setting the standard for luxury builds and rapid fire rebuilds.
+              </p>
+              <a
+                href="https://www.cslb.ca.gov/onlineservices/checklicenseII/checklicense.aspx"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/50 text-sm font-semibold tracking-wide no-underline hover:no-underline hover:text-white transition-colors"
+              >
+                CA Lic #964015
+              </a>
             </div>
 
             {/* Col 2 */}
             <div>
               <h4 className="text-accent-gold font-bold mb-6 tracking-wider uppercase text-sm">Services</h4>
               <ul className="space-y-4">
-                <li><Link href="/services/fire-rebuild" className="text-white/70 hover:text-white transition-colors">Fire Rebuilds</Link></li>
-                <li><Link href="/services/luxury-modernization" className="text-white/70 hover:text-white transition-colors">Luxury Modernization</Link></li>
-                <li><Link href="/services/custom-homes" className="text-white/70 hover:text-white transition-colors">Custom Homes</Link></li>
-                <li><Link href="/services/adu-construction" className="text-white/70 hover:text-white transition-colors">ADU & Additions</Link></li>
+                <li><Link href="/services/luxury-home-builder-los-angeles" className="text-white/70 hover:text-white transition-colors">Luxury Home Building</Link></li>
+                <li><Link href="/services/fire-rebuild-contractor-los-angeles" className="text-white/70 hover:text-white transition-colors">Fire Rebuild</Link></li>
+                <li><Link href="/services/custom-home-construction-los-angeles" className="text-white/70 hover:text-white transition-colors">Custom Home Construction</Link></li>
+                <li><Link href="/services/home-additions-los-angeles" className="text-white/70 hover:text-white transition-colors">Home Additions</Link></li>
               </ul>
             </div>
 
@@ -50,8 +46,8 @@ export default function Footer() {
               <h4 className="text-accent-gold font-bold mb-6 tracking-wider uppercase text-sm">Company</h4>
               <ul className="space-y-4">
                 <li><Link href="/about" className="text-white/70 hover:text-white transition-colors">About Us</Link></li>
-                <li><Link href="/our-work" className="text-white/70 hover:text-white transition-colors">Our Portfolio</Link></li>
-                <li><Link href="/resources" className="text-white/70 hover:text-white transition-colors">Resources</Link></li>
+                <li><Link href="/projects" className="text-white/70 hover:text-white transition-colors">Projects</Link></li>
+                <li><Link href="/service-areas" className="text-white/70 hover:text-white transition-colors">Service Areas</Link></li>
                 <li><Link href="/contact" className="text-white/70 hover:text-white transition-colors">Contact</Link></li>
               </ul>
             </div>
@@ -77,7 +73,7 @@ export default function Footer() {
           </div>
 
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-white/50">
-            <p>&copy; {new Date().getFullYear()} eConstruct Inc. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} econstruct Inc. All rights reserved.</p>
             <div className="flex gap-6">
               <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
               <Link href="/careers" className="hover:text-white transition-colors">Careers</Link>

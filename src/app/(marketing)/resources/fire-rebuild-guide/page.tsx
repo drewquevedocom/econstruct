@@ -15,7 +15,7 @@ import TableOfContents from "@/components/resources/TableOfContents";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "The Complete Guide to Fire Rebuilds in Los Angeles | eConstruct",
+  title: "The Complete Guide to Fire Rebuilds in Los Angeles | econstruct",
   description:
     "Everything you need to know about rebuilding after a wildfire in Los Angeles — insurance settlements, WUI zone requirements, permits, timelines, costs, and choosing the right contractor.",
   path: "/resources/fire-rebuild-guide",
@@ -120,7 +120,7 @@ export default function FireRebuildGuidePage() {
                     First, do not accept the initial offer. The first number from your insurance company is almost always negotiable. Hire a licensed public adjuster or engage an attorney who specializes in fire insurance claims. Their fee (typically 5-10% of the additional recovery) is almost always worth it.
                   </p>
                   <p className="text-gray-700 leading-relaxed mb-4">
-                    Second, get a detailed scope of work from a qualified contractor before negotiating with your adjuster. At eConstruct, we provide complimentary scope validation reports that document every line item required to rebuild your home to current code — including WUI compliance, ADA requirements, Title 24 energy compliance, and current material costs. This document becomes your most powerful negotiating tool.
+                    Second, get a detailed scope of work from a qualified contractor before negotiating with your adjuster. At econstruct, we provide complimentary scope validation reports that document every line item required to rebuild your home to current code — including WUI compliance, ADA requirements, Title 24 energy compliance, and current material costs. This document becomes your most powerful negotiating tool.
                   </p>
                   <p className="text-gray-700 leading-relaxed">
                     Third, understand the difference between Actual Cash Value (ACV) and Replacement Cost Value (RCV). You will typically receive ACV upfront (depreciated value) and the recoverable depreciation later, upon proof of completed repairs. Budget accordingly — the full RCV amount may not arrive until construction is well underway.
@@ -179,7 +179,7 @@ export default function FireRebuildGuidePage() {
                     <li><strong>Zone 2 (30-100 feet):</strong> Reduce fuel. Thin brush and trees, remove ladder fuels (vegetation that allows fire to climb from ground level to tree canopy), and create spacing between plants and trees.</li>
                   </ul>
                   <p className="text-gray-700 leading-relaxed">
-                    At eConstruct, we design and build WUI-compliant structures from the ground up. Our team understands every nuance of Chapter 7A, and we coordinate with landscape architects to ensure your defensible space plan is integrated into the overall site design — not treated as an afterthought.
+                    At econstruct, we design and build WUI-compliant structures from the ground up. Our team understands every nuance of Chapter 7A, and we coordinate with landscape architects to ensure your defensible space plan is integrated into the overall site design — not treated as an afterthought.
                   </p>
                 </section>
               </AnimatedSection>
@@ -205,7 +205,7 @@ export default function FireRebuildGuidePage() {
                     <li><strong>Inspections during construction:</strong> LADBS conducts inspections at key milestones — foundation, framing, rough MEP, insulation, and final. Each must pass before proceeding to the next phase.</li>
                   </ol>
                   <h3 className="text-xl font-bold text-brand-dark mt-8 mb-4">
-                    How eConstruct Expedites Permitting
+                    How econstruct Expedites Permitting
                   </h3>
                   <p className="text-gray-700 leading-relaxed mb-4">
                     Our 25+ years of experience with LA permitting means we know exactly what plan checkers look for — and we address those items before submission. We maintain relationships with LADBS staff, use express plan check services, and pre-clear common WUI compliance questions before formal review. The result: our clients typically receive permits 3-4 months faster than the industry average.
@@ -265,10 +265,10 @@ export default function FireRebuildGuidePage() {
                     <li>No workers&apos; compensation insurance (ask for a certificate of insurance).</li>
                   </ul>
                   <h3 className="text-xl font-bold text-brand-dark mt-8 mb-4">
-                    Why eConstruct
+                    Why econstruct
                   </h3>
                   <p className="text-gray-700 leading-relaxed">
-                    eConstruct has been building luxury homes in Los Angeles for over 25 years. We hold California Contractor License #964015, carry comprehensive insurance, and have completed over 340 projects. Owner Frank Neimroozi is personally involved in every project, from initial consultation through final walkthrough. We specialize in WUI-compliant construction, expedited permitting, and insurance coordination — because those are the three areas where fire rebuild homeowners need the most expertise.
+                    econstruct has been building luxury homes in Los Angeles for over 25 years. We hold California Contractor License #964015, carry comprehensive insurance, and have completed over 340 projects. Owner Frank Neimroozi is personally involved in every project, from initial consultation through final walkthrough. We specialize in WUI-compliant construction, expedited permitting, and insurance coordination — because those are the three areas where fire rebuild homeowners need the most expertise.
                   </p>
                 </section>
               </AnimatedSection>
@@ -293,7 +293,7 @@ export default function FireRebuildGuidePage() {
                     <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                       <h4 className="font-bold text-brand-dark mb-1">Months 2-5: Design & Permitting</h4>
                       <p className="text-gray-600 text-sm">
-                        Architectural design development, construction documents, engineering, Title 24 compliance, WUI compliance documentation, plan check submission, and permit approval. With eConstruct&apos;s expedited approach, this phase can be compressed to 2-3 months.
+                        Architectural design development, construction documents, engineering, Title 24 compliance, WUI compliance documentation, plan check submission, and permit approval. With econstruct&apos;s expedited approach, this phase can be compressed to 2-3 months.
                       </p>
                     </div>
                     <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
@@ -403,7 +403,7 @@ export default function FireRebuildGuidePage() {
                     <li><strong>Custom design complexity:</strong> Cantilevered structures, floor-to-ceiling glazing walls, rooftop decks, infinity pools, and home theaters all require specialized engineering and trades.</li>
                     <li><strong>Material selections:</strong> Imported Italian stone vs. domestic tile, custom steel windows vs. aluminum, solid walnut cabinetry vs. painted MDF — material choices can swing costs 30-50%.</li>
                     <li><strong>Market conditions:</strong> After a major fire event, contractor demand surges and material costs increase. Locking in a contract early can save significant money.</li>
-                    <li><strong>Design changes during construction:</strong> Change orders are the single biggest cause of budget overruns. Thorough pre-construction planning — which eConstruct emphasizes heavily — minimizes this risk.</li>
+                    <li><strong>Design changes during construction:</strong> Change orders are the single biggest cause of budget overruns. Thorough pre-construction planning — which econstruct emphasizes heavily — minimizes this risk.</li>
                   </ul>
                   <h3 className="text-xl font-bold text-brand-dark mt-8 mb-4">
                     Example: 3,500 Sq Ft Premium Rebuild in Pacific Palisades

@@ -1,4 +1,4 @@
-import { COMPANY } from "@/lib/constants";
+﻿import { COMPANY } from "@/lib/constants";
 import { Shield, Award, Clock, BadgeCheck } from "lucide-react";
 
 export default function TrustBar() {
@@ -14,24 +14,28 @@ export default function TrustBar() {
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
           {badges.map((badge) => (
-            <div
-              key={badge.label}
-              className="flex items-center gap-2 text-white/80"
-            >
-              <badge.icon size={16} className="text-accent-gold shrink-0" />
-              <span className="text-xs font-semibold uppercase tracking-wider">
-                {badge.label}
-              </span>
-            </div>
+            badge.label === COMPANY.license.display ? (
+              <a
+                key={badge.label}
+                href={COMPANY.license.verificationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-white/80 transition-colors hover:text-white"
+              >
+                <badge.icon size={16} className="text-accent-gold shrink-0" />
+                <span className="text-xs font-semibold uppercase tracking-wider">
+                  {badge.label}
+                </span>
+              </a>
+            ) : (
+              <div key={badge.label} className="flex items-center gap-2 text-white/80">
+                <badge.icon size={16} className="text-accent-gold shrink-0" />
+                <span className="text-xs font-semibold uppercase tracking-wider">
+                  {badge.label}
+                </span>
+              </div>
+            )
           ))}
-          <a
-            href={COMPANY.license.verificationUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs font-semibold uppercase tracking-wider text-accent-gold hover:text-white transition-colors"
-          >
-            Verify License →
-          </a>
         </div>
       </div>
     </section>

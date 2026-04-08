@@ -347,7 +347,7 @@ export default function ConsultationCTA() {
                     Request Received
                   </h3>
                   <p className="text-gray-500 font-medium max-w-sm mb-8">
-                    Thank you. A member of the eConstruct executive team will be
+                    Thank you. A member of the econstruct executive team will be
                     in touch within 24 hours to schedule your consultation.
                   </p>
                   <button

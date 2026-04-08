@@ -755,3 +755,44 @@ tbody td {
   opacity: 1;
   visibility: visible;
 }
+
+/* ---- ADD LEAD MODAL ---- */
+
+.add-lead-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.96);
+  width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--white);
+  z-index: 202;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-slow);
+}
+.add-lead-modal.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+.modal-input {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--charcoal);
+  background: var(--white);
+  outline: none;
+  transition: border-color var(--transition);
+  box-sizing: border-box;
+}
+.modal-input:focus { border-color: var(--gold); }
+.modal-input::placeholder { color: var(--text-muted); }

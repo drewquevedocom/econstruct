@@ -193,7 +193,7 @@ export default function FireRebuildPage() {
         </Container>
       </section>
 
-      {/* Why Choose eConstruct */}
+      {/* Why Choose econstruct */}
       <section className="py-24 md:py-32">
         <Container>
           <SectionHeader
@@ -417,7 +417,7 @@ export default function FireRebuildPage() {
                 stat: "12-18 Months",
                 label: "Typical Timeline",
                 description:
-                  "From permitting to completion. eConstruct's expedited process can save 3-4 months vs. industry average.",
+                  "From permitting to completion. econstruct's expedited process can save 3-4 months vs. industry average.",
               },
               {
                 icon: Users,
@@ -453,7 +453,7 @@ export default function FireRebuildPage() {
             <SectionHeader
               badge={["CLIENT", "STORIES"]}
               title="Homeowners We've Helped Rebuild"
-              subtitle="Real stories from families who trusted eConstruct to bring them home after devastating fires."
+              subtitle="Real stories from families who trusted econstruct to bring them home after devastating fires."
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">

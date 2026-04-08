@@ -1,200 +1,276 @@
+﻿/* eslint-disable @next/next/no-img-element */
 "use client";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 const services = [
   {
     id: "01",
-    title: "Fire Rebuilds",
+    title: "Fire Damage Rebuilds",
+    slug: "Fire Damage Rebuilds",
     description:
-      "LA's fastest fire rebuild specialist. We navigate executive order permits, coordinate with your insurance adjuster, and deliver a turn-key rebuild — from cleared lot to certificate of occupancy — with unmatched speed and precision.",
+      "econstruct handles complete fire damage restoration and rebuilds across Los Angeles - Palisades, Altadena, and Malibu. We manage insurance claims, demolition permits, and full custom reconstruction.",
     image: "/fire_rebuild_service.png",
     href: "/services/fire-rebuild",
-    hoverBg: "#1C1C1E",
-    hoverText: "#ffffff",
-    hoverMuted: "rgba(255,255,255,0.6)",
-    hoverDivider: "rgba(255,255,255,0.2)",
-    hoverNum: "rgba(255,255,255,0.2)",
   },
   {
     id: "02",
     title: "Luxury Modernization",
+    slug: "Luxury Modernization",
     description:
-      "Transform an aging property into a premium asset. Our modernization projects maximize livable square footage, upgrade structural systems, and deliver high-end finishes that command top-dollar valuations.",
+      "Transform your LA home into a high-performance luxury residence. From kitchen remodels to ADU additions, our design-build team delivers precision craftsmanship with energy-efficient systems for California living.",
     image: "/luxury_mod_service.png",
     href: "/services/luxury-modernization",
-    hoverBg: "#1A2744",
-    hoverText: "#ffffff",
-    hoverMuted: "rgba(255,255,255,0.6)",
-    hoverDivider: "rgba(255,255,255,0.2)",
-    hoverNum: "rgba(255,255,255,0.2)",
   },
   {
     id: "03",
     title: "Ground-Up Custom Homes",
+    slug: "Ground-Up Custom Homes",
     description:
-      "From bare dirt to bespoke architecture. We manage every phase — design, engineering, permitting, and construction — delivering a fully custom residence built to your exact vision.",
+      "Build from the ground up in Beverly Hills, Bel Air, or Pacific Palisades. Our licensed general contractors manage architecture, engineering, permitting, and construction - under one roof.",
     image: "/custom_home_service.png",
     href: "/services/custom-homes",
-    hoverBg: "#B8963E",
-    hoverText: "#1C1C1E",
-    hoverMuted: "rgba(28,28,30,0.65)",
-    hoverDivider: "rgba(28,28,30,0.2)",
-    hoverNum: "rgba(28,28,30,0.2)",
   },
-];
-
-const CARD_TOP_PX = 130;  // Where the card sticks
-const GAP_PX = 48;        // Spacing between cards
-
-function ServiceCard({
-  service,
-  index,
-  total,
-}: {
-  service: (typeof services)[0];
-  index: number;
-  total: number;
-}) {
-  const [hovered, setHovered] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  // The math:
-  // Card 1 sticks at `130px`. 
-  // Card 2 physically sits exactly `cardHeight + GAP_PX` below the top of Card 1.
-  // As the user scrolls, Card 2 slides over Card 1.
-  // Card 2 fully covers Card 1 exactly when the user has scrolled `cardHeight + GAP_PX` pixels.
-  // Therefore, Card 1 should fade/shrink concurrently with that specific scroll distance!
-
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    // [0] = when top of card hits sticky point
-    // [1] = when bottom of card has scrolled "up" past the sticky point by exactly GAP_PX
-    offset: [`start ${CARD_TOP_PX}px`, `end ${CARD_TOP_PX - GAP_PX}px`],
-  });
-
-  const isLast = index === total - 1;
-  const scale = useTransform(scrollYProgress, [0, 1], [1, isLast ? 1 : 0.85]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, isLast ? 1 : 0.4]);
-  const imageOverlayOpacity = useTransform(scrollYProgress, [0, 1], [0, isLast ? 0 : 0.85]);
-
-  return (
-    <div
-      ref={cardRef}
-      className="sticky w-full flex justify-center"
-      style={{
-        top: `${CARD_TOP_PX}px`,
-        zIndex: index + 1,
-      }}
-    >
-      <motion.div
-        style={{ scale, opacity, transformOrigin: "top center" }}
-        className="w-full max-w-[1200px] bg-white rounded-[32px] overflow-hidden shadow-[0_16px_48px_rgba(0,0,0,0.12)] border border-gray-100 flex flex-col md:flex-row h-auto md:h-[65vh] min-h-[460px] max-h-[640px]"
-        animate={{ backgroundColor: hovered ? service.hoverBg : "#ffffff" }}
-        transition={{ duration: 0.45, ease: "easeInOut" }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
-        {/* Image */}
-        <div className="relative w-full md:w-[45%] h-56 md:h-full overflow-hidden flex-shrink-0 bg-gray-100">
-          <motion.img
-            src={service.image}
-            alt={service.title}
-            className="absolute inset-0 w-full h-full object-cover"
-            animate={{ scale: hovered ? 1.05 : 1 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-          />
-          {/* Overlay to fade out the image when scrolling behind another card */}
-          <motion.div 
-            className="absolute inset-0 bg-black pointer-events-none"
-            style={{ opacity: imageOverlayOpacity }}
-          />
-        </div>
-
-        {/* Text */}
-        <div className="flex-1 flex flex-col justify-center px-8 py-10 md:p-14 relative">
-          <motion.span
-            animate={{ color: hovered ? service.hoverNum : "#d1d5db" }}
-            transition={{ duration: 0.35 }}
-            className="text-xs font-bold tracking-[0.25em] uppercase mb-4"
-          >
-            {service.id}
-          </motion.span>
-
-          <motion.h3
-            animate={{ color: hovered ? service.hoverText : "#1C1C1E" }}
-            transition={{ duration: 0.35 }}
-            className="text-3xl md:text-5xl lg:text-[3.25rem] font-bold leading-tight mb-5 md:mb-8"
-          >
-            {service.title}
-          </motion.h3>
-
-          <motion.div
-            animate={{ backgroundColor: hovered ? service.hoverDivider : "#e5e7eb" }}
-            transition={{ duration: 0.35 }}
-            className="w-12 h-[2px] mb-5 md:mb-6"
-          />
-
-          <motion.p
-            animate={{ color: hovered ? service.hoverMuted : "#6b7280" }}
-            transition={{ duration: 0.35 }}
-            className="text-base md:text-lg leading-relaxed max-w-lg mb-8 md:mb-0"
-          >
-            {service.description}
-          </motion.p>
-
-          <div className="md:absolute md:bottom-12 md:right-12 mt-4 md:mt-0 flex justify-end">
-            <Link
-              href={service.href}
-              className="group w-14 h-14 bg-[#E4ED64] rounded-full flex items-center justify-center hover:bg-brand-dark transition-all duration-300 shadow-[0_8px_20px_rgba(228,237,100,0.3)]"
-            >
-              <ArrowUpRight
-                size={22}
-                className="text-brand-dark group-hover:text-white transition-colors"
-                strokeWidth={2.5}
-              />
-            </Link>
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  );
-}
+] as const;
 
 export default function ServicesSpaciaz() {
+  const [displayedIndex, setDisplayedIndex] = useState(0);
+  const rowRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const rafRef = useRef<number | null>(null);
+  const manualOverrideRef = useRef<number | null>(null);
+  const overrideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function getActiveIndexFromScroll() {
+    if (manualOverrideRef.current !== null) {
+      return manualOverrideRef.current;
+    }
+
+    const rows = rowRefs.current.filter(Boolean) as HTMLDivElement[];
+    if (!rows.length) {
+      return 0;
+    }
+
+    const viewportCenter = window.innerHeight / 2;
+    let bestIndex = 0;
+    let bestDistance = Number.POSITIVE_INFINITY;
+
+    rows.forEach((row, index) => {
+      const rect = row.getBoundingClientRect();
+      const rowCenter = rect.top + rect.height / 2;
+      const distance = Math.abs(rowCenter - viewportCenter);
+
+      if (distance < bestDistance) {
+        bestDistance = distance;
+        bestIndex = index;
+      }
+    });
+
+    return bestIndex;
+  }
+
+  useEffect(() => {
+    const updateActiveService = () => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+
+      rafRef.current = window.requestAnimationFrame(() => {
+        const nextIndex = getActiveIndexFromScroll();
+        setDisplayedIndex(nextIndex);
+        rafRef.current = null;
+      });
+    };
+
+    if (!rowRefs.current.filter(Boolean).length || !sectionRef.current) {
+      return;
+    }
+
+    updateActiveService();
+    window.addEventListener("scroll", updateActiveService, { passive: true });
+    window.addEventListener("resize", updateActiveService);
+
+    return () => {
+      window.removeEventListener("scroll", updateActiveService);
+      window.removeEventListener("resize", updateActiveService);
+
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+
+      if (overrideTimeoutRef.current !== null) {
+        clearTimeout(overrideTimeoutRef.current);
+        overrideTimeoutRef.current = null;
+      }
+    };
+  }, []);
+
+  function activateService(index: number) {
+    manualOverrideRef.current = index;
+    setDisplayedIndex(index);
+
+    if (overrideTimeoutRef.current !== null) {
+      clearTimeout(overrideTimeoutRef.current);
+    }
+
+    overrideTimeoutRef.current = setTimeout(() => {
+      manualOverrideRef.current = null;
+      overrideTimeoutRef.current = null;
+    }, 1800);
+  }
+
   return (
-    <section className="bg-[#F5F3EE] pt-28 pb-40 w-full relative">
-      <div className="container mx-auto px-6 max-w-7xl">
-        
-        {/* Header Block */}
-        <div className="flex flex-col items-center text-center mb-16 md:mb-10">
-          <div className="mb-4">
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-gray-300 bg-white text-gray-500 text-xs font-bold tracking-[0.2em] uppercase shadow-sm">
-              What We Offer
-            </span>
+    <section ref={sectionRef} className="bg-[#f6f2ea] py-24 md:py-32">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="mb-14 flex flex-col gap-8 border-b border-black/8 pb-10 min-[900px]:mb-[4.5rem] min-[900px]:flex-row min-[900px]:items-end min-[900px]:justify-between">
+          <div className="max-w-3xl">
+            <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.34em] text-accent-gold">
+              What We Do
+            </p>
+            <h2 className="font-heading text-[2.7rem] leading-[0.98] tracking-tight text-brand-dark md:text-[4rem]">
+              High-End Home Services
+              <br />
+              <span className="italic text-accent-gold">Built for Los Angeles</span>
+            </h2>
           </div>
-          <h2 className="text-4xl md:text-6xl lg:text-[4.5rem] font-bold text-brand-dark tracking-tight">
-            Our services
-          </h2>
-        </div>
 
-        {/* Card Stack */}
-        <div 
-          className="flex flex-col relative w-full"
-          style={{ gap: `${GAP_PX}px` }}
-        >
-          {services.map((service, index) => (
-            <ServiceCard
-              key={service.id}
-              service={service}
-              index={index}
-              total={services.length}
+          <Link
+            href="/services"
+            className="group inline-flex items-center gap-3 self-start text-[11px] font-semibold uppercase tracking-[0.28em] text-black/45 transition-colors hover:text-accent-gold"
+          >
+            <span>All Services</span>
+            <ArrowUpRight
+              size={18}
+              className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
             />
-          ))}
+          </Link>
         </div>
 
+        <div className="grid gap-10 min-[900px]:grid-cols-[minmax(0,1fr)_minmax(360px,0.92fr)] min-[900px]:gap-14">
+          <div className="border-t border-black/12">
+            {services.map((service, index) => {
+              const isActive = displayedIndex === index;
+
+                return (
+                  <div
+                    key={service.id}
+                    ref={(node) => {
+                      rowRefs.current[index] = node;
+                    }}
+                    className="border-b border-black/12"
+                  >
+                  <button
+                    type="button"
+                    onClick={() => activateService(index)}
+                    className="w-full text-left"
+                  >
+                    <div className="flex w-full items-start gap-4 py-8 md:gap-6 md:py-11">
+                      <div
+                        className={`w-12 shrink-0 pt-1 font-heading text-[1.7rem] leading-none transition-colors duration-500 md:w-16 md:text-[2rem] ${
+                          isActive ? "text-[#c9a227]" : "text-black/24"
+                        }`}
+                      >
+                        {service.id}
+                      </div>
+
+                      <div className="min-w-0 flex-1">
+                        <div
+                          className={`font-heading text-[1.95rem] leading-[1.04] tracking-tight transition-colors duration-500 md:text-[2.1rem] ${
+                            isActive ? "text-[#c9a227]" : "text-brand-dark"
+                          }`}
+                        >
+                          {service.title}
+                        </div>
+                      </div>
+
+                      <div
+                        className={`mt-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border transition-all duration-500 ${
+                          isActive
+                            ? "border-[#c9a227] bg-[#c9a227] text-brand-dark"
+                            : "border-black/15 bg-transparent text-brand-dark"
+                        }`}
+                      >
+                        <ArrowUpRight
+                          size={18}
+                          className={`transition-transform duration-500 ${
+                            isActive ? "rotate-45" : "rotate-0"
+                          }`}
+                        />
+                      </div>
+                    </div>
+                  </button>
+
+                  <div
+                    className={`overflow-hidden transition-[max-height,opacity,padding-bottom] duration-500 ease-out ${
+                      isActive
+                        ? "max-h-[560px] opacity-100 pb-8 md:pb-12"
+                        : "max-h-0 opacity-0 pb-0"
+                    }`}
+                  >
+                    <div className="pr-1 pl-16 md:pl-[5.5rem]">
+                      <p className="max-w-2xl text-[0.98rem] leading-7 text-black/62 md:text-[1rem]">
+                        {service.description}
+                      </p>
+
+                      <div className="mt-5 min-[900px]:hidden">
+                        <div className="relative overflow-hidden rounded-lg">
+                          <img
+                            src={service.image}
+                            alt={service.title}
+                            className={`h-[260px] w-full object-cover transition-all duration-500 ${
+                              isActive ? "scale-100 opacity-100" : "scale-[1.04] opacity-0"
+                            }`}
+                          />
+                          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/38 via-black/8 to-transparent" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="hidden min-[900px]:block">
+            <div className="sticky top-20">
+              <div className="relative h-[calc(100vh-160px)] max-h-[700px] overflow-hidden rounded-[8px]">
+                {services.map((service, index) => {
+                  const isActive = displayedIndex === index;
+
+                  return (
+                    <img
+                      key={service.id}
+                      src={service.image}
+                      alt={service.title}
+                      className={`absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-[600ms] ease-out ${
+                        isActive ? "scale-100 opacity-100" : "scale-[1.04] opacity-0"
+                      }`}
+                    />
+                  );
+                })}
+
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
+
+                <div
+                  key={services[displayedIndex].id}
+                  className="absolute bottom-5 left-5 inline-flex items-center gap-3 rounded-full border border-[#c9a227]/70 bg-[rgba(15,15,15,0.82)] px-4 py-3 text-[#c9a227] shadow-[0_12px_28px_rgba(0,0,0,0.22)]"
+                  style={{ animation: "service-pill-fade 300ms ease-out 200ms both" }}
+                >
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#c9a227]/55"></span>
+                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#c9a227]"></span>
+                  </span>
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.24em]">
+                    {services[displayedIndex].slug}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -5,7 +5,7 @@ import { Star } from "lucide-react";
 
 const testimonials = [
   {
-    quote: "eConstruct stepped in after the devastating fire and completely handled our complex hillside rebuild. They navigated the nightmare of insurance gaps and WUI codes seamlessly. Our new home is an absolute masterpiece.",
+    quote: "econstruct stepped in after the devastating fire and completely handled our complex hillside rebuild. They navigated the nightmare of insurance gaps and WUI codes seamlessly. Our new home is an absolute masterpiece.",
     name: "Sarah C.",
     neighborhood: "Pacific Palisades",
     rating: 5,
@@ -17,7 +17,7 @@ const testimonials = [
     rating: 5,
   },
   {
-    quote: "Building a ground-up custom luxury home is terrifying, but eConstruct made it an incredible experience. From the foundation to the final high-end finishes, they delivered beyond our wildest expectations.",
+    quote: "Building a ground-up custom luxury home is terrifying, but econstruct made it an incredible experience. From the foundation to the final high-end finishes, they delivered beyond our wildest expectations.",
     name: "Elena R.",
     neighborhood: "Santa Monica",
     rating: 5,

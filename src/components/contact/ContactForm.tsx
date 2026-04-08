@@ -8,7 +8,6 @@ import {
   ArrowRight,
   ArrowLeft,
   CheckCircle2,
-  Phone,
   Loader2,
 } from "lucide-react";
 
@@ -28,10 +27,12 @@ type ContactFormData = z.infer<typeof contactSchema>;
 
 const projectTypes = [
   "Fire Rebuild",
-  "Luxury Modernization",
-  "Ground-Up Custom Home",
-  "ADU & Additions",
-  "Commercial / Other",
+  "Luxury Home Building",
+  "Custom Home Construction",
+  "Home Additions",
+  "Kitchen Remodel",
+  "Bathroom Remodel",
+  "Commercial Tenant Improvement",
 ];
 
 const budgetRanges = [
@@ -130,7 +131,7 @@ export default function ContactForm() {
             Request Received
           </h3>
           <p className="text-gray-500 font-medium max-w-sm mb-8">
-            Thank you. A member of the eConstruct executive team will be in
+            Thank you. A member of the econstruct executive team will be in
             touch within 24 hours to schedule your consultation.
           </p>
           <button

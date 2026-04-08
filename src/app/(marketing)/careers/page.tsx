@@ -18,9 +18,9 @@ import Button from "@/components/ui/Button";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Careers at eConstruct — Join Our Team",
+  title: "Careers at econstruct — Join Our Team",
   description:
-    "Build your career with eConstruct Inc. We're hiring project managers, carpenters, estimators, and construction professionals across Los Angeles.",
+    "Build your career with econstruct Inc. We're hiring project managers, carpenters, estimators, and construction professionals across Los Angeles.",
   path: "/careers",
 });
 
@@ -78,7 +78,7 @@ const positions = [
     type: "Full-time",
     location: "Los Angeles, CA",
     description:
-      "Manage daily field operations, coordinate subcontractor scheduling, enforce safety standards, and ensure construction quality meets eConstruct standards.",
+      "Manage daily field operations, coordinate subcontractor scheduling, enforce safety standards, and ensure construction quality meets econstruct standards.",
   },
 ];
 
@@ -86,7 +86,7 @@ export default function CareersPage() {
   return (
     <>
       <PageHero
-        title="Build Your Career with eConstruct"
+        title="Build Your Career with econstruct"
         subtitle="Join a team that builds Los Angeles' finest homes. We're looking for people who take pride in their craft."
         breadcrumbs={[{ label: "Careers" }]}
       />
@@ -97,7 +97,7 @@ export default function CareersPage() {
           <SectionHeader
             badge={["Culture"]}
             title="Why Work With Us"
-            subtitle="We build premium homes — and premium careers. Here's what sets eConstruct apart as an employer."
+            subtitle="We build premium homes — and premium careers. Here's what sets econstruct apart as an employer."
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -178,7 +178,7 @@ export default function CareersPage() {
                 <Mail size={28} className="text-accent-gold" />
               </div>
               <SectionHeader
-                title="Interested in Joining eConstruct?"
+                title="Interested in Joining econstruct?"
                 subtitle="Don't see your role listed? We're always open to hearing from talented construction professionals. Send your resume and tell us about yourself."
                 className="mb-8"
               />

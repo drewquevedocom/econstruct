@@ -306,31 +306,31 @@
           <div class="funnel-stages">
             <div class="funnel-stage" style="background: #B8963E; color: #fff;">
               <div class="funnel-stage-count">620</div>
-              <div class="funnel-stage-label">Raw</div>
+              <div class="funnel-stage-label">Enriched</div>
             </div>
             <div class="funnel-stage" style="background: #A8883A; color: #fff;">
               <div class="funnel-stage-count">143</div>
-              <div class="funnel-stage-label">Enriched</div>
+              <div class="funnel-stage-label">Outreach</div>
             </div>
             <div class="funnel-stage" style="background: #8A7034; color: #fff;">
               <div class="funnel-stage-count">52</div>
-              <div class="funnel-stage-label">Queued</div>
+              <div class="funnel-stage-label">Contacted</div>
             </div>
             <div class="funnel-stage" style="background: #6B5A2E; color: #fff;">
               <div class="funnel-stage-count">18</div>
-              <div class="funnel-stage-label">Contacted</div>
+              <div class="funnel-stage-label">Replied</div>
             </div>
             <div class="funnel-stage" style="background: #4D4228; color: #fff;">
               <div class="funnel-stage-count">7</div>
-              <div class="funnel-stage-label">Replied</div>
+              <div class="funnel-stage-label">Meeting</div>
             </div>
             <div class="funnel-stage" style="background: #363030; color: #fff;">
               <div class="funnel-stage-count">2</div>
-              <div class="funnel-stage-label">Meeting</div>
+              <div class="funnel-stage-label">Proposal</div>
             </div>
             <div class="funnel-stage" style="background: #1C1C1E; color: #fff;">
               <div class="funnel-stage-count">1</div>
-              <div class="funnel-stage-label">Proposal</div>
+              <div class="funnel-stage-label">Won</div>
             </div>
           </div>
         </div>
@@ -348,7 +348,7 @@
               <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1v8M3 6l4 4 4-4M1 11v1.5a.5.5 0 00.5.5h11a.5.5 0 00.5-.5V11"/></svg>
               Export
             </button>
-            <button class="btn btn-gold">
+            <button class="btn btn-gold" onclick="openAddLeadModal()">
               <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1v12M1 7h12"/></svg>
               Add Lead
             </button>
@@ -487,7 +487,7 @@
               <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1v8M3 6l4 4 4-4M1 11v1.5a.5.5 0 00.5.5h11a.5.5 0 00.5-.5V11"/></svg>
               Export
             </button>
-            <button class="btn btn-gold">
+            <button class="btn btn-gold" onclick="openAddLeadModal()">
               <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1v12M1 7h12"/></svg>
               Add Lead
             </button>
@@ -640,7 +640,7 @@
             </div>
             <div class="email-queue-time">Today 9:00 AM</div>
             <div class="email-queue-actions">
-              <button class="btn" style="padding:5px 10px;font-size:11px;" onclick="alert('Email sent!')">Send</button>
+              <button class="btn" style="padding:5px 10px;font-size:11px;" onclick="sendQueueEmail(this)">Send</button>
               <button class="btn" style="padding:5px 10px;font-size:11px;" onclick="editEmail(this)">Edit</button>
             </div>
           </div>
@@ -651,7 +651,7 @@
             </div>
             <div class="email-queue-time">Today 10:30 AM</div>
             <div class="email-queue-actions">
-              <button class="btn" style="padding:5px 10px;font-size:11px;" onclick="alert('Email sent!')">Send</button>
+              <button class="btn" style="padding:5px 10px;font-size:11px;" onclick="sendQueueEmail(this)">Send</button>
               <button class="btn" style="padding:5px 10px;font-size:11px;" onclick="editEmail(this)">Edit</button>
             </div>
           </div>
@@ -662,7 +662,7 @@
             </div>
             <div class="email-queue-time">Today 1:00 PM</div>
             <div class="email-queue-actions">
-              <button class="btn" style="padding:5px 10px;font-size:11px;" onclick="alert('Email sent!')">Send</button>
+              <button class="btn" style="padding:5px 10px;font-size:11px;" onclick="sendQueueEmail(this)">Send</button>
               <button class="btn" style="padding:5px 10px;font-size:11px;" onclick="editEmail(this)">Edit</button>
             </div>
           </div>
@@ -673,7 +673,7 @@
             </div>
             <div class="email-queue-time">Tomorrow 8:00 AM</div>
             <div class="email-queue-actions">
-              <button class="btn" style="padding:5px 10px;font-size:11px;" onclick="alert('Email sent!')">Send</button>
+              <button class="btn" style="padding:5px 10px;font-size:11px;" onclick="sendQueueEmail(this)">Send</button>
               <button class="btn" style="padding:5px 10px;font-size:11px;" onclick="editEmail(this)">Edit</button>
             </div>
           </div>
@@ -684,7 +684,7 @@
             </div>
             <div class="email-queue-time">Tomorrow 10:00 AM</div>
             <div class="email-queue-actions">
-              <button class="btn" style="padding:5px 10px;font-size:11px;" onclick="alert('Email sent!')">Send</button>
+              <button class="btn" style="padding:5px 10px;font-size:11px;" onclick="sendQueueEmail(this)">Send</button>
               <button class="btn" style="padding:5px 10px;font-size:11px;" onclick="editEmail(this)">Edit</button>
             </div>
           </div>
@@ -957,6 +957,10 @@
       <div class="settings-grid">
         <div class="settings-card">
           <div class="settings-card-title">Account</div>
+          <div class="settings-row" style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border-light);">
+            <span class="settings-label" style="color:#D94F4F;">Reset Leads</span>
+            <button class="btn" style="border-color:#D94F4F;color:#D94F4F;font-size:11px;" onclick="if(confirm('Reset all lead data to demo defaults?')){localStorage.removeItem('econstruct_leads');location.reload();}">Reset to Demo</button>
+          </div>
           <div class="settings-row"><span class="settings-label">Name</span><span class="settings-value">Frank Neimroozi</span></div>
           <div class="settings-row"><span class="settings-label">Company</span><span class="settings-value">eConstruct Inc.</span></div>
           <div class="settings-row"><span class="settings-label">License</span><span class="settings-value">CA #964015</span></div>
@@ -1035,6 +1039,65 @@
   </main>
 </div>
 
+<!-- ========== ADD LEAD MODAL ========== -->
+<div class="panel-overlay" id="addLeadOverlay" onclick="closeAddLeadModal()"></div>
+<div class="add-lead-modal" id="addLeadModal">
+  <div class="panel-header">
+    <div class="panel-title">Add New Lead</div>
+    <button class="panel-close" onclick="closeAddLeadModal()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+    </button>
+  </div>
+  <div class="panel-body">
+    <div class="panel-section">
+      <div class="panel-section-title">Property</div>
+      <input class="modal-input" id="newAddress" type="text" placeholder="1247 Palisades Beach Rd, 90272">
+    </div>
+    <div class="panel-section">
+      <div class="panel-section-title">Contact</div>
+      <input class="modal-input" id="newContact" type="text" placeholder="Full name" style="margin-bottom:8px;">
+      <input class="modal-input" id="newPhone" type="tel" placeholder="310-555-0000" style="margin-bottom:8px;">
+      <input class="modal-input" id="newEmail" type="email" placeholder="email@example.com">
+    </div>
+    <div class="panel-section">
+      <div class="panel-section-title">Deal Info</div>
+      <input class="modal-input" id="newValue" type="text" placeholder="Est. value e.g. $2.5M" style="margin-bottom:8px;">
+      <select class="modal-input" id="newStage" style="margin-bottom:8px;">
+        <option value="Enriched">Enriched</option>
+        <option value="Outreach">Outreach</option>
+        <option value="Contacted">Contacted</option>
+        <option value="Replied">Replied</option>
+        <option value="Meeting">Meeting</option>
+        <option value="Proposal">Proposal</option>
+        <option value="Won">Won</option>
+        <option value="Lost">Lost</option>
+      </select>
+      <select class="modal-input" id="newSource" style="margin-bottom:8px;">
+        <option value="LADBS">LADBS</option>
+        <option value="Deed Transfer">Deed Transfer</option>
+        <option value="Architect Referral">Architect Referral</option>
+        <option value="Pre-Permit">Pre-Permit</option>
+        <option value="Geotech">Geotech</option>
+        <option value="RE Agent">RE Agent</option>
+        <option value="PA Referral">PA Referral</option>
+        <option value="Direct">Direct</option>
+        <option value="Other">Other</option>
+      </select>
+      <select class="modal-input" id="newType" style="margin-bottom:8px;">
+        <option value="New Construction">New Construction</option>
+        <option value="Fire Rebuild">Fire Rebuild</option>
+        <option value="Major Remodel">Major Remodel</option>
+        <option value="ADU + Remodel">ADU + Remodel</option>
+        <option value="Hillside Build">Hillside Build</option>
+        <option value="Other">Other</option>
+      </select>
+      <input class="modal-input" id="newScore" type="number" placeholder="Lead score 0–100" min="0" max="100">
+    </div>
+    <div id="addLeadError" style="color:#D94F4F;font-size:12px;font-weight:600;display:none;padding:4px 0;"></div>
+    <button class="btn btn-gold" style="width:100%;justify-content:center;padding:12px;margin-top:8px;" onclick="submitAddLead()">Add Lead</button>
+  </div>
+</div>
+
 <!-- ========== SLIDE-OUT PANEL ========== -->
 <div class="panel-overlay" id="panelOverlay" onclick="closePanel()"></div>
 <div class="detail-panel" id="detailPanel">
@@ -1049,18 +1112,22 @@
 </div>
 
 <!-- JS: Data & Constants (must load first) -->
-<script src="js/data.js"></script>
+<script src="js/data.js?v=20260407"></script>
+
+<!-- JS: Email Service -->
+<script src="js/email.js?v=20260407"></script>
 
 <!-- JS: Core -->
-<script src="js/dashboard.js"></script>
-<script src="js/leads.js"></script>
-<script src="js/pipeline.js"></script>
-<script src="js/panel.js"></script>
-<script src="js/alice.js"></script>
-<script src="js/charts.js"></script>
+<script src="js/dashboard.js?v=20260407"></script>
+<script src="js/leads.js?v=20260407"></script>
+<script src="js/pipeline.js?v=20260407"></script>
+<script src="js/panel.js?v=20260407"></script>
+<script src="js/addlead.js?v=20260407"></script>
+<script src="js/alice.js?v=20260407"></script>
+<script src="js/charts.js?v=20260407"></script>
 
 <!-- JS: App (router, init — loads last) -->
-<script src="js/app.js"></script>
+<script src="js/app.js?v=20260407"></script>
 
 </body>
 </html>

@@ -40,7 +40,7 @@ const aduFaqs = faqs.filter(
 );
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "ADU & Home Addition Contractor Los Angeles | eConstruct",
+  title: "ADU & Home Addition Contractor Los Angeles | econstruct",
   description:
     "Expert ADU builder in Los Angeles. Garage conversions, detached ADUs, home additions. California ADU regulation experts. Permits navigated 3x faster. $350-$600+/sq ft.",
   path: "/services/adu-construction",
@@ -384,7 +384,7 @@ export default function ADUConstructionPage() {
                 <p className="text-lg text-body-text mb-8 leading-relaxed">
                   Recent California legislation has dramatically simplified ADU
                   construction. Understanding these changes can save you time,
-                  money, and headaches. eConstruct stays at the forefront of
+                  money, and headaches. econstruct stays at the forefront of
                   every regulatory update.
                 </p>
                 <div className="space-y-4">

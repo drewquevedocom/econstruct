@@ -27,18 +27,18 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "About eConstruct — 25+ Years Building Los Angeles",
+  title: "About econstruct — 25+ Years Building Los Angeles",
   description:
-    "Meet the team behind eConstruct Inc. Led by Frank Neimroozi with 25+ years of experience, we've completed 340+ projects across Los Angeles. CA Lic #964015.",
+    "Meet the team behind econstruct Inc. Led by Frank Neimroozi with 25+ years of experience, we've completed 340+ projects across Los Angeles. CA Lic #964015.",
   path: "/about",
 });
 
 const milestones = [
   {
     year: "1999",
-    title: "eConstruct Founded",
+    title: "econstruct Founded",
     description:
-      "Frank Neimroozi establishes eConstruct Inc. in Los Angeles, focused on premium residential construction.",
+      "Frank Neimroozi establishes econstruct Inc. in Los Angeles, focused on premium residential construction.",
   },
   {
     year: "2005",
@@ -120,7 +120,7 @@ export default function AboutPage() {
       />
 
       <PageHero
-        title="About eConstruct"
+        title="About econstruct"
         subtitle="25+ years of premium residential construction across Los Angeles. From fire rebuilds to luxury custom homes, we build with uncompromising quality."
         breadcrumbs={[{ label: "About" }]}
       />
@@ -161,7 +161,7 @@ export default function AboutPage() {
                   involved in every project from pre-construction planning
                   through final walkthrough. His deep relationships with the
                   city&apos;s best subcontractors, architects, and inspectors
-                  ensure every eConstruct project runs on time, on budget, and
+                  ensure every econstruct project runs on time, on budget, and
                   above expectations.
                 </p>
                 <div className="flex flex-wrap gap-4 mt-2">
@@ -231,7 +231,7 @@ export default function AboutPage() {
           <SectionHeader
             badge={["Our Journey"]}
             title="25+ Years of Building Excellence"
-            subtitle="Key milestones that shaped eConstruct into Los Angeles' premier residential contractor."
+            subtitle="Key milestones that shaped econstruct into Los Angeles' premier residential contractor."
           />
 
           <div className="relative">

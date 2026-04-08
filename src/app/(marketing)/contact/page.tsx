@@ -16,9 +16,9 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 import ContactForm from "@/components/contact/ContactForm";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Contact eConstruct — Free Consultation",
+  title: "Contact econstruct — Free Consultation",
   description:
-    "Get in touch with eConstruct Inc. for a free consultation on your Los Angeles construction project. Fire rebuilds, luxury homes, and more. Call (888) 990-0303.",
+    "Get in touch with econstruct Inc. for a free consultation on your Los Angeles construction project. Fire rebuilds, luxury homes, and more. Call (888) 990-0303.",
   path: "/contact",
 });
 

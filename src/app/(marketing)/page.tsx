@@ -7,19 +7,17 @@ import ProcessSection from "@/components/ProcessSection";
 import StatsSection from "@/components/StatsSection";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import TestimonialsSection from "@/components/TestimonialsSection";
-import GatekeeperCTA from "@/components/GatekeeperCTA";
+import StrategicPartnership from "@/components/StrategicPartnership";
 import BlogPreview from "@/components/BlogPreview";
-import FinalCTA from "@/components/FinalCTA";
-import ConsultationCTA from "@/components/ConsultationCTA";
 import TrustBar from "@/components/TrustBar";
 import { generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "eConstruct Inc. — Los Angeles' Premier High-End Home Builder",
+  title: "econstruct Inc. — Los Angeles' Premier High-End Home Builder",
   description:
     "Fire Rebuilds. Luxury Modernization. Ground-Up Custom Homes. CA License #964015. 25+ years of premium residential construction in Los Angeles.",
   openGraph: {
-    title: "eConstruct Inc. — Los Angeles' Premier High-End Home Builder",
+    title: "econstruct Inc. — Los Angeles' Premier High-End Home Builder",
     description:
       "Fire Rebuilds. Luxury Modernization. Ground-Up Custom Homes. 25+ years of premium residential construction.",
     url: "https://econstructinc.com",
@@ -47,10 +45,8 @@ export default function Home() {
           <StatsSection />
           <WhyChooseUs />
           <TestimonialsSection />
-          <GatekeeperCTA />
+          <StrategicPartnership />
           <BlogPreview />
-          <FinalCTA />
-          <ConsultationCTA />
         </main>
       </div>
     </>

@@ -183,7 +183,7 @@ export default function LuxuryModernizationPage() {
         </Container>
       </section>
 
-      {/* Why Choose eConstruct */}
+      {/* Why Choose econstruct */}
       <section className="py-24 md:py-32">
         <Container>
           <SectionHeader
@@ -316,7 +316,7 @@ export default function LuxuryModernizationPage() {
             <SectionHeader
               badge={["CLIENT", "EXPERIENCES"]}
               title="What Our Clients Say"
-              subtitle="Hear from homeowners who trusted eConstruct to transform their residences."
+              subtitle="Hear from homeowners who trusted econstruct to transform their residences."
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">

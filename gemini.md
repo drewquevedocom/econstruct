@@ -1,27 +1,19 @@
-# eConstruct 2.0 Architecture & Rules
+# eConstruct Agent Workflow Summary
 
-## Tech Stack
-- React/Next.js (App Router)
-- Tailwind CSS
-- TypeScript
-- framer-motion
+`docs/website-workflow-rules.md` is the canonical source of truth for website workflow and review standards in this repo.
 
-## Constraints
-1. **No Dark Mode**: The site must strictly be light mode. Disable any default dark mode settings in Tailwind.
-2. **Mobile-First**: Ensure a 1-column stacking mobile layout with a hamburger navigation and tap-to-call functionality.
-3. **Tone**: Authoritative, empathetic, and precise. Never use words like "cheap," "budget," or "affordable." Focus on ROI, speed, and premium quality.
-4. **CTAs**: Every page must feature a consultation CTA section immediately above the footer.
-5. **Aesthetics**: Premium Style. Glassmorphism (blur/translucency), fluid typography, WCAG 2.1 accessibility. 
+## Agent Rules
 
-## Design System (Global Tokens)
-- **Background**: `#FFFFFF` (Clean White)
-- **Secondary Background**: `#F8F6F2` (Warm Off-White)
-- **Brand Dark**: `#1C1C1E` (Deep Charcoal)
-- **Accent Gold**: `#B8963E` (Warm Brass/Champagne Gold)
-- **Body Text**: `#6B6B6B` (Warm Gray)
-- **Badge Navy**: `#1A2744` (Deep Navy)
-- **Heading Font**: Playfair Display (Weight: 700)
-- **Body Font**: Plus Jakarta Sans (Weights: 400/500/600)
+- Follow the canonical workflow rules document before relying on older local assumptions.
+- Reconcile proposed work against the current approved site state, not against stale "light-only" constraints.
+- Preserve the approved dark above-the-fold direction, shared header behavior, and shared logo system unless the user explicitly changes them.
+- Keep copy authoritative, empathetic, precise, and premium.
+- Preserve or add a consultation-oriented CTA near the end of marketing pages.
+- Use the review checklist in `docs/website-review-checklist.md` when closing meaningful website changes.
 
-## Directory Structure & Assets
-- Images are expected to be available at the application's root/public folder or `/home/user/workspace/econstruct-site/images/`. We'll use Next.js standard `/public/assets` and references.
+## Current Implementation Anchors
+
+- Stack: Next.js App Router, TypeScript, Tailwind CSS, framer-motion.
+- Mobile-first behavior is required.
+- Shared patterns should be preferred over page-local reinventions.
+- Critical brand UI should remain visible on first paint when possible.

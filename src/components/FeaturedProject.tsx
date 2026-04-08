@@ -1,164 +1,115 @@
-"use client";
+﻿"use client";
+
 import { motion } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, MoveHorizontal } from "lucide-react";
+import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+
+const caseStudyUrl =
+  "https://econstructinc.com/luxury-home-builders-los-angeles-hollywood-hills-remodel-case-study/";
 
 export default function FeaturedProject() {
-  const [sliderPosition, setSliderPosition] = useState(50);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const handleDrag = (e: React.MouseEvent | React.TouchEvent) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    
-    let clientX = 0;
-    if ("touches" in e) {
-      clientX = e.touches[0].clientX;
-    } else {
-      clientX = (e as React.MouseEvent).clientX;
-    }
-
-    const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
-    const percentage = (x / rect.width) * 100;
-    setSliderPosition(percentage);
-  };
-
-  const handleMouseDown = () => {
-    const handleMouseMove = (e: MouseEvent | TouchEvent) => handleDrag(e as any);
-    const handleMouseUp = () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-      window.removeEventListener("touchmove", handleMouseMove);
-      window.removeEventListener("touchend", handleMouseUp);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
-    window.addEventListener("touchmove", handleMouseMove);
-    window.addEventListener("touchend", handleMouseUp);
-  };
+  const highlights = [
+    "Hollywood Hills remodel",
+    "Luxury interior + exterior refresh",
+    "Hillside execution with premium finishes",
+  ];
 
   return (
-    <section className="py-24 md:py-32 bg-white overflow-hidden">
-      <div className="container mx-auto px-6 md:px-8 max-w-7xl">
-        
-        {/* Top Header */}
-        <div className="flex flex-col items-start mb-16">
-          <motion.div 
+    <section className="overflow-hidden bg-white py-24 md:py-32">
+      <div className="container mx-auto max-w-7xl px-6 md:px-8">
+        <div className="mb-16 flex flex-col items-start">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="border border-brand-dark/20 uppercase tracking-widest text-[10px] font-bold px-4 py-1.5 rounded-full text-brand-dark w-fit mb-6 flex gap-2 items-center"
+            className="mb-6 flex w-fit items-center gap-2 rounded-full border border-black/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-brand-dark"
           >
-            <span>CASE STUDY</span> 
-            <span className="text-accent-gold">•</span>
-            <span>FEATURED</span>
+            <span>Case Study</span>
+            <span className="text-accent-gold">&bull;</span>
+            <span>Featured</span>
           </motion.div>
 
-          <motion.h2 
-            initial={{ opacity: 0, y: 30 }}
+          <motion.h2
+            initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-dark leading-[1.05] tracking-tight"
+            className="text-4xl font-bold tracking-tight text-brand-dark md:text-5xl lg:text-6xl"
           >
-            Palisades Fire Rebuild
+            Hollywood Hills Remodel
           </motion.h2>
         </div>
 
-        {/* 2 Panel Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          
-          {/* Left: Before/After Slider */}
-          <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="w-full relative rounded-2xl overflow-hidden shadow-2xl h-[400px] md:h-[600px] cursor-ew-resize select-none group"
-            ref={containerRef}
-            onMouseDown={handleMouseDown}
-            onTouchStart={handleMouseDown}
-          >
-            {/* After Image (Background) */}
-            <div 
-              className="absolute inset-0 bg-cover bg-center pointer-events-none"
-              style={{ backgroundImage: `url('/custom_home_service.png')` }}
-            >
-              <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded-full">
-                AFTER
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="grid overflow-hidden rounded-3xl border border-black/8 bg-[#f8f6f0] shadow-[0_20px_60px_rgba(0,0,0,0.08)] lg:grid-cols-[1.05fr_0.95fr]"
+        >
+          <div className="relative min-h-[320px] lg:min-h-[520px]">
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: "url('/hollywood_hills_v2.png')" }}
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,9,12,0.12)_0%,rgba(7,9,12,0.4)_100%)]" />
+            <div className="absolute left-6 top-6 rounded-full bg-black/55 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-white backdrop-blur-md">
+              Hollywood Hills
+            </div>
+            <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-4">
+              <div className="max-w-[18rem]">
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-white/75">
+                  Remodel case study
+                </p>
+                <p className="mt-2 text-lg font-semibold leading-snug text-white">
+                  A refined hillside transformation with premium materials and modern lines.
+                </p>
               </div>
             </div>
+          </div>
 
-            {/* Before Image (Foreground Masked) */}
-            <div 
-              className="absolute top-0 bottom-0 left-0 bg-cover bg-center pointer-events-none border-r-4 border-white/80 transition-all duration-75 ease-out shadow-[4px_0_24px_rgba(0,0,0,0.5)]"
-              style={{ 
-                width: `${sliderPosition}%`,
-                backgroundImage: `url('/fire_rebuild_service.png')` 
-              }}
-            >
-              <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded-full">
-                BEFORE
-              </div>
-
-              {/* Slider Handle Widget */}
-              <div className="absolute top-1/2 -right-[22px] -mt-[22px] w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-2xl text-brand-dark transition-transform group-hover:scale-110 pointer-events-auto">
-                <MoveHorizontal size={20} />
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right: Project Narrative */}
-          <motion.div 
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col h-full justify-center"
-          >
-            {/* Specs Grid */}
-            <div className="grid grid-cols-2 gap-x-8 gap-y-6 mb-12 py-8 border-y border-gray-100">
-              <div>
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Neighborhood</p>
-                <p className="font-semibold text-brand-dark text-lg">Pacific Palisades</p>
-              </div>
-              <div>
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Timeline</p>
-                <p className="font-semibold text-brand-dark text-lg">14 Months</p>
-              </div>
-              <div>
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Scope</p>
-                <p className="font-semibold text-brand-dark text-lg">Complete Ground-Up Rebuild</p>
-              </div>
-              <div>
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Scale</p>
-                <p className="font-semibold text-brand-dark text-lg">6,200 sq.ft.</p>
-              </div>
-            </div>
-
-            <div className="mb-8">
-              <h3 className="text-2xl font-bold text-brand-dark mb-4">The Challenge</h3>
-              <p className="text-gray-500 leading-relaxed font-medium">
-                Following devastating wildlife destruction, the client faced a complex hillside foundation that was completely compromised. Strict new WUI (Wildland-Urban Interface) codes meant traversing a severely restrictive permitting pipeline.
+          <div className="flex flex-col justify-between p-8 md:p-12">
+            <div>
+              <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.28em] text-black/45">
+                Featured Project
               </p>
-            </div>
-
-            <div className="mb-10">
-              <h3 className="text-2xl font-bold text-brand-dark mb-4">The Solution</h3>
-              <p className="text-gray-500 leading-relaxed font-medium">
-                We fully expedited the executive order permitting process cutting the red tape by 60%. Implementing our massive concrete retaining systems combined with a luxury modernist steel-glass structure, we delivered an impregnable architectural asset with panoramic ocean views—ahead of schedule.
+              <h3 className="text-3xl font-bold leading-tight text-brand-dark md:text-4xl">
+                A case study worth opening
+              </h3>
+              <p className="mt-5 max-w-xl text-base leading-relaxed text-black/60 md:text-lg">
+                Explore the Hollywood Hills remodel to see how we approached a premium
+                hillside residence with cleaner lines, warmer finishes, and a more
+                elevated indoor-outdoor connection.
               </p>
+
+              <div className="mt-8 space-y-3">
+                {highlights.map((item) => (
+                  <div key={item} className="flex items-center gap-3 text-black/70">
+                    <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-accent-gold" />
+                    <span className="text-sm font-medium md:text-base">{item}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <Link 
-              href="/our-work" 
-              className="group flex gap-3 items-center text-brand-dark font-bold border-b border-brand-dark/20 w-fit pb-1 hover:border-accent-gold hover:text-accent-gold transition-colors"
-            >
-              See Full Case Study
-              <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-            </Link>
-          </motion.div>
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+              <Link
+                href={caseStudyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-3 rounded-full bg-brand-dark px-6 py-4 text-sm font-bold text-white shadow-[0_14px_24px_rgba(0,0,0,0.14)] transition-all hover:-translate-y-0.5 hover:bg-accent-gold hover:text-brand-dark"
+              >
+                Read the case study
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
 
-        </div>
+              <Link
+                href="/projects"
+                className="inline-flex items-center justify-center rounded-full border border-black/10 bg-white px-6 py-4 text-sm font-bold text-brand-dark transition-all hover:border-accent-gold hover:text-accent-gold"
+              >
+                View projects
+              </Link>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

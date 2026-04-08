@@ -378,7 +378,7 @@ export default function CustomHomesPage() {
             <SectionHeader
               badge={["CLIENT", "STORIES"]}
               title="Built for Our Clients"
-              subtitle="Hear from homeowners who trusted eConstruct with their ground-up custom home."
+              subtitle="Hear from homeowners who trusted econstruct with their ground-up custom home."
             />
 
             <div className="max-w-2xl mx-auto">

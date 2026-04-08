@@ -20,7 +20,7 @@ import Button from "@/components/ui/Button";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "For Investors — Turnkey Fire Rebuild Packages | eConstruct",
+  title: "For Investors — Turnkey Fire Rebuild Packages | econstruct",
   description:
     "From permits to keys. Turnkey fire rebuild packages designed for investor ROI. Essential, Premium, and Luxury Spec builds from $450-$1000+/sq ft.",
   path: "/for-investors",

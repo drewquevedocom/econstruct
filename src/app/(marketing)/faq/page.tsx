@@ -11,9 +11,9 @@ import FAQSection from "@/components/faq/FAQSection";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "FAQ — Frequently Asked Questions About eConstruct",
+  title: "FAQ — Frequently Asked Questions About econstruct",
   description:
-    "Get answers to common questions about eConstruct's fire rebuild, luxury modernization, and custom home services in Los Angeles. Pricing, timelines, process, and more.",
+    "Get answers to common questions about econstruct's fire rebuild, luxury modernization, and custom home services in Los Angeles. Pricing, timelines, process, and more.",
   path: "/faq",
 });
 
@@ -40,7 +40,7 @@ export default function FAQPage() {
 
       <PageHero
         title="Frequently Asked Questions"
-        subtitle="Everything you need to know about working with eConstruct. Can't find your answer? Contact us directly."
+        subtitle="Everything you need to know about working with econstruct. Can't find your answer? Contact us directly."
         breadcrumbs={[{ label: "FAQ" }]}
       />
 

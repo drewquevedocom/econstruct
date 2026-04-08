@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import { generatePageMetadata } from "@/lib/metadata";
 import { generateBreadcrumbSchema } from "@/lib/schema";
-import { services } from "@/lib/data/services";
+import { promptServices } from "@/lib/data/prompt-services";
 import PageHero from "@/components/ui/PageHero";
 import Container from "@/components/ui/Container";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import ConsultationCTA from "@/components/ConsultationCTA";
-import Link from "next/link";
-import Image from "next/image";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Services",
+  title: "Los Angeles Construction Services - From Luxury Homes to Fire Rebuilds",
   description:
-    "Premium residential construction services in Los Angeles. Fire rebuilds, luxury modernization, ground-up custom homes, and ADU construction.",
+    "Los Angeles construction services from luxury home building to fire rebuilds, additions, kitchen and bathroom remodeling, and commercial tenant improvements.",
   path: "/services",
 });
 
@@ -21,64 +21,74 @@ export default function ServicesPage() {
     { name: "Home", url: "https://econstructinc.com" },
     { name: "Services", url: "https://econstructinc.com/services" },
   ]);
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: promptServices.map((service, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: service.title,
+      url: `https://econstructinc.com/services/${service.slug}`,
+    })),
+  };
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([breadcrumbSchema, itemListSchema]),
+        }}
       />
 
       <PageHero
-        title="Our Services"
-        subtitle="Premium residential construction tailored to your vision. From fire rebuilds to luxury custom homes."
+        title="Los Angeles Construction Services - From Luxury Homes to Fire Rebuilds"
+        subtitle="Full-service general contractor for Los Angeles' most demanding projects."
         breadcrumbs={[{ label: "Services" }]}
       />
 
-      {/* Services Grid */}
       <section className="py-24 md:py-32">
         <Container>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {services.map((service, i) => (
-              <AnimatedSection key={service.slug} delay={i * 0.1}>
-                <Link
-                  href={`/services/${service.slug}`}
-                  className="group block"
-                >
-                  <div className="relative rounded-2xl overflow-hidden bg-secondary border border-gray-100 hover:shadow-xl transition-all duration-500">
-                    <div className="aspect-[16/10] relative overflow-hidden">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-lg leading-relaxed text-body-text">
+              econstruct operates across the full lifecycle of premium Los
+              Angeles construction, from luxury home building and fire rebuilds
+              to additions, kitchen and bathroom remodeling, and
+              schedule-sensitive commercial tenant improvements. Each service is
+              managed with the same priorities: clear leadership, disciplined
+              preconstruction, strong field execution, and direct communication.
+            </p>
+          </div>
+
+          <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+            {promptServices.map((service, index) => (
+              <AnimatedSection key={service.slug} delay={index * 0.06}>
+                <Link href={`/services/${service.slug}`} className="group block">
+                  <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                    <div className="relative aspect-[16/10] overflow-hidden">
                       <Image
                         src={service.image}
                         alt={service.title}
                         fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/60 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/70 via-brand-dark/10 to-transparent" />
                       <div className="absolute bottom-6 left-6 right-6">
-                        <h3 className="text-2xl font-bold text-white font-heading">
+                        <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-gold/90">
+                          {service.navLabel}
+                        </p>
+                        <h3 className="mt-3 text-2xl font-bold text-white">
                           {service.title}
                         </h3>
                       </div>
                     </div>
                     <div className="p-8">
-                      <p className="text-body-text mb-6">
-                        {service.shortDescription}
+                      <p className="leading-relaxed text-body-text">
+                        {service.intro[0]}
                       </p>
-                      <div className="flex flex-wrap gap-2 mb-6">
-                        {service.features.slice(0, 3).map((feature) => (
-                          <span
-                            key={feature}
-                            className="text-xs font-semibold uppercase tracking-wider text-accent-gold bg-accent-gold/10 px-3 py-1 rounded-full"
-                          >
-                            {feature}
-                          </span>
-                        ))}
-                      </div>
-                      {service.priceRange && (
-                        <p className="text-sm font-semibold text-brand-dark">
-                          Starting from {service.priceRange}
-                        </p>
-                      )}
+                      <p className="mt-6 text-sm font-bold text-brand-dark transition-colors group-hover:text-accent-gold">
+                        Learn More
+                      </p>
                     </div>
                   </div>
                 </Link>
@@ -88,58 +98,31 @@ export default function ServicesPage() {
         </Container>
       </section>
 
-      {/* Process Section */}
-      <section className="py-24 md:py-32 bg-secondary">
+      <section className="bg-secondary py-24 md:py-32">
         <Container>
-          <AnimatedSection>
-            <div className="text-center mb-16">
-              <div className="border border-brand-dark/20 uppercase tracking-widest text-[10px] font-bold px-4 py-1.5 rounded-full text-brand-dark w-fit mx-auto mb-6 flex gap-2 items-center">
-                <span>OUR</span>
-                <span className="text-accent-gold">&bull;</span>
-                <span>PROCESS</span>
-              </div>
-              <h2 className="text-4xl md:text-5xl font-bold text-brand-dark tracking-tight">
-                How We Work
-              </h2>
-              <p className="mt-6 text-lg text-gray-500 font-medium max-w-2xl mx-auto">
-                From first consultation to final walkthrough — a proven process
-                refined over 25 years and 340+ projects.
-              </p>
-            </div>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid gap-8 md:grid-cols-3">
             {[
               {
-                step: "01",
-                title: "Consultation",
-                desc: "Free assessment of your property, vision, and budget. We listen first.",
+                value: "634",
+                label: "Projects Completed Successfully",
               },
               {
-                step: "02",
-                title: "Design & Planning",
-                desc: "Detailed scope, architectural plans, and transparent line-item budgets.",
+                value: "51 Years",
+                label: "Collective Experience Between Partners",
               },
               {
-                step: "03",
-                title: "Construction",
-                desc: "Expert execution with weekly updates, dedicated PM, and Frank's oversight.",
+                value: "25+",
+                label: "Years of Frank's experience in LA",
               },
-              {
-                step: "04",
-                title: "Delivery",
-                desc: "Final walkthrough, punch list, and comprehensive warranty documentation.",
-              },
-            ].map((item, i) => (
-              <AnimatedSection key={item.step} delay={i * 0.1}>
-                <div className="text-center md:text-left">
-                  <div className="text-5xl font-bold text-accent-gold/20 mb-4">
-                    {item.step}
-                  </div>
-                  <h3 className="text-xl font-bold text-brand-dark mb-3">
-                    {item.title}
-                  </h3>
-                  <p className="text-body-text">{item.desc}</p>
+            ].map((item, index) => (
+              <AnimatedSection key={item.label} delay={index * 0.08}>
+                <div className="rounded-3xl border border-gray-100 bg-white p-10 text-center shadow-sm">
+                  <p className="text-5xl font-bold tracking-tight text-brand-dark">
+                    {item.value}
+                  </p>
+                  <p className="mt-4 text-sm font-bold uppercase tracking-[0.18em] text-accent-gold">
+                    {item.label}
+                  </p>
                 </div>
               </AnimatedSection>
             ))}

@@ -23,7 +23,7 @@ export default function TrustBadge() {
                 A Legacy of <span className="text-accent-gold">Excellence</span>
               </h2>
               <p className="text-white/80 text-lg mb-8 leading-relaxed max-w-xl">
-                For over 25 years, eConstruct has set the benchmark for luxury residential construction in Los Angeles. We don't just build homes; we forge partnerships based on absolute transparency, speed, and uncompromising quality.
+                For over 25 years, econstruct has set the benchmark for luxury residential construction in Los Angeles. We don't just build homes; we forge partnerships based on absolute transparency, speed, and uncompromising quality.
               </p>
               <div className="inline-block bg-white/10 backdrop-blur-sm border border-white/20 px-6 py-3 rounded-lg font-bold tracking-widest text-accent-gold shadow-sm">
                 FULLY LICENSED & INSURED

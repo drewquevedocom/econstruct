@@ -7,6 +7,8 @@
   --accent-gold: #B8963E;
   --body-text: #6B6B6B;
   --badge-navy: #1A2744;
+  --font-playfair: Georgia, "Times New Roman", serif;
+  --font-jakarta: "Arial", sans-serif;
 }
 
 @theme inline {
@@ -32,4 +34,46 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading), serif;
   color: var(--brand-dark);
+}
+
+.logo-subtle-glow {
+  animation: logo-glow-breathe 6s ease-in-out infinite;
+}
+
+.hero-display {
+  text-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+}
+
+.hero-blueprint-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-position: center;
+  background-size: 24px 24px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 1), transparent 92%);
+}
+
+@keyframes logo-glow-breathe {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.97);
+  }
+
+  50% {
+    opacity: 0.34;
+    transform: scale(1.01);
+  }
+}
+
+@keyframes service-pill-fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

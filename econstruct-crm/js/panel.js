@@ -109,6 +109,16 @@ function openPanel(leadId) {
         ${timelineHtml}
       </div>
     </div>
+    <div class="panel-section" style="border-top:1px solid var(--border-light);padding-top:16px;display:flex;gap:8px;">
+      <button class="btn" style="flex:1;justify-content:center;color:var(--text-secondary);font-size:12px;" onclick="archiveLead(${lead.id})">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" style="width:12px;height:12px;"><path d="M1 3h12v2H1zM2 5v6h10V5"/><path d="M5 8h4"/></svg>
+        Archive
+      </button>
+      <button class="btn" style="flex:1;justify-content:center;color:#D94F4F;border-color:#D94F4F;font-size:12px;" onclick="deleteLead(${lead.id})">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" style="width:12px;height:12px;"><path d="M2 4h10M5 4V2h4v2M5 6v5M9 6v5M3 4l1 8h6l1-8"/></svg>
+        Delete
+      </button>
+    </div>
   `;
 
   document.getElementById('panelOverlay').classList.add('active');
@@ -123,13 +133,21 @@ function closePanel() {
 // ============ PANEL INTERACTIONS ============
 function changePanelStage(leadId, newStage) {
   const lead = leads.find(l => l.id === leadId);
-  if (lead) { lead.stage = newStage; renderTable(leads); renderTable2(leads); renderKanban(); }
-  const pills = document.getElementById(`stagePills-${leadId}`);
-  if (pills) {
-    pills.querySelectorAll('.stage-pill').forEach(p => {
-      p.classList.toggle('active-pill', p.textContent === newStage);
-    });
+  if (lead) {
+    const prevStage = lead.stage;
+    lead.stage = newStage;
+    addTimelineEntry(lead, 'Stage changed: ' + prevStage + ' → ' + newStage);
+    saveLeads();
+    renderTable(leads.filter(l => !l.archived));
+    renderTable2(leads.filter(l => !l.archived));
+    renderKanban();
+    // Fire outreach email when lead enters Outreach stage
+    if (newStage === 'Outreach' && prevStage !== 'Outreach') {
+      if (typeof sendOutreachEmail === 'function') sendOutreachEmail(lead);
+    }
   }
+  // Re-render the entire panel so timeline updates
+  openPanel(leadId);
 }
 
 function startEdit(pencilEl) {
@@ -147,9 +165,9 @@ function saveEdit(btn, leadId, fieldName) {
   container.querySelector('.edit-pencil').style.display = '';
   btn.closest('.edit-actions').classList.remove('visible');
   const lead = leads.find(l => l.id === leadId);
-  if (lead && fieldName === 'value') { lead.value = value.textContent; renderTable(leads); renderTable2(leads); }
-  if (lead && fieldName === 'type') { lead.type = value.textContent; }
-  if (lead && fieldName === 'source') { lead.source = value.textContent; renderTable(leads); renderTable2(leads); }
+  if (lead && fieldName === 'value') { lead.value = value.textContent; saveLeads(); renderTable(leads); renderTable2(leads); }
+  if (lead && fieldName === 'type') { lead.type = value.textContent; saveLeads(); }
+  if (lead && fieldName === 'source') { lead.source = value.textContent; saveLeads(); renderTable(leads); renderTable2(leads); }
 }
 
 function cancelEdit(btn) {
@@ -158,6 +176,29 @@ function cancelEdit(btn) {
   value.setAttribute('contenteditable', 'false');
   container.querySelector('.edit-pencil').style.display = '';
   btn.closest('.edit-actions').classList.remove('visible');
+}
+
+function archiveLead(leadId) {
+  const lead = leads.find(l => l.id === leadId);
+  if (!lead) return;
+  lead.archived = true;
+  saveLeads();
+  closePanel();
+  renderTable(leads.filter(l => !l.archived));
+  renderTable2(leads.filter(l => !l.archived));
+  renderKanban();
+}
+
+function deleteLead(leadId) {
+  if (!confirm('Permanently delete this lead? This cannot be undone.')) return;
+  const idx = leads.findIndex(l => l.id === leadId);
+  if (idx === -1) return;
+  leads.splice(idx, 1);
+  saveLeads();
+  closePanel();
+  renderTable(leads.filter(l => !l.archived));
+  renderTable2(leads.filter(l => !l.archived));
+  renderKanban();
 }
 
 function addNote(leadId) {
@@ -169,6 +210,7 @@ function addNote(leadId) {
   const timeStr = now.toLocaleDateString('en-US', { month:'short', day:'numeric' }) + ', ' + now.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit' });
   const note = { text, time: timeStr, author: 'Frank N.' };
   lead.notes.unshift(note);
+  saveLeads();
   ta.value = '';
   const list = document.getElementById(`notesList-${leadId}`);
   const div = document.createElement('div');

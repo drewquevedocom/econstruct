@@ -2,11 +2,13 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function Hero() {
   const { scrollY } = useScroll();
   const [frame, setFrame] = useState(1);
+  const heroParallaxY = useTransform(scrollY, [0, 1000], [0, 150]);
+  const frameObjectPosition = useTransform(scrollY, [0, 600], ["100% 50%", "50% 50%"]);
 
   useEffect(() => {
     const unsubscribe = scrollY.on("change", (latest) => {
@@ -24,7 +26,7 @@ export default function Hero() {
         <div className="absolute inset-0 -z-10 bg-brand-dark overflow-hidden">
           <motion.div
             className="absolute inset-x-0 bottom-0 h-[110%] w-full"
-            style={{ y: useTransform(scrollY, [0, 1000], [0, 150]) }}
+            style={{ y: heroParallaxY }}
           >
             {/* The looping video sits underneath everything. It acts as "Frame 1" */}
             <video
@@ -46,13 +48,23 @@ export default function Hero() {
                   className={`absolute inset-0 w-full h-full object-cover will-change-opacity ${
                     frame === frameIndex && frame !== 1 ? "opacity-100" : "opacity-0"
                   }`}
-                  style={{ objectPosition: useTransform(scrollY, [0, 600], ["100% 50%", "50% 50%"]) }}
+                  style={{ objectPosition: frameObjectPosition }}
                   loading="eager"
                 />
               );
             })}
           </motion.div>
-          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,9,12,0.72)_0%,rgba(7,9,12,0.38)_22%,rgba(7,9,12,0.24)_48%,rgba(7,9,12,0.44)_100%)]" />
+          <div className="absolute inset-x-0 top-0 h-[24vh] bg-gradient-to-b from-black/45 via-black/18 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(190,155,72,0.08),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.05),transparent_32%)]" />
+          <div className="pointer-events-none absolute right-[4vw] top-[12vh] hidden h-[32vh] w-[24vw] max-w-[400px] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),transparent_68%)] lg:block">
+            <div className="hero-blueprint-grid absolute inset-4" />
+          </div>
+          <div className="pointer-events-none absolute bottom-[14vh] left-[4vw] hidden h-[18vh] w-[18vw] max-w-[280px] border border-white/[0.06] bg-[linear-gradient(90deg,rgba(255,255,255,0.03),transparent_72%)] lg:block">
+            <div className="hero-blueprint-grid absolute inset-3" />
+          </div>
+          <div className="pointer-events-none absolute right-[9vw] top-[18vh] hidden h-[10rem] w-[10rem] rounded-full border border-white/[0.06] lg:block" />
+          <div className="pointer-events-none absolute left-[14vw] top-[28vh] hidden h-[6rem] w-[18rem] border border-white/[0.05] lg:block" />
         </div>
 
         {/* Content */}
@@ -72,7 +84,7 @@ export default function Hero() {
                   hidden: { opacity: 0, y: 50, filter: "blur(10px)", scale: 0.95 },
                   visible: { opacity: 1, y: 0, filter: "blur(0px)", scale: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } },
                 }}
-                className="text-5xl md:text-7xl lg:text-[6.5rem] font-bold leading-[1.05] tracking-tight drop-shadow-lg pb-1"
+                className="hero-display text-5xl md:text-7xl lg:text-[6.5rem] font-bold leading-[1.05] tracking-tight pb-1"
                 style={{ color: "#ffffff" }}
               >
                 Los Angeles&apos; Premier
@@ -82,8 +94,8 @@ export default function Hero() {
                   hidden: { opacity: 0, y: 50, filter: "blur(10px)", scale: 0.95 },
                   visible: { opacity: 1, y: 0, filter: "blur(0px)", scale: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } },
                 }}
-                className="text-5xl md:text-7xl lg:text-[6.5rem] font-bold leading-[1.05] tracking-tight drop-shadow-lg pb-1"
-                style={{ color: "#ffffff", textShadow: "0px 0px 30px rgba(255,255,255,0.4)" }}
+                className="hero-display text-5xl md:text-7xl lg:text-[6.5rem] font-bold leading-[1.05] tracking-tight pb-1"
+                style={{ color: "#ffffff" }}
               >
                 High-End
               </motion.h1>
@@ -92,7 +104,7 @@ export default function Hero() {
                   hidden: { opacity: 0, y: 50, filter: "blur(10px)", scale: 0.95 },
                   visible: { opacity: 1, y: 0, filter: "blur(0px)", scale: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } },
                 }}
-                className="text-5xl md:text-7xl lg:text-[6.5rem] font-bold leading-[1.05] tracking-tight drop-shadow-lg"
+                className="hero-display text-5xl md:text-7xl lg:text-[6.5rem] font-bold leading-[1.05] tracking-tight"
                 style={{ color: "#ffffff" }}
               >
                 Home Builder
@@ -101,7 +113,7 @@ export default function Hero() {
           </div>
 
           {/* Bottom CTAs */}
-          <div className="w-full flex flex-col items-start gap-8 mt-auto border-l-2 border-accent-gold pl-6">
+          <div className="mt-auto flex w-full flex-col items-start gap-8 border-l border-accent-gold/75 pl-6">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -109,7 +121,7 @@ export default function Hero() {
               className="max-w-2xl text-left"
             >
               <h2
-                className="font-medium text-lg md:text-2xl leading-relaxed drop-shadow-md tracking-wide"
+                className="text-lg font-medium leading-relaxed tracking-[0.12em] text-white/92 md:text-2xl"
                 style={{ color: "#ffffff" }}
               >
                 Fire Rebuilds <span className="text-accent-gold mx-2">•</span>
@@ -126,14 +138,14 @@ export default function Hero() {
             >
               <Link
                 href="/contact"
-                className="group flex items-center justify-center gap-2 bg-accent-gold text-white px-8 py-4 rounded-full font-bold text-sm md:text-base hover:bg-white hover:text-brand-dark transition-all shadow-xl hover:shadow-2xl hover:shadow-accent-gold/20 active:scale-95"
+                className="group flex items-center justify-center gap-2 rounded-full border border-accent-gold/45 bg-accent-gold px-8 py-4 text-sm font-bold text-white shadow-[0_16px_30px_rgba(184,150,62,0.18)] transition-all hover:bg-white hover:text-brand-dark hover:shadow-2xl hover:shadow-accent-gold/10 active:scale-95 md:text-base"
               >
                 Schedule Your Free Consultation
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 href="/our-work"
-                className="flex items-center justify-center bg-white/5 border border-white/40 text-white px-8 py-4 rounded-full font-bold text-sm md:text-base hover:bg-white/10 hover:border-white transition-all backdrop-blur-md active:scale-95"
+                className="flex items-center justify-center rounded-full border border-white/25 bg-white/[0.06] px-8 py-4 text-sm font-bold text-white transition-all backdrop-blur-md hover:border-white/45 hover:bg-white/[0.1] active:scale-95 md:text-base"
               >
                 View Our Work
               </Link>

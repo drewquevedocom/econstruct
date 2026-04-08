@@ -19,7 +19,7 @@ import Button from "@/components/ui/Button";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "For Public Adjusters — Partner with eConstruct",
+  title: "For Public Adjusters — Partner with econstruct",
   description:
     "Partner with LA's fastest fire rebuild team. Your clients get priority scheduling, free scope validation reports, and a builder who makes your work look brilliant.",
   path: "/for-public-adjusters",
@@ -88,7 +88,7 @@ export default function ForPublicAdjustersPage() {
         <Container>
           <SectionHeader
             badge={["PA Partnership"]}
-            title="Why Public Adjusters Choose eConstruct"
+            title="Why Public Adjusters Choose econstruct"
             subtitle="We make your job easier and your clients happier. Here's how."
           />
 
@@ -185,7 +185,7 @@ export default function ForPublicAdjustersPage() {
               <SectionHeader
                 badge={["Get Started"]}
                 title="Become a Partner"
-                subtitle="Join the growing network of public adjusters who trust eConstruct to deliver for their clients. No contracts, no obligations — just results."
+                subtitle="Join the growing network of public adjusters who trust econstruct to deliver for their clients. No contracts, no obligations — just results."
               />
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Button href="/contact?source=public-adjuster" variant="primary" size="lg">

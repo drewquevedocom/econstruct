@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { services } from "@/lib/data/services";
 import { projects } from "@/lib/data/projects";
 import { blogPosts } from "@/lib/data/blog-posts";
+import { promptServices } from "@/lib/data/prompt-services";
+import { promptProjects } from "@/lib/data/prompt-projects";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://econstructinc.com";
@@ -9,9 +11,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
     { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 1.0 },
     { url: `${baseUrl}/services`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.9 },
+    { url: `${baseUrl}/projects`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.8 },
     { url: `${baseUrl}/our-work`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.8 },
     { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.9 },
+    { url: `${baseUrl}/service-areas`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.6 },
     { url: `${baseUrl}/resources`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `${baseUrl}/resources/fire-rebuild-guide`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${baseUrl}/resources/cost-calculator`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.8 },
@@ -28,11 +32,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
+  const promptServicePages = promptServices.map((service) => ({
+    url: `${baseUrl}/services/${service.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.9,
+  }));
+
   const projectPages = projects.map((project) => ({
     url: `${baseUrl}/our-work/${project.slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.7,
+  }));
+
+  const promptProjectPages = promptProjects.map((project) => ({
+    url: `${baseUrl}/projects/${project.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
   }));
 
   const blogPages = blogPosts.map((post) => ({
@@ -42,5 +60,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...servicePages, ...projectPages, ...blogPages];
+  return [
+    ...staticPages,
+    ...servicePages,
+    ...promptServicePages,
+    ...projectPages,
+    ...promptProjectPages,
+    ...blogPages,
+  ];
 }

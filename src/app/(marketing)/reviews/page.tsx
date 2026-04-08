@@ -11,9 +11,9 @@ import Button from "@/components/ui/Button";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Client Reviews — What Our Clients Say About eConstruct",
+  title: "Client Reviews — What Our Clients Say About econstruct",
   description:
-    "Read verified reviews from eConstruct clients across Los Angeles. 5.0-star rating based on 47 reviews for fire rebuilds, luxury modernization, and custom homes.",
+    "Read verified reviews from econstruct clients across Los Angeles. 5.0-star rating based on 47 reviews for fire rebuilds, luxury modernization, and custom homes.",
   path: "/reviews",
 });
 
@@ -48,7 +48,7 @@ export default function ReviewsPage() {
 
       <PageHero
         title="What Our Clients Say"
-        subtitle="Real stories from homeowners across Los Angeles who trusted eConstruct with their most important investment."
+        subtitle="Real stories from homeowners across Los Angeles who trusted econstruct with their most important investment."
         breadcrumbs={[{ label: "Reviews" }]}
       />
 

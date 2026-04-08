@@ -19,14 +19,14 @@ export function generatePageMetadata({ title, description, path, image, noIndex 
       canonical: url,
     },
     openGraph: {
-      title: `${title} | eConstruct Inc.`,
+      title: `${title} | econstruct Inc.`,
       description,
       url,
       images: [{ url: ogImage, width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | eConstruct Inc.`,
+      title: `${title} | econstruct Inc.`,
       description,
       images: [ogImage],
     },

@@ -4,7 +4,7 @@
 function renderTable(data) {
   const tbody = document.getElementById('leadsTableBody');
   tbody.innerHTML = '';
-  data.forEach((lead) => {
+  data.filter(l => !l.archived).forEach((lead) => {
     const scoreClass = lead.score >= 85 ? 'score-high' : 'score-mid';
     const stageClass = STAGE_CLASSES[lead.stage] || 'stage-enriched';
     const tr = document.createElement('tr');
