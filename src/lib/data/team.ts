@@ -10,8 +10,8 @@ export const team: TeamMember[] = [
   {
     name: "Frank Neimroozi",
     title: "Owner & President",
-    bio: "Frank has been building in Los Angeles since 2001 - more than 25 years of hands-on residential construction experience - and founded econstruct in 2011. Over 15 years at the helm of econstruct, he has led the team through 345+ projects spanning fire rebuilds, luxury custom homes, and ground-up modernizations, setting the standard for premium quality in the industry.",
-    image: "/frank-about.png",
+    bio: "Frank has been building in Los Angeles since 2001 - more than 25 years of hands-on residential construction experience - and founded econstruct in 2011. Over 15 years at the helm of econstruct, he has led the team through 639+ projects spanning fire rebuilds, luxury custom homes, and ground-up modernizations, setting the standard for premium quality in the industry.",
+    image: "/Frank2 copy.png",
     email: "frank@econstructinc.com",
   },
   {

@@ -7,7 +7,7 @@ export default function TrustBadge() {
     { icon: Clock, value: "25+", label: "Years Experience" },
     { icon: ShieldCheck, value: "Lic #", label: "964015" },
     { icon: Award, value: "100%", label: "Satisfaction Focus" },
-    { icon: HardHat, value: "100s", label: "Projects Completed" },
+    { icon: HardHat, value: "639+", label: "Projects Completed" },
   ];
 
   return (

@@ -68,18 +68,18 @@ export default function GatekeeperCTA() {
 
   return (
     <section
-      className="relative w-full overflow-hidden"
-      style={{ height: "clamp(460px, 58vw, 680px)" }}
+      className="relative w-full"
+      style={{
+        height: "clamp(460px, 58vw, 680px)",
+        backgroundImage: "url('/hollywood_hills_v2.png')",
+        backgroundAttachment: "fixed",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/global-cta-premium.png')" }}
-      />
-
-      {/* Stronger readability stack: warm dark base, left-to-right darken for copy area, bottom vignette */}
-      <div className="absolute inset-0 bg-[rgba(7,9,12,0.55)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(4,7,12,0.82)_0%,rgba(4,7,12,0.62)_38%,rgba(4,7,12,0.3)_68%,rgba(4,7,12,0.55)_100%)]" />
-      <div className="absolute inset-x-0 bottom-0 h-[55%] bg-[linear-gradient(180deg,transparent_0%,rgba(4,7,12,0.55)_60%,rgba(4,7,12,0.85)_100%)]" />
+      {/* Overlay — dark enough for text, light enough to see the image */}
+      <div className="absolute inset-0 bg-[rgba(4,7,12,0.42)]" />
+      <div className="absolute inset-x-0 bottom-0 h-[55%] bg-[linear-gradient(180deg,transparent_0%,rgba(4,7,12,0.55)_100%)]" />
 
       <div className="absolute inset-0 flex items-end px-8 pb-10 md:px-14 md:pb-14">
         <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-8 md:flex-row md:items-end md:justify-between">
@@ -89,13 +89,9 @@ export default function GatekeeperCTA() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="mb-5 text-xs font-bold uppercase tracking-[0.28em] text-white/88"
+              className="mb-5 text-xs font-bold uppercase tracking-[0.28em] text-accent-gold/90"
             >
-              <span className="text-[1.05rem] font-black tracking-[0.22em] text-white">
-                econstruct
-              </span>
-              <span className="mx-2 text-accent-gold/80">-</span>
-              <span className="text-accent-gold/90">{copy.eyebrow.replace("econstruct - ", "")}</span>
+              {copy.eyebrow.replace("econstruct - ", "")}
             </motion.p>
 
             <motion.h2
@@ -107,7 +103,8 @@ export default function GatekeeperCTA() {
               style={{
                 fontSize: "clamp(2.5rem, 5.2vw, 5.25rem)",
                 textShadow:
-                  "0 2px 6px rgba(0,0,0,0.75), 0 18px 42px rgba(0,0,0,0.55)",
+                  "0 2px 12px rgba(0,0,0,0.9), 0 4px 32px rgba(0,0,0,0.7)",
+                color: "#ffffff",
               }}
             >
               {copy.title[0]}

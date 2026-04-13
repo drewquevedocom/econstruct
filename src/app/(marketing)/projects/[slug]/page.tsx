@@ -174,6 +174,32 @@ export default async function ProjectPage({
         </Container>
       </section>
 
+      {project.youtubeUrl && (
+        <section className="py-24 md:py-32">
+          <Container>
+            <AnimatedSection>
+              <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.34em] text-accent-gold text-center">
+                Project Video
+              </p>
+              <h2 className="mb-10 text-center text-3xl font-bold tracking-tight text-brand-dark md:text-4xl">
+                See It in Action
+              </h2>
+              <div className="mx-auto max-w-4xl overflow-hidden rounded-3xl shadow-[0_24px_60px_rgba(0,0,0,0.12)]">
+                <div className="relative aspect-video w-full">
+                  <iframe
+                    src={`https://www.youtube-nocookie.com/embed/${new URL(project.youtubeUrl).searchParams.get("v")}`}
+                    title={project.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    className="absolute inset-0 h-full w-full"
+                  />
+                </div>
+              </div>
+            </AnimatedSection>
+          </Container>
+        </section>
+      )}
+
       <section className="bg-[#F8F6F2] py-24 md:py-32">
         <Container>
           <div className="grid gap-8 lg:grid-cols-3">

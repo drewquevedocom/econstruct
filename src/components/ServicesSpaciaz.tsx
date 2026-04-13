@@ -5,14 +5,28 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 
-const services = [
+interface ServiceCard {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  image: string;
+  objectFit: string;
+  href: string;
+  objectPosition?: string;
+  beforeImage?: string;
+  afterImage?: string;
+}
+
+const services: ServiceCard[] = [
   {
     id: "01",
     title: "Fire Damage Rebuilds",
     slug: "Fire Damage Rebuilds",
     description:
       "econstruct handles complete fire damage restoration and rebuilds across Los Angeles - Palisades, Altadena, and Malibu. We manage insurance claims, demolition permits, and full custom reconstruction.",
-    image: "/fire_rebuild_hero.png",
+    image: "/Fire Damage Rebuilds 2.png",
+    objectFit: "object-cover",
     href: "/services/fire-rebuild-contractor-los-angeles",
   },
   {
@@ -21,7 +35,10 @@ const services = [
     slug: "Luxury Modernization",
     description:
       "Transform your LA home into a high-performance luxury residence. From full modernizations to ADU additions, our design-build team delivers precision craftsmanship with energy-efficient systems for California living.",
-    image: "/luxury_mod_service.png",
+    image: "/service_02_luxury_mod.png",
+    objectFit: "object-cover",
+    beforeImage: "/before.png",
+    afterImage: "/service_02_luxury_mod.png",
     href: "/services/luxury-home-builder-los-angeles",
   },
   {
@@ -30,7 +47,8 @@ const services = [
     slug: "Ground-Up Custom Homes",
     description:
       "Build from the ground up in Beverly Hills, Bel Air, or Pacific Palisades. Our licensed general contractors manage architecture, engineering, permitting, and construction - under one roof.",
-    image: "/custom_home_service.png",
+    image: "/service_03_custom_home.png",
+    objectFit: "object-cover",
     href: "/services/custom-home-construction-los-angeles",
   },
   {
@@ -39,7 +57,8 @@ const services = [
     slug: "Home Additions",
     description:
       "Room additions, second stories, ADUs, and garage conversions designed to expand your home without compromising the architecture. Permit strategy and clean integration from day one.",
-    image: "/custom_home_service.png",
+    image: "/service_04_home_additions.png.png",
+    objectFit: "object-cover",
     href: "/services/home-additions-los-angeles",
   },
   {
@@ -48,10 +67,12 @@ const services = [
     slug: "Home Automation",
     description:
       "Integrated lighting, shades, audio-video, climate, and security planned into the build from day one. Luxury smart-home technology that feels invisible and works reliably.",
-    image: "/luxury_mod_service.png",
+    image: "/service_05_home_automation.png.png",
+    objectFit: "object-cover",
+    objectPosition: "left center",
     href: "/services/home-automation-los-angeles",
   },
-] as const;
+];
 
 export default function ServicesSpaciaz() {
   const [displayedIndex, setDisplayedIndex] = useState(0);
@@ -159,16 +180,31 @@ export default function ServicesSpaciaz() {
                       </Link>
 
                       <div className="mt-5 min-[900px]:hidden">
-                        <div className="relative overflow-hidden rounded-lg">
-                          <img
-                            src={service.image}
-                            alt={service.title}
-                            className={`h-[260px] w-full object-cover transition-all duration-500 ${
-                              isActive ? "scale-100 opacity-100" : "scale-[1.04] opacity-0"
-                            }`}
-                          />
-                          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/38 via-black/8 to-transparent" />
-                        </div>
+                        {service.beforeImage ? (
+                          <div className="flex h-[260px] overflow-hidden rounded-lg">
+                            <div className="relative w-1/2 overflow-hidden">
+                              <img src={service.beforeImage} alt="Before" className="h-full w-full object-cover" />
+                              <span className="absolute left-2 top-2 rounded-sm bg-black/60 px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-white/80">Before</span>
+                            </div>
+                            <div className="w-[2px] shrink-0 bg-[#c9a227]" />
+                            <div className="relative w-1/2 overflow-hidden">
+                              <img src={service.afterImage} alt="After" className="h-full w-full object-cover" />
+                              <span className="absolute right-2 top-2 rounded-sm bg-[#c9a227]/90 px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-[#1c1c1e]">After</span>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="relative overflow-hidden rounded-lg">
+                            <img
+                              src={service.image}
+                              alt={service.title}
+                              className={`h-[260px] w-full transition-all duration-500 ${service.objectFit} ${
+                                isActive ? "scale-100 opacity-100" : "scale-[1.04] opacity-0"
+                              }`}
+                              style={{ objectPosition: service.objectPosition ?? "center" }}
+                            />
+                            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/38 via-black/8 to-transparent" />
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -183,14 +219,40 @@ export default function ServicesSpaciaz() {
                 {services.map((service, index) => {
                   const isActive = displayedIndex === index;
 
+                  if (service.beforeImage && service.afterImage) {
+                    return (
+                      <div
+                        key={service.id}
+                        className={`absolute inset-0 transition-[opacity,transform] duration-[600ms] ease-out ${
+                          isActive ? "opacity-100 scale-100" : "opacity-0 scale-[1.04]"
+                        }`}
+                      >
+                        {/* Full size image */}
+                        <img src={service.image} alt={service.title} className="h-full w-full object-cover" />
+                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
+
+                        {/* Before badge — top left */}
+                        <span className="absolute left-3 top-3 rounded-sm bg-black/60 px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.28em] text-white/80 backdrop-blur-sm">
+                          Before
+                        </span>
+
+                        {/* After badge — top right */}
+                        <span className="absolute right-3 top-3 rounded-sm bg-[#c9a227]/90 px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.28em] text-[#1c1c1e] backdrop-blur-sm">
+                          After
+                        </span>
+                      </div>
+                    );
+                  }
+
                   return (
                     <img
                       key={service.id}
                       src={service.image}
                       alt={service.title}
-                      className={`absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-[600ms] ease-out ${
+                      className={`absolute inset-0 h-full w-full transition-[opacity,transform] duration-[600ms] ease-out ${service.objectFit} ${
                         isActive ? "scale-100 opacity-100" : "scale-[1.04] opacity-0"
                       }`}
+                      style={{ objectPosition: service.objectPosition ?? "center" }}
                     />
                   );
                 })}

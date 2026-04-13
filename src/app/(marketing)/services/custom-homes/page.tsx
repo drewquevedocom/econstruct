@@ -172,7 +172,7 @@ export default function CustomHomesPage() {
               { value: "$500-$1K+", label: "Per Sq Ft" },
               { value: "14-24 Mo", label: "Typical Timeline" },
               { value: "25+", label: "Years Experience" },
-              { value: "345+", label: "Projects Completed" },
+              { value: "639+", label: "Projects Completed" },
             ].map((stat) => (
               <AnimatedSection key={stat.label}>
                 <div>

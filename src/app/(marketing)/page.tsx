@@ -15,13 +15,24 @@ import { generateLocalBusinessSchema } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "econstruct Inc. — Los Angeles' Premier High-End Home Builder",
   description:
-    "Fire Rebuilds. Luxury Modernization. Ground-Up Custom Homes. CA License #964015. 25+ years of premium residential construction in Los Angeles.",
+    "Fire Rebuilds. Luxury Modernization. Ground-Up Custom Homes. CA License #964015. 639+ projects delivered since 2001 across Los Angeles.",
+  alternates: {
+    canonical: "https://econstructinc.com",
+  },
   openGraph: {
     title: "econstruct Inc. — Los Angeles' Premier High-End Home Builder",
     description:
-      "Fire Rebuilds. Luxury Modernization. Ground-Up Custom Homes. 25+ years of premium residential construction.",
+      "Fire Rebuilds. Luxury Modernization. Ground-Up Custom Homes. 639+ projects. CA License #964015. Serving Pacific Palisades, Beverly Hills, Malibu & all of LA.",
     url: "https://econstructinc.com",
-    images: [{ url: "/econstruct_logo.png", width: 1200, height: 630 }],
+    type: "website",
+    siteName: "econstruct Inc.",
+    images: [{ url: "https://econstructinc.com/econstruct_logo.png", width: 1200, height: 630, alt: "econstruct Inc. — Los Angeles luxury home builder" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "econstruct Inc. — Los Angeles' Premier High-End Home Builder",
+    description: "Fire Rebuilds. Luxury Modernization. Ground-Up Custom Homes. CA License #964015. 639+ projects across LA.",
+    images: ["https://econstructinc.com/econstruct_logo.png"],
   },
 };
 

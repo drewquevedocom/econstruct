@@ -92,16 +92,6 @@ export default function FeaturedProject() {
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Link
-                href={caseStudyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-3 rounded-full bg-brand-dark px-6 py-4 text-sm font-bold text-white shadow-[0_14px_24px_rgba(0,0,0,0.14)] transition-all hover:-translate-y-0.5 hover:bg-accent-gold hover:text-brand-dark"
-              >
-                Read the case study
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-
-              <Link
                 href="/projects"
                 className="inline-flex items-center justify-center rounded-full border border-black/10 bg-white px-6 py-4 text-sm font-bold text-brand-dark transition-all hover:border-accent-gold hover:text-accent-gold"
               >

@@ -5,45 +5,39 @@ import { Star } from "lucide-react";
 
 const testimonials = [
   {
-    quote: "econstruct built our dream home! Best custom homebuilders in Los Angeles - I highly recommend their personalized approach. The team at econstruct is incredible!",
+    quote: "econstruct built our dream home — best custom homebuilders in Los Angeles. I highly recommend their personalized approach...",
     name: "Nathan Hughes",
     neighborhood: "Los Angeles",
     rating: 5,
   },
   {
-    quote: "econstruct helped remodel my master bedroom back in 2013. They answered all my questions and concerns, and went above and beyond to turn my master into a beautiful new space with a new walk-in closet, balcony, and bath. I would love to use econstruct again for my next remodeling project.",
+    quote: "econstruct remodeled my master bedroom and went above and beyond — new walk-in closet, balcony, and bath. I would love to use them again for my next project...",
     name: "Eugene Shakhov",
     neighborhood: "Los Angeles",
     rating: 5,
   },
   {
-    quote: "Great team and amazing quality.",
+    quote: "Great team and amazing quality. econstruct delivered exactly what we envisioned and made the process seamless from start to finish...",
     name: "Hashen Hamedani",
     neighborhood: "Los Angeles",
     rating: 5,
   },
   {
-    quote: "The team at econstruct brings knowledge and experience that includes not only extensive construction and planning, but also retail operations experience. This added value has been helpful in identifying layout opportunities to improve operation efficiencies that most GCs would not be capable of identifying. The finish work is top notch and their ability to build on a quick schedule is top shelf. Great people to work with that excel at their jobs.",
+    quote: "econstruct brings construction expertise and a level of detail most GCs simply can't match. The finish work is top notch and they build on a quick schedule...",
     name: "Neil M.",
     neighborhood: "Los Angeles",
     rating: 5,
   },
   {
-    quote: "econstruct did an outstanding job in all areas. They did super high quality work, they went above and beyond what was expected. Seriously, I could not be more impressed with them. I am very thankful for them.",
+    quote: "econstruct did an outstanding job in all areas — super high quality work, they went above and beyond what was expected. I could not be more impressed...",
     name: "Randy W.",
     neighborhood: "Los Angeles",
     rating: 5,
   },
   {
-    quote: "econstruct performed a complete remodel to my friend's rental home in Bell Canyon. My friend lives in Dubai, so since I lived in Bell Canyon, I watched over the project on a daily basis. It was a major remodel with a new roof, decks, stucco, re-plumbing, walk-mover, all new stone floors — basically everything was changed. Everything went well. The subcontractors were excellent. The finished product was beautiful. I have no complaints.",
+    quote: "econstruct completed a major remodel — new roof, decks, stucco, re-plumbing, all new stone floors. The subcontractors were excellent and the finished product was beautiful...",
     name: "Tony Biscaglia",
     neighborhood: "Bell Canyon",
-    rating: 5,
-  },
-  {
-    quote: "I managed a high-end remodel in an exclusive gated community in Los Angeles. It was the proverbial 'one wall remodel.' Walls were moved. All electrical was completely rewired with added panels. The upper deck had to be completely restructured. All flooring was replaced and the entire home was reconfigured.",
-    name: "Tony Biscaglia",
-    neighborhood: "Los Angeles",
     rating: 5,
   },
 ];
@@ -73,7 +67,7 @@ export default function TestimonialsSection() {
           <span>TESTIMONIALS</span>
         </motion.div>
 
-        <div className="relative h-[250px] md:h-[200px] flex items-center justify-center">
+        <div className="relative min-h-[180px] flex items-center justify-center">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
@@ -81,7 +75,7 @@ export default function TestimonialsSection() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.5 }}
-              className="absolute w-full px-4"
+              className="w-full px-4"
             >
               <div className="flex justify-center gap-1 mb-8">
                 {Array.from({ length: testimonials[currentIndex].rating }).map((_, i) => (

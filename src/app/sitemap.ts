@@ -1,9 +1,14 @@
 import type { MetadataRoute } from "next";
 import { services } from "@/lib/data/services";
 import { projects } from "@/lib/data/projects";
-import { blogPosts } from "@/lib/data/blog-posts";
 import { promptServices } from "@/lib/data/prompt-services";
 import { promptProjects } from "@/lib/data/prompt-projects";
+import {
+  getAllBlogAuthors,
+  getAllBlogPosts,
+  getBlogCategories,
+  getBlogTags,
+} from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://econstructinc.com";
@@ -54,11 +59,39 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const blogPages = blogPosts.map((post) => ({
-    url: `${baseUrl}/resources/${post.slug}`,
-    lastModified: new Date(post.date),
+  const blogIndexPage = {
+    url: `${baseUrl}/blog`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  };
+
+  const blogPages = getAllBlogPosts().map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.updatedAt),
     changeFrequency: "monthly" as const,
-    priority: 0.6,
+    priority: 0.7,
+  }));
+
+  const blogCategoryPages = getBlogCategories().map((category) => ({
+    url: `${baseUrl}/blog/category/${category.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.5,
+  }));
+
+  const blogTagPages = getBlogTags().map((tag) => ({
+    url: `${baseUrl}/blog/tag/${tag.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.4,
+  }));
+
+  const blogAuthorPages = getAllBlogAuthors().map((author) => ({
+    url: `${baseUrl}/blog/author/${author.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.5,
   }));
 
   return [
@@ -67,6 +100,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...promptServicePages,
     ...projectPages,
     ...promptProjectPages,
+    blogIndexPage,
     ...blogPages,
+    ...blogCategoryPages,
+    ...blogTagPages,
+    ...blogAuthorPages,
   ];
 }

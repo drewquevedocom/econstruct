@@ -50,6 +50,10 @@ export default function Header() {
               Projects
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-gold transition-all duration-300 group-hover:w-full"></span>
             </Link>
+            <Link href="/blog" className={`${textColor} ${hoverColor} relative group text-[12px] font-semibold uppercase tracking-[0.2em] transition-colors`}>
+              Blog
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-gold transition-all duration-300 group-hover:w-full"></span>
+            </Link>
             <Link href="/about" className={`${textColor} ${hoverColor} relative group text-[12px] font-semibold uppercase tracking-[0.2em] transition-colors`}>
               About
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-gold transition-all duration-300 group-hover:w-full"></span>
@@ -104,6 +108,7 @@ export default function Header() {
               <Link href="/services/home-automation-los-angeles" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-white/65 hover:text-accent-gold">Home Automation</Link>
             </div>
             <Link href="/projects" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-accent-gold">Projects</Link>
+            <Link href="/blog" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-accent-gold">Blog</Link>
             <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-accent-gold">About</Link>
             <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-accent-gold">Contact</Link>
 

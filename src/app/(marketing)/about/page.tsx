@@ -9,7 +9,6 @@ import {
   HardHat,
   DollarSign,
   FileCheck,
-  Users,
 } from "lucide-react";
 import { generatePageMetadata } from "@/lib/metadata";
 import {
@@ -27,7 +26,7 @@ import ConsultationCTA from "@/components/ConsultationCTA";
 export const metadata: Metadata = generatePageMetadata({
   title: "About econstruct - Building LA Since 2001",
   description:
-    "Meet the team behind econstruct Inc. Building in Los Angeles since 2001, founded as econstruct in 2011, and 345+ premium residential projects delivered. CA Lic #964015.",
+    "Meet the team behind econstruct Inc. Building in Los Angeles since 2001, founded as econstruct in 2011, and 639+ premium residential projects delivered. CA Lic #964015.",
   path: "/about",
 });
 
@@ -58,9 +57,9 @@ const milestones = [
   },
   {
     year: "2026",
-    title: "345+ Projects & Counting",
+    title: "639+ Projects & Counting",
     description:
-      "Completed 345+ projects across Los Angeles with a 100% permit success rate and 5-star client satisfaction.",
+      "Completed 639+ projects across Los Angeles with a 100% permit success rate and 5-star client satisfaction.",
   },
 ];
 
@@ -84,7 +83,7 @@ const credentials = [
 ];
 
 const stats = [
-  { value: "345+", label: "Projects Completed", icon: HardHat },
+  { value: "639+", label: "Projects Completed", icon: HardHat },
   { value: "Since 2001", label: "Building in LA", icon: Clock },
   { value: "$450-$800", label: "Per Sq Ft", icon: DollarSign },
   { value: "3x", label: "Faster Permits", icon: FileCheck },
@@ -178,42 +177,61 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* Team Grid */}
+      {/* Founding Philosophy — EEAT Section */}
       <section className="py-24 md:py-32 bg-[#F8F6F2]">
         <Container>
-          <SectionHeader
-            badge={["Our Team"]}
-            title="The People Behind the Projects"
-            subtitle="A focused leadership team that treats every home as if it were our own."
-          />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {team.map((member, i) => (
-              <AnimatedSection key={member.name} delay={i * 0.1}>
-                <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 h-full flex flex-col">
-                  <div className="w-16 h-16 bg-accent-gold/10 rounded-2xl flex items-center justify-center mb-6">
-                    <Users size={28} className="text-accent-gold" />
-                  </div>
-                  <h3 className="text-xl font-bold text-brand-dark">
-                    {member.name}
-                  </h3>
-                  <p className="text-accent-gold font-medium text-sm mt-1 mb-4">
-                    {member.title}
-                  </p>
-                  <p className="text-gray-500 leading-relaxed flex-1">
-                    {member.bio}
-                  </p>
-                  {member.email && (
-                    <Link
-                      href={`mailto:${member.email}`}
-                      className="mt-6 text-sm font-bold text-brand-dark hover:text-accent-gold transition-colors"
-                    >
-                      {member.email}
-                    </Link>
-                  )}
+            {/* Copy */}
+            <AnimatedSection delay={0.15}>
+              <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.34em] text-accent-gold">
+                Why We Were Founded
+              </p>
+              <h2 className="font-heading text-4xl leading-tight tracking-tight text-brand-dark md:text-5xl mb-8">
+                Built to Fix What Was Broken
+              </h2>
+
+              <div className="space-y-5 text-gray-600 text-[1.05rem] leading-relaxed">
+                <p>
+                  Frank Neimroozi founded econstruct in 2011 as a direct response to the failures he watched play out across the Los Angeles construction industry — irresponsible project management, inadequate planning, and a near-total absence of honest communication between contractors and clients.
+                </p>
+                <p>
+                  The company was built from the ground up on three principles that remain non-negotiable today: <span className="font-semibold text-brand-dark">transparency, accuracy, and reliability.</span> Every process, every conversation, and every deliverable is designed around keeping clients fully informed and projects on track.
+                </p>
+                <p>
+                  Over the years, Frank assembled a vetted network of Los Angeles&apos; top architects, engineers, permit expeditors, subcontractors, and vendors — relationships built on mutual accountability and a shared standard of craft. This network is one of econstruct&apos;s most significant competitive advantages and cannot be replicated overnight.
+                </p>
+                <p>
+                  Today, with 639+ completed projects and over two decades of hands-on field experience, econstruct is recognized as one of Los Angeles&apos; most trusted residential construction firms. Our mission has never changed: to build enduring homes of unmatched quality — and to do it with the honesty and discipline that our clients deserve.
+                </p>
+              </div>
+
+              {/* Pull quote */}
+              <blockquote className="mt-10 border-l-4 border-accent-gold pl-6 italic text-brand-dark text-lg leading-relaxed">
+                &ldquo;Our mission extends beyond building structures. We aim to create enduring monuments of unmatched quality and trustworthiness — one flawless project at a time.&rdquo;
+                <footer className="mt-3 not-italic text-[11px] font-bold uppercase tracking-[0.28em] text-black/45">
+                  Frank Neimroozi, Founder
+                </footer>
+              </blockquote>
+            </AnimatedSection>
+
+            {/* Image */}
+            <AnimatedSection>
+              <div className="relative overflow-hidden rounded-3xl aspect-[4/5] bg-gray-100">
+                <Image
+                  src="/Frank4.png"
+                  alt="Frank Neimroozi — econstruct founder on a job site"
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-brand-dark/80 to-transparent p-8">
+                  <p className="text-white font-bold text-xl">Frank Neimroozi</p>
+                  <p className="text-white/70 text-sm">Founder &amp; President — econstruct Inc.</p>
                 </div>
-              </AnimatedSection>
-            ))}
+              </div>
+            </AnimatedSection>
+
           </div>
         </Container>
       </section>

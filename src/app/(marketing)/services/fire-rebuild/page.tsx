@@ -174,7 +174,7 @@ export default function FireRebuildPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
               { value: "25+", label: "Years Experience" },
-              { value: "345+", label: "Projects Completed" },
+              { value: "639+", label: "Projects Completed" },
               { value: "3x", label: "Faster Permitting" },
               { value: `Lic #${COMPANY.license.number}`, label: "CA Licensed & Insured" },
             ].map((stat) => (
@@ -421,7 +421,7 @@ export default function FireRebuildPage() {
               },
               {
                 icon: Users,
-                stat: "345+",
+                stat: "639+",
                 label: "Projects Delivered",
                 description:
                   "Across all project types in Los Angeles. Our fire rebuild experience is second to none.",

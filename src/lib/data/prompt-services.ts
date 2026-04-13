@@ -45,7 +45,7 @@ export const promptServices: PromptServicePage[] = [
     heroTitle: "Luxury Home Builder in Los Angeles",
     heroSubtitle:
       "Custom-built luxury homes designed for the way you live, managed with the rigor high-end projects demand.",
-    image: "/custom_home_service.png",
+    image: "/Modern_Home copy.png",
     intro: [
       "econstruct builds luxury homes for clients who expect design integrity, proactive project management, and premium execution from preconstruction through final turnover.",
       "Luxury construction in Los Angeles is about permits, architecture, procurement, hillside and coastal constraints, and field execution that protects the design intent.",
@@ -95,7 +95,7 @@ export const promptServices: PromptServicePage[] = [
       "Fire rebuild contractor in Los Angeles for Palisades, Malibu, and surrounding areas. Insurance coordination, permitting support, and code-ready reconstruction.",
     heroTitle: "Fire Rebuild Contractor in Los Angeles",
     heroSubtitle: "Rebuilding Los Angeles homes with care, precision, and urgency after wildfire loss.",
-    image: "/fire_rebuild_hero.png",
+    image: "/Fire Damage Rebuilds 2.png",
     intro: [
       "The construction problem is only one part of a fire loss. The real challenge is coordinating insurance, design, permits, demolition, code upgrades, and the emotional weight of starting over.",
       "Our fire rebuild work in Los Angeles is shaped by what homeowners in Pacific Palisades, Malibu, and other fire-affected areas actually need: a contractor who can move quickly and work clearly.",
@@ -146,7 +146,7 @@ export const promptServices: PromptServicePage[] = [
       "Custom home construction in Los Angeles with design-build coordination, permit strategy, hillside expertise, and premium execution from concept to keys.",
     heroTitle: "Custom Home Construction in Los Angeles",
     heroSubtitle: "One team from concept to keys for clients who want a controlled, design-aware custom build process.",
-    image: "/custom_home_service.png",
+    image: "/service_03_custom_home.png",
     intro: [
       "Custom home construction only works well when design, entitlement, procurement, and field execution stay connected.",
       "econstruct approaches custom home construction as a design-build leadership problem, coordinating architecture, engineering, permitting, and site execution.",
@@ -196,7 +196,7 @@ export const promptServices: PromptServicePage[] = [
       "Home addition contractor in Los Angeles for second stories, ADUs, guest houses, and major room additions. Permit guidance and premium execution.",
     heroTitle: "Home Addition Contractor in Los Angeles",
     heroSubtitle: "Room additions, second stories, ADUs, and garage conversions designed to add usable space without compromising the home.",
-    image: "/custom_home_service.png",
+    image: "/service_04_home_additions.png.png",
     intro: [
       "Home additions succeed when the new square footage feels intentional instead of patched on.",
       "econstruct handles additions ranging from ADUs and guest houses to second-story expansions and larger home reconfigurations.",
@@ -247,7 +247,7 @@ export const promptServices: PromptServicePage[] = [
     heroTitle: "Home Automation & Smart Home Integration in Los Angeles",
     heroSubtitle:
       "Invisible technology for high-end homes. Integrated lighting, shades, climate, audio-video, and security controlled from one refined interface.",
-    image: "/luxury_mod_service.png",
+    image: "/service_05_home_automation.png.png",
     intro: [
       "Home automation in a luxury residence is not about gadgets. It is about making a sophisticated home feel effortless - lighting that responds to the time of day, shades that know the season, audio and video that follow you from room to room, and security that runs quietly in the background.",
       "econstruct builds home automation into new construction and modernization projects so wiring, power, networking, and device placement are planned from day one instead of bolted on later.",

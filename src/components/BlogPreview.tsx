@@ -1,110 +1,72 @@
-"use client";
-import { motion } from "framer-motion";
+﻿import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { getAllBlogPosts } from "@/lib/blog";
 
 export default function BlogPreview() {
-  const posts = [
-    {
-      title: "Understanding Local WUI Codes for Fire Rebuilds",
-      excerpt: "If you're rebuilding in a high-fire severity zone, navigating the WUI regulations is your absolute first priority before drafting any plans.",
-      image: "/fire_rebuild_hero.png",
-      date: "March 12, 2026",
-      href: "/blog/understanding-wui-codes"
-    },
-    {
-      title: "The Return on Investment of Luxury Kitchen Modernization",
-      excerpt: "Discover how high-end luxury renovations in Brentwood and Santa Monica are driving substantial valuation multipliers in today's market.",
-      image: "/luxury_mod_service.png",
-      date: "March 5, 2026",
-      href: "/blog/roi-luxury-kitchen"
-    },
-    {
-      title: "Ground-Up Custom Builds: Avoiding Permitting Nightmares",
-      excerpt: "The ultimate guide to streamlining your timeline by properly establishing executive order fast-tracking and strategic city planning approvals.",
-      image: "/custom_home_service.png",
-      date: "February 28, 2026",
-      href: "/blog/custom-builds-permitting"
-    }
-  ];
+  const posts = getAllBlogPosts().slice(0, 3);
 
   return (
-    <section className="py-24 md:py-32 bg-white">
-      <div className="container mx-auto px-6 max-w-7xl">
-        
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+    <section className="bg-white py-24 md:py-32">
+      <div className="container mx-auto max-w-7xl px-6">
+        <div className="mb-16 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div>
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="border border-brand-dark/20 uppercase tracking-widest text-[10px] font-bold px-4 py-1.5 rounded-full text-brand-dark w-fit mb-6 flex gap-2 items-center"
-            >
-              <span>INSIGHTS</span> 
-              <span className="text-accent-gold">•</span>
+            <div className="mb-6 flex w-fit items-center gap-2 rounded-full border border-brand-dark/20 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-brand-dark">
+              <span>INSIGHTS</span>
+              <span className="text-accent-gold">&bull;</span>
               <span>LATEST NEWS</span>
-            </motion.div>
-            <motion.h2 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-4xl md:text-5xl lg:text-5xl font-bold text-brand-dark tracking-tight"
-            >
-              Blogs
-            </motion.h2>
+            </div>
+            <h2 className="text-4xl font-bold tracking-tight text-brand-dark md:text-5xl lg:text-5xl">
+              Blog
+            </h2>
           </div>
-          
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <Link 
-              href="/resources"
-              className="group flex gap-3 items-center text-brand-dark font-bold border-b-2 border-brand-dark/20 pb-1 hover:border-accent-gold hover:text-accent-gold transition-colors"
+
+          <div>
+            <Link
+              href="/blog"
+              className="group flex items-center gap-3 border-b-2 border-brand-dark/20 pb-1 font-bold text-brand-dark transition-colors hover:border-accent-gold hover:text-accent-gold"
             >
-              View All Resources
+              View All Articles
               <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
             </Link>
-          </motion.div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {posts.map((post, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.15 }}
-            >
-              <Link href={post.href} className="group flex flex-col h-full bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
-                <div className="h-60 w-full overflow-hidden relative">
-                  <div 
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                    style={{ backgroundImage: `url(${post.image})` }}
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          {posts.map((post) => (
+            <div key={post.slug}>
+              <Link
+                href={`/blog/${post.slug}`}
+                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white transition-all duration-300 hover:shadow-xl"
+              >
+                <div className="relative h-60 w-full overflow-hidden">
+                  <Image
+                    src={post.heroImage}
+                    alt={post.heroImageAlt}
+                    width={1600}
+                    height={900}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm py-1.5 px-4 rounded-full text-xs font-bold text-brand-dark shadow-sm">
-                    {post.date}
+                  <div className="absolute left-4 top-4 rounded-full bg-white/90 px-4 py-1.5 text-xs font-bold text-brand-dark shadow-sm backdrop-blur-sm">
+                    {post.formattedDate}
                   </div>
                 </div>
-                <div className="p-8 flex flex-col flex-grow">
-                  <h3 className="text-xl font-bold leading-snug text-brand-dark mb-4 group-hover:text-accent-gold transition-colors">
+                <div className="flex flex-grow flex-col p-8">
+                  <h3 className="mb-4 text-xl font-bold leading-snug text-brand-dark transition-colors group-hover:text-accent-gold">
                     {post.title}
                   </h3>
-                  <p className="text-gray-500 font-medium text-sm leading-relaxed mb-8 flex-grow">
+                  <p className="mb-8 flex-grow text-sm font-medium leading-relaxed text-gray-500">
                     {post.excerpt}
                   </p>
-                  <div className="flex items-center gap-2 mt-auto font-bold text-brand-dark text-sm tracking-wide group-hover:text-accent-gold transition-colors">
+                  <div className="mt-auto flex items-center gap-2 text-sm font-bold tracking-wide text-brand-dark transition-colors group-hover:text-accent-gold">
                     Read More
                     <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-2" />
                   </div>
                 </div>
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
-
       </div>
     </section>
   );

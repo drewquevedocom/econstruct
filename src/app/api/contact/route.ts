@@ -1,8 +1,10 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
+import { Resend } from "resend";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const NOTIFY_EMAIL = "info@econstructinc.com";
 
 export async function POST(req: NextRequest) {
   try {
@@ -55,6 +57,45 @@ export async function POST(req: NextRequest) {
         { error: "Failed to save lead. Please try again." },
         { status: 500 }
       );
+    }
+
+    // Send email notification
+    if (process.env.RESEND_API_KEY) {
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      const isConsultation = source === "consultation_cta" || source === "free_consultation";
+      const subject = isConsultation
+        ? `New Consultation Request — ${firstName} ${lastName}`
+        : `New Contact Form Submission — ${firstName} ${lastName}`;
+
+      await resend.emails.send({
+        from: "econstruct Website <no-reply@econstructinc.com>",
+        to: NOTIFY_EMAIL,
+        subject,
+        html: `
+          <div style="font-family:sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a;">
+            <div style="background:#07090c;padding:24px 32px;border-radius:12px 12px 0 0;">
+              <p style="color:#d9b661;font-weight:700;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;margin:0;">econstruct Inc.</p>
+              <h1 style="color:#ffffff;font-size:22px;margin:8px 0 0;">${subject}</h1>
+            </div>
+            <div style="background:#f8f6f2;padding:32px;border-radius:0 0 12px 12px;border:1px solid #e5e2db;">
+              <table style="width:100%;border-collapse:collapse;">
+                <tr><td style="padding:8px 0;font-size:13px;color:#666;width:40%;font-weight:600;">Name</td><td style="padding:8px 0;font-size:14px;">${firstName} ${lastName}</td></tr>
+                <tr><td style="padding:8px 0;font-size:13px;color:#666;font-weight:600;">Email</td><td style="padding:8px 0;font-size:14px;"><a href="mailto:${email}">${email}</a></td></tr>
+                ${phone ? `<tr><td style="padding:8px 0;font-size:13px;color:#666;font-weight:600;">Phone</td><td style="padding:8px 0;font-size:14px;"><a href="tel:${phone}">${phone}</a></td></tr>` : ""}
+                ${zipCode ? `<tr><td style="padding:8px 0;font-size:13px;color:#666;font-weight:600;">Zip Code</td><td style="padding:8px 0;font-size:14px;">${zipCode}</td></tr>` : ""}
+                <tr><td style="padding:8px 0;font-size:13px;color:#666;font-weight:600;">Project Type</td><td style="padding:8px 0;font-size:14px;">${normalizedProjectType}</td></tr>
+                ${budget ? `<tr><td style="padding:8px 0;font-size:13px;color:#666;font-weight:600;">Budget</td><td style="padding:8px 0;font-size:14px;">${budget}</td></tr>` : ""}
+                ${timeline ? `<tr><td style="padding:8px 0;font-size:13px;color:#666;font-weight:600;">Timeline</td><td style="padding:8px 0;font-size:14px;">${timeline}</td></tr>` : ""}
+                ${details ? `<tr><td style="padding:8px 0;font-size:13px;color:#666;font-weight:600;vertical-align:top;">Details</td><td style="padding:8px 0;font-size:14px;">${details}</td></tr>` : ""}
+                <tr><td style="padding:8px 0;font-size:13px;color:#666;font-weight:600;">Source</td><td style="padding:8px 0;font-size:14px;">${source || "contact_form"}</td></tr>
+              </table>
+            </div>
+          </div>
+        `,
+      }).catch((emailErr) => {
+        // Log but don't fail the request if email errors
+        console.error("Resend email error:", emailErr);
+      });
     }
 
     return NextResponse.json({ success: true }, { status: 200 });

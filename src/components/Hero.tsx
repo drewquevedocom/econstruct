@@ -49,7 +49,7 @@ export default function Hero() {
               >
                 Los Angeles&apos; Premier
               </motion.h1>
-              <motion.h1
+              <motion.div
                 variants={{
                   hidden: { opacity: 0, y: 50, filter: "blur(10px)", scale: 0.95 },
                   visible: { opacity: 1, y: 0, filter: "blur(0px)", scale: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } },
@@ -58,8 +58,8 @@ export default function Hero() {
                 style={{ color: "#ffffff" }}
               >
                 High-End
-              </motion.h1>
-              <motion.h1
+              </motion.div>
+              <motion.div
                 variants={{
                   hidden: { opacity: 0, y: 50, filter: "blur(10px)", scale: 0.95 },
                   visible: { opacity: 1, y: 0, filter: "blur(0px)", scale: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } },
@@ -68,7 +68,7 @@ export default function Hero() {
                 style={{ color: "#ffffff" }}
               >
                 Home Builder
-              </motion.h1>
+              </motion.div>
             </motion.div>
           </div>
 
