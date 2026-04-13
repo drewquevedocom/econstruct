@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
-    "@opennextjs/cloudflare": "^0.3.0",
+    "@opennextjs/cloudflare": "^1.0.0",
     "@supabase/supabase-js": "^2.99.1",
     "chart.js": "^4.5.1",
     "embla-carousel-react": "^8.6.0",
