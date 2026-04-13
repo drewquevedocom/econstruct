@@ -8,6 +8,7 @@ import post1 from "../../../content/blog/brentwood-luxury-home-modernization-cos
 import post2 from "../../../content/blog/chapter-7a-wui-compliance-homeowner-guide.md?raw";
 import post3 from "../../../content/blog/fire-insurance-gap-palisades-rebuild.md?raw";
 import post4 from "../../../content/blog/pacific-palisades-fire-rebuild-guide-2026.md?raw";
+import post5 from "../../../content/blog/how-to-vet-fire-rebuild-contractor-la.md?raw";
 
 const POSTS_PER_PAGE = 9;
 
@@ -104,7 +105,7 @@ function parseBlogPost(fileContents: string): BlogPost {
 }
 
 const loadBlogPosts = cache((): BlogPost[] => {
-  const rawPosts = [post1, post2, post3, post4];
+  const rawPosts = [post1, post2, post3, post4, post5];
   return rawPosts
     .map(parseBlogPost)
     .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
