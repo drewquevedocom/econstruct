@@ -81,7 +81,7 @@ export const promptProjects: PromptProjectPage[] = [
         caption: "The completed rebuild with updated architecture and hardened details.",
       },
       {
-        src: "/fire_rebuild_service.png",
+        src: "/fire_rebuild_hero.png",
         alt: "Construction team reviewing rebuild plans on site",
         caption: "Field coordination, permitting, and reconstruction planning.",
       },
@@ -143,55 +143,6 @@ export const promptProjects: PromptProjectPage[] = [
         src: "/luxury_mod_service.png",
         alt: "High-end interior cabinetry and finish installation",
         caption: "Interior craftsmanship and finish coordination.",
-      },
-    ],
-  },
-  {
-    slug: "commercial-tenant-improvement-creative-office",
-    title: "Commercial Tenant Improvement - Creative Office",
-    description:
-      "A fast-moving office buildout designed to meet lease requirements, improve team flow, and deliver a polished space without unnecessary downtime.",
-    image: "/luxury_mod_service.png",
-    serviceSlug: "commercial-tenant-improvement-los-angeles",
-    location: "West Los Angeles",
-    scope: "Creative office tenant improvement",
-    timeline: "16 weeks from permit release to turnover",
-    squareFootage: "5,400 sq ft",
-    completionDate: "2025",
-    heroTitle: "Commercial Tenant Improvement - Creative Office",
-    heroSubtitle:
-      "A tenant improvement project executed around schedule pressure, landlord coordination, and the real business cost of delay.",
-    challenge: [
-      "The client needed a professional, branded office environment on a compressed schedule tied to lease milestones and operational commitments.",
-      "Permitting, landlord review, and procurement all had to move in parallel to avoid expensive dead time between design approval and occupancy.",
-    ],
-    approach: [
-      "econstruct organized the buildout around long-lead procurement, clear milestones, and disciplined communication between the tenant, landlord team, and consultants.",
-      "We also kept compliance and field coordination tight so the client could focus on business operations instead of construction management.",
-    ],
-    build: [
-      "The scope included new partitions, upgraded lighting, millwork, meeting rooms, reception detailing, and infrastructure changes needed for daily office use.",
-      "Execution focused on clean turnover, minimal rework, and dependable scheduling rather than dragging the project through constant punch-list churn.",
-    ],
-    result: [
-      "The finished office gave the tenant a sharper client-facing environment and a more efficient workspace for staff, while protecting the move-in deadline.",
-      "The project now serves as a strong reference for econstruct's commercial buildout capability.",
-    ],
-    takeaways: [
-      "Commercial TI success depends on schedule control as much as craftsmanship.",
-      "Landlord coordination should be treated as an active workstream, not an afterthought.",
-      "Fast delivery only works when preconstruction decisions are disciplined.",
-    ],
-    gallery: [
-      {
-        src: "/luxury_mod_service.png",
-        alt: "Commercial interior fit-out with custom cabinetry and finish installation",
-        caption: "Interior finish execution and field coordination.",
-      },
-      {
-        src: "/custom_home_service.png",
-        alt: "Construction management activity on a premium building site",
-        caption: "Build sequencing and on-site supervision.",
       },
     ],
   },

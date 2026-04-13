@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Menu, X, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import HeaderLogo from "@/components/HeaderLogo";
+import { COMPANY } from "@/lib/constants";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -40,9 +41,7 @@ export default function Header() {
                   <Link href="/services/fire-rebuild-contractor-los-angeles" className="block rounded-lg px-4 py-3 text-sm font-semibold text-white/75 transition-colors hover:bg-accent-gold/10 hover:text-accent-gold">Fire Rebuild</Link>
                   <Link href="/services/custom-home-construction-los-angeles" className="block rounded-lg px-4 py-3 text-sm font-semibold text-white/75 transition-colors hover:bg-accent-gold/10 hover:text-accent-gold">Custom Home Construction</Link>
                   <Link href="/services/home-additions-los-angeles" className="block rounded-lg px-4 py-3 text-sm font-semibold text-white/75 transition-colors hover:bg-accent-gold/10 hover:text-accent-gold">Home Additions</Link>
-                  <Link href="/services/kitchen-remodel-los-angeles" className="block rounded-lg px-4 py-3 text-sm font-semibold text-white/75 transition-colors hover:bg-accent-gold/10 hover:text-accent-gold">Kitchen Remodel</Link>
-                  <Link href="/services/bathroom-remodel-los-angeles" className="block rounded-lg px-4 py-3 text-sm font-semibold text-white/75 transition-colors hover:bg-accent-gold/10 hover:text-accent-gold">Bathroom Remodel</Link>
-                  <Link href="/services/commercial-tenant-improvement-los-angeles" className="block rounded-lg px-4 py-3 text-sm font-semibold text-white/75 transition-colors hover:bg-accent-gold/10 hover:text-accent-gold">Commercial TI</Link>
+                  <Link href="/services/home-automation-los-angeles" className="block rounded-lg px-4 py-3 text-sm font-semibold text-white/75 transition-colors hover:bg-accent-gold/10 hover:text-accent-gold">Home Automation</Link>
                 </div>
               </div>
             </div>
@@ -65,13 +64,13 @@ export default function Header() {
         <div className="hidden md:flex items-center gap-5">
           <div className={`flex items-center gap-2 ${textColor} font-semibold transition-colors`}>
             <span className="text-xs uppercase tracking-[0.18em] text-white/65">Call</span>
-            <a href="tel:8889900303" className="relative group text-sm font-bold tracking-wider">
-              (888) 990-0303
+            <a href={`tel:${COMPANY.phone.primary}`} className="relative group text-sm font-bold tracking-wider">
+              {COMPANY.phone.display}
               <span className="absolute -bottom-1 left-0 w-full h-px bg-current opacity-50 transition-opacity group-hover:opacity-100"></span>
             </a>
           </div>
           <Link
-            href="/contact"
+            href="/free-consultation"
             className="rounded-full border border-accent-gold/50 bg-accent-gold px-6 py-2.5 text-sm font-bold text-white shadow-[0_14px_24px_rgba(184,150,62,0.2)] outline-none transition-all hover:bg-white hover:text-brand-dark hover:shadow-lg active:scale-95"
           >
             Consultation
@@ -102,19 +101,17 @@ export default function Header() {
               <Link href="/services/fire-rebuild-contractor-los-angeles" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-white/65 hover:text-accent-gold">Fire Rebuild</Link>
               <Link href="/services/custom-home-construction-los-angeles" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-white/65 hover:text-accent-gold">Custom Home Construction</Link>
               <Link href="/services/home-additions-los-angeles" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-white/65 hover:text-accent-gold">Home Additions</Link>
-              <Link href="/services/kitchen-remodel-los-angeles" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-white/65 hover:text-accent-gold">Kitchen Remodel</Link>
-              <Link href="/services/bathroom-remodel-los-angeles" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-white/65 hover:text-accent-gold">Bathroom Remodel</Link>
-              <Link href="/services/commercial-tenant-improvement-los-angeles" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-white/65 hover:text-accent-gold">Commercial TI</Link>
+              <Link href="/services/home-automation-los-angeles" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-white/65 hover:text-accent-gold">Home Automation</Link>
             </div>
             <Link href="/projects" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-accent-gold">Projects</Link>
             <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-accent-gold">About</Link>
             <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-accent-gold">Contact</Link>
 
-            <a href="tel:8889900303" className="mt-4 flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 py-4 font-bold text-white">
+            <a href={`tel:${COMPANY.phone.primary}`} className="mt-4 flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 py-4 font-bold text-white">
               <Phone size={18} className="text-accent-gold" />
-              Call: (888) 990-0303
+              Call: {COMPANY.phone.display}
             </a>
-            <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="rounded-xl bg-accent-gold py-4 text-center font-semibold text-white shadow-md">
+            <Link href="/free-consultation" onClick={() => setMobileMenuOpen(false)} className="rounded-xl bg-accent-gold py-4 text-center font-semibold text-white shadow-md">
               Get a Consultation
             </Link>
           </motion.div>

@@ -12,7 +12,7 @@ import ConsultationCTA from "@/components/ConsultationCTA";
 export const metadata: Metadata = generatePageMetadata({
   title: "Los Angeles Construction Services - From Luxury Homes to Fire Rebuilds",
   description:
-    "Los Angeles construction services from luxury home building to fire rebuilds, additions, kitchen and bathroom remodeling, and commercial tenant improvements.",
+    "Los Angeles construction services from luxury home building to fire rebuilds, additions, and custom residential work.",
   path: "/services",
 });
 
@@ -21,10 +21,12 @@ export default function ServicesPage() {
     { name: "Home", url: "https://econstructinc.com" },
     { name: "Services", url: "https://econstructinc.com/services" },
   ]);
+  const publicServices = promptServices;
+
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    itemListElement: promptServices.map((service, index) => ({
+    itemListElement: publicServices.map((service, index) => ({
       "@type": "ListItem",
       position: index + 1,
       name: service.title,
@@ -53,15 +55,14 @@ export default function ServicesPage() {
             <p className="text-lg leading-relaxed text-body-text">
               econstruct operates across the full lifecycle of premium Los
               Angeles construction, from luxury home building and fire rebuilds
-              to additions, kitchen and bathroom remodeling, and
-              schedule-sensitive commercial tenant improvements. Each service is
+              to additions and other custom residential work. Each service is
               managed with the same priorities: clear leadership, disciplined
               preconstruction, strong field execution, and direct communication.
             </p>
           </div>
 
           <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-            {promptServices.map((service, index) => (
+            {publicServices.map((service, index) => (
               <AnimatedSection key={service.slug} delay={index * 0.06}>
                 <Link href={`/services/${service.slug}`} className="group block">
                   <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
@@ -103,7 +104,7 @@ export default function ServicesPage() {
           <div className="grid gap-8 md:grid-cols-3">
             {[
               {
-                value: "634",
+                value: "345+",
                 label: "Projects Completed Successfully",
               },
               {
@@ -111,8 +112,8 @@ export default function ServicesPage() {
                 label: "Collective Experience Between Partners",
               },
               {
-                value: "25+",
-                label: "Years of Frank's experience in LA",
+                value: "Since 2001",
+                label: "Building in Los Angeles",
               },
             ].map((item, index) => (
               <AnimatedSection key={item.label} delay={index * 0.08}>

@@ -3,12 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   Shield,
-  Award,
   Building2,
   Leaf,
   Clock,
   HardHat,
-  TrendingUp,
   DollarSign,
   FileCheck,
   Users,
@@ -27,30 +25,30 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "About econstruct — 25+ Years Building Los Angeles",
+  title: "About econstruct - Building LA Since 2001",
   description:
-    "Meet the team behind econstruct Inc. Led by Frank Neimroozi with 25+ years of experience, we've completed 340+ projects across Los Angeles. CA Lic #964015.",
+    "Meet the team behind econstruct Inc. Building in Los Angeles since 2001, founded as econstruct in 2011, and 345+ premium residential projects delivered. CA Lic #964015.",
   path: "/about",
 });
 
 const milestones = [
   {
-    year: "1999",
+    year: "2001",
+    title: "Construction Roots in LA",
+    description:
+      "Our leadership team begins building in Los Angeles, learning every corner of residential construction from the ground up.",
+  },
+  {
+    year: "2011",
     title: "econstruct Founded",
     description:
-      "Frank Neimroozi establishes econstruct Inc. in Los Angeles, focused on premium residential construction.",
+      "econstruct Inc. is founded to bring a single, disciplined standard to high-end residential construction across Los Angeles.",
   },
   {
-    year: "2005",
+    year: "2015",
     title: "100th Project Completed",
     description:
-      "Milestone reached with the completion of a landmark Bel Air custom home, solidifying reputation for luxury builds.",
-  },
-  {
-    year: "2012",
-    title: "Expanded to Full-Service",
-    description:
-      "Added design-build capabilities, ADU construction, and luxury modernization to the service portfolio.",
+      "Reached a landmark 100-project milestone with a Bel Air custom home, cementing econstruct's reputation for luxury builds.",
   },
   {
     year: "2018",
@@ -59,10 +57,10 @@ const milestones = [
       "Led the rebuild effort for Woolsey Fire-affected homes in Malibu, developing deep expertise in WUI-compliant construction.",
   },
   {
-    year: "2024",
-    title: "340+ Projects & Counting",
+    year: "2026",
+    title: "345+ Projects & Counting",
     description:
-      "Completed over 340 projects across Los Angeles with a 100% permit success rate and 5-star client satisfaction.",
+      "Completed 345+ projects across Los Angeles with a 100% permit success rate and 5-star client satisfaction.",
   },
 ];
 
@@ -72,11 +70,6 @@ const credentials = [
     title: "CA License #964015",
     description: "Licensed General Contractor — State of California",
     link: COMPANY.license.verificationUrl,
-  },
-  {
-    icon: Award,
-    title: "BBB Accredited",
-    description: "A+ rating with the Better Business Bureau",
   },
   {
     icon: Building2,
@@ -91,8 +84,8 @@ const credentials = [
 ];
 
 const stats = [
-  { value: "340+", label: "Projects Completed", icon: HardHat },
-  { value: "25+", label: "Years Experience", icon: Clock },
+  { value: "345+", label: "Projects Completed", icon: HardHat },
+  { value: "Since 2001", label: "Building in LA", icon: Clock },
   { value: "$450-$800", label: "Per Sq Ft", icon: DollarSign },
   { value: "3x", label: "Faster Permits", icon: FileCheck },
 ];
@@ -121,7 +114,7 @@ export default function AboutPage() {
 
       <PageHero
         title="About econstruct"
-        subtitle="25+ years of premium residential construction across Los Angeles. From fire rebuilds to luxury custom homes, we build with uncompromising quality."
+        subtitle="Building in Los Angeles since 2001. Founded as econstruct in 2011. From fire rebuilds to luxury custom homes, we build with uncompromising quality."
         breadcrumbs={[{ label: "About" }]}
       />
 
@@ -176,7 +169,7 @@ export default function AboutPage() {
                   </Link>
                   <span className="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-100 text-gray-600 font-bold text-sm rounded-full">
                     <Clock size={16} />
-                    25+ Years Experience
+                    Building LA Since 2001
                   </span>
                 </div>
               </div>
@@ -230,7 +223,7 @@ export default function AboutPage() {
         <Container size="narrow">
           <SectionHeader
             badge={["Our Journey"]}
-            title="25+ Years of Building Excellence"
+            title="Building LA Since 2001"
             subtitle="Key milestones that shaped econstruct into Los Angeles' premier residential contractor."
           />
 

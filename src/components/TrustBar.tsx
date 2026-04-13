@@ -1,11 +1,10 @@
 ﻿import { COMPANY } from "@/lib/constants";
-import { Shield, Award, Clock, BadgeCheck } from "lucide-react";
+import { Shield, Award, Clock } from "lucide-react";
 
 export default function TrustBar() {
   const badges = [
     { icon: Shield, label: COMPANY.license.display },
     { icon: Clock, label: "25+ Years Experience" },
-    { icon: BadgeCheck, label: "BBB Accredited" },
     { icon: Award, label: "NAHB Member" },
   ];
 

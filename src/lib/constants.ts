@@ -3,9 +3,9 @@ export const COMPANY = {
   shortName: "econstruct",
   tagline: "Los Angeles' Premier High-End Home Builder",
   phone: {
-    primary: "888-990-0303",
+    primary: "310-740-9999",
     secondary: "310-740-9999",
-    display: "(888) 990-0303",
+    display: "(310) 740-9999",
     displaySecondary: "(310) 740-9999",
   },
   email: "info@econstructinc.com",
@@ -33,7 +33,13 @@ export const COMPANY = {
     vpAdmin: { name: "Katie Krueger", title: "VP Administration", email: "katie@econstructinc.com" },
     operations: { name: "Robyn Ellis", title: "Operations", email: "robyn@econstructinc.com" },
   },
-  credentials: ["CA License #964015", "25+ Years Experience", "BBB Accredited", "NAHB Member", "USGBC Member"],
+  credentials: [
+    "CA License #964015",
+    "Building LA Since 2001",
+    "econstruct Since 2011",
+    "NAHB Member",
+    "USGBC Member",
+  ],
 } as const;
 
 export const NAV_LINKS = [
@@ -46,9 +52,7 @@ export const NAV_LINKS = [
       { label: "Fire Rebuild", href: "/services/fire-rebuild-contractor-los-angeles" },
       { label: "Custom Home Construction", href: "/services/custom-home-construction-los-angeles" },
       { label: "Home Additions", href: "/services/home-additions-los-angeles" },
-      { label: "Kitchen Remodel", href: "/services/kitchen-remodel-los-angeles" },
-      { label: "Bathroom Remodel", href: "/services/bathroom-remodel-los-angeles" },
-      { label: "Commercial Tenant Improvement", href: "/services/commercial-tenant-improvement-los-angeles" },
+      { label: "Home Automation", href: "/services/home-automation-los-angeles" },
     ],
   },
   { label: "Projects", href: "/projects" },

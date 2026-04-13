@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Phone, Mail, MapPin } from "lucide-react";
-import Logo from "@/components/Logo";
+import HeaderLogo from "@/components/HeaderLogo";
 import GatekeeperCTA from "@/components/GatekeeperCTA";
+import { COMPANY } from "@/lib/constants";
 
 export default function Footer() {
   return (
@@ -15,7 +16,7 @@ export default function Footer() {
             {/* Col 1 */}
             <div>
               <div className="mb-6">
-                <Logo height={40} tone="dark" glow="none" />
+                <HeaderLogo height={40} />
               </div>
               <p className="text-white/70 mb-6 font-medium leading-relaxed">
                 Los Angeles&apos; premier high-end residential contractor. Setting the standard for luxury builds and rapid fire rebuilds.
@@ -38,6 +39,7 @@ export default function Footer() {
                 <li><Link href="/services/fire-rebuild-contractor-los-angeles" className="text-white/70 hover:text-white transition-colors">Fire Rebuild</Link></li>
                 <li><Link href="/services/custom-home-construction-los-angeles" className="text-white/70 hover:text-white transition-colors">Custom Home Construction</Link></li>
                 <li><Link href="/services/home-additions-los-angeles" className="text-white/70 hover:text-white transition-colors">Home Additions</Link></li>
+                <li><Link href="/services/home-automation-los-angeles" className="text-white/70 hover:text-white transition-colors">Home Automation</Link></li>
               </ul>
             </div>
 
@@ -58,7 +60,7 @@ export default function Footer() {
               <ul className="space-y-4 text-white/70">
                 <li className="flex items-start gap-3">
                   <Phone size={20} className="text-accent-gold shrink-0 mt-1" />
-                  <a href="tel:8889900303" className="hover:text-white transition-colors">(888) 990-0303</a>
+                  <a href={`tel:${COMPANY.phone.primary}`} className="hover:text-white transition-colors">{COMPANY.phone.display}</a>
                 </li>
                 <li className="flex items-start gap-3">
                   <Mail size={20} className="text-accent-gold shrink-0 mt-1" />
@@ -66,7 +68,7 @@ export default function Footer() {
                 </li>
                 <li className="flex items-start gap-3">
                   <MapPin size={20} className="text-accent-gold shrink-0 mt-1" />
-                  <span>Los Angeles, CA</span>
+                  <span>{COMPANY.address.city}, {COMPANY.address.state}</span>
                 </li>
               </ul>
             </div>

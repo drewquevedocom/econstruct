@@ -166,7 +166,7 @@ export default function LuxuryModernizationPage() {
               { value: "$450-$800+", label: "Per Sq Ft" },
               { value: "6-12 Mo", label: "Typical Timeline" },
               { value: "25+", label: "Years Experience" },
-              { value: "340+", label: "Projects Completed" },
+              { value: "345+", label: "Projects Completed" },
             ].map((stat) => (
               <AnimatedSection key={stat.label}>
                 <div>

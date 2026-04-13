@@ -49,7 +49,7 @@ export const metadata: Metadata = generatePageMetadata({
   description:
     "Expert fire rebuild contractor in Los Angeles. WUI-compliant construction, insurance coordination, expedited permitting. Serving Palisades, Altadena & Malibu. 25+ years experience.",
   path: "/services/fire-rebuild",
-  image: "/fire_rebuild_service.png",
+  image: "/fire_rebuild_hero.png",
 });
 
 const features = [
@@ -165,7 +165,7 @@ export default function FireRebuildPage() {
           { label: "Services", href: "/services" },
           { label: "Fire Rebuild" },
         ]}
-        backgroundImage="/fire_rebuild_service.png"
+        backgroundImage="/fire_rebuild_hero.png"
       />
 
       {/* Trust Signals Strip */}
@@ -174,7 +174,7 @@ export default function FireRebuildPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
               { value: "25+", label: "Years Experience" },
-              { value: "340+", label: "Projects Completed" },
+              { value: "345+", label: "Projects Completed" },
               { value: "3x", label: "Faster Permitting" },
               { value: `Lic #${COMPANY.license.number}`, label: "CA Licensed & Insured" },
             ].map((stat) => (
@@ -303,7 +303,7 @@ export default function FireRebuildPage() {
             <AnimatedSection delay={0.2}>
               <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
                 <Image
-                  src="/fire_rebuild_service.png"
+                  src="/fire_rebuild_hero.png"
                   alt="WUI-compliant fire rebuild construction in Los Angeles"
                   fill
                   className="object-cover"
@@ -421,7 +421,7 @@ export default function FireRebuildPage() {
               },
               {
                 icon: Users,
-                stat: "340+",
+                stat: "345+",
                 label: "Projects Delivered",
                 description:
                   "Across all project types in Los Angeles. Our fire rebuild experience is second to none.",

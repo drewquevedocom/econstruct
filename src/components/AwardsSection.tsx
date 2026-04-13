@@ -12,7 +12,7 @@ const awards = [
     href: "https://www.losangelescontractors.org/the-best-restaurant-contractors-in-los-angeles/",
   },
   {
-    image: "/top_7_contractors.png",
+    image: "/top_7_contractors_2.png",
     year: "2022",
     title: "Top Seven Contractors\nin Glendale",
     subtitle: "GeneralContractors.org",

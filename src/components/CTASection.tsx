@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { ArrowRight, Star } from "lucide-react";
 
 export default function CTASection() {
@@ -26,11 +27,12 @@ export default function CTASection() {
         >
           <div 
             className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 hover:scale-105"
-            style={{ backgroundImage: "url('/luxury-kitchen.jpg')" }}
+            style={{ backgroundImage: "url('/global-cta-premium.png')" }}
           />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,10,14,0.16)_0%,rgba(8,10,14,0.38)_46%,rgba(8,10,14,0.72)_100%)]" />
 
           {/* Floating Card */}
-          <div className="absolute bottom-12 right-12 md:bottom-24 md:right-32 w-[300px] md:w-[380px] bg-white rounded-3xl p-8 shadow-2xl transform transition-transform hover:-translate-y-2">
+          <div className="absolute bottom-12 right-12 md:bottom-24 md:right-32 w-[300px] md:w-[380px] bg-white/96 backdrop-blur-sm rounded-3xl p-8 shadow-2xl transform transition-transform hover:-translate-y-2">
             <div className="inline-flex items-center gap-2 bg-accent-gold/10 text-accent-gold px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-6">
               <Star size={12} className="fill-accent-gold" />
               Featured
@@ -45,9 +47,9 @@ export default function CTASection() {
             </p>
             
             {/* The little yellow floating arrow icon on the bottom right of the card */}
-            <a href="/our-work" className="absolute -bottom-6 -right-6 w-14 h-14 bg-[#E4ED64] rounded-full flex items-center justify-center text-brand-dark shadow-lg hover:scale-110 transition-transform">
+            <Link href="/our-work" className="absolute -bottom-6 -right-6 w-14 h-14 bg-[#E4ED64] rounded-full flex items-center justify-center text-brand-dark shadow-lg hover:scale-110 transition-transform">
               <ArrowRight size={20} className="-rotate-45" />
-            </a>
+            </Link>
           </div>
         </motion.div>
       </div>

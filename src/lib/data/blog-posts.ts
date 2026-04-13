@@ -17,7 +17,7 @@ export const blogPosts: BlogPost[] = [
     category: "Fire Rebuilds",
     date: "2026-03-01",
     readTime: "12 min",
-    image: "/fire_rebuild_service.png",
+    image: "/fire_rebuild_hero.png",
     featured: true,
   },
   {
@@ -27,7 +27,7 @@ export const blogPosts: BlogPost[] = [
     category: "Building Codes",
     date: "2026-02-15",
     readTime: "8 min",
-    image: "/fire_rebuild_service.png",
+    image: "/fire_rebuild_hero.png",
   },
   {
     title: "Luxury Home Modernization: ROI-Driven Renovations",

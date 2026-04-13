@@ -1,6 +1,6 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, type FormEvent, type MouseEvent } from "react";
 import { ArrowRight, ArrowLeft, CheckCircle2, Loader2 } from "lucide-react";
 
 const projectTypes = [
@@ -23,7 +23,13 @@ const inputClasses =
   "w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-4 text-brand-dark font-medium focus:ring-2 focus:ring-accent-gold focus:border-transparent outline-none transition-all";
 const labelClasses = "text-sm font-bold text-gray-700 uppercase tracking-wide";
 
-export default function ConsultationCTA() {
+interface ConsultationCTAProps {
+  leadSource?: string;
+}
+
+export default function ConsultationCTA({
+  leadSource = "consultation_cta",
+}: ConsultationCTAProps) {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -43,17 +49,17 @@ export default function ConsultationCTA() {
   const update = (field: string, value: string) =>
     setFormData((prev) => ({ ...prev, [field]: value }));
 
-  const handleNext = (e: React.MouseEvent) => {
+  const handleNext = (e: MouseEvent) => {
     e.preventDefault();
     if (step < 3) setStep(step + 1);
   };
 
-  const handleBack = (e: React.MouseEvent) => {
+  const handleBack = (e: MouseEvent) => {
     e.preventDefault();
     if (step > 1) setStep(step - 1);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitError(null);
@@ -62,7 +68,7 @@ export default function ConsultationCTA() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, source: "consultation_cta" }),
+        body: JSON.stringify({ ...formData, source: leadSource }),
       });
 
       if (!res.ok) {

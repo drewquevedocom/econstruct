@@ -48,7 +48,7 @@ export default function CostCalculatorPage() {
           <AnimatedSection delay={0.2} className="mt-16 max-w-3xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center p-6">
-                <div className="text-3xl font-bold text-brand-dark mb-1">340+</div>
+                <div className="text-3xl font-bold text-brand-dark mb-1">345+</div>
                 <p className="text-gray-500 text-sm font-medium">Projects Completed</p>
               </div>
               <div className="text-center p-6">

@@ -27,7 +27,7 @@ export default function FinalCTA() {
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <Link
-              href="/contact"
+              href="/free-consultation"
               className="group inline-flex items-center gap-3 bg-brand-dark text-white font-bold text-base px-8 py-4.5 rounded-full hover:bg-accent-gold transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-accent-gold/20 hover:-translate-y-0.5 active:scale-[0.98]"
             >
               Schedule a Consultation

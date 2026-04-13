@@ -20,9 +20,10 @@ export async function POST(req: NextRequest) {
       details,
       source, // optional: "contact_form" | "consultation_cta"
     } = body;
+    const normalizedProjectType = projectType || "General Inquiry";
 
     // Basic validation
-    if (!firstName || !lastName || !email || !projectType) {
+    if (!firstName || !lastName || !email) {
       return NextResponse.json(
         { error: "Missing required fields." },
         { status: 400 }
@@ -37,7 +38,7 @@ export async function POST(req: NextRequest) {
         last_name: lastName,
         email,
         phone: phone || null,
-        project_type: projectType,
+        project_type: normalizedProjectType,
         zip_code: zipCode || null,
         budget_range: budget || null,
         timeline: timeline || null,

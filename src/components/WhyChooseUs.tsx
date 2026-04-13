@@ -14,7 +14,7 @@ const valueProps = [
     ),
     title: "25+ Years of Experience",
     description:
-      "Over two decades building luxury residential projects across Los Angeles. Frank Nuccio's executive leadership has delivered $200M+ in high-end construction — on time and on budget.",
+      "Over two decades building luxury residential projects across Southern California. Our leadership team has delivered more than $200M in high-end construction on time and on budget.",
   },
   {
     icon: (
@@ -25,7 +25,7 @@ const valueProps = [
     ),
     title: "Fire Rebuild Specialists",
     description:
-      "LA's most experienced fire rebuild team. We've navigated WUI codes, executive order fast-tracking, and insurance coordination for dozens of Palisades families — turning devastation into dream homes.",
+      "Los Angeles' fire rebuild team. We have navigated WUI codes, expedited permitting, and insurance coordination for dozens of families rebuilding after loss.",
   },
   {
     icon: (

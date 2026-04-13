@@ -9,6 +9,7 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 import Button from "@/components/ui/Button";
 import FAQSection from "@/components/faq/FAQSection";
 import ConsultationCTA from "@/components/ConsultationCTA";
+import { COMPANY } from "@/lib/constants";
 
 export const metadata: Metadata = generatePageMetadata({
   title: "FAQ — Frequently Asked Questions About econstruct",
@@ -65,8 +66,8 @@ export default function FAQPage() {
                 <Button href="/contact" variant="primary" size="lg">
                   Contact Us
                 </Button>
-                <Button href="tel:8889900303" variant="secondary" size="lg">
-                  Call (888) 990-0303
+                <Button href={`tel:${COMPANY.phone.primary}`} variant="secondary" size="lg">
+                  Call {COMPANY.phone.display}
                 </Button>
               </div>
             </div>

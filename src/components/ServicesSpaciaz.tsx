@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 const services = [
   {
@@ -12,17 +12,17 @@ const services = [
     slug: "Fire Damage Rebuilds",
     description:
       "econstruct handles complete fire damage restoration and rebuilds across Los Angeles - Palisades, Altadena, and Malibu. We manage insurance claims, demolition permits, and full custom reconstruction.",
-    image: "/fire_rebuild_service.png",
-    href: "/services/fire-rebuild",
+    image: "/fire_rebuild_hero.png",
+    href: "/services/fire-rebuild-contractor-los-angeles",
   },
   {
     id: "02",
     title: "Luxury Modernization",
     slug: "Luxury Modernization",
     description:
-      "Transform your LA home into a high-performance luxury residence. From kitchen remodels to ADU additions, our design-build team delivers precision craftsmanship with energy-efficient systems for California living.",
+      "Transform your LA home into a high-performance luxury residence. From full modernizations to ADU additions, our design-build team delivers precision craftsmanship with energy-efficient systems for California living.",
     image: "/luxury_mod_service.png",
-    href: "/services/luxury-modernization",
+    href: "/services/luxury-home-builder-los-angeles",
   },
   {
     id: "03",
@@ -31,99 +31,37 @@ const services = [
     description:
       "Build from the ground up in Beverly Hills, Bel Air, or Pacific Palisades. Our licensed general contractors manage architecture, engineering, permitting, and construction - under one roof.",
     image: "/custom_home_service.png",
-    href: "/services/custom-homes",
+    href: "/services/custom-home-construction-los-angeles",
+  },
+  {
+    id: "04",
+    title: "Home Additions",
+    slug: "Home Additions",
+    description:
+      "Room additions, second stories, ADUs, and garage conversions designed to expand your home without compromising the architecture. Permit strategy and clean integration from day one.",
+    image: "/custom_home_service.png",
+    href: "/services/home-additions-los-angeles",
+  },
+  {
+    id: "05",
+    title: "Home Automation",
+    slug: "Home Automation",
+    description:
+      "Integrated lighting, shades, audio-video, climate, and security planned into the build from day one. Luxury smart-home technology that feels invisible and works reliably.",
+    image: "/luxury_mod_service.png",
+    href: "/services/home-automation-los-angeles",
   },
 ] as const;
 
 export default function ServicesSpaciaz() {
   const [displayedIndex, setDisplayedIndex] = useState(0);
-  const rowRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const rafRef = useRef<number | null>(null);
-  const manualOverrideRef = useRef<number | null>(null);
-  const overrideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  function getActiveIndexFromScroll() {
-    if (manualOverrideRef.current !== null) {
-      return manualOverrideRef.current;
-    }
-
-    const rows = rowRefs.current.filter(Boolean) as HTMLDivElement[];
-    if (!rows.length) {
-      return 0;
-    }
-
-    const viewportCenter = window.innerHeight / 2;
-    let bestIndex = 0;
-    let bestDistance = Number.POSITIVE_INFINITY;
-
-    rows.forEach((row, index) => {
-      const rect = row.getBoundingClientRect();
-      const rowCenter = rect.top + rect.height / 2;
-      const distance = Math.abs(rowCenter - viewportCenter);
-
-      if (distance < bestDistance) {
-        bestDistance = distance;
-        bestIndex = index;
-      }
-    });
-
-    return bestIndex;
-  }
-
-  useEffect(() => {
-    const updateActiveService = () => {
-      if (rafRef.current !== null) {
-        cancelAnimationFrame(rafRef.current);
-      }
-
-      rafRef.current = window.requestAnimationFrame(() => {
-        const nextIndex = getActiveIndexFromScroll();
-        setDisplayedIndex(nextIndex);
-        rafRef.current = null;
-      });
-    };
-
-    if (!rowRefs.current.filter(Boolean).length || !sectionRef.current) {
-      return;
-    }
-
-    updateActiveService();
-    window.addEventListener("scroll", updateActiveService, { passive: true });
-    window.addEventListener("resize", updateActiveService);
-
-    return () => {
-      window.removeEventListener("scroll", updateActiveService);
-      window.removeEventListener("resize", updateActiveService);
-
-      if (rafRef.current !== null) {
-        cancelAnimationFrame(rafRef.current);
-        rafRef.current = null;
-      }
-
-      if (overrideTimeoutRef.current !== null) {
-        clearTimeout(overrideTimeoutRef.current);
-        overrideTimeoutRef.current = null;
-      }
-    };
-  }, []);
 
   function activateService(index: number) {
-    manualOverrideRef.current = index;
-    setDisplayedIndex(index);
-
-    if (overrideTimeoutRef.current !== null) {
-      clearTimeout(overrideTimeoutRef.current);
-    }
-
-    overrideTimeoutRef.current = setTimeout(() => {
-      manualOverrideRef.current = null;
-      overrideTimeoutRef.current = null;
-    }, 1800);
+    setDisplayedIndex((current) => (current === index ? current : index));
   }
 
   return (
-    <section ref={sectionRef} className="bg-[#f6f2ea] py-24 md:py-32">
+    <section className="bg-[#f6f2ea] py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-14 flex flex-col gap-8 border-b border-black/8 pb-10 min-[900px]:mb-[4.5rem] min-[900px]:flex-row min-[900px]:items-end min-[900px]:justify-between">
           <div className="max-w-3xl">
@@ -157,9 +95,6 @@ export default function ServicesSpaciaz() {
                 return (
                   <div
                     key={service.id}
-                    ref={(node) => {
-                      rowRefs.current[index] = node;
-                    }}
                     className="border-b border-black/12"
                   >
                   <button
@@ -214,6 +149,14 @@ export default function ServicesSpaciaz() {
                       <p className="max-w-2xl text-[0.98rem] leading-7 text-black/62 md:text-[1rem]">
                         {service.description}
                       </p>
+
+                      <Link
+                        href={service.href}
+                        className="mt-6 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#c9a227] transition-colors hover:text-brand-dark"
+                      >
+                        <span>Learn more</span>
+                        <ArrowUpRight size={14} />
+                      </Link>
 
                       <div className="mt-5 min-[900px]:hidden">
                         <div className="relative overflow-hidden rounded-lg">

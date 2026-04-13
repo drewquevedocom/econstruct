@@ -12,7 +12,7 @@ import ConsultationCTA from "@/components/ConsultationCTA";
 export const metadata: Metadata = generatePageMetadata({
   title: "Our Work - Los Angeles Construction Projects",
   description:
-    "Explore Los Angeles construction projects from econstruct including fire rebuild case studies, luxury custom homes, and commercial tenant improvements.",
+    "Explore Los Angeles construction projects from econstruct including fire rebuild case studies and luxury custom homes.",
   path: "/projects",
 });
 
@@ -43,7 +43,7 @@ export default function ProjectsPage() {
 
       <PageHero
         title="Our Work - Los Angeles Construction Projects"
-        subtitle="Case studies and project documentation across fire rebuilds, luxury custom homes, and commercial interiors."
+        subtitle="Case studies and project documentation across fire rebuilds and luxury custom homes."
         breadcrumbs={[{ label: "Projects" }]}
       />
 

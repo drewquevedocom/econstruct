@@ -24,7 +24,7 @@ export const metadata: Metadata = generatePageMetadata({
   description:
     "Expert construction resources for Los Angeles homeowners. Fire rebuild guides, cost calculators, ADU regulations, and luxury remodel insights from econstruct's 25+ years of experience.",
   path: "/resources",
-  image: "/fire_rebuild_service.png",
+  image: "/fire_rebuild_hero.png",
 });
 
 const featuredPost = blogPosts.find((p) => p.featured);

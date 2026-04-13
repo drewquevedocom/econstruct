@@ -8,13 +8,13 @@ export default function BlogPreview() {
     {
       title: "Understanding Local WUI Codes for Fire Rebuilds",
       excerpt: "If you're rebuilding in a high-fire severity zone, navigating the WUI regulations is your absolute first priority before drafting any plans.",
-      image: "/fire_rebuild_service.png",
+      image: "/fire_rebuild_hero.png",
       date: "March 12, 2026",
       href: "/blog/understanding-wui-codes"
     },
     {
       title: "The Return on Investment of Luxury Kitchen Modernization",
-      excerpt: "Discover how high-end kitchen remodels in Brentwood and Santa Monica are driving substantial valuation multipliers in today's luxury market.",
+      excerpt: "Discover how high-end luxury renovations in Brentwood and Santa Monica are driving substantial valuation multipliers in today's market.",
       image: "/luxury_mod_service.png",
       date: "March 5, 2026",
       href: "/blog/roi-luxury-kitchen"
@@ -50,7 +50,7 @@ export default function BlogPreview() {
               viewport={{ once: true }}
               className="text-4xl md:text-5xl lg:text-5xl font-bold text-brand-dark tracking-tight"
             >
-              Executive Construction Briefs
+              Blogs
             </motion.h2>
           </div>
           

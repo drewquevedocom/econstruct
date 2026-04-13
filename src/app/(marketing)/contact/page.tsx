@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import {
   Phone,
   Mail,
@@ -13,12 +14,12 @@ import { COMPANY } from "@/lib/constants";
 import PageHero from "@/components/ui/PageHero";
 import Container from "@/components/ui/Container";
 import AnimatedSection from "@/components/ui/AnimatedSection";
-import ContactForm from "@/components/contact/ContactForm";
+import GenericContactForm from "@/components/contact/GenericContactForm";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Contact econstruct — Free Consultation",
+  title: "Contact econstruct",
   description:
-    "Get in touch with econstruct Inc. for a free consultation on your Los Angeles construction project. Fire rebuilds, luxury homes, and more. Call (888) 990-0303.",
+    "Contact econstruct Inc. with a general inquiry, vendor question, or project message. Call 310-740-9999 for direct support.",
   path: "/contact",
 });
 
@@ -60,7 +61,7 @@ export default function ContactPage() {
 
       <PageHero
         title="Contact Us"
-        subtitle="Ready to start your project? Get in touch for a free consultation. We respond within 24 hours."
+        subtitle="Use this form for general questions, vendor outreach, and normal company contact. We respond within 24 hours."
         breadcrumbs={[{ label: "Contact" }]}
       />
 
@@ -69,7 +70,9 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
             {/* Left: Contact Form (3 cols) */}
             <AnimatedSection className="lg:col-span-3">
-              <ContactForm />
+              <Suspense fallback={null}>
+                <GenericContactForm />
+              </Suspense>
             </AnimatedSection>
 
             {/* Right: Contact Info (2 cols) */}

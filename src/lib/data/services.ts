@@ -16,7 +16,7 @@ export const services: Service[] = [
     slug: "fire-rebuild",
     shortDescription: "Expert fire damage reconstruction with WUI compliance and insurance coordination.",
     description: "Comprehensive fire rebuild services for Palisades, Altadena, and Malibu homeowners. We handle insurance coordination, WUI-compliant construction, and expedited permitting to get you home faster.",
-    image: "/fire_rebuild_service.png",
+    image: "/fire_rebuild_hero.png",
     icon: "Flame",
     features: [
       "Insurance gap analysis & coordination",

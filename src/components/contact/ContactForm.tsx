@@ -30,9 +30,6 @@ const projectTypes = [
   "Luxury Home Building",
   "Custom Home Construction",
   "Home Additions",
-  "Kitchen Remodel",
-  "Bathroom Remodel",
-  "Commercial Tenant Improvement",
 ];
 
 const budgetRanges = [

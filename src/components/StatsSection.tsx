@@ -53,12 +53,12 @@ const AnimatedCounter = ({
 export default function StatsSection() {
   const stats: { value: number; label: string; prefix?: string; suffix?: string }[] = [
     {
-      value: 25,
-      suffix: "+",
-      label: "Years of Frank's experience in LA",
+      value: 2001,
+      label: "Building in Los Angeles Since",
     },
     {
-      value: 634,
+      value: 345,
+      suffix: "+",
       label: "Projects Completed Successfully",
     },
     {
