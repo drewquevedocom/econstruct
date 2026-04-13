@@ -1,0 +1,48 @@
+# ============================================================
+# wrangler.toml — eConstruct Cloudflare Worker Configuration
+# ============================================================
+
+name = "econstruct"
+main = ".worker-next/index.mjs"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# ──────────────────────────────────────────
+# Custom Domains (both apex + www)
+# ──────────────────────────────────────────
+[[routes]]
+pattern = "econstructhomes.com"
+custom_domain = true
+
+[[routes]]
+pattern = "www.econstructhomes.com"
+custom_domain = true
+
+# ──────────────────────────────────────────
+# Static Assets
+# ──────────────────────────────────────────
+[assets]
+directory = ".worker-next/assets"
+binding = "ASSETS"
+
+# ──────────────────────────────────────────
+# Environment Variables (non-secret)
+# ──────────────────────────────────────────
+[vars]
+NODE_ENV = "production"
+NEXT_DIST_DIR = ".worker-next"
+
+# ──────────────────────────────────────────
+# Production Environment
+# ──────────────────────────────────────────
+[env.production]
+name = "econstruct"
+vars = { NODE_ENV = "production" }
+
+[[env.production.routes]]
+pattern = "econstructhomes.com"
+custom_domain = true
+
+[[env.production.routes]]
+pattern = "www.econstructhomes.com"
+custom_domain = true
