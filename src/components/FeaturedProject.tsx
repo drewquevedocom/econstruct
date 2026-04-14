@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+import ScrollingPill from "@/components/ui/ScrollingPill";
 
 const caseStudyUrl =
   "https://econstructinc.com/luxury-home-builders-los-angeles-hollywood-hills-remodel-case-study/";
@@ -18,16 +19,10 @@ export default function FeaturedProject() {
     <section className="overflow-hidden bg-white py-24 md:py-32">
       <div className="container mx-auto max-w-7xl px-6 md:px-8">
         <div className="mb-16 flex flex-col items-start">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-6 flex w-fit items-center gap-2 rounded-full border border-black/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-brand-dark"
-          >
-            <span>Case Study</span>
-            <span className="text-accent-gold">&bull;</span>
-            <span>Featured</span>
-          </motion.div>
+          <ScrollingPill
+            label="CASE STUDY · FEATURED"
+            className="mb-6 border-black/10 text-brand-dark"
+          />
 
           <motion.h2
             initial={{ opacity: 0, y: 28 }}

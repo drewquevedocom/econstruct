@@ -46,7 +46,6 @@ faq:
 relatedSlugs:
   - "luxury-home-automation-control4-crestron-savant"
   - "santa-monica-hillside-construction-geotechnical"
-  - "how-to-vet-fire-rebuild-contractor-la"
 localAreas:
   - "Brentwood"
   - "Bel Air"

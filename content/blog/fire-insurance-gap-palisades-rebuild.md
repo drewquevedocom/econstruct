@@ -46,7 +46,6 @@ faq:
 relatedSlugs:
   - "pacific-palisades-fire-rebuild-guide-2026"
   - "chapter-7a-wui-compliance-homeowner-guide"
-  - "how-to-vet-fire-rebuild-contractor-la"
 localAreas:
   - "Pacific Palisades"
   - "Malibu"

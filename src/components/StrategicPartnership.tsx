@@ -1,14 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
+import ScrollingPill from "@/components/ui/ScrollingPill";
 
 export default function StrategicPartnership() {
   return (
     <section className="w-full bg-[#f6f2ea] py-20 md:py-28 font-body">
       <div className="container mx-auto max-w-7xl px-6 md:px-8">
         <div className="mb-6 flex justify-center">
-          <span className="rounded-full border border-black/10 bg-white/70 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.28em] text-black/55 backdrop-blur-sm">
-            Strategic Partnership
-          </span>
+          <ScrollingPill
+            label="STRATEGIC PARTNERSHIP"
+            className="border-black/10 text-black/55"
+          />
         </div>
 
         <h2 className="mb-5 text-center text-3xl font-heading leading-[1.05] text-brand-dark md:text-5xl">
@@ -28,7 +30,7 @@ export default function StrategicPartnership() {
             <div className="flex flex-col items-center justify-center border-b border-black/8 bg-[#fcfaf5] p-8 text-center md:w-[34%] md:items-start md:border-b-0 md:border-r md:p-10 md:text-left">
               <div className="flex w-full max-w-[280px] items-center justify-center rounded-[28px] border border-black/8 bg-white px-8 py-6 shadow-[0_14px_30px_rgba(0,0,0,0.05)] md:justify-start">
                 <Image
-                  src="/LA+Expedite+New+Logo+-+architecture+and+planning.webp"
+                  src="/la-expedite-logo.webp"
                   alt="LA Expedite architecture and planning"
                   width={220}
                   height={92}

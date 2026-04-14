@@ -72,7 +72,7 @@ export default function GatekeeperCTA() {
       style={{
         height: "clamp(460px, 58vw, 680px)",
         backgroundImage: "url('/hollywood_hills_v2.png')",
-        backgroundAttachment: "fixed",
+        backgroundAttachment: "scroll",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -81,7 +81,7 @@ export default function GatekeeperCTA() {
       <div className="absolute inset-0 bg-[rgba(4,7,12,0.42)]" />
       <div className="absolute inset-x-0 bottom-0 h-[55%] bg-[linear-gradient(180deg,transparent_0%,rgba(4,7,12,0.55)_100%)]" />
 
-      <div className="absolute inset-0 flex items-end px-8 pb-10 md:px-14 md:pb-14">
+      <div className="absolute inset-0 flex items-end px-5 pb-8 md:px-14 md:pb-14">
         <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div className="max-w-3xl">
             <motion.p

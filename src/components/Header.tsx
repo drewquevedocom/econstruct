@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import HeaderLogo from "@/components/HeaderLogo";
 import { COMPANY } from "@/lib/constants";
@@ -81,12 +81,29 @@ export default function Header() {
           </Link>
         </div>
 
-        <button
-          className={`md:hidden ${textColor} z-50 transition-colors pointer-events-auto`}
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
-        </button>
+        {/* Mobile-only action icons + hamburger */}
+        <div className="md:hidden flex items-center gap-3">
+          <a
+            href={`tel:${COMPANY.phone.primary}`}
+            aria-label="Call econstruct"
+            style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 36, height: 36, borderRadius: "50%", border: "1px solid rgba(201,162,39,0.5)", color: "#c9a227" }}
+          >
+            <Phone size={17} />
+          </a>
+          <a
+            href="mailto:info@econstructinc.com"
+            aria-label="Email econstruct"
+            style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 36, height: 36, borderRadius: "50%", border: "1px solid rgba(201,162,39,0.5)", color: "#c9a227" }}
+          >
+            <Mail size={17} />
+          </a>
+          <button
+            className={`${textColor} z-50 transition-colors pointer-events-auto`}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>

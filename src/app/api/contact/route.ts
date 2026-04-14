@@ -4,7 +4,8 @@ import { Resend } from "resend";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const NOTIFY_EMAIL = "info@econstructinc.com";
+const NOTIFY_TO = "info@econstructinc.com";
+const NOTIFY_CC = ["robyn@econstructinc.com", "marketing@econstructinc.com"];
 
 export async function POST(req: NextRequest) {
   try {
@@ -69,7 +70,8 @@ export async function POST(req: NextRequest) {
 
       await resend.emails.send({
         from: "econstruct Website <no-reply@econstructinc.com>",
-        to: NOTIFY_EMAIL,
+        to: NOTIFY_TO,
+        cc: NOTIFY_CC,
         subject,
         html: `
           <div style="font-family:sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a;">

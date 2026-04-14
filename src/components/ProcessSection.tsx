@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import ScrollingPill from "@/components/ui/ScrollingPill";
 
 const steps = [
   {
@@ -38,16 +39,10 @@ export default function ProcessSection() {
       <div className="container mx-auto px-6 max-w-7xl">
         {/* Header */}
         <div className="text-center mb-20 md:mb-28">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="border border-brand-dark/20 uppercase tracking-widest text-[10px] font-bold px-4 py-1.5 rounded-full text-brand-dark w-fit mx-auto mb-6 flex gap-2 items-center"
-          >
-            <span>HOW WE</span>
-            <span className="text-accent-gold">&bull;</span>
-            <span>DELIVER</span>
-          </motion.div>
+          <ScrollingPill
+            label="HOW WE · DELIVER"
+            className="mx-auto mb-6 border-brand-dark/20 text-brand-dark"
+          />
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

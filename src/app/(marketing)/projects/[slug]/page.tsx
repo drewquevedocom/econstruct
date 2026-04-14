@@ -10,6 +10,7 @@ import {
 } from "@/lib/data/prompt-projects";
 import PageHero from "@/components/ui/PageHero";
 import Container from "@/components/ui/Container";
+import SectionHeader from "@/components/ui/SectionHeader";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
@@ -85,8 +86,15 @@ export default async function ProjectPage({
         backgroundImage={project.image}
       />
 
-      <section className="py-24 md:py-32">
+      <section className="py-20 md:py-28">
         <Container>
+          <SectionHeader
+            badge={["Project", "Details"]}
+            title="At-a-Glance Project Summary"
+            subtitle="The essentials clients care about first: scope, timing, scale, and when the work was completed."
+            centered={false}
+            className="mb-12"
+          />
           <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-5">
             {[
               ["Location", project.location],
@@ -96,7 +104,7 @@ export default async function ProjectPage({
               ["Completion", project.completionDate],
             ].map(([label, value], index) => (
               <AnimatedSection key={label} delay={index * 0.05}>
-                <div className="rounded-3xl border border-gray-100 bg-white p-8 shadow-sm">
+                <div className="h-full rounded-3xl border border-gray-100 bg-white p-8 shadow-sm transition-transform duration-300 hover:-translate-y-1">
                   <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent-gold">
                     {label}
                   </p>
@@ -110,64 +118,86 @@ export default async function ProjectPage({
         </Container>
       </section>
 
-      <section className="bg-secondary py-24 md:py-32">
+      <section className="bg-secondary py-20 md:py-28">
         <Container>
-          <div className="grid gap-16 lg:grid-cols-2">
+          <SectionHeader
+            badge={["Challenge", "Strategy"]}
+            title="What We Solved and How We Solved It"
+            subtitle="Every project has a different technical pressure point. This section shows the problem, then the execution strategy that resolved it."
+            centered={false}
+            className="mb-12"
+          />
+          <div className="grid gap-8 lg:grid-cols-2">
             <AnimatedSection>
-              <div className="space-y-6">
-                <h2 className="text-4xl font-bold tracking-tight text-brand-dark">
+              <div className="h-full rounded-[2rem] border border-black/8 bg-white p-8 shadow-sm md:p-10">
+                <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-gold">
                   The Challenge
-                </h2>
-                {project.challenge.map((paragraph) => (
-                  <p key={paragraph} className="leading-relaxed text-body-text">
-                    {paragraph}
-                  </p>
-                ))}
+                </p>
+                <div className="mt-6 space-y-5">
+                  {project.challenge.map((paragraph) => (
+                    <p key={paragraph} className="leading-relaxed text-body-text">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
               </div>
             </AnimatedSection>
 
             <AnimatedSection delay={0.12}>
-              <div className="space-y-6">
-                <h2 className="text-4xl font-bold tracking-tight text-brand-dark">
+              <div className="h-full rounded-[2rem] bg-brand-dark p-8 text-white shadow-[0_24px_70px_rgba(0,0,0,0.14)] md:p-10">
+                <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-gold">
                   Our Approach
-                </h2>
-                {project.approach.map((paragraph) => (
-                  <p key={paragraph} className="leading-relaxed text-body-text">
-                    {paragraph}
-                  </p>
-                ))}
+                </p>
+                <div className="mt-6 space-y-5">
+                  {project.approach.map((paragraph) => (
+                    <p key={paragraph} className="leading-relaxed text-white/80">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
               </div>
             </AnimatedSection>
           </div>
         </Container>
       </section>
 
-      <section className="py-24 md:py-32">
+      <section className="py-20 md:py-28">
         <Container>
-          <div className="grid gap-16 lg:grid-cols-2">
+          <SectionHeader
+            badge={["Execution", "Outcome"]}
+            title="How the Work Progressed"
+            subtitle="The build sequence and final result are presented separately so the project reads cleanly for homeowners, architects, and AI search systems."
+            centered={false}
+            className="mb-12"
+          />
+          <div className="grid gap-8 lg:grid-cols-2">
             <AnimatedSection>
-              <div className="space-y-6">
-                <h2 className="text-4xl font-bold tracking-tight text-brand-dark">
+              <div className="h-full rounded-[2rem] border border-black/8 bg-white p-8 shadow-sm md:p-10">
+                <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-gold">
                   The Build
-                </h2>
-                {project.build.map((paragraph) => (
-                  <p key={paragraph} className="leading-relaxed text-body-text">
-                    {paragraph}
-                  </p>
-                ))}
+                </p>
+                <div className="mt-6 space-y-5">
+                  {project.build.map((paragraph) => (
+                    <p key={paragraph} className="leading-relaxed text-body-text">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
               </div>
             </AnimatedSection>
 
             <AnimatedSection delay={0.12}>
-              <div className="space-y-6">
-                <h2 className="text-4xl font-bold tracking-tight text-brand-dark">
+              <div className="h-full rounded-[2rem] border border-black/8 bg-[#18181B] p-8 text-white shadow-[0_24px_70px_rgba(0,0,0,0.18)] md:p-10">
+                <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-gold">
                   The Result
-                </h2>
-                {project.result.map((paragraph) => (
-                  <p key={paragraph} className="leading-relaxed text-body-text">
-                    {paragraph}
-                  </p>
-                ))}
+                </p>
+                <div className="mt-6 space-y-5">
+                  {project.result.map((paragraph) => (
+                    <p key={paragraph} className="leading-relaxed text-white/80">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
               </div>
             </AnimatedSection>
           </div>
@@ -226,27 +256,43 @@ export default async function ProjectPage({
         </Container>
       </section>
 
-      <section className="py-24 md:py-32">
+      <section className="py-20 md:py-28">
         <Container>
-          <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+          <SectionHeader
+            badge={["Takeaways", "Next Steps"]}
+            title="What the Project Proved"
+            subtitle="The final section pulls the practical lessons forward and gives visitors a clear next step if they are planning something similar."
+            centered={false}
+            className="mb-12"
+          />
+          <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
             <AnimatedSection>
-              <div className="rounded-3xl bg-brand-dark p-10 text-white">
-                <h2 className="text-4xl font-bold tracking-tight">
+              <div className="rounded-[2rem] bg-brand-dark p-8 text-white shadow-[0_24px_70px_rgba(0,0,0,0.18)] md:p-10">
+                <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-gold">
                   Key Takeaways
+                </p>
+                <h2 className="mt-4 text-3xl font-bold tracking-tight text-white md:text-4xl">
+                  Why This Result Matters
                 </h2>
                 <ul className="mt-8 space-y-4 text-white/80">
                   {project.takeaways.map((item) => (
-                    <li key={item}>{item}</li>
+                    <li key={item} className="flex gap-3">
+                      <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-accent-gold" />
+                      <span>{item}</span>
+                    </li>
                   ))}
                 </ul>
               </div>
             </AnimatedSection>
 
             <AnimatedSection delay={0.12}>
-              <div className="rounded-3xl border border-gray-100 bg-white p-10 shadow-sm">
+              <div className="rounded-[2rem] border border-black/8 bg-white p-8 shadow-sm md:p-10">
                 {project.testimonial && (
                   <>
-                    <p className="text-xl leading-relaxed text-body-text">
+                    <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-gold">
+                      Client Perspective
+                    </p>
+                    <p className="mt-5 text-xl leading-relaxed text-body-text">
                       &ldquo;{project.testimonial.quote}&rdquo;
                     </p>
                     <p className="mt-6 text-sm font-bold uppercase tracking-[0.18em] text-accent-gold">

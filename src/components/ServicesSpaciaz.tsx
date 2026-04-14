@@ -11,7 +11,7 @@ interface ServiceCard {
   slug: string;
   description: string;
   image: string;
-  objectFit: string;
+  objectFit: "cover" | "contain";
   href: string;
   objectPosition?: string;
   beforeImage?: string;
@@ -26,7 +26,7 @@ const services: ServiceCard[] = [
     description:
       "econstruct handles complete fire damage restoration and rebuilds across Los Angeles - Palisades, Altadena, and Malibu. We manage insurance claims, demolition permits, and full custom reconstruction.",
     image: "/Fire Damage Rebuilds 2.png",
-    objectFit: "object-cover",
+    objectFit: "cover",
     href: "/services/fire-rebuild-contractor-los-angeles",
   },
   {
@@ -36,7 +36,7 @@ const services: ServiceCard[] = [
     description:
       "Transform your LA home into a high-performance luxury residence. From full modernizations to ADU additions, our design-build team delivers precision craftsmanship with energy-efficient systems for California living.",
     image: "/service_02_luxury_mod.png",
-    objectFit: "object-cover",
+    objectFit: "cover",
     beforeImage: "/before.png",
     afterImage: "/service_02_luxury_mod.png",
     href: "/services/luxury-home-builder-los-angeles",
@@ -48,7 +48,7 @@ const services: ServiceCard[] = [
     description:
       "Build from the ground up in Beverly Hills, Bel Air, or Pacific Palisades. Our licensed general contractors manage architecture, engineering, permitting, and construction - under one roof.",
     image: "/service_03_custom_home.png",
-    objectFit: "object-cover",
+    objectFit: "contain",
     href: "/services/custom-home-construction-los-angeles",
   },
   {
@@ -58,7 +58,7 @@ const services: ServiceCard[] = [
     description:
       "Room additions, second stories, ADUs, and garage conversions designed to expand your home without compromising the architecture. Permit strategy and clean integration from day one.",
     image: "/service_04_home_additions.png.png",
-    objectFit: "object-cover",
+    objectFit: "cover",
     href: "/services/home-additions-los-angeles",
   },
   {
@@ -68,7 +68,7 @@ const services: ServiceCard[] = [
     description:
       "Integrated lighting, shades, audio-video, climate, and security planned into the build from day one. Luxury smart-home technology that feels invisible and works reliably.",
     image: "/service_05_home_automation.png.png",
-    objectFit: "object-cover",
+    objectFit: "cover",
     objectPosition: "left center",
     href: "/services/home-automation-los-angeles",
   },
@@ -193,14 +193,14 @@ export default function ServicesSpaciaz() {
                             </div>
                           </div>
                         ) : (
-                          <div className="relative overflow-hidden rounded-lg">
+                          <div className="relative overflow-hidden rounded-lg bg-[#0c0e12]">
                             <img
                               src={service.image}
                               alt={service.title}
-                              className={`h-[260px] w-full transition-all duration-500 ${service.objectFit} ${
+                              className={`h-[260px] w-full transition-all duration-500 ${
                                 isActive ? "scale-100 opacity-100" : "scale-[1.04] opacity-0"
                               }`}
-                              style={{ objectPosition: service.objectPosition ?? "center" }}
+                              style={{ objectFit: service.objectFit, objectPosition: service.objectPosition ?? "center" }}
                             />
                             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/38 via-black/8 to-transparent" />
                           </div>
@@ -215,7 +215,7 @@ export default function ServicesSpaciaz() {
 
           <div className="hidden min-[900px]:block">
             <div className="sticky top-20">
-              <div className="relative h-[calc(100vh-160px)] max-h-[700px] overflow-hidden rounded-[8px]">
+              <div className="relative h-[calc(100vh-160px)] max-h-[700px] overflow-hidden rounded-[8px] bg-[#0c0e12]">
                 {services.map((service, index) => {
                   const isActive = displayedIndex === index;
 
@@ -229,7 +229,6 @@ export default function ServicesSpaciaz() {
                       >
                         {/* Full size image */}
                         <img src={service.image} alt={service.title} className="h-full w-full object-cover" />
-                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
 
                         {/* Before badge — top left */}
                         <span className="absolute left-3 top-3 rounded-sm bg-black/60 px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.28em] text-white/80 backdrop-blur-sm">
@@ -249,15 +248,17 @@ export default function ServicesSpaciaz() {
                       key={service.id}
                       src={service.image}
                       alt={service.title}
-                      className={`absolute inset-0 h-full w-full transition-[opacity,transform] duration-[600ms] ease-out ${service.objectFit} ${
+                      className={`absolute inset-0 h-full w-full transition-[opacity,transform] duration-[600ms] ease-out ${
                         isActive ? "scale-100 opacity-100" : "scale-[1.04] opacity-0"
                       }`}
-                      style={{ objectPosition: service.objectPosition ?? "center" }}
+                      style={{ objectFit: service.objectFit, objectPosition: service.objectPosition ?? "center" }}
                     />
                   );
                 })}
 
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
+                {!services[displayedIndex].beforeImage && (
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
+                )}
 
                 <div
                   key={services[displayedIndex].id}

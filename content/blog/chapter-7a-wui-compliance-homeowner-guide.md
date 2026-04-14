@@ -46,7 +46,6 @@ faq:
 relatedSlugs:
   - "pacific-palisades-fire-rebuild-guide-2026"
   - "fire-insurance-gap-palisades-rebuild"
-  - "how-to-vet-fire-rebuild-contractor-la"
 localAreas:
   - "Pacific Palisades"
   - "Altadena"

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getAllBlogPosts } from "@/lib/blog";
+import ScrollingPill from "@/components/ui/ScrollingPill";
 
 export default function BlogPreview() {
   const posts = getAllBlogPosts().slice(0, 3);
@@ -11,11 +12,10 @@ export default function BlogPreview() {
       <div className="container mx-auto max-w-7xl px-6">
         <div className="mb-16 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div>
-            <div className="mb-6 flex w-fit items-center gap-2 rounded-full border border-brand-dark/20 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-brand-dark">
-              <span>INSIGHTS</span>
-              <span className="text-accent-gold">&bull;</span>
-              <span>LATEST NEWS</span>
-            </div>
+            <ScrollingPill
+              label="INSIGHTS · LATEST NEWS"
+              className="mb-6 border-brand-dark/20 text-brand-dark"
+            />
             <h2 className="text-4xl font-bold tracking-tight text-brand-dark md:text-5xl lg:text-5xl">
               Blog
             </h2>

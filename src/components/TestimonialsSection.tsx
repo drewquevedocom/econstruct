@@ -2,6 +2,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Star } from "lucide-react";
+import ScrollingPill from "@/components/ui/ScrollingPill";
 
 const testimonials = [
   {
@@ -56,16 +57,10 @@ export default function TestimonialsSection() {
     <section className="py-24 md:py-32 bg-[#F8F6F2] overflow-hidden">
       <div className="container mx-auto px-6 max-w-5xl text-center">
         
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="border border-brand-dark/20 uppercase tracking-widest text-[10px] font-bold px-4 py-1.5 rounded-full text-brand-dark w-fit mx-auto mb-12 flex gap-2 items-center"
-        >
-          <span>CLIENTS</span> 
-          <span className="text-accent-gold">•</span>
-          <span>TESTIMONIALS</span>
-        </motion.div>
+        <ScrollingPill
+          label="CLIENTS · TESTIMONIALS"
+          className="mx-auto mb-12 border-brand-dark/20 text-brand-dark"
+        />
 
         <div className="relative min-h-[180px] flex items-center justify-center">
           <AnimatePresence mode="wait">

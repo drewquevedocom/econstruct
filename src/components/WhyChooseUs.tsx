@@ -82,7 +82,7 @@ export default function WhyChooseUs() {
               <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.34em] text-accent-gold">
                 Our Core
               </p>
-              <h2 className="font-heading text-[2.6rem] leading-[1.01] tracking-tight text-brand-dark md:text-[3.2rem]">
+              <h2 className="font-heading text-[2.2rem] leading-[1.01] tracking-tight text-brand-dark sm:text-[2.6rem] md:text-[3.2rem]">
                 What makes us
                 <br />
                 <span className="italic text-accent-gold">different</span>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -11,10 +12,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://econstructinc.com"),
   icons: {
     icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
       { url: "/favicon.ico", sizes: "any" },
       { url: "/econstruct_red_square.png", type: "image/png" },
     ],
-    shortcut: "/favicon.ico",
+    shortcut: "/favicon.svg",
     apple: "/econstruct_red_square.png",
   },
   openGraph: {
@@ -31,7 +33,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-body bg-background text-body-text antialiased">{children}</body>
+      <body className="font-body bg-background text-body-text antialiased">
+        <Script
+          id="google-analytics-loader"
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-LZ9NRKZ7HT"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-LZ9NRKZ7HT');
+          `}
+        </Script>
+        {children}
+      </body>
     </html>
   );
 }

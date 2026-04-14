@@ -46,7 +46,6 @@ faq:
 relatedSlugs:
   - "fire-insurance-gap-palisades-rebuild"
   - "chapter-7a-wui-compliance-homeowner-guide"
-  - "how-to-vet-fire-rebuild-contractor-la"
 localAreas:
   - "Pacific Palisades"
   - "Brentwood"

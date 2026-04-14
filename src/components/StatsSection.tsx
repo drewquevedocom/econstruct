@@ -70,7 +70,7 @@ export default function StatsSection() {
       style={{
         minHeight: "72vh",
         backgroundImage: "url('/hollywood_hills.png')",
-        backgroundAttachment: "fixed",
+        backgroundAttachment: "scroll",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -120,7 +120,7 @@ export default function StatsSection() {
                   variants={slideUp}
                   initial="hidden"
                   animate={isInView ? "visible" : "hidden"}
-                  className="font-heading text-[4rem] font-black leading-none text-white md:text-[5.4rem]"
+                  className="font-heading text-[2.4rem] font-black leading-none text-white md:text-[5.4rem]"
                 >
                   <AnimatedCounter
                     end={stat.value}
