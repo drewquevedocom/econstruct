@@ -33,6 +33,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="msvalidate.01" content="354235B0ED282F8C0BEE7E99C9102E6C" />
+      </head>
       <body className="font-body bg-background text-body-text antialiased">
         <Script
           id="google-analytics-loader"
