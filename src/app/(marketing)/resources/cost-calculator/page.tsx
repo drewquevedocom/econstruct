@@ -15,9 +15,9 @@ export const metadata: Metadata = generatePageMetadata({
 });
 
 const breadcrumbSchema = generateBreadcrumbSchema([
-  { name: "Home", url: "https://econstructinc.com" },
-  { name: "Resources", url: "https://econstructinc.com/resources" },
-  { name: "Cost Calculator", url: "https://econstructinc.com/resources/cost-calculator" },
+  { name: "Home", url: "https://econstructhomes.com" },
+  { name: "Resources", url: "https://econstructhomes.com/resources" },
+  { name: "Cost Calculator", url: "https://econstructhomes.com/resources/cost-calculator" },
 ]);
 
 export default function CostCalculatorPage() {
@@ -79,3 +79,4 @@ export default function CostCalculatorPage() {
     </>
   );
 }
+

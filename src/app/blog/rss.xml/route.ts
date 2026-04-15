@@ -7,7 +7,7 @@ export function GET() {
 <rss version="2.0">
   <channel>
     <title>econstruct Blog</title>
-    <link>https://econstructinc.com/blog</link>
+    <link>https://econstructhomes.com/blog</link>
     <description>Insights from the LA Rebuild Frontline</description>
     <language>en-us</language>
     ${posts
@@ -15,8 +15,8 @@ export function GET() {
         (post) => `
     <item>
       <title><![CDATA[${post.title}]]></title>
-      <link>https://econstructinc.com/blog/${post.slug}</link>
-      <guid>https://econstructinc.com/blog/${post.slug}</guid>
+      <link>https://econstructhomes.com/blog/${post.slug}</link>
+      <guid>https://econstructhomes.com/blog/${post.slug}</guid>
       <pubDate>${new Date(post.publishedAt).toUTCString()}</pubDate>
       <author>info@econstructinc.com (${post.author.name})</author>
       <description><![CDATA[${post.description}]]></description>
@@ -32,3 +32,4 @@ export function GET() {
     },
   });
 }
+

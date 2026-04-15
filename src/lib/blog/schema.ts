@@ -2,7 +2,7 @@ import type { BlogAuthor } from "@/lib/blog/authors";
 import type { BlogFaqItem, BlogPost } from "@/lib/blog";
 import { COMPANY } from "@/lib/constants";
 
-const baseUrl = "https://econstructinc.com";
+const baseUrl = "https://econstructhomes.com";
 
 export function generateBlogArticleSchema(post: BlogPost) {
   return {
@@ -91,3 +91,4 @@ export function generateOrganizationSchema() {
     sameAs: Object.values(COMPANY.social),
   };
 }
+

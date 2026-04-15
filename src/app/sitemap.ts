@@ -11,7 +11,7 @@ import {
 } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://econstructinc.com";
+  const baseUrl = "https://econstructhomes.com";
 
   const staticPages = [
     { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 1.0 },
@@ -107,3 +107,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...blogAuthorPages,
   ];
 }
+

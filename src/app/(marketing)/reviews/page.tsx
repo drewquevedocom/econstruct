@@ -11,7 +11,7 @@ import Button from "@/components/ui/Button";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Client Reviews — What Our Clients Say About econstruct",
+  title: "Client Reviews Ã¢â‚¬â€ What Our Clients Say About econstruct",
   description:
     "Read verified reviews from econstruct clients across Los Angeles. 5.0-star rating based on 47 reviews for fire rebuilds, luxury modernization, and custom homes.",
   path: "/reviews",
@@ -28,8 +28,8 @@ export default function ReviewsPage() {
   const localBusinessSchema = generateLocalBusinessSchema();
 
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: "https://econstructinc.com" },
-    { name: "Reviews", url: "https://econstructinc.com/reviews" },
+    { name: "Home", url: "https://econstructhomes.com" },
+    { name: "Reviews", url: "https://econstructhomes.com/reviews" },
   ]);
 
   const averageRating =
@@ -151,3 +151,4 @@ export default function ReviewsPage() {
     </>
   );
 }
+

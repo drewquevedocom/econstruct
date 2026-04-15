@@ -37,8 +37,8 @@ export const metadata: Metadata = generatePageMetadata({
 
 export default function ServiceAreasPage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: "https://econstructinc.com" },
-    { name: "Service Areas", url: "https://econstructinc.com/service-areas" },
+    { name: "Home", url: "https://econstructhomes.com" },
+    { name: "Service Areas", url: "https://econstructhomes.com/service-areas" },
   ]);
 
   return (
@@ -87,3 +87,4 @@ export default function ServiceAreasPage() {
     </>
   );
 }
+

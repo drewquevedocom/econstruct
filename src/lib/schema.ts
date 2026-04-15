@@ -7,7 +7,7 @@ export function generateLocalBusinessSchema() {
     name: COMPANY.name,
     legalName: "econstruct Inc.",
     description: "Los Angeles' premier high-end residential contractor specializing in fire rebuilds, luxury modernization, and ground-up custom homes. 639+ projects completed since 2001. CA License #964015.",
-    url: "https://econstructinc.com",
+    url: "https://econstructhomes.com",
     telephone: COMPANY.phone.primary,
     email: COMPANY.email,
     foundingDate: "2001",
@@ -47,8 +47,8 @@ export function generateLocalBusinessSchema() {
       { "@type": "City", name: "Bell Canyon" },
     ],
     priceRange: "$$$",
-    image: "https://econstructinc.com/econstruct_logo.png",
-    logo: "https://econstructinc.com/econstruct_logo.png",
+    image: "https://econstructhomes.com/econstruct_logo.png",
+    logo: "https://econstructhomes.com/econstruct_logo.png",
     sameAs: Object.values(COMPANY.social),
     hasCredential: {
       "@type": "EducationalOccupationalCredential",
@@ -95,13 +95,13 @@ export function generateServiceSchema(service: { title: string; description: str
     provider: {
       "@type": "GeneralContractor",
       name: COMPANY.name,
-      url: "https://econstructinc.com",
+      url: "https://econstructhomes.com",
     },
     areaServed: {
       "@type": "City",
       name: "Los Angeles",
     },
-    url: `https://econstructinc.com/services/${service.slug}`,
+    url: `https://econstructhomes.com/services/${service.slug}`,
   };
 }
 
@@ -139,7 +139,7 @@ export function generateArticleSchema(article: { title: string; description: str
     "@type": "Article",
     headline: article.title,
     description: article.description,
-    image: `https://econstructinc.com${article.image}`,
+    image: `https://econstructhomes.com${article.image}`,
     datePublished: article.date,
     author: {
       "@type": "Organization",
@@ -150,9 +150,10 @@ export function generateArticleSchema(article: { title: string; description: str
       name: COMPANY.name,
       logo: {
         "@type": "ImageObject",
-        url: "https://econstructinc.com/econstruct_logo.png",
+        url: "https://econstructhomes.com/econstruct_logo.png",
       },
     },
-    url: `https://econstructinc.com/resources/${article.slug}`,
+    url: `https://econstructhomes.com/resources/${article.slug}`,
   };
 }
+

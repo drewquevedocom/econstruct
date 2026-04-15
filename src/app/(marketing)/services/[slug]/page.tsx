@@ -49,11 +49,11 @@ export default async function PromptServicePage({
 
   const faqSchema = generateFAQSchema(service.faqs);
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: "https://econstructinc.com" },
-    { name: "Services", url: "https://econstructinc.com/services" },
+    { name: "Home", url: "https://econstructhomes.com" },
+    { name: "Services", url: "https://econstructhomes.com/services" },
     {
       name: service.title,
-      url: `https://econstructinc.com/services/${service.slug}`,
+      url: `https://econstructhomes.com/services/${service.slug}`,
     },
   ]);
   const serviceSchema = {
@@ -69,7 +69,7 @@ export default async function PromptServicePage({
       name: "Los Angeles",
     },
     description: service.metaDescription,
-    url: `https://econstructinc.com/services/${service.slug}`,
+    url: `https://econstructhomes.com/services/${service.slug}`,
   };
 
   return (
@@ -84,3 +84,4 @@ export default async function PromptServicePage({
     </>
   );
 }
+

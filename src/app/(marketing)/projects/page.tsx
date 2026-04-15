@@ -9,17 +9,17 @@ import PageHero from "@/components/ui/PageHero";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
 export const metadata: Metadata = {
-  title: "Projects | econstruct — Luxury Home Remodels & Custom Builds in Los Angeles",
+  title: "Projects | econstruct Ã¢â‚¬â€ Luxury Home Remodels & Custom Builds in Los Angeles",
   description:
     "Explore completed luxury remodel and custom home construction projects by econstruct across Hollywood Hills, Bell Canyon, Lawndale, and greater Los Angeles. 639+ projects delivered since 2001.",
   alternates: {
-    canonical: "https://econstructinc.com/projects",
+    canonical: "https://econstructhomes.com/projects",
   },
   openGraph: {
-    title: "Projects | econstruct — Luxury Home Remodels in Los Angeles",
+    title: "Projects | econstruct Ã¢â‚¬â€ Luxury Home Remodels in Los Angeles",
     description:
-      "Portfolio of completed high-end residential projects by econstruct — Hollywood Hills remodels, Bell Canyon estate transformations, coastal condo renovations, and custom engineering.",
-    url: "https://econstructinc.com/projects",
+      "Portfolio of completed high-end residential projects by econstruct Ã¢â‚¬â€ Hollywood Hills remodels, Bell Canyon estate transformations, coastal condo renovations, and custom engineering.",
+    url: "https://econstructhomes.com/projects",
     images: [{ url: "/projects/devista-hero.jpg", width: 1200, height: 630 }],
   },
   twitter: {
@@ -39,21 +39,21 @@ const categoryColors: Record<string, string> = {
 
 export default function ProjectsPage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: "https://econstructinc.com" },
-    { name: "Projects", url: "https://econstructinc.com/projects" },
+    { name: "Home", url: "https://econstructhomes.com" },
+    { name: "Projects", url: "https://econstructhomes.com/projects" },
   ]);
 
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "econstruct Completed Projects — Los Angeles",
+    name: "econstruct Completed Projects Ã¢â‚¬â€ Los Angeles",
     description: "Portfolio of completed luxury residential construction and remodel projects by econstruct Inc.",
     itemListElement: promptProjects.map((project, index) => ({
       "@type": "ListItem",
       position: index + 1,
       name: project.title,
-      url: `https://econstructinc.com/projects/${project.slug}`,
-      image: `https://econstructinc.com${project.image}`,
+      url: `https://econstructhomes.com/projects/${project.slug}`,
+      image: `https://econstructhomes.com${project.image}`,
       description: project.description,
     })),
   };
@@ -65,10 +65,10 @@ export default function ProjectsPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
 
-      {/* ── Hero ── */}
+      {/* Ã¢â€â‚¬Ã¢â€â‚¬ Hero Ã¢â€â‚¬Ã¢â€â‚¬ */}
       <PageHero
         title="Our Work Across Los Angeles"
-        subtitle="639+ projects delivered since 2001 — from Hollywood Hills luxury remodels and Bell Canyon estate transformations to coastal condo renovations and custom engineering solutions."
+        subtitle="639+ projects delivered since 2001 Ã¢â‚¬â€ from Hollywood Hills luxury remodels and Bell Canyon estate transformations to coastal condo renovations and custom engineering solutions."
         breadcrumbs={[{ label: "Projects" }]}
         backgroundImage={featured.image}
         stats={[
@@ -78,7 +78,7 @@ export default function ProjectsPage() {
         ]}
       />
 
-      {/* ── Featured project ── */}
+      {/* Ã¢â€â‚¬Ã¢â€â‚¬ Featured project Ã¢â€â‚¬Ã¢â€â‚¬ */}
       <section className="bg-[#f6f2ea] py-20 md:py-28">
         <Container>
           <p className="mb-8 text-[11px] font-semibold uppercase tracking-[0.34em] text-accent-gold">
@@ -153,7 +153,7 @@ export default function ProjectsPage() {
         </Container>
       </section>
 
-      {/* ── Project grid ── */}
+      {/* Ã¢â€â‚¬Ã¢â€â‚¬ Project grid Ã¢â€â‚¬Ã¢â€â‚¬ */}
       <section className="bg-white py-20 md:py-28">
         <Container>
           <div className="mb-12 flex flex-col gap-4 min-[700px]:flex-row min-[700px]:items-end min-[700px]:justify-between">
@@ -234,3 +234,4 @@ export default function ProjectsPage() {
     </>
   );
 }
+

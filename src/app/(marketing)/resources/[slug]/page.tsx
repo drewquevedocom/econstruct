@@ -69,9 +69,9 @@ export default async function BlogPostPage({
   });
 
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: "https://econstructinc.com" },
-    { name: "Resources", url: "https://econstructinc.com/resources" },
-    { name: post.title, url: `https://econstructinc.com/resources/${post.slug}` },
+    { name: "Home", url: "https://econstructhomes.com" },
+    { name: "Resources", url: "https://econstructhomes.com/resources" },
+    { name: post.title, url: `https://econstructhomes.com/resources/${post.slug}` },
   ]);
 
   return (
@@ -226,3 +226,4 @@ export default async function BlogPostPage({
     </>
   );
 }
+

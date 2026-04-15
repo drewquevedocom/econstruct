@@ -35,7 +35,7 @@ export async function generateMetadata({
     title: `${categoryLabel} Articles | econstruct Blog`,
     description: getBlogArchiveSummary(category),
     alternates: {
-      canonical: `https://econstructinc.com/blog/category/${category}`,
+      canonical: `https://econstructhomes.com/blog/category/${category}`,
     },
   };
 }
@@ -54,11 +54,11 @@ export default async function BlogCategoryPage({
   }
 
   const breadcrumbSchema = generateBlogBreadcrumbSchema([
-    { name: "Home", url: "https://econstructinc.com" },
-    { name: "Blog", url: "https://econstructinc.com/blog" },
+    { name: "Home", url: "https://econstructhomes.com" },
+    { name: "Blog", url: "https://econstructhomes.com/blog" },
     {
       name: categoryLabel,
-      url: `https://econstructinc.com/blog/category/${category}`,
+      url: `https://econstructhomes.com/blog/category/${category}`,
     },
   ]);
 
@@ -100,3 +100,4 @@ export default async function BlogCategoryPage({
     </>
   );
 }
+

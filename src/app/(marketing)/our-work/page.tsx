@@ -6,7 +6,7 @@ import PortfolioGrid from "@/components/portfolio/PortfolioGrid";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Our Work — Portfolio of Residential, Restaurant & Retail Projects",
+  title: "Our Work Ã¢â‚¬â€ Portfolio of Residential, Restaurant & Retail Projects",
   description:
     "Explore econstruct's portfolio of 639+ completed projects across Los Angeles including residential remodels, restaurant build-outs, retail spaces, and multi-location commercial rollouts.",
   path: "/our-work",
@@ -14,8 +14,8 @@ export const metadata: Metadata = generatePageMetadata({
 
 export default function PortfolioPage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: "https://econstructinc.com" },
-    { name: "Our Work", url: "https://econstructinc.com/our-work" },
+    { name: "Home", url: "https://econstructhomes.com" },
+    { name: "Our Work", url: "https://econstructhomes.com/our-work" },
   ]);
 
   return (
@@ -26,7 +26,7 @@ export default function PortfolioPage() {
       />
       <PageHero
         title="Our Work"
-        subtitle="Over 639 projects completed across Los Angeles — from residential remodels and restaurants to retail spaces and multi-location rollouts. Every project reflects our commitment to exceptional craftsmanship."
+        subtitle="Over 639 projects completed across Los Angeles Ã¢â‚¬â€ from residential remodels and restaurants to retail spaces and multi-location rollouts. Every project reflects our commitment to exceptional craftsmanship."
         breadcrumbs={[{ label: "Our Work" }]}
       />
       <PortfolioGrid />
@@ -34,3 +34,4 @@ export default function PortfolioPage() {
     </>
   );
 }
+

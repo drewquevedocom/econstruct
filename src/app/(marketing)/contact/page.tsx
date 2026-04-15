@@ -48,8 +48,8 @@ const contactInfo = [
 
 export default function ContactPage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: "https://econstructinc.com" },
-    { name: "Contact", url: "https://econstructinc.com/contact" },
+    { name: "Home", url: "https://econstructhomes.com" },
+    { name: "Contact", url: "https://econstructhomes.com/contact" },
   ]);
 
   return (
@@ -149,7 +149,7 @@ export default function ContactPage() {
                     </h3>
                   </div>
                   <p className="text-gray-500 text-sm leading-relaxed">
-                    {COMPANY.license.display} — Fully licensed, bonded, and
+                    {COMPANY.license.display} Ã¢â‚¬â€ Fully licensed, bonded, and
                     insured General Contractor in the State of California.
                   </p>
                 </div>
@@ -188,3 +188,4 @@ export default function ContactPage() {
     </>
   );
 }
+

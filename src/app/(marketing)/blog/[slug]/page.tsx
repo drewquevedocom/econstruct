@@ -39,7 +39,7 @@ export async function generateMetadata({
     };
   }
 
-  const url = `https://econstructinc.com/blog/${post.slug}`;
+  const url = `https://econstructhomes.com/blog/${post.slug}`;
 
   return {
     title: `${post.title} | econstruct`,
@@ -88,14 +88,14 @@ export default async function BlogPostPage({
   }
 
   const relatedPosts = getRelatedPosts(post.slug, post.categorySlug, post.tags);
-  const canonicalUrl = `https://econstructinc.com/blog/${post.slug}`;
+  const canonicalUrl = `https://econstructhomes.com/blog/${post.slug}`;
 
   const breadcrumbSchema = generateBlogBreadcrumbSchema([
-    { name: "Home", url: "https://econstructinc.com" },
-    { name: "Blog", url: "https://econstructinc.com/blog" },
+    { name: "Home", url: "https://econstructhomes.com" },
+    { name: "Blog", url: "https://econstructhomes.com/blog" },
     {
       name: post.category,
-      url: `https://econstructinc.com/blog/category/${post.categorySlug}`,
+      url: `https://econstructhomes.com/blog/category/${post.categorySlug}`,
     },
     { name: post.title, url: canonicalUrl },
   ]);
@@ -275,7 +275,7 @@ export default async function BlogPostPage({
                       >
                         {source.title}
                       </a>
-                      {source.publisher ? ` — ${source.publisher}` : ""}
+                      {source.publisher ? ` â€” ${source.publisher}` : ""}
                     </li>
                   ))}
                 </ol>
@@ -423,3 +423,4 @@ export default async function BlogPostPage({
     </>
   );
 }
+

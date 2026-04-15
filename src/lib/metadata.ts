@@ -9,7 +9,7 @@ interface PageMetadataOptions {
 }
 
 export function generatePageMetadata({ title, description, path, image, noIndex }: PageMetadataOptions): Metadata {
-  const url = `https://econstructinc.com${path}`;
+  const url = `https://econstructhomes.com${path}`;
   const ogImage = image || "/econstruct_logo.png";
 
   return {
@@ -33,3 +33,4 @@ export function generatePageMetadata({ title, description, path, image, noIndex 
     ...(noIndex && { robots: { index: false, follow: false } }),
   };
 }
+

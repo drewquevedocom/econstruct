@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   description:
     "Luxury home building, fire rebuilds, custom home construction, remodels, and tenant improvements across Los Angeles. CA License #964015.",
-  metadataBase: new URL("https://econstructinc.com"),
+  metadataBase: new URL("https://econstructhomes.com"),
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
@@ -56,3 +56,4 @@ export default function RootLayout({
     </html>
   );
 }
+

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -6,7 +6,7 @@ import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import ScrollingPill from "@/components/ui/ScrollingPill";
 
 const caseStudyUrl =
-  "https://econstructinc.com/luxury-home-builders-los-angeles-hollywood-hills-remodel-case-study/";
+  "https://econstructhomes.com/luxury-home-builders-los-angeles-hollywood-hills-remodel-case-study/";
 
 export default function FeaturedProject() {
   const highlights = [
@@ -20,7 +20,7 @@ export default function FeaturedProject() {
       <div className="container mx-auto max-w-7xl px-6 md:px-8">
         <div className="mb-16 flex flex-col items-start">
           <ScrollingPill
-            label="CASE STUDY · FEATURED"
+            label="CASE STUDY Â· FEATURED"
             className="mb-6 border-black/10 text-brand-dark"
           />
 
@@ -99,3 +99,4 @@ export default function FeaturedProject() {
     </section>
   );
 }
+

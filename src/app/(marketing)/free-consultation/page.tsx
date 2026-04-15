@@ -15,8 +15,8 @@ export const metadata: Metadata = generatePageMetadata({
 
 export default function FreeConsultationPage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: "https://econstructinc.com" },
-    { name: "Free Consultation", url: "https://econstructinc.com/free-consultation" },
+    { name: "Home", url: "https://econstructhomes.com" },
+    { name: "Free Consultation", url: "https://econstructhomes.com/free-consultation" },
   ]);
 
   return (
@@ -42,3 +42,4 @@ export default function FreeConsultationPage() {
     </>
   );
 }
+

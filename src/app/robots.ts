@@ -9,6 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/dashboard/", "/api/"],
       },
     ],
-    sitemap: "https://econstructinc.com/sitemap.xml",
+    sitemap: "https://econstructhomes.com/sitemap.xml",
   };
 }
+

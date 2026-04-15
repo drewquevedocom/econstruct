@@ -51,11 +51,11 @@ export default async function ProjectPage({
   }
 
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: "https://econstructinc.com" },
-    { name: "Projects", url: "https://econstructinc.com/projects" },
+    { name: "Home", url: "https://econstructhomes.com" },
+    { name: "Projects", url: "https://econstructhomes.com/projects" },
     {
       name: project.title,
-      url: `https://econstructinc.com/projects/${project.slug}`,
+      url: `https://econstructhomes.com/projects/${project.slug}`,
     },
   ]);
   const articleSchema = {
@@ -63,8 +63,8 @@ export default async function ProjectPage({
     "@type": "Article",
     headline: project.title,
     description: project.description,
-    image: `https://econstructinc.com${project.image}`,
-    mainEntityOfPage: `https://econstructinc.com/projects/${project.slug}`,
+    image: `https://econstructhomes.com${project.image}`,
+    mainEntityOfPage: `https://econstructhomes.com/projects/${project.slug}`,
   };
 
   return (
@@ -324,3 +324,4 @@ export default async function ProjectPage({
     </>
   );
 }
+

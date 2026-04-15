@@ -18,13 +18,13 @@ export const metadata: Metadata = {
   description:
     "Field-tested insight on fire rebuilds, luxury modernization, and custom home construction across Pacific Palisades, Brentwood, Santa Monica, Altadena, and greater Los Angeles.",
   alternates: {
-    canonical: "https://econstructinc.com/blog",
+    canonical: "https://econstructhomes.com/blog",
   },
   openGraph: {
     title: "Insights from the LA Rebuild Frontline | econstruct",
     description:
       "Expert rebuild, modernization, and custom home guidance from active Los Angeles job sites.",
-    url: "https://econstructinc.com/blog",
+    url: "https://econstructhomes.com/blog",
     images: [{ url: "/blog/blog_08_vet_contractor_og.png", width: 1200, height: 630 }],
   },
   twitter: {
@@ -44,8 +44,8 @@ export default function BlogIndexPage() {
   const totalPages = getBlogIndexPages(posts.length);
 
   const breadcrumbSchema = generateBlogBreadcrumbSchema([
-    { name: "Home", url: "https://econstructinc.com" },
-    { name: "Blog", url: "https://econstructinc.com/blog" },
+    { name: "Home", url: "https://econstructhomes.com" },
+    { name: "Blog", url: "https://econstructhomes.com/blog" },
   ]);
 
   return (
@@ -156,3 +156,4 @@ export default function BlogIndexPage() {
     </>
   );
 }
+

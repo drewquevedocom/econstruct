@@ -40,8 +40,8 @@ function formatDate(dateString: string): string {
 
 export default function ResourcesPage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: "https://econstructinc.com" },
-    { name: "Resources", url: "https://econstructinc.com/resources" },
+    { name: "Home", url: "https://econstructhomes.com" },
+    { name: "Resources", url: "https://econstructhomes.com/resources" },
   ]);
 
   return (
@@ -242,3 +242,4 @@ export default function ResourcesPage() {
     </>
   );
 }
+

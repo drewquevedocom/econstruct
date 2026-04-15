@@ -18,8 +18,8 @@ export const metadata: Metadata = generatePageMetadata({
 
 export default function ServicesPage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: "https://econstructinc.com" },
-    { name: "Services", url: "https://econstructinc.com/services" },
+    { name: "Home", url: "https://econstructhomes.com" },
+    { name: "Services", url: "https://econstructhomes.com/services" },
   ]);
   const publicServices = promptServices;
 
@@ -30,7 +30,7 @@ export default function ServicesPage() {
       "@type": "ListItem",
       position: index + 1,
       name: service.title,
-      url: `https://econstructinc.com/services/${service.slug}`,
+      url: `https://econstructhomes.com/services/${service.slug}`,
     })),
   };
 
@@ -135,3 +135,4 @@ export default function ServicesPage() {
     </>
   );
 }
+
