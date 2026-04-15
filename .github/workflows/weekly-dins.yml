@@ -1,0 +1,26 @@
+name: Weekly DINS Refresh
+
+on:
+  schedule:
+    - cron: '0 5 * * 1'  # 10pm PT Sunday
+  workflow_dispatch:      # Manual trigger
+
+jobs:
+  dins-loader:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: pip install geopandas shapely requests --break-system-packages
+
+      - name: Run DINS loader
+        run: python scripts/dins-loader.py
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}

@@ -11,6 +11,11 @@ custom_domain = true
 pattern = "www.econstructhomes.com"
 custom_domain = true
 
+# DNS records are managed in the Cloudflare DNS dashboard, not via Wrangler.
+# Google Search Console TXT record for econstructhomes.com:
+# Name: @
+# Content: google-site-verification=Yk1vrhzmZYDfCFJH5UIxhS-KMPJ_YYgHcXPKpptyG4g
+
 [assets]
 directory = ".open-next/assets"
 binding = "ASSETS"

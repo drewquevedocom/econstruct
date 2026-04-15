@@ -4,8 +4,12 @@ import { Resend } from "resend";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const NOTIFY_TO = "info@econstructinc.com";
-const NOTIFY_CC = ["robyn@econstructinc.com", "marketing@econstructinc.com"];
+// DEV MODE - all notifications go to Drew only for testing
+// When ready to go live, swap these back:
+// const NOTIFY_TO = "info@econstructinc.com";
+// const NOTIFY_CC = ["robyn@econstructinc.com", "marketing@econstructinc.com"];
+const NOTIFY_TO = "marketing@econstructinc.com";
+const NOTIFY_CC: string[] = [];
 
 export async function POST(req: NextRequest) {
   try {
@@ -65,8 +69,8 @@ export async function POST(req: NextRequest) {
       const resend = new Resend(process.env.RESEND_API_KEY);
       const isConsultation = source === "consultation_cta" || source === "free_consultation";
       const subject = isConsultation
-        ? `New Consultation Request — ${firstName} ${lastName}`
-        : `New Contact Form Submission — ${firstName} ${lastName}`;
+        ? `New Consultation Request - ${firstName} ${lastName}`
+        : `New Contact Form Submission - ${firstName} ${lastName}`;
 
       await resend.emails.send({
         from: "econstruct Website <no-reply@econstructinc.com>",
