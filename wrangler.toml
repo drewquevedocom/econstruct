@@ -30,6 +30,15 @@ NODE_ENV = "production"
 [env.production]
 name = "econstruct"
 
+# FIX: explicitly declare assets for production env.
+# Wrangler does NOT automatically inherit [assets] into named environments.
+# Without this block, `wrangler deploy --env production` deploys the Worker
+# script only — no static assets uploaded — forcing every request through
+# the Worker runtime (causing Error 1102 / CPU limit crashes).
+[env.production.assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
+
 [[env.production.routes]]
 pattern = "econstructhomes.com"
 custom_domain = true
