@@ -14,17 +14,16 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: '22'
 
       - name: Install dependencies
-        run: npm ci
+        run: rm -f package-lock.json && npm install
 
-      - name: Install Playwright browsers
-        run: npx playwright install chromium --with-deps
+      - name: Install Playwright
+        run: npm install playwright && npx playwright install chromium --with-deps
 
       - name: Run LADBS scraper
         run: npx tsx scripts/ladbs-scrape.ts
         env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_URL: https://dzudtdhmvnuipqyoogem.supabase.co
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}

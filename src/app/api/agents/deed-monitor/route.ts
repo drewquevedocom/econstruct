@@ -1,6 +1,5 @@
-﻿import { runAgent, validateCronSecret } from "@/lib/agents/runner";
+import { runAgent, validateCronSecret } from "@/lib/agents/runner";
 import { createServiceClient } from "@/lib/supabase/server";
-import { withRetry } from "@/lib/utils/retry";
 
 export const maxDuration = 60;
 
@@ -13,27 +12,32 @@ const TIER1_ZIPS = [
   "91302", "91364", // Calabasas / Hidden Hills
 ];
 
-// LA County Recorder API â€” pull recent deed transfers
-async function fetchDeedTransfers(zipCode: string, daysBack = 90) {
-  return withRetry(async () => {
-    const since = new Date(Date.now() - daysBack * 24 * 60 * 60 * 1000)
-      .toISOString()
-      .split("T")[0];
-    const res = await fetch(
-      `https://assessor.lacounty.gov/api/transfers?zip=${zipCode}&since=${since}&type=grant_deed,quitclaim,trust_deed`,
-      {
-        headers: {
-          "User-Agent": "econstruct-leadbot/1.0 (+https://econstructhomes.com/bot)",
-        },
-      }
-    );
-    if (!res.ok) {
-      const err: any = new Error(`Recorder error ${res.status}`);
-      err.status = res.status;
-      throw err;
-    }
-    return res.json();
+// LA County Assessor ArcGIS — 2025 Parcels with DINS fire damage data
+const ARCGIS_SERVICE =
+  "https://services.arcgis.com/RmCCgQtiZLDCtblq/arcgis/rest/services/2025_Parcels_with_DINS_data/FeatureServer/5/query";
+
+async function fetchParcels(zipPattern: string, offset = 0) {
+  const params = new URLSearchParams({
+    where: `SitusZIP LIKE '${zipPattern}%'`,
+    outFields:
+      "APN_1,SitusFullAddress,SitusZIP,Fire_Name,DAMAGE_1,Roll_LandValue,Roll_ImpValue,LastSaleAmount,CENTER_LAT,CENTER_LON",
+    f: "json",
+    resultRecordCount: "200",
+    resultOffset: String(offset),
+    returnGeometry: "false",
   });
+  const res = await fetch(`${ARCGIS_SERVICE}?${params}`);
+  if (!res.ok) throw new Error(`ArcGIS error ${res.status}`);
+  const data = await res.json();
+  return data.features ?? [];
+}
+
+const VALID_DAMAGE = ["destroyed", "major", "minor", "affected"];
+
+function parseDamage(raw: string | null): string | null {
+  if (!raw) return null;
+  const lower = raw.toLowerCase();
+  return VALID_DAMAGE.find((v) => lower.includes(v)) ?? null;
 }
 
 export async function POST(req: Request) {
@@ -50,27 +54,32 @@ export async function POST(req: Request) {
 
     for (const zip of TIER1_ZIPS) {
       try {
-        await new Promise((r) => setTimeout(r, 1000)); // rate limit
+        const features = await fetchParcels(zip);
+        totalPulled += features.length;
 
-        const transfers = await fetchDeedTransfers(zip);
-        const records = transfers?.transfers ?? transfers ?? [];
-
-        totalPulled += records.length;
-
-        for (const record of records) {
-          const apn = record.apn ?? record.ain;
+        for (const f of features) {
+          const a = f.attributes;
+          const apn = a.APN_1;
           if (!apn) continue;
+
+          const totalValue =
+            (a.Roll_LandValue || 0) + (a.Roll_ImpValue || 0);
+          const fire =
+            (a.Fire_Name || "unknown").toLowerCase().replace(/ /g, "_");
 
           const leadData = {
             apn,
-            source: "la_recorder",
-            sub_source: record.transfer_type ?? "deed_transfer",
-            address: record.property_address ?? record.address,
-            zip_code: zip,
-            owner_name: record.grantee_name ?? record.new_owner,
-            owner_mailing_address: record.grantee_mailing_address,
+            source: "dins_calfire",
+            address: a.SitusFullAddress || null,
+            zip_code: (a.SitusZIP || "").split("-")[0],
+            fire_damage_status: parseDamage(a.DAMAGE_1),
+            property_value:
+              totalValue > 0 ? totalValue : a.LastSaleAmount || null,
+            latitude: a.CENTER_LAT || null,
+            longitude: a.CENTER_LON || null,
             lifecycle_stage: "new",
-            tags: ["deed_transfer"],
+            tags: [`${fire}_fire`, "fire_rebuild"],
+            enrichment_status: "pending",
           };
 
           const { data: existing } = await supabase
@@ -93,8 +102,9 @@ export async function POST(req: Request) {
               .single();
 
             if (newLead) {
-              // Queue for Apollo enrichment
-              await supabase.from("enrichment_queue").insert({ lead_id: newLead.id });
+              await supabase
+                .from("enrichment_queue")
+                .insert({ lead_id: newLead.id });
               totalCreated++;
             }
           }
@@ -114,4 +124,3 @@ export async function POST(req: Request) {
 
   return Response.json(result);
 }
-
