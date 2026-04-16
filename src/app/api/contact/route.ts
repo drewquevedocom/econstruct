@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
-import { createServiceClient } from "@/lib/supabase/server";
+import { createClient } from "@supabase/supabase-js";
 
 // DEV MODE - all notifications go to Drew only for testing
 // When ready to go live, swap these back:
@@ -8,6 +8,8 @@ import { createServiceClient } from "@/lib/supabase/server";
 // const NOTIFY_CC = ["robyn@econstructinc.com", "marketing@econstructinc.com"];
 const NOTIFY_TO = "marketing@econstructinc.com";
 const NOTIFY_CC: string[] = [];
+
+const SUPABASE_URL = "https://dzudtdhmvnuipqyoogem.supabase.co";
 
 export async function POST(req: NextRequest) {
   try {
@@ -36,8 +38,19 @@ export async function POST(req: NextRequest) {
 
     const fullName = `${firstName} ${lastName}`.trim();
 
-    // Use service client — anon key is blocked by RLS on leads table
-    const supabase = createServiceClient();
+    // Build Supabase service client inline — avoids crash if env var missing
+    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!serviceKey) {
+      console.error("SUPABASE_SERVICE_ROLE_KEY is not set");
+      return NextResponse.json(
+        { error: "Server configuration error. Please contact us directly." },
+        { status: 500 }
+      );
+    }
+
+    const supabase = createClient(SUPABASE_URL, serviceKey, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
 
     const { error } = await supabase.from("leads").insert([
       {
