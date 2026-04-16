@@ -11,12 +11,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/econstruct_red_square.png", type: "image/png" },
+      { url: "/favicon.svg?v=2", type: "image/svg+xml" },
+      { url: "/econstruct_red_square.png?v=2", type: "image/png", sizes: "64x64" },
     ],
-    shortcut: "/favicon.svg",
-    apple: "/econstruct_red_square.png",
+    shortcut: "/favicon.svg?v=2",
+    apple: "/econstruct_red_square.png?v=2",
   },
   openGraph: {
     type: "website",
