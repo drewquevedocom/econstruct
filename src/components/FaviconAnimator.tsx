@@ -5,49 +5,31 @@ import { useEffect } from "react";
 const SIZE = 64;
 const SPIN_INTERVAL_MS = 12000;
 const SPIN_DURATION_MS = 1800;
-const IDLE_ROTATION_DEG = 0;
 const FULL_ROTATION_DEG = 360;
+const MARK_SIZE = SIZE * 0.65;
 
 function ensureAnimatedLinks(): HTMLLinkElement[] {
   const head = document.head;
-  const targets = [
-    { rel: "icon", type: "image/png" },
-    { rel: "shortcut icon", type: "image/png" },
-  ];
+  const existing = Array.from(
+    document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"]'),
+  ) as HTMLLinkElement[];
+  const targets: HTMLLinkElement[] = existing.length ? existing : [];
 
-  return targets.map(({ rel, type }) => {
-    let link = document.querySelector(
-      `link[data-econstruct-favicon="${rel}"]`,
-    ) as HTMLLinkElement | null;
+  if (!targets.some((link) => link.rel === "icon")) {
+    const iconLink = document.createElement("link");
+    iconLink.rel = "icon";
+    head.appendChild(iconLink);
+    targets.push(iconLink);
+  }
 
-    if (!link) {
-      link = document.createElement("link");
-      link.rel = rel;
-      link.type = type;
-      link.setAttribute("data-econstruct-favicon", rel);
-      head.appendChild(link);
-    }
+  if (!targets.some((link) => link.rel === "shortcut icon")) {
+    const shortcutLink = document.createElement("link");
+    shortcutLink.rel = "shortcut icon";
+    head.appendChild(shortcutLink);
+    targets.push(shortcutLink);
+  }
 
-    return link;
-  });
-}
-
-function drawRoundedSquare(
-  ctx: CanvasRenderingContext2D,
-  size: number,
-  radius: number,
-) {
-  ctx.beginPath();
-  ctx.moveTo(radius, 0);
-  ctx.lineTo(size - radius, 0);
-  ctx.quadraticCurveTo(size, 0, size, radius);
-  ctx.lineTo(size, size - radius);
-  ctx.quadraticCurveTo(size, size, size - radius, size);
-  ctx.lineTo(radius, size);
-  ctx.quadraticCurveTo(0, size, 0, size - radius);
-  ctx.lineTo(0, radius);
-  ctx.quadraticCurveTo(0, 0, radius, 0);
-  ctx.closePath();
+  return targets;
 }
 
 function easeInOutCubic(progress: number) {
@@ -70,38 +52,29 @@ export default function FaviconAnimator() {
     let rafId = 0;
     let disposed = false;
     let startedAt = 0;
+    let ready = false;
+
+    const background = new Image();
+    const mark = new Image();
+    let loaded = 0;
 
     const updateHref = () => {
       const href = canvas.toDataURL("image/png");
       links.forEach((link) => {
         link.href = href;
+        link.type = "image/png";
+        link.sizes = "64x64";
       });
     };
 
     const draw = (rotationDeg: number) => {
       ctx.clearRect(0, 0, SIZE, SIZE);
-
-      const gradient = ctx.createLinearGradient(0, 0, SIZE, SIZE);
-      gradient.addColorStop(0, "#D61F3A");
-      gradient.addColorStop(0.5, "#C8102E");
-      gradient.addColorStop(1, "#8E0A1D");
-
-      drawRoundedSquare(ctx, SIZE, 14);
-      ctx.fillStyle = gradient;
-      ctx.fill();
-
-      ctx.lineWidth = 1.5;
-      ctx.strokeStyle = "rgba(255,255,255,0.18)";
-      ctx.stroke();
+      ctx.drawImage(background, 0, 0, SIZE, SIZE);
 
       ctx.save();
       ctx.translate(SIZE / 2, SIZE / 2);
       ctx.rotate((rotationDeg * Math.PI) / 180);
-      ctx.fillStyle = "#FFFFFF";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.font = "900 34px Arial";
-      ctx.fillText("E", 0, 2);
+      ctx.drawImage(mark, -MARK_SIZE / 2, -MARK_SIZE / 2, MARK_SIZE, MARK_SIZE);
       ctx.restore();
 
       updateHref();
@@ -109,21 +82,35 @@ export default function FaviconAnimator() {
 
     const step = (now: number) => {
       if (disposed) return;
+      if (!ready) {
+        rafId = window.requestAnimationFrame(step);
+        return;
+      }
+
       const elapsed = now - startedAt;
       const cycleElapsed = elapsed % SPIN_INTERVAL_MS;
       const spinProgress = Math.min(cycleElapsed / SPIN_DURATION_MS, 1);
       const eased = easeInOutCubic(spinProgress);
-      const rotation =
-        cycleElapsed <= SPIN_DURATION_MS
-          ? IDLE_ROTATION_DEG + eased * FULL_ROTATION_DEG
-          : IDLE_ROTATION_DEG;
+      const rotation = cycleElapsed <= SPIN_DURATION_MS ? eased * FULL_ROTATION_DEG : 0;
 
       draw(rotation);
       rafId = window.requestAnimationFrame(step);
     };
 
+    const onAssetLoad = () => {
+      loaded += 1;
+      if (loaded === 2) {
+        ready = true;
+        draw(0);
+      }
+    };
+
+    background.onload = onAssetLoad;
+    mark.onload = onAssetLoad;
+    background.src = "/econstruct_red_square.png";
+    mark.src = "/econstruct_e_white.png";
+
     startedAt = performance.now();
-    draw(0);
     rafId = window.requestAnimationFrame(step);
 
     return () => {
