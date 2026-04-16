@@ -1,21 +1,23 @@
+export const SITE_URL = "https://www.econstructhomes.com";
+
 export const COMPANY = {
-  name: "econstruct Inc.",
-  shortName: "econstruct",
-  tagline: "Los Angeles' Premier High-End Home Builder",
+  name: "eConstruct Homes",
+  shortName: "eConstruct Homes",
+  tagline: "Los Angeles Luxury Home Builder and General Contractor",
   phone: {
     primary: "310-740-9999",
     secondary: "310-740-9999",
     display: "(310) 740-9999",
     displaySecondary: "(310) 740-9999",
   },
-  email: "info@econstructinc.com",
+  email: "info@econstructhomes.com",
   address: {
-    street: "25350 Magic Mountain Pkwy",
-    suite: "Suite 300",
-    city: "Valencia",
+    street: "",
+    suite: "",
+    city: "Los Angeles",
     state: "CA",
-    zip: "91355",
-    full: "25350 Magic Mountain Pkwy Suite 300, Valencia, CA 91355",
+    zip: "",
+    full: "Los Angeles, CA",
   },
   license: {
     number: "964015",
@@ -29,9 +31,9 @@ export const COMPANY = {
     youtube: "https://youtube.com/@econstructinc",
   },
   team: {
-    owner: { name: "Frank Neimroozi", title: "Owner & President", email: "frank@econstructinc.com" },
-    vpAdmin: { name: "Katie Krueger", title: "VP Administration", email: "katie@econstructinc.com" },
-    operations: { name: "Robyn Ellis", title: "Operations", email: "robyn@econstructinc.com" },
+    owner: { name: "Frank Neimroozi", title: "Owner & President", email: "frank@econstructhomes.com" },
+    vpAdmin: { name: "Katie Krueger", title: "VP Administration", email: "katie@econstructhomes.com" },
+    operations: { name: "Robyn Ellis", title: "Operations", email: "robyn@econstructhomes.com" },
   },
   credentials: [
     "CA License #964015",

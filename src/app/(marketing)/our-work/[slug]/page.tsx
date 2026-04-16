@@ -1,4 +1,4 @@
-import { projects } from "@/lib/data/projects";
+import { residentialProjects } from "@/lib/data/projects";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }));
+  return residentialProjects.map((project) => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({
@@ -28,13 +28,13 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const project = residentialProjects.find((p) => p.slug === slug);
   if (!project) return {};
   return {
-    title: `${project.title} | Our Work | econstruct`,
+    title: `${project.title} | Our Work | eConstruct Homes`,
     description: project.description,
     openGraph: {
-      title: `${project.title} | econstruct`,
+      title: `${project.title} | eConstruct Homes`,
       description: project.description,
       images: [{ url: project.heroImage }],
     },
@@ -61,13 +61,13 @@ export default async function ProjectPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const project = residentialProjects.find((p) => p.slug === slug);
   if (!project) notFound();
 
-  const currentIndex = projects.findIndex((p) => p.slug === slug);
-  const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
+  const currentIndex = residentialProjects.findIndex((p) => p.slug === slug);
+  const prevProject = currentIndex > 0 ? residentialProjects[currentIndex - 1] : null;
   const nextProject =
-    currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
+    currentIndex < residentialProjects.length - 1 ? residentialProjects[currentIndex + 1] : null;
 
   const specEntries = Object.entries(project.specs).filter(
     ([, value]) => value

@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
 import { services } from "@/lib/data/services";
-import { projects } from "@/lib/data/projects";
+import { residentialProjects } from "@/lib/data/projects";
 import { promptServices } from "@/lib/data/prompt-services";
 import { promptProjects } from "@/lib/data/prompt-projects";
+import { SITE_URL } from "@/lib/constants";
 import {
   getAllBlogAuthors,
   getAllBlogPosts,
@@ -11,7 +12,7 @@ import {
 } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://econstructhomes.com";
+  const baseUrl = SITE_URL;
 
   const staticPages = [
     { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 1.0 },
@@ -45,7 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  const projectPages = projects.map((project) => ({
+  const projectPages = residentialProjects.map((project) => ({
     url: `${baseUrl}/our-work/${project.slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,

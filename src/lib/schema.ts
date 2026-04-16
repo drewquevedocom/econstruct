@@ -1,13 +1,18 @@
-import { COMPANY } from "./constants";
+import { COMPANY, SITE_URL } from "./constants";
 
 export function generateLocalBusinessSchema() {
+  const streetAddress = [COMPANY.address.street, COMPANY.address.suite]
+    .filter(Boolean)
+    .join(" ")
+    .trim();
+
   return {
     "@context": "https://schema.org",
     "@type": ["GeneralContractor", "HomeAndConstructionBusiness"],
     name: COMPANY.name,
-    legalName: "econstruct Inc.",
+    legalName: COMPANY.name,
     description: "Los Angeles' premier high-end residential contractor specializing in fire rebuilds, luxury modernization, and ground-up custom homes. 639+ projects completed since 2001. CA License #964015.",
-    url: "https://econstructhomes.com",
+    url: SITE_URL,
     telephone: COMPANY.phone.primary,
     email: COMPANY.email,
     foundingDate: "2001",
@@ -15,20 +20,15 @@ export function generateLocalBusinessSchema() {
       "@type": "Person",
       name: "Frank Neimroozi",
       jobTitle: "Founder & President",
-      worksFor: { "@type": "Organization", name: "econstruct Inc." },
+      worksFor: { "@type": "Organization", name: COMPANY.name },
     },
     address: {
       "@type": "PostalAddress",
-      streetAddress: `${COMPANY.address.street} ${COMPANY.address.suite}`,
+      ...(streetAddress ? { streetAddress } : {}),
       addressLocality: COMPANY.address.city,
       addressRegion: COMPANY.address.state,
-      postalCode: COMPANY.address.zip,
+      ...(COMPANY.address.zip ? { postalCode: COMPANY.address.zip } : {}),
       addressCountry: "US",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 34.4208,
-      longitude: -118.5764,
     },
     areaServed: [
       { "@type": "City", name: "Los Angeles", sameAs: "https://www.wikidata.org/wiki/Q65" },
@@ -46,9 +46,9 @@ export function generateLocalBusinessSchema() {
       { "@type": "City", name: "Altadena" },
       { "@type": "City", name: "Bell Canyon" },
     ],
-    priceRange: "$$$",
-    image: "https://econstructhomes.com/econstruct_logo.png",
-    logo: "https://econstructhomes.com/econstruct_logo.png",
+    priceRange: "$$$$",
+    image: `${SITE_URL}/econstruct_logo.png`,
+    logo: `${SITE_URL}/econstruct_logo.png`,
     sameAs: Object.values(COMPANY.social),
     hasCredential: {
       "@type": "EducationalOccupationalCredential",
@@ -86,6 +86,36 @@ export function generateLocalBusinessSchema() {
   };
 }
 
+export function generateWebPageSchema({
+  name,
+  description,
+  path,
+}: {
+  name: string;
+  description: string;
+  path: string;
+}) {
+  const url = `${SITE_URL}${path}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name,
+    description,
+    url,
+    isPartOf: {
+      "@type": "WebSite",
+      name: COMPANY.name,
+      url: SITE_URL,
+    },
+    about: {
+      "@type": "GeneralContractor",
+      name: COMPANY.name,
+      areaServed: "Los Angeles",
+    },
+  };
+}
+
 export function generateServiceSchema(service: { title: string; description: string; slug: string; priceRange?: string }) {
   return {
     "@context": "https://schema.org",
@@ -95,13 +125,13 @@ export function generateServiceSchema(service: { title: string; description: str
     provider: {
       "@type": "GeneralContractor",
       name: COMPANY.name,
-      url: "https://econstructhomes.com",
+      url: SITE_URL,
     },
     areaServed: {
       "@type": "City",
       name: "Los Angeles",
     },
-    url: `https://econstructhomes.com/services/${service.slug}`,
+    url: `${SITE_URL}/services/${service.slug}`,
   };
 }
 
@@ -139,7 +169,7 @@ export function generateArticleSchema(article: { title: string; description: str
     "@type": "Article",
     headline: article.title,
     description: article.description,
-    image: `https://econstructhomes.com${article.image}`,
+    image: `${SITE_URL}${article.image}`,
     datePublished: article.date,
     author: {
       "@type": "Organization",
@@ -150,10 +180,10 @@ export function generateArticleSchema(article: { title: string; description: str
       name: COMPANY.name,
       logo: {
         "@type": "ImageObject",
-        url: "https://econstructhomes.com/econstruct_logo.png",
+        url: `${SITE_URL}/econstruct_logo.png`,
       },
     },
-    url: `https://econstructhomes.com/resources/${article.slug}`,
+    url: `${SITE_URL}/resources/${article.slug}`,
   };
 }
 

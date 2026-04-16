@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import FaviconAnimator from "@/components/FaviconAnimator";
+import { SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: {
-    template: "%s | econstruct Inc. - Los Angeles Luxury Builder",
-    default: "econstruct Inc. - Los Angeles Luxury Builder",
-  },
+  title: "Luxury Home Builder Beverly Hills & Los Angeles | eConstruct Homes",
   description:
     "Luxury home building, fire rebuilds, custom home construction, remodels, and tenant improvements across Los Angeles. CA License #964015.",
-  metadataBase: new URL("https://econstructhomes.com"),
+  metadataBase: new URL(SITE_URL),
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
@@ -22,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "econstruct Inc.",
+    siteName: "eConstruct Homes",
   },
 };
 
@@ -37,6 +36,7 @@ export default function RootLayout({
         <meta name="msvalidate.01" content="354235B0ED282F8C0BEE7E99C9102E6C" />
       </head>
       <body className="font-body bg-background text-body-text antialiased">
+        <FaviconAnimator />
         <Script
           id="google-analytics-loader"
           async

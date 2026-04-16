@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Star } from "lucide-react";
 import { generatePageMetadata } from "@/lib/metadata";
-import { generateLocalBusinessSchema, generateBreadcrumbSchema } from "@/lib/schema";
-import { COMPANY } from "@/lib/constants";
+import { generateBreadcrumbSchema } from "@/lib/schema";
+import { SITE_URL } from "@/lib/constants";
 import { testimonials } from "@/lib/data/testimonials";
 import PageHero from "@/components/ui/PageHero";
 import Container from "@/components/ui/Container";
@@ -25,22 +25,13 @@ const projectTypeLabels: Record<string, string> = {
 };
 
 export default function ReviewsPage() {
-  const localBusinessSchema = generateLocalBusinessSchema();
-
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: "https://econstructhomes.com" },
-    { name: "Reviews", url: "https://econstructhomes.com/reviews" },
+    { name: "Home", url: SITE_URL },
+    { name: "Reviews", url: `${SITE_URL}/reviews` },
   ]);
-
-  const averageRating =
-    testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length;
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}

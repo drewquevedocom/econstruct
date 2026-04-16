@@ -3,7 +3,10 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { projects, projectCategories } from "@/lib/data/projects";
+import {
+  residentialProjects,
+  residentialProjectCategories,
+} from "@/lib/data/projects";
 import Container from "@/components/ui/Container";
 
 export default function PortfolioGrid() {
@@ -11,15 +14,15 @@ export default function PortfolioGrid() {
 
   const filtered =
     activeFilter === "all"
-      ? projects
-      : projects.filter((p) => p.category === activeFilter);
+      ? residentialProjects
+      : residentialProjects.filter((p) => p.category === activeFilter);
 
   return (
     <section className="py-24 md:py-32">
       <Container>
         {/* Filter Bar */}
         <div className="flex flex-wrap justify-center gap-3 mb-16">
-          {projectCategories.map((cat) => (
+          {residentialProjectCategories.map((cat) => (
             <button
               key={cat.value}
               onClick={() => setActiveFilter(cat.value)}
@@ -90,7 +93,7 @@ export default function PortfolioGrid() {
                       </div>
                       <span className="shrink-0 px-3 py-1.5 bg-accent-gold/10 text-accent-gold text-xs font-bold rounded-full uppercase tracking-wide">
                         {
-                          projectCategories.find(
+                          residentialProjectCategories.find(
                             (c) => c.value === project.category
                           )?.label
                         }

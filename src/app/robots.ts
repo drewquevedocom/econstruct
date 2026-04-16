@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/constants";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -9,7 +10,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/dashboard/", "/api/"],
       },
     ],
-    sitemap: "https://econstructhomes.com/sitemap.xml",
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }
 

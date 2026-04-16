@@ -336,10 +336,17 @@ export const projects: Project[] = [
   },
 ];
 
+export const residentialProjects = projects.filter((project) => project.category === "residential");
+
 export const projectCategories = [
   { label: "All", value: "all" },
   { label: "Residential", value: "residential" },
   { label: "Restaurant", value: "restaurant" },
   { label: "Retail", value: "retail" },
   { label: "Commercial", value: "commercial" },
+] as const;
+
+export const residentialProjectCategories = [
+  { label: "All", value: "all" },
+  { label: "Residential", value: "residential" },
 ] as const;

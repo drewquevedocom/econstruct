@@ -1,21 +1,22 @@
 import type { Metadata } from "next";
 import { generatePageMetadata } from "@/lib/metadata";
 import { generateBreadcrumbSchema } from "@/lib/schema";
+import { SITE_URL } from "@/lib/constants";
 import PageHero from "@/components/ui/PageHero";
 import PortfolioGrid from "@/components/portfolio/PortfolioGrid";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Our Work Ã¢â‚¬â€ Portfolio of Residential, Restaurant & Retail Projects",
+  title: "Our Work | Luxury Residential Projects in Los Angeles",
   description:
-    "Explore econstruct's portfolio of 639+ completed projects across Los Angeles including residential remodels, restaurant build-outs, retail spaces, and multi-location commercial rollouts.",
+    "Explore completed luxury residential projects across Los Angeles, including custom homes, fire rebuilds, and high-end remodels.",
   path: "/our-work",
 });
 
 export default function PortfolioPage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: "https://econstructhomes.com" },
-    { name: "Our Work", url: "https://econstructhomes.com/our-work" },
+    { name: "Home", url: SITE_URL },
+    { name: "Our Work", url: `${SITE_URL}/our-work` },
   ]);
 
   return (
@@ -26,7 +27,7 @@ export default function PortfolioPage() {
       />
       <PageHero
         title="Our Work"
-        subtitle="Over 639 projects completed across Los Angeles Ã¢â‚¬â€ from residential remodels and restaurants to retail spaces and multi-location rollouts. Every project reflects our commitment to exceptional craftsmanship."
+        subtitle="Luxury residential work across Los Angeles. Every project is built for long-term quality, design integrity, and construction precision."
         breadcrumbs={[{ label: "Our Work" }]}
       />
       <PortfolioGrid />
@@ -34,4 +35,3 @@ export default function PortfolioPage() {
     </>
   );
 }
-

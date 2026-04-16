@@ -10,40 +10,35 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import StrategicPartnership from "@/components/StrategicPartnership";
 import BlogPreview from "@/components/BlogPreview";
 import TrustBar from "@/components/TrustBar";
-import { generateLocalBusinessSchema } from "@/lib/schema";
+import { generatePageMetadata } from "@/lib/metadata";
+import { generateWebPageSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
-  title: "econstruct Inc. Ã¢â‚¬â€ Los Angeles' Premier High-End Home Builder",
-  description:
-    "Fire Rebuilds. Luxury Modernization. Ground-Up Custom Homes. CA License #964015. 639+ projects delivered since 2001 across Los Angeles.",
-  alternates: {
-    canonical: "https://econstructhomes.com",
-  },
-  openGraph: {
-    title: "econstruct Inc. Ã¢â‚¬â€ Los Angeles' Premier High-End Home Builder",
-    description:
-      "Fire Rebuilds. Luxury Modernization. Ground-Up Custom Homes. 639+ projects. CA License #964015. Serving Pacific Palisades, Beverly Hills, Malibu & all of LA.",
-    url: "https://econstructhomes.com",
-    type: "website",
-    siteName: "econstruct Inc.",
-    images: [{ url: "https://econstructhomes.com/econstruct_logo.png", width: 1200, height: 630, alt: "econstruct Inc. Ã¢â‚¬â€ Los Angeles luxury home builder" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "econstruct Inc. Ã¢â‚¬â€ Los Angeles' Premier High-End Home Builder",
-    description: "Fire Rebuilds. Luxury Modernization. Ground-Up Custom Homes. CA License #964015. 639+ projects across LA.",
-    images: ["https://econstructhomes.com/econstruct_logo.png"],
-  },
-};
+const homeTitle = "Luxury Home Builder Beverly Hills & Los Angeles | eConstruct Homes";
+const homeDescription =
+  "eConstruct Homes is a Los Angeles luxury home builder and general contractor specializing in fire rebuilds, custom homes, and high-end remodels. California License #964015.";
+
+export const metadata: Metadata = generatePageMetadata({
+  title: homeTitle,
+  description: homeDescription,
+  path: "",
+  image: "/og-homepage.jpg",
+  imageAlt: "eConstruct Homes luxury residential construction in Los Angeles",
+  openGraphTitle: homeTitle,
+  twitterTitle: homeTitle,
+});
 
 export default function Home() {
-  const jsonLd = generateLocalBusinessSchema();
+  const webPageSchema = generateWebPageSchema({
+    name: homeTitle,
+    description: homeDescription,
+    path: "",
+  });
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
       />
       <div className="flex flex-col min-h-screen bg-transparent w-full">
         <Hero />
@@ -63,4 +58,3 @@ export default function Home() {
     </>
   );
 }
-

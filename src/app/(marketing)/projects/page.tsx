@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { generateBreadcrumbSchema } from "@/lib/schema";
+import { SITE_URL } from "@/lib/constants";
 import { promptProjects } from "@/lib/data/prompt-projects";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
@@ -13,13 +14,13 @@ export const metadata: Metadata = {
   description:
     "Explore completed luxury remodel and custom home construction projects by econstruct across Hollywood Hills, Bell Canyon, Lawndale, and greater Los Angeles. 639+ projects delivered since 2001.",
   alternates: {
-    canonical: "https://econstructhomes.com/projects",
+    canonical: `${SITE_URL}/projects`,
   },
   openGraph: {
     title: "Projects | econstruct Ã¢â‚¬â€ Luxury Home Remodels in Los Angeles",
     description:
       "Portfolio of completed high-end residential projects by econstruct Ã¢â‚¬â€ Hollywood Hills remodels, Bell Canyon estate transformations, coastal condo renovations, and custom engineering.",
-    url: "https://econstructhomes.com/projects",
+    url: `${SITE_URL}/projects`,
     images: [{ url: "/projects/devista-hero.jpg", width: 1200, height: 630 }],
   },
   twitter: {
@@ -39,21 +40,21 @@ const categoryColors: Record<string, string> = {
 
 export default function ProjectsPage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: "https://econstructhomes.com" },
-    { name: "Projects", url: "https://econstructhomes.com/projects" },
+    { name: "Home", url: SITE_URL },
+    { name: "Projects", url: `${SITE_URL}/projects` },
   ]);
 
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: "econstruct Completed Projects Ã¢â‚¬â€ Los Angeles",
-    description: "Portfolio of completed luxury residential construction and remodel projects by econstruct Inc.",
+    description: "Portfolio of completed luxury residential construction and remodel projects by eConstruct Homes.",
     itemListElement: promptProjects.map((project, index) => ({
       "@type": "ListItem",
       position: index + 1,
       name: project.title,
-      url: `https://econstructhomes.com/projects/${project.slug}`,
-      image: `https://econstructhomes.com${project.image}`,
+      url: `${SITE_URL}/projects/${project.slug}`,
+      image: `${SITE_URL}${project.image}`,
       description: project.description,
     })),
   };
@@ -166,7 +167,7 @@ export default function ProjectsPage() {
               </h2>
             </div>
             <p className="max-w-sm text-[0.9rem] leading-[1.7] text-black/50">
-              Every project reflects econstruct's commitment to premium execution, clear communication, and results that outlast the build.
+              Every project reflects eConstruct Homes commitment to premium execution, clear communication, and results that outlast the build.
             </p>
           </div>
 

@@ -1,8 +1,8 @@
 import type { BlogAuthor } from "@/lib/blog/authors";
 import type { BlogFaqItem, BlogPost } from "@/lib/blog";
-import { COMPANY } from "@/lib/constants";
+import { COMPANY, SITE_URL } from "@/lib/constants";
 
-const baseUrl = "https://econstructhomes.com";
+const baseUrl = SITE_URL;
 
 export function generateBlogArticleSchema(post: BlogPost) {
   return {
