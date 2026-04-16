@@ -8,7 +8,7 @@ export default async function AgentsPage() {
   const { data: runs } = await supabase
     .from("agent_runs")
     .select("*")
-    .order("created_at", { ascending: false })
+    .order("started_at", { ascending: false })
     .limit(100);
 
   const agentRuns = runs ?? [];
@@ -88,7 +88,7 @@ export default async function AgentsPage() {
                     )}
                   </td>
                   <td className="px-4 py-3 text-gray-400 tabular-nums text-xs whitespace-nowrap">
-                    {new Date(r.created_at).toLocaleDateString("en-US", {
+                    {new Date(r.started_at).toLocaleDateString("en-US", {
                       month: "short",
                       day: "numeric",
                       hour: "numeric",

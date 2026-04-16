@@ -27,8 +27,8 @@ export default async function DashboardPage() {
         .limit(10),
       supabase
         .from("agent_runs")
-        .select("id, agent_name, status, created_at, duration_ms")
-        .order("created_at", { ascending: false })
+        .select("id, agent_name, status, started_at, duration_ms")
+        .order("started_at", { ascending: false })
         .limit(10),
       supabase.from("leads").select("source").not("source", "is", null),
     ]);
@@ -159,7 +159,7 @@ export default async function DashboardPage() {
                         : "--"}
                     </td>
                     <td className="py-2.5 text-gray-400 tabular-nums">
-                      {new Date(r.created_at).toLocaleDateString("en-US", {
+                      {new Date(r.started_at).toLocaleDateString("en-US", {
                         month: "short",
                         day: "numeric",
                         hour: "numeric",
