@@ -53,13 +53,57 @@ export default async function ProjectPage({
       url: `https://econstructhomes.com/projects/${project.slug}`,
     },
   ]);
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": ["HomeAndConstructionBusiness", "LocalBusiness"],
+    "@id": "https://econstructhomes.com/#business",
+    name: "eConstruct",
+    url: "https://econstructhomes.com",
+    telephone: "+1-310-740-9999",
+    email: "info@econstructinc.com",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Los Angeles",
+      addressRegion: "CA",
+      addressCountry: "US",
+    },
+    areaServed: "Greater Los Angeles, CA",
+    hasCredential: "CA General Contractor License #964015",
+    priceRange: "$$",
+    image: "https://econstructhomes.com/opengraph-image.png",
+    logo: "https://econstructhomes.com/opengraph-image.png",
+  };
+
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
+    "@id": `https://econstructhomes.com/projects/${project.slug}`,
     headline: project.title,
     description: project.description,
-    image: `https://econstructhomes.com${project.image}`,
+    image: project.gallery.map((img) => ({
+      "@type": "ImageObject",
+      url: `https://econstructhomes.com${img.src}`,
+      description: img.alt,
+      caption: img.caption,
+    })),
     mainEntityOfPage: `https://econstructhomes.com/projects/${project.slug}`,
+    author: {
+      "@type": "Organization",
+      "@id": "https://econstructhomes.com/#business",
+      name: "eConstruct",
+      url: "https://econstructhomes.com",
+    },
+    publisher: {
+      "@type": "Organization",
+      "@id": "https://econstructhomes.com/#business",
+      name: "eConstruct",
+      url: "https://econstructhomes.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://econstructhomes.com/opengraph-image.png",
+      },
+    },
+    ...(project.completionDate && { datePublished: `${project.completionDate}-01-01` }),
   };
 
   return (
@@ -67,7 +111,7 @@ export default async function ProjectPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([breadcrumbSchema, articleSchema]),
+          __html: JSON.stringify([breadcrumbSchema, localBusinessSchema, articleSchema]),
         }}
       />
 
