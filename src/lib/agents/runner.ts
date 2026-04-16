@@ -90,20 +90,6 @@ export async function runAgent<T extends AgentResult>(
     });
     await notifyAgentFailure(agentName, `FAILED after ${duration_ms}ms: ${err?.message}`);
 
-    // Sentry capture (if SDK present — optional dependency)
-    try {
-      const Sentry = await import("@sentry/nextjs").catch(() => null);
-      if (Sentry) {
-        Sentry.withScope((scope: any) => {
-          scope.setTag("agentName", agentName);
-          scope.setTag("runId", runId);
-          Sentry.captureException(err);
-        });
-      }
-    } catch {
-      // Sentry is optional
-    }
-
     throw err;
   }
 }
