@@ -89,7 +89,10 @@ export default function AliceChat() {
 
       {/* Chat panel */}
       {open && (
-        <div className="fixed bottom-0 right-0 sm:bottom-6 sm:right-6 z-[100] flex flex-col w-full sm:w-[400px] h-[100dvh] sm:h-[560px] sm:rounded-2xl bg-white shadow-[0_24px_80px_rgba(0,0,0,0.18)] border border-gray-200/60 sm:border overflow-hidden animate-alice-in">
+        <div
+          className="fixed bottom-0 right-0 sm:bottom-6 sm:right-6 z-[100] flex flex-col w-full sm:w-[400px] h-[100dvh] sm:h-[560px] sm:rounded-2xl bg-white shadow-[0_24px_80px_rgba(0,0,0,0.18)] border border-gray-200/60 sm:border overflow-hidden"
+          style={{ animation: "alice-slide-in 0.25s ease-out" }}
+        >
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-4 bg-gradient-to-r from-[#1C1C1E] to-[#2C2C2E] shrink-0">
             <div className="flex items-center gap-3">
@@ -185,21 +188,6 @@ export default function AliceChat() {
         </div>
       )}
 
-      <style jsx global>{`
-        @keyframes alice-slide-in {
-          from {
-            opacity: 0;
-            transform: translateY(20px) scale(0.96);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-        .animate-alice-in {
-          animation: alice-slide-in 0.25s ease-out;
-        }
-      `}</style>
     </>
   );
 }

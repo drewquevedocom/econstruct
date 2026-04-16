@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import AnnouncementBar from "@/components/AnnouncementBar";
-import AliceChat from "@/components/AliceChat";
+import ClientWidgets from "@/components/ClientWidgets";
 import { generateOrganizationSchema } from "@/lib/blog/schema";
 import { generateLocalBusinessSchema } from "@/lib/schema";
 
@@ -27,11 +26,11 @@ export default function MarketingLayout({
           __html: JSON.stringify(localBusinessSchema),
         }}
       />
-      <AnnouncementBar />
+      <ClientWidgets position="top" />
       <Header />
       <main>{children}</main>
       <Footer />
-      <AliceChat />
+      <ClientWidgets position="bottom" />
     </>
   );
 }
