@@ -1,14 +1,7 @@
-import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { createServiceClient } from "@/lib/supabase/server";
 
-// Public values — safe to inline. NEXT_PUBLIC_* vars aren't available
-// at runtime on Cloudflare Workers (only inlined into client bundle at build).
-const supabaseUrl =
-  process.env.NEXT_PUBLIC_SUPABASE_URL || "https://dzudtdhmvnuipqyoogem.supabase.co";
-const supabaseAnonKey =
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6dWR0ZGhtdm51aXBxeW9vZ2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyMDQ4MTMsImV4cCI6MjA5MTc4MDgxM30.OUwN6G_BvZRdTdl2XcxsE5Z19vOy_mRvEMKwZUwwNtE";
 // DEV MODE - all notifications go to Drew only for testing
 // When ready to go live, swap these back:
 // const NOTIFY_TO = "info@econstructinc.com";
@@ -32,7 +25,6 @@ export async function POST(req: NextRequest) {
       details,
       source, // optional: "contact_form" | "consultation_cta"
     } = body;
-    const normalizedProjectType = projectType || "General Inquiry";
 
     // Basic validation
     if (!firstName || !lastName || !email) {
@@ -42,24 +34,19 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+    const fullName = `${firstName} ${lastName}`.trim();
+
+    // Use service client — anon key is blocked by RLS on leads table
+    const supabase = createServiceClient();
 
     const { error } = await supabase.from("leads").insert([
       {
-        first_name: firstName,
-        last_name: lastName,
+        name: fullName,
         email,
         phone: phone || null,
-        project_type: normalizedProjectType,
         zip_code: zipCode || null,
-        details: [
-          budget ? `Budget: ${budget}` : null,
-          timeline ? `Timeline: ${timeline}` : null,
-          details || null,
-        ].filter(Boolean).join("\n") || null,
         source: source || "contact_form",
-        status: "new",
-        created_at: new Date().toISOString(),
+        lifecycle_stage: "new",
       },
     ]);
 
@@ -74,10 +61,11 @@ export async function POST(req: NextRequest) {
     // Send email notification
     if (process.env.RESEND_API_KEY) {
       const resend = new Resend(process.env.RESEND_API_KEY);
+      const normalizedProjectType = projectType || "General Inquiry";
       const isConsultation = source === "consultation_cta" || source === "free_consultation";
       const subject = isConsultation
-        ? `New Consultation Request - ${firstName} ${lastName}`
-        : `New Contact Form Submission - ${firstName} ${lastName}`;
+        ? `New Consultation Request - ${fullName}`
+        : `New Contact Form Submission - ${fullName}`;
 
       await resend.emails.send({
         from: "econstruct Website <no-reply@econstructinc.com>",
@@ -92,7 +80,7 @@ export async function POST(req: NextRequest) {
             </div>
             <div style="background:#f8f6f2;padding:32px;border-radius:0 0 12px 12px;border:1px solid #e5e2db;">
               <table style="width:100%;border-collapse:collapse;">
-                <tr><td style="padding:8px 0;font-size:13px;color:#666;width:40%;font-weight:600;">Name</td><td style="padding:8px 0;font-size:14px;">${firstName} ${lastName}</td></tr>
+                <tr><td style="padding:8px 0;font-size:13px;color:#666;width:40%;font-weight:600;">Name</td><td style="padding:8px 0;font-size:14px;">${fullName}</td></tr>
                 <tr><td style="padding:8px 0;font-size:13px;color:#666;font-weight:600;">Email</td><td style="padding:8px 0;font-size:14px;"><a href="mailto:${email}">${email}</a></td></tr>
                 ${phone ? `<tr><td style="padding:8px 0;font-size:13px;color:#666;font-weight:600;">Phone</td><td style="padding:8px 0;font-size:14px;"><a href="tel:${phone}">${phone}</a></td></tr>` : ""}
                 ${zipCode ? `<tr><td style="padding:8px 0;font-size:13px;color:#666;font-weight:600;">Zip Code</td><td style="padding:8px 0;font-size:14px;">${zipCode}</td></tr>` : ""}
