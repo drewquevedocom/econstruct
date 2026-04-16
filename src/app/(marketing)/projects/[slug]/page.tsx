@@ -14,6 +14,9 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return promptProjects.map((project) => ({ slug: project.slug }));
 }

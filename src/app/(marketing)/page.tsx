@@ -13,6 +13,8 @@ import TrustBar from "@/components/TrustBar";
 import { generatePageMetadata } from "@/lib/metadata";
 import { generateWebPageSchema } from "@/lib/schema";
 
+export const dynamic = "force-static";
+
 const homeTitle = "Luxury Home Builder Beverly Hills & Los Angeles | eConstruct Homes";
 const homeDescription =
   "eConstruct Homes is a Los Angeles luxury home builder and general contractor specializing in fire rebuilds, custom homes, and high-end remodels. California License #964015.";

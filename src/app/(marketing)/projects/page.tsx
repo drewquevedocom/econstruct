@@ -4,10 +4,12 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { generateBreadcrumbSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/constants";
-import { promptProjects } from "@/lib/data/prompt-projects";
+import { promptProjectSummaries } from "@/lib/data/prompt-project-summaries";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import ConsultationCTA from "@/components/ConsultationCTA";
+
+export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "Projects | econstruct Ã¢â‚¬â€ Luxury Home Remodels & Custom Builds in Los Angeles",
@@ -49,7 +51,7 @@ export default function ProjectsPage() {
     "@type": "ItemList",
     name: "econstruct Completed Projects Ã¢â‚¬â€ Los Angeles",
     description: "Portfolio of completed luxury residential construction and remodel projects by eConstruct Homes.",
-    itemListElement: promptProjects.map((project, index) => ({
+    itemListElement: promptProjectSummaries.map((project, index) => ({
       "@type": "ListItem",
       position: index + 1,
       name: project.title,
@@ -59,7 +61,7 @@ export default function ProjectsPage() {
     })),
   };
 
-  const [featured, ...rest] = promptProjects;
+  const [featured, ...rest] = promptProjectSummaries;
 
   return (
     <>
