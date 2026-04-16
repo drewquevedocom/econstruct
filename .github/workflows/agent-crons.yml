@@ -1,0 +1,56 @@
+name: Agent Cron Triggers
+
+on:
+  schedule:
+    # Enrichment + scoring pipeline runs every 6 hours
+    - cron: '0 6,12,18,0 * * *'  # 10pm, 4am, 10am, 4pm PT
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  run-agents:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Assessor Enrich
+        run: |
+          curl -sf -X POST "https://econstructhomes.com/api/agents/assessor-enrich" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            -H "Content-Type: application/json" \
+            --max-time 60
+        continue-on-error: true
+
+      - name: Apollo Enrich
+        run: |
+          curl -sf -X POST "https://econstructhomes.com/api/agents/apollo-enrich" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            -H "Content-Type: application/json" \
+            --max-time 60
+        continue-on-error: true
+
+      - name: Score Leads
+        run: |
+          curl -sf -X POST "https://econstructhomes.com/api/agents/score-leads" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            -H "Content-Type: application/json" \
+            --max-time 60
+        continue-on-error: true
+
+      - name: SLA Alert
+        run: |
+          curl -sf -X POST "https://econstructhomes.com/api/agents/sla-alert" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            -H "Content-Type: application/json" \
+            --max-time 60
+        continue-on-error: true
+
+  deed-monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Deed Monitor
+        run: |
+          curl -sf -X POST "https://econstructhomes.com/api/agents/deed-monitor" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            -H "Content-Type: application/json" \
+            --max-time 120
+        continue-on-error: true
