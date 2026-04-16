@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ClientWidgets from "@/components/ClientWidgets";
+import AnnouncementBar from "@/components/AnnouncementBar";
 import { generateOrganizationSchema } from "@/lib/blog/schema";
 import { generateLocalBusinessSchema } from "@/lib/schema";
 
@@ -26,11 +26,10 @@ export default function MarketingLayout({
           __html: JSON.stringify(localBusinessSchema),
         }}
       />
-      <ClientWidgets position="top" />
+      <AnnouncementBar />
       <Header />
       <main>{children}</main>
       <Footer />
-      <ClientWidgets position="bottom" />
     </>
   );
 }
