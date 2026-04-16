@@ -14,7 +14,7 @@ export default function Header() {
   const hoverColor = "hover:text-accent-gold";
 
   return (
-    <header className="fixed top-4 left-0 w-full z-50 pointer-events-none px-4 md:top-5 md:px-8">
+    <header className="fixed top-12 left-0 w-full z-50 pointer-events-none px-4 md:top-[52px] md:px-8">
       <div
         className="pointer-events-auto mx-auto flex w-full max-w-[1920px] items-center justify-between rounded-full border border-white/12 bg-[rgba(12,14,18,0.72)] px-5 py-3.5 shadow-[0_20px_50px_rgba(0,0,0,0.26)] backdrop-blur-xl transition-all duration-500 lg:px-8"
       >

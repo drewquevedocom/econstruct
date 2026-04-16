@@ -2,8 +2,32 @@
 
 import { useEffect, useState } from "react";
 import { X, Mail, Phone, MapPin, Loader2, ExternalLink } from "lucide-react";
+import { updateLeadStage } from "@/app/crm/leads/actions";
 import ScoreBadge from "./ScoreBadge";
-import StageTag from "./StageTag";
+
+const STAGES = [
+  "new",
+  "enriched",
+  "outreach",
+  "contacted",
+  "replied",
+  "meeting",
+  "proposal",
+  "won",
+  "lost",
+];
+
+const stageColors: Record<string, string> = {
+  new: "border-blue-300 text-blue-700",
+  enriched: "border-purple-300 text-purple-700",
+  outreach: "border-amber-300 text-amber-700",
+  contacted: "border-sky-300 text-sky-700",
+  replied: "border-teal-300 text-teal-700",
+  meeting: "border-indigo-300 text-indigo-700",
+  proposal: "border-orange-300 text-orange-700",
+  won: "border-green-300 text-green-700",
+  lost: "border-red-300 text-red-600",
+};
 
 interface LeadDetail {
   id: string;
@@ -43,6 +67,7 @@ export default function LeadPanel({ leadId, onClose }: PanelProps) {
   const [lead, setLead] = useState<LeadDetail | null>(null);
   const [activities, setActivities] = useState<Activity[]>([]);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -90,7 +115,26 @@ export default function LeadPanel({ leadId, onClose }: PanelProps) {
                   {lead.name || "Unknown"}
                 </h3>
                 <div className="flex items-center gap-2 mb-4">
-                  <StageTag stage={lead.lifecycle_stage} />
+                  <select
+                    value={lead.lifecycle_stage || "new"}
+                    disabled={saving}
+                    onChange={async (e) => {
+                      const newStage = e.target.value;
+                      setSaving(true);
+                      const result = await updateLeadStage(lead.id, newStage);
+                      if (!result.error) {
+                        setLead({ ...lead, lifecycle_stage: newStage });
+                      }
+                      setSaving(false);
+                    }}
+                    className={`text-[11px] font-semibold capitalize px-2 py-0.5 rounded-full border cursor-pointer bg-white ${stageColors[lead.lifecycle_stage || "new"] || "border-gray-300 text-gray-600"} disabled:opacity-50`}
+                  >
+                    {STAGES.map((s) => (
+                      <option key={s} value={s}>
+                        {s}
+                      </option>
+                    ))}
+                  </select>
                   <ScoreBadge score={lead.lead_score} />
                 </div>
                 <div className="space-y-2 text-sm">

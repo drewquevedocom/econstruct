@@ -1,5 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AnnouncementBar from "@/components/AnnouncementBar";
+import AliceChat from "@/components/AliceChat";
 import { generateOrganizationSchema } from "@/lib/blog/schema";
 import { generateLocalBusinessSchema } from "@/lib/schema";
 
@@ -25,9 +27,11 @@ export default function MarketingLayout({
           __html: JSON.stringify(localBusinessSchema),
         }}
       />
+      <AnnouncementBar />
       <Header />
       <main>{children}</main>
       <Footer />
+      <AliceChat />
     </>
   );
 }
