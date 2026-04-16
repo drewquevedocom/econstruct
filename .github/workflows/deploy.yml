@@ -16,8 +16,8 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install dependencies (fresh lockfile for Linux native deps)
+        run: rm -f package-lock.json && npm install
 
       - name: Build with OpenNext
         run: npx @opennextjs/cloudflare build
