@@ -4,22 +4,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { generatePageMetadata } from "@/lib/metadata";
 import { generateBreadcrumbSchema } from "@/lib/schema";
-import {
-  getPromptProjectBySlug,
-  promptProjects,
-} from "@/lib/data/prompt-projects";
+import { getPromptProjectBySlug } from "@/lib/data/prompt-projects";
 import PageHero from "@/components/ui/PageHero";
 import Container from "@/components/ui/Container";
 import SectionHeader from "@/components/ui/SectionHeader";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
-export const dynamic = "force-static";
-export const dynamicParams = false;
 
-export function generateStaticParams() {
-  return promptProjects.map((project) => ({ slug: project.slug }));
-}
 
 export async function generateMetadata({
   params,
