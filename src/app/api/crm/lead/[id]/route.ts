@@ -1,4 +1,4 @@
-import { createAnonClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/server";
 import { NextRequest } from "next/server";
 
 export async function GET(
@@ -6,7 +6,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  const supabase = createAnonClient();
+  const supabase = createServiceClient();
 
   const [leadRes, activityRes] = await Promise.all([
     supabase.from("leads").select("*").eq("id", id).single(),

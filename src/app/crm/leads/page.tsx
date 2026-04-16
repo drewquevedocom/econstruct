@@ -1,10 +1,10 @@
-import { createAnonClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/server";
 import LeadsTable from "@/components/crm/LeadsTable";
 
 export const dynamic = "force-dynamic";
 
 export default async function LeadsPage() {
-  const supabase = createAnonClient();
+  const supabase = createServiceClient();
 
   const { data: leads } = await supabase
     .from("leads")

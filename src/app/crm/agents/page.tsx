@@ -1,9 +1,9 @@
-import { createAnonClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
 
 export default async function AgentsPage() {
-  const supabase = createAnonClient();
+  const supabase = createServiceClient();
 
   const { data: runs } = await supabase
     .from("agent_runs")

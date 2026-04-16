@@ -1,4 +1,4 @@
-import { createAnonClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/server";
 import { Users, Flame, Trophy, Bot } from "lucide-react";
 import StatCard from "@/components/crm/StatCard";
 import LeadSourceChart from "@/components/crm/LeadSourceChart";
@@ -6,7 +6,7 @@ import LeadSourceChart from "@/components/crm/LeadSourceChart";
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
-  const supabase = createAnonClient();
+  const supabase = createServiceClient();
 
   // Parallel queries
   const [totalRes, hotRes, stagesRes, activityRes, agentRes, sourcesRes] =
