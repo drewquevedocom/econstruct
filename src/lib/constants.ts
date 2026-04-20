@@ -12,12 +12,12 @@ export const COMPANY = {
   },
   email: "info@econstructhomes.com",
   address: {
-    street: "",
-    suite: "",
-    city: "Los Angeles",
+    street: "25350 Magic Mountain Pkwy",
+    suite: "Ste. 300",
+    city: "Valencia",
     state: "CA",
-    zip: "",
-    full: "Los Angeles, CA",
+    zip: "91355",
+    full: "25350 Magic Mountain Pkwy, Ste. 300, Valencia, CA 91355",
   },
   license: {
     number: "964015",

@@ -91,7 +91,7 @@ export default function Header() {
             <Phone size={17} />
           </a>
           <a
-            href="mailto:info@econstructinc.com"
+            href={`mailto:${COMPANY.email}`}
             aria-label="Email econstruct"
             style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 36, height: 36, borderRadius: "50%", border: "1px solid rgba(201,162,39,0.5)", color: "#c9a227" }}
           >

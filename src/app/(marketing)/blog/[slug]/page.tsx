@@ -8,6 +8,7 @@ import PageHero from "@/components/ui/PageHero";
 import TableOfContents from "@/components/resources/TableOfContents";
 import ShareButtons from "@/components/blog/ShareButtons";
 import PostCard from "@/components/blog/PostCard";
+import { COMPANY } from "@/lib/constants";
 import {
   getAllBlogPosts,
   getBlogPostBySlug,
@@ -275,7 +276,7 @@ export default async function BlogPostPage({
                       >
                         {source.title}
                       </a>
-                      {source.publisher ? ` â€” ${source.publisher}` : ""}
+                      {source.publisher ? ` — ${source.publisher}` : “”}
                     </li>
                   ))}
                 </ol>
@@ -330,7 +331,7 @@ export default async function BlogPostPage({
                   </div>
                 </div>
                 <div className="mt-6 border-t border-black/8 pt-5 text-sm text-body-text">
-                  Last updated {post.formattedUpdatedDate}. {post.factCheckedBy}.
+                  Last updated {post.formattedUpdatedDate}. {post.factCheckedBy}. {COMPANY.license.display}.
                 </div>
               </section>
 

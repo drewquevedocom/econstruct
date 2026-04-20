@@ -54,7 +54,7 @@ const features = [
     icon: Palette,
     title: "Design-Preserve Pricing",
     description:
-      "Our methodology protects the elements that give your home character while modernizing everything else. You set priorities Ã¢â‚¬â€ we price accordingly.",
+      "Our methodology protects the elements that give your home character while modernizing everything else. You set priorities — we price accordingly.",
   },
   {
     icon: BrickWall,
@@ -72,7 +72,7 @@ const features = [
     icon: Cpu,
     title: "Smart Home Automation",
     description:
-      "Lutron, Savant, Control4, Sonos Ã¢â‚¬â€ fully integrated lighting, climate, audio, security, and shade systems tailored to how you actually live.",
+      "Lutron, Savant, Control4, Sonos — fully integrated lighting, climate, audio, security, and shade systems tailored to how you actually live.",
   },
   {
     icon: Leaf,
@@ -189,7 +189,7 @@ export default function LuxuryModernizationPage() {
           <SectionHeader
             badge={["LUXURY", "MODERNIZATION"]}
             title="Elevated Living, Expert Execution"
-            subtitle="We don't just renovate Ã¢â‚¬â€ we transform. Every detail is considered, every material curated, every finish executed to the highest standard."
+            subtitle="We don't just renovate — we transform. Every detail is considered, every material curated, every finish executed to the highest standard."
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

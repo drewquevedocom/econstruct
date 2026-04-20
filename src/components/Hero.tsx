@@ -27,9 +27,7 @@ export default function Hero() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(190,155,72,0.08),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.05),transparent_32%)]" />
         </div>
 
-        {/* Content */}
         <div className="mx-auto w-[95%] max-w-[1920px] px-6 md:px-8 h-full flex flex-col justify-between pt-[20vh] pb-16 relative z-10">
-          {/* Main Title */}
           <div className="flex-1 flex flex-col justify-center text-left mt-8 md:mt-16">
             <motion.div
               initial="hidden"
@@ -44,35 +42,16 @@ export default function Hero() {
                   hidden: { opacity: 0, y: 50, filter: "blur(10px)", scale: 0.95 },
                   visible: { opacity: 1, y: 0, filter: "blur(0px)", scale: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } },
                 }}
-                className="hero-display text-5xl md:text-7xl lg:text-[6.5rem] font-bold leading-[1.05] tracking-tight pb-1"
+                className="hero-display font-heading text-5xl md:text-7xl lg:text-[6.5rem] font-bold leading-[1.05] tracking-tight"
                 style={{ color: "#ffffff" }}
               >
-                Los Angeles&apos; Premier
+                <span className="block pb-1">Los Angeles Luxury</span>
+                <span className="block pb-1">Home Builder</span>
+                <span className="block">and General Contractor</span>
               </motion.h1>
-              <motion.div
-                variants={{
-                  hidden: { opacity: 0, y: 50, filter: "blur(10px)", scale: 0.95 },
-                  visible: { opacity: 1, y: 0, filter: "blur(0px)", scale: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } },
-                }}
-                className="hero-display text-5xl md:text-7xl lg:text-[6.5rem] font-bold leading-[1.05] tracking-tight pb-1"
-                style={{ color: "#ffffff" }}
-              >
-                High-End
-              </motion.div>
-              <motion.div
-                variants={{
-                  hidden: { opacity: 0, y: 50, filter: "blur(10px)", scale: 0.95 },
-                  visible: { opacity: 1, y: 0, filter: "blur(0px)", scale: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } },
-                }}
-                className="hero-display text-5xl md:text-7xl lg:text-[6.5rem] font-bold leading-[1.05] tracking-tight"
-                style={{ color: "#ffffff" }}
-              >
-                Home Builder
-              </motion.div>
             </motion.div>
           </div>
 
-          {/* Bottom CTAs */}
           <div className="mt-auto flex w-full flex-col items-start gap-8 border-l border-accent-gold/75 pl-6">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -81,12 +60,12 @@ export default function Hero() {
               className="max-w-2xl text-left"
             >
               <h2
-                className="text-lg font-medium leading-relaxed tracking-[0.12em] text-white/92 md:text-2xl"
+                className="font-heading text-lg font-medium leading-relaxed tracking-[0.12em] text-white/92 md:text-2xl"
                 style={{ color: "#ffffff" }}
               >
-                Fire Rebuilds <span className="text-accent-gold mx-2">•</span>
-                Luxury Modernization <span className="text-accent-gold mx-2">•</span>
-                Ground-Up Custom Homes
+                Fire Rebuild Contractor <span className="text-accent-gold mx-2">&bull;</span>
+                Luxury Remodel Contractor <span className="text-accent-gold mx-2">&bull;</span>
+                Custom Home Builder
               </h2>
             </motion.div>
 

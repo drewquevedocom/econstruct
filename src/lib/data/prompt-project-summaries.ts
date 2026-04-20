@@ -19,7 +19,7 @@ export const promptProjectSummaries: PromptProjectSummary[] = [
     title: "San Vincente ADU - Completed Residential ADU Project",
     description:
       "A newly completed San Vincente ADU project showcasing clean lines, premium finishes, and a polished indoor-outdoor feel. Built to deliver comfort, style, and long-term value.",
-    image: "/projects/01_web.jpg",
+    image: "/projects/05_web.jpg",
     location: "Los Angeles, CA",
     neighborhood: "San Vincente",
     scope: "Detached ADU Construction",

@@ -64,7 +64,7 @@ const credentials = [
   {
     icon: Shield,
     title: "CA License #964015",
-    description: "Licensed General Contractor Ã¢â‚¬â€ State of California",
+    description: "Licensed General Contractor — State of California",
     link: COMPANY.license.verificationUrl,
   },
   {
@@ -75,7 +75,7 @@ const credentials = [
   {
     icon: Leaf,
     title: "USGBC Member",
-    description: "U.S. Green Building Council Ã¢â‚¬â€ sustainable building practices",
+    description: "U.S. Green Building Council — sustainable building practices",
   },
 ];
 
@@ -167,7 +167,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* Founding Philosophy Ã¢â‚¬â€ EEAT Section */}
+      {/* Founding Philosophy — EEAT Section */}
       <section className="py-24 md:py-32 bg-[#F8F6F2]">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
@@ -183,22 +183,22 @@ export default function AboutPage() {
 
               <div className="space-y-5 text-gray-600 text-[1.05rem] leading-relaxed">
                 <p>
-                  Frank Neimroozi founded econstruct in 2011 as a direct response to the failures he watched play out across the Los Angeles construction industry Ã¢â‚¬â€ irresponsible project management, inadequate planning, and a near-total absence of honest communication between contractors and clients.
+                  Frank Neimroozi founded econstruct in 2011 as a direct response to the failures he watched play out across the Los Angeles construction industry — irresponsible project management, inadequate planning, and a near-total absence of honest communication between contractors and clients.
                 </p>
                 <p>
                   The company was built from the ground up on three principles that remain non-negotiable today: <span className="font-semibold text-brand-dark">transparency, accuracy, and reliability.</span> Every process, every conversation, and every deliverable is designed around keeping clients fully informed and projects on track.
                 </p>
                 <p>
-                  Over the years, Frank assembled a vetted network of Los Angeles&apos; top architects, engineers, permit expeditors, subcontractors, and vendors Ã¢â‚¬â€ relationships built on mutual accountability and a shared standard of craft. This network is one of econstruct&apos;s most significant competitive advantages and cannot be replicated overnight.
+                  Over the years, Frank assembled a vetted network of Los Angeles&apos; top architects, engineers, permit expeditors, subcontractors, and vendors — relationships built on mutual accountability and a shared standard of craft. This network is one of econstruct&apos;s most significant competitive advantages and cannot be replicated overnight.
                 </p>
                 <p>
-                  Today, with 639+ completed projects and over two decades of hands-on field experience, econstruct is recognized as one of Los Angeles&apos; most trusted residential construction firms. Our mission has never changed: to build enduring homes of unmatched quality Ã¢â‚¬â€ and to do it with the honesty and discipline that our clients deserve.
+                  Today, with 639+ completed projects and over two decades of hands-on field experience, econstruct is recognized as one of Los Angeles&apos; most trusted residential construction firms. Our mission has never changed: to build enduring homes of unmatched quality — and to do it with the honesty and discipline that our clients deserve.
                 </p>
               </div>
 
               {/* Pull quote */}
               <blockquote className="mt-10 border-l-4 border-accent-gold pl-6 italic text-brand-dark text-lg leading-relaxed">
-                &ldquo;Our mission extends beyond building structures. We aim to create enduring monuments of unmatched quality and trustworthiness Ã¢â‚¬â€ one flawless project at a time.&rdquo;
+                &ldquo;Our mission extends beyond building structures. We aim to create enduring monuments of unmatched quality and trustworthiness — one flawless project at a time.&rdquo;
                 <footer className="mt-3 not-italic text-[11px] font-bold uppercase tracking-[0.28em] text-black/45">
                   Frank Neimroozi, Founder
                 </footer>
@@ -210,14 +210,14 @@ export default function AboutPage() {
               <div className="relative overflow-hidden rounded-3xl aspect-[4/5] bg-gray-100">
                 <Image
                   src="/Frank4.png"
-                  alt="Frank Neimroozi Ã¢â‚¬â€ econstruct founder on a job site"
+                  alt="Frank Neimroozi — econstruct founder on a job site"
                   fill
                   className="object-cover object-top"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
                 <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-brand-dark/80 to-transparent p-8">
                   <p className="text-white font-bold text-xl">Frank Neimroozi</p>
-                  <p className="text-white/70 text-sm">Founder &amp; President Ã¢â‚¬â€ econstruct Inc.</p>
+                  <p className="text-white/70 text-sm">Founder &amp; President — econstruct Inc.</p>
                 </div>
               </div>
             </AnimatedSection>

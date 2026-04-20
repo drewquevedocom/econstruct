@@ -15,25 +15,14 @@ const awards = [
     image: "/top_7_contractors_2.png",
     year: "2022",
     title: "Top Seven Contractors\nin Glendale",
-    subtitle: "GeneralContractors.org",
-    href: "https://www.generalcontractors.org/the-best-retail-contractors-in-glendale-california/",
+    subtitle: null,
+    href: null,
   },
 ];
 
 function AwardCard({ award, index }: { award: (typeof awards)[number]; index: number }) {
-  return (
-    <motion.a
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.2, duration: 0.6 }}
-      href={award.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`group flex flex-col items-center px-4 py-8 text-center no-underline ${
-        index === 0 ? "md:pl-4 md:pr-12" : "md:pl-12 md:pr-4"
-      }`}
-    >
+  const inner = (
+    <>
       <div className="mb-4 flex items-center justify-center">
         <div className="relative flex h-[112px] w-[112px] items-center justify-center transition-transform duration-500 group-hover:-translate-y-1 md:h-[128px] md:w-[128px]">
           <Image
@@ -50,8 +39,41 @@ function AwardCard({ award, index }: { award: (typeof awards)[number]; index: nu
       <h3 className="mb-1 whitespace-pre-line text-lg font-bold leading-tight text-brand-dark transition-colors group-hover:text-accent-gold md:text-xl">
         {award.title}
       </h3>
-      <p className="text-sm text-gray-500">{award.subtitle}</p>
-    </motion.a>
+      {award.subtitle && <p className="text-sm text-gray-500">{award.subtitle}</p>}
+    </>
+  );
+
+  const className = `group flex flex-col items-center px-4 py-8 text-center no-underline ${
+    index === 0 ? "md:pl-4 md:pr-12" : "md:pl-12 md:pr-4"
+  }`;
+
+  if (award.href) {
+    return (
+      <motion.a
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.2, duration: 0.6 }}
+        href={award.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+      >
+        {inner}
+      </motion.a>
+    );
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.2, duration: 0.6 }}
+      className={className}
+    >
+      {inner}
+    </motion.div>
   );
 }
 

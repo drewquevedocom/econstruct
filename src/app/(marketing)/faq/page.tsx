@@ -12,7 +12,7 @@ import ConsultationCTA from "@/components/ConsultationCTA";
 import { COMPANY } from "@/lib/constants";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "FAQ Ã¢â‚¬â€ Frequently Asked Questions About econstruct",
+  title: "FAQ — Frequently Asked Questions About econstruct",
   description:
     "Get answers to common questions about econstruct's fire rebuild, luxury modernization, and custom home services in Los Angeles. Pricing, timelines, process, and more.",
   path: "/faq",

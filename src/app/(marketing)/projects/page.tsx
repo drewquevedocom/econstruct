@@ -12,16 +12,16 @@ import ConsultationCTA from "@/components/ConsultationCTA";
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-  title: "Projects | econstruct Ã¢â‚¬â€ Luxury Home Remodels & Custom Builds in Los Angeles",
+  title: "Projects | econstruct — Luxury Home Remodels & Custom Builds in Los Angeles",
   description:
     "Explore completed luxury remodel and custom home construction projects by econstruct across Hollywood Hills, Bell Canyon, Lawndale, and greater Los Angeles. 639+ projects delivered since 2001.",
   alternates: {
     canonical: `${SITE_URL}/projects`,
   },
   openGraph: {
-    title: "Projects | econstruct Ã¢â‚¬â€ Luxury Home Remodels in Los Angeles",
+    title: "Projects | econstruct — Luxury Home Remodels in Los Angeles",
     description:
-      "Portfolio of completed high-end residential projects by econstruct Ã¢â‚¬â€ Hollywood Hills remodels, Bell Canyon estate transformations, coastal condo renovations, and custom engineering.",
+      "Portfolio of completed high-end residential projects by econstruct — Hollywood Hills remodels, Bell Canyon estate transformations, coastal condo renovations, and custom engineering.",
     url: `${SITE_URL}/projects`,
     images: [{ url: "/projects/devista-hero.jpg", width: 1200, height: 630 }],
   },
@@ -49,7 +49,7 @@ export default function ProjectsPage() {
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "econstruct Completed Projects Ã¢â‚¬â€ Los Angeles",
+    name: "econstruct Completed Projects — Los Angeles",
     description: "Portfolio of completed luxury residential construction and remodel projects by eConstruct Homes.",
     itemListElement: promptProjectSummaries.map((project, index) => ({
       "@type": "ListItem",
@@ -71,7 +71,7 @@ export default function ProjectsPage() {
       {/* Ã¢â€â‚¬Ã¢â€â‚¬ Hero Ã¢â€â‚¬Ã¢â€â‚¬ */}
       <PageHero
         title="Our Work Across Los Angeles"
-        subtitle="639+ projects delivered since 2001 Ã¢â‚¬â€ from Hollywood Hills luxury remodels and Bell Canyon estate transformations to coastal condo renovations and custom engineering solutions."
+        subtitle="639+ projects delivered since 2001 — from Hollywood Hills luxury remodels and Bell Canyon estate transformations to coastal condo renovations and custom engineering solutions."
         breadcrumbs={[{ label: "Projects" }]}
         backgroundImage={featured.image}
         stats={[

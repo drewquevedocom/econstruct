@@ -28,15 +28,9 @@ export const projects: Project[] = [
     neighborhood: "Bell Canyon",
     description:
       "A luxury modern hillside home required innovative access solutions to an unusable lower property area. The team engineered and installed a compact hillside lift system with a 950-pound capacity, featuring custom doors and cab matching the home's modern materials, reinforced concrete landing, and multiple redundant fail-safe systems.",
-    heroImage:
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/09/Saddlebow2.png",
+    heroImage: "/projects/saddlebow-50-hero.jpg",
     images: [
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/09/Saddlebow2.png",
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/09/Saddlebow3.png",
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/09/Saddlebow4.png",
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/09/Saddlebow5.png",
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/09/Saddlebow6.png",
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/09/Saddlebow9.png",
+      "/projects/saddlebow-50-hero.jpg",
     ],
     specs: { scope: "Hillside Lift Installation" },
   },
@@ -47,10 +41,13 @@ export const projects: Project[] = [
     neighborhood: "Bell Canyon",
     description:
       "Comprehensive transformation of a late 1970s residence into a modern open-concept home. The project involved removing walls for improved natural light flow, a redesigned chef's kitchen with large island and premium appliances, smart home technology integration, and drought-resistant hillside landscaping.",
-    heroImage:
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2017/03/Devista_11-scaled.jpg",
+    heroImage: "/projects/saddlebow-54-hero.jpg",
     images: [
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2017/03/Devista_11-scaled.jpg",
+      "/projects/saddlebow-54-hero.jpg",
+      "/projects/saddlebow-54-2.jpg",
+      "/projects/saddlebow-54-3.jpg",
+      "/projects/saddlebow-54-5.jpg",
+      "/projects/saddlebow-54-8.jpg",
     ],
     specs: { scope: "Full Remodel" },
   },
@@ -61,11 +58,9 @@ export const projects: Project[] = [
     neighborhood: "Lawndale",
     description:
       "A comprehensive transformation of a 3-bedroom, 3-bathroom coastal condo. Reconfigured the floorplan with an open, airy layout for beachside living, including kitchen expansion, spa-inspired bathroom renovation, and a redesigned private balcony with firepit seating area.",
-    heroImage:
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/09/Marine_Ave_condo_13.jpg",
+    heroImage: "/projects/marine-ave-hero.jpg",
     images: [
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/09/Marine_Ave_condo_13.jpg",
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/09/Marine_Ave_condo_12.jpg",
+      "/projects/marine-ave-hero.jpg",
     ],
     specs: { scope: "Condo Remodel" },
   },
@@ -76,10 +71,9 @@ export const projects: Project[] = [
     neighborhood: "Hollywood Hills",
     description:
       "A comprehensive remodel of a 1970s hillside home that modernized the floorplan and enhanced indoor-outdoor California living. Work included an open-concept kitchen with quartz island, master suite renovation, pool resurfacing, covered patio addition, and extensive glass wall replacements for panoramic views.",
-    heroImage:
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/09/Mulholland_Dr_1-scaled.jpg",
+    heroImage: "/projects/mulholland-hero.jpg",
     images: [
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/09/Mulholland_Dr_1-scaled.jpg",
+      "/projects/mulholland-hero.jpg",
     ],
     specs: { scope: "Full Remodel" },
     featured: true,
@@ -91,11 +85,9 @@ export const projects: Project[] = [
     neighborhood: "Los Angeles",
     description:
       "A comprehensive interior and exterior home transformation creating a contemporary living space. Exterior updates with modern paint and custom wood fencing, complete kitchen renovation with marble counters and island, master bathroom remodel, and hardwood flooring throughout.",
-    heroImage:
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/10/Untitled-design-2023-10-23T105847.847.png",
+    heroImage: "/projects/newcomb-road-hero.jpg",
     images: [
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/10/Untitled-design-2023-10-23T105847.847.png",
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/10/Untitled-design-2023-10-23T105802.767.png",
+      "/projects/newcomb-road-hero.jpg",
     ],
     specs: { scope: "Full Remodel" },
   },
@@ -106,10 +98,9 @@ export const projects: Project[] = [
     neighborhood: "Hollywood Hills",
     description:
       "Comprehensive renovation of a 1980s Hollywood Hills residence designed for contemporary family living. The project included expanding the layout, integrating smart home technology, a new chef's kitchen with quartz island, sliding glass wall installations, pool resurfacing, and a built-in barbecue kitchen.",
-    heroImage:
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2017/03/Devista_11-scaled.jpg",
+    heroImage: "/projects/devista-hero.jpg",
     images: [
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2017/03/Devista_11-scaled.jpg",
+      "/projects/devista-hero.jpg",
     ],
     specs: { scope: "Full Remodel" },
   },

@@ -64,7 +64,7 @@ const features = [
     icon: PlusCircle,
     title: "Home Additions & Extensions",
     description:
-      "Expand your living space with seamless additions that match your home's architecture. Master suites, family rooms, second stories Ã¢â‚¬â€ engineered and permitted correctly.",
+      "Expand your living space with seamless additions that match your home's architecture. Master suites, family rooms, second stories — engineered and permitted correctly.",
   },
   {
     icon: FileCheck,
@@ -82,7 +82,7 @@ const features = [
     icon: Scale,
     title: "California Regulation Expertise",
     description:
-      "From SB 9 lot splits to AB 2221 updates, we know California's evolving ADU laws inside and out. Setback requirements, height limits, parking exemptions Ã¢â‚¬â€ we handle it all.",
+      "From SB 9 lot splits to AB 2221 updates, we know California's evolving ADU laws inside and out. Setback requirements, height limits, parking exemptions — we handle it all.",
   },
 ];
 
@@ -103,7 +103,7 @@ const benefits = [
     icon: Users,
     title: "Multigenerational Living",
     description:
-      "Give aging parents or adult children independent living space on your property. Private entrance, full kitchen, and their own address Ã¢â‚¬â€ with family next door.",
+      "Give aging parents or adult children independent living space on your property. Private entrance, full kitchen, and their own address — with family next door.",
   },
   {
     icon: Briefcase,
@@ -146,7 +146,7 @@ const processSteps = [
     step: "05",
     title: "Final Inspection & Move-In",
     description:
-      "We coordinate all final inspections, obtain your certificate of occupancy, and deliver a turnkey unit ready for occupancy or rental Ã¢â‚¬â€ complete with full warranty.",
+      "We coordinate all final inspections, obtain your certificate of occupancy, and deliver a turnkey unit ready for occupancy or rental — complete with full warranty.",
     icon: Home,
   },
 ];

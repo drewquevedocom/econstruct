@@ -6,7 +6,6 @@ import {
   MapPin,
   Clock,
   Shield,
-  MessageCircle,
 } from "lucide-react";
 import { generatePageMetadata } from "@/lib/metadata";
 import { generateBreadcrumbSchema } from "@/lib/schema";
@@ -28,7 +27,6 @@ const contactInfo = [
     icon: Phone,
     label: "Phone",
     value: COMPANY.phone.display,
-    secondary: COMPANY.phone.displaySecondary,
     href: `tel:${COMPANY.phone.primary}`,
   },
   {
@@ -149,36 +147,23 @@ export default function ContactPage() {
                     </h3>
                   </div>
                   <p className="text-gray-500 text-sm leading-relaxed">
-                    {COMPANY.license.display} Ã¢â‚¬â€ Fully licensed, bonded, and
+                    {COMPANY.license.display} — Fully licensed, bonded, and
                     insured General Contractor in the State of California.
                   </p>
                 </div>
 
-                {/* Map Placeholder */}
-                <div className="bg-gray-100 rounded-2xl overflow-hidden aspect-[4/3] relative">
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
-                    <MapPin
-                      size={32}
-                      className="text-accent-gold mb-3"
-                    />
-                    <p className="text-brand-dark font-bold">
-                      {COMPANY.address.street}
-                    </p>
-                    <p className="text-gray-500 text-sm mt-1">
-                      {COMPANY.address.suite},{" "}
-                      {COMPANY.address.city},{" "}
-                      {COMPANY.address.state}{" "}
-                      {COMPANY.address.zip}
-                    </p>
-                    <a
-                      href={`https://maps.google.com/?q=${encodeURIComponent(COMPANY.address.full)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-4 text-sm font-bold text-accent-gold hover:text-brand-dark transition-colors flex items-center gap-1"
-                    >
-                      <MessageCircle size={14} /> Open in Google Maps
-                    </a>
-                  </div>
+                {/* Office Map */}
+                <div className="rounded-2xl overflow-hidden aspect-[4/3] relative">
+                  <iframe
+                    src="https://www.google.com/maps?q=25350+Magic+Mountain+Pkwy,+Valencia,+CA+91355&output=embed"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="econstruct office location"
+                  />
                 </div>
               </div>
             </AnimatedSection>

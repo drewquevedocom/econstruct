@@ -11,7 +11,7 @@ import Button from "@/components/ui/Button";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Client Reviews Ã¢â‚¬â€ What Our Clients Say About econstruct",
+  title: "Client Reviews — What Our Clients Say About econstruct",
   description:
     "Read verified reviews from econstruct clients across Los Angeles. 5.0-star rating based on 47 reviews for fire rebuilds, luxury modernization, and custom homes.",
   path: "/reviews",
