@@ -276,7 +276,7 @@ export default async function BlogPostPage({
                       >
                         {source.title}
                       </a>
-                      {source.publisher ? ` — ${source.publisher}` : “”}
+                      {source.publisher && <> &mdash; {source.publisher}</>}
                     </li>
                   ))}
                 </ol>
