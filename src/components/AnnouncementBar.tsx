@@ -23,7 +23,7 @@ export default function AnnouncementBar() {
             Free fire rebuild consultation
           </Link>
           <span className="hidden sm:inline">
-            {" "}&mdash; we handle permits, insurance & construction
+            {" "}&mdash; we handle permits, insurance claims & construction
           </span>
         </p>
         <button
