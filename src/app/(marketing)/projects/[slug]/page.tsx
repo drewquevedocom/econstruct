@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { generatePageMetadata } from "@/lib/metadata";
@@ -10,6 +10,59 @@ import Container from "@/components/ui/Container";
 import SectionHeader from "@/components/ui/SectionHeader";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import ConsultationCTA from "@/components/ConsultationCTA";
+
+const devistaGalleryImages = [
+  {
+    src: "/projects/Devista_1-scaled.webp",
+    alt: "Devista Hollywood Hills luxury remodel exterior view with pool and patio",
+    caption: "Exterior overview: the remodeled backyard connects the home to the pool and outdoor entertaining zones.",
+  },
+  {
+    src: "/projects/Devista_2-scaled.webp",
+    alt: "Devista Hollywood Hills remodeled exterior with modern outdoor living area",
+    caption: "Outdoor living area: upgraded hardscape and clean modern lines reinforce the home's new indoor-outdoor layout.",
+  },
+  {
+    src: "/projects/Devista_3-scaled.webp",
+    alt: "Devista Hollywood Hills luxury remodel patio and poolside detail",
+    caption: "Poolside detail: premium exterior finishes and a sharper entertainment-focused layout.",
+  },
+  {
+    src: "/projects/Devista_4-scaled.webp",
+    alt: "Devista Hollywood Hills remodeled kitchen or interior living space",
+    caption: "Interior transformation: updated finishes and a more open plan create a brighter family living environment.",
+  },
+  {
+    src: "/projects/Devista_5-scaled.webp",
+    alt: "Devista Hollywood Hills luxury remodel interior detail with contemporary finishes",
+    caption: "Interior detail: contemporary materials and clean sightlines support the home's modernized character.",
+  },
+  {
+    src: "/projects/Devista_6-scaled.webp",
+    alt: "Devista Hollywood Hills remodeled kitchen and entertaining space",
+    caption: "Entertaining space: the remodel improves flow between the chef's kitchen, living areas, and exterior patio.",
+  },
+  {
+    src: "/projects/Devista_7-scaled.webp",
+    alt: "Devista Hollywood Hills backyard remodel with pool and spa",
+    caption: "Backyard upgrade: the resurfaced pool and freestanding spa anchor the new outdoor retreat.",
+  },
+  {
+    src: "/projects/Devista_8-scaled.webp",
+    alt: "Devista Hollywood Hills outdoor kitchen or patio remodel detail",
+    caption: "Outdoor amenity detail: integrated entertaining features support day-to-day living and hosting.",
+  },
+  {
+    src: "/projects/Devista_9-scaled.webp",
+    alt: "Devista Hollywood Hills luxury remodel design detail",
+    caption: "Design detail: carefully coordinated finish decisions give the remodel a cohesive, high-end result.",
+  },
+  {
+    src: "/projects/Devista_11-scaled.webp",
+    alt: "Devista Hollywood Hills completed luxury remodel final exterior view",
+    caption: "Final exterior view: the completed project reads as a contemporary Hollywood Hills entertainer's home.",
+  },
+];
 
 
 
@@ -44,6 +97,11 @@ export default async function ProjectPage({
   if (!project) {
     notFound();
   }
+
+  const galleryImages =
+    project.slug === "devista-hollywood-hills-luxury-remodel"
+      ? [...project.gallery, ...devistaGalleryImages]
+      : project.gallery;
 
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: "https://econstructhomes.com" },
@@ -80,7 +138,7 @@ export default async function ProjectPage({
     "@id": `https://econstructhomes.com/projects/${project.slug}`,
     headline: project.title,
     description: project.description,
-    image: project.gallery.map((img) => ({
+    image: galleryImages.map((img) => ({
       "@type": "ImageObject",
       url: `https://econstructhomes.com${img.src}`,
       description: img.alt,
@@ -272,15 +330,16 @@ export default async function ProjectPage({
       <section className="bg-[#F8F6F2] py-24 md:py-32">
         <Container>
           <div className="grid gap-8 lg:grid-cols-3">
-            {project.gallery.map((image, index) => (
+            {galleryImages.map((image, index) => (
               <AnimatedSection key={image.src} delay={index * 0.08}>
                 <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm">
                   <div className="relative aspect-[4/3]">
-                    <Image
+                    <img
                       src={image.src}
                       alt={image.alt}
-                      fill
-                      className="object-cover"
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                   <div className="p-6">

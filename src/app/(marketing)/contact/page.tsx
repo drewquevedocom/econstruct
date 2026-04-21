@@ -131,7 +131,7 @@ export default function ContactPage() {
                       24-Hour Response Guarantee
                     </h3>
                   </div>
-                  <p className="text-white/70 leading-relaxed text-sm">
+                  <p className="text-base leading-relaxed text-white/92">
                     Every inquiry receives a personal response from our
                     executive team within 24 hours. For urgent fire rebuild
                     inquiries, call us directly for immediate assistance.
@@ -147,7 +147,7 @@ export default function ContactPage() {
                     </h3>
                   </div>
                   <p className="text-gray-500 text-sm leading-relaxed">
-                    {COMPANY.license.display} — Fully licensed, bonded, and
+                    {COMPANY.license.display} — Fully licensed, bonded, and
                     insured General Contractor in the State of California.
                   </p>
                 </div>

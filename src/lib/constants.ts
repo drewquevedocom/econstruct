@@ -1,4 +1,4 @@
-export const SITE_URL = "https://www.econstructhomes.com";
+export const SITE_URL = "https://econstructhomes.com";
 
 export const COMPANY = {
   name: "eConstruct Homes",

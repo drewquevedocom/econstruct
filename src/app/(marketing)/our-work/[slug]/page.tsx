@@ -89,7 +89,7 @@ export default async function ProjectPage({
         <Container className="relative z-10 h-full flex flex-col justify-end pb-16 md:pb-20">
           <AnimatedSection>
             <Link
-              href="/our-work"
+              href="/projects"
               className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors mb-6"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -243,7 +243,7 @@ export default async function ProjectPage({
               <div />
             )}
 
-            <Button href="/our-work" variant="secondary">
+            <Button href="/projects" variant="secondary">
               View All Projects
             </Button>
 

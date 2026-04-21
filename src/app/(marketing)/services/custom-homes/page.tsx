@@ -53,7 +53,7 @@ const features = [
     icon: MapPin,
     title: "Lot Evaluation & Feasibility",
     description:
-      "Before you commit to a lot, we assess buildability — soil conditions, zoning, setbacks, slope stability, utility access, and WUI zone status. No surprises after purchase.",
+      "Before you commit to a lot, we assess buildability — soil conditions, zoning, setbacks, slope stability, utility access, and WUI zone status. No surprises after purchase.",
   },
   {
     icon: Users,
@@ -83,7 +83,7 @@ const features = [
     icon: TreePine,
     title: "Landscape Architecture",
     description:
-      "Integrated landscape design from day one — infinity pools, outdoor kitchens, native plantings, and hardscaping that complement your home's architecture.",
+      "Integrated landscape design from day one — infinity pools, outdoor kitchens, native plantings, and hardscaping that complement your home's architecture.",
   },
 ];
 
@@ -235,14 +235,14 @@ export default function CustomHomesPage() {
                 <p className="text-lg text-body-text mb-8 leading-relaxed">
                   When you build ground-up, every detail is intentional. The
                   ceiling heights, the sightlines, the way light enters each
-                  room at different times of day — everything is designed around
+                  room at different times of day — everything is designed around
                   how you actually live.
                 </p>
                 <div className="space-y-4">
                   {[
                     "Every room designed for your lifestyle",
                     "Optimal orientation for views, light, and privacy",
-                    "Modern systems from the ground up — no retrofitting",
+                    "Modern systems from the ground up — no retrofitting",
                     "WUI-compliant construction built in, not bolted on",
                     "Future-proofed with EV charging, solar-ready, smart infrastructure",
                     "Your architect's vision executed with precision",

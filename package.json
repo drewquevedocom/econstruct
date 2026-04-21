@@ -6,7 +6,10 @@
     "dev": "next dev --turbo --hostname 127.0.0.1 --port 3000",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sync:blog-manifest": "node scripts/sync-blog-manifest.mjs",
+    "seo:scan": "node scripts/daily-seo-opportunities.mjs",
+    "blog:autopost": "node scripts/generate-daily-blog.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

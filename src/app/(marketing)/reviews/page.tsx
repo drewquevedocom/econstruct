@@ -11,7 +11,7 @@ import Button from "@/components/ui/Button";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Client Reviews — What Our Clients Say About econstruct",
+  title: "Client Reviews — What Our Clients Say About econstruct",
   description:
     "Read verified reviews from econstruct clients across Los Angeles. 5.0-star rating based on 47 reviews for fire rebuilds, luxury modernization, and custom homes.",
   path: "/reviews",
@@ -129,7 +129,7 @@ export default function ReviewsPage() {
                 <Button href="/contact" variant="primary" size="lg">
                   Schedule Free Consultation
                 </Button>
-                <Button href="/our-work" variant="secondary" size="lg">
+                <Button href="/projects" variant="secondary" size="lg">
                   View Our Portfolio
                 </Button>
               </div>
