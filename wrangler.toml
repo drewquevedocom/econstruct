@@ -30,6 +30,13 @@ NODE_ENV = "production"
 [env.production]
 name = "econstruct"
 
+[env.production.vars]
+NODE_ENV = "production"
+
+[[env.production.services]]
+binding = "WORKER_SELF_REFERENCE"
+service = "econstruct"
+
 # FIX: explicitly declare assets for production env.
 # Wrangler does NOT automatically inherit [assets] into named environments.
 # Without this block, `wrangler deploy --env production` deploys the Worker
