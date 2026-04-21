@@ -79,7 +79,7 @@ export const promptProjectSummaries: PromptProjectSummary[] = [
     title: "Marine Avenue Condo - Coastal California Living, Lawndale",
     description:
       "A 3-bed, 3-bath Lawndale condo blocks from the beach - fully reconfigured floor plan, expanded kitchen with peninsula, spa-inspired bathrooms, and a private balcony rebuilt with firepit and new railings.",
-    image: "/projects/marine-ave-hero.jpg",
+    image: "/projects/20220123_121812-29.webp",
     location: "Lawndale, CA",
     neighborhood: "Lawndale / South Bay",
     scope: "Full Interior & Exterior Condo Remodel",

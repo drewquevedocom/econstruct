@@ -32,6 +32,10 @@ async function verifyHmac(value: string, secret: string): Promise<boolean> {
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
+  if (pathname === "/our-work") {
+    return NextResponse.redirect(new URL("/projects", req.url), 301);
+  }
+
   // Only guard /crm routes (except /crm/login)
   if (!pathname.startsWith("/crm")) return NextResponse.next();
   if (pathname === "/crm/login") return NextResponse.next();
@@ -48,5 +52,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/crm/:path*"],
+  matcher: ["/crm/:path*", "/our-work"],
 };

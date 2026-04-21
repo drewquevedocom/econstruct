@@ -57,7 +57,7 @@ const features = [
     icon: Shield,
     title: "WUI-Compliant Construction",
     description:
-      "Every rebuild meets or exceeds Wildland-Urban Interface fire safety codes — ember-resistant vents, non-combustible roofing, tempered glass, and fire-rated assemblies.",
+      "Every rebuild meets or exceeds Wildland-Urban Interface fire safety codes — ember-resistant vents, non-combustible roofing, tempered glass, and fire-rated assemblies.",
   },
   {
     icon: Banknote,
@@ -81,13 +81,13 @@ const features = [
     icon: TreePine,
     title: "Defensible Space Landscaping",
     description:
-      "Zone-compliant landscaping designed to protect your home while maintaining beauty — fire-resistant native plants, hardscaping, and proper vegetation management.",
+      "Zone-compliant landscaping designed to protect your home while maintaining beauty — fire-resistant native plants, hardscaping, and proper vegetation management.",
   },
   {
     icon: Zap,
     title: "Smart Home Integration",
     description:
-      "Rebuild smarter with integrated home automation — automated fire detection, smart irrigation for defensible space, whole-home generators, and EV-ready garages.",
+      "Rebuild smarter with integrated home automation — automated fire detection, smart irrigation for defensible space, whole-home generators, and EV-ready garages.",
   },
 ];
 
@@ -110,7 +110,7 @@ const processSteps = [
     step: "03",
     title: "Design & Engineering",
     description:
-      "Architectural plans, structural engineering, and WUI compliance documentation. Rebuild as-was or redesign — your choice, our expertise.",
+      "Architectural plans, structural engineering, and WUI compliance documentation. Rebuild as-was or redesign — your choice, our expertise.",
     icon: ClipboardCheck,
   },
   {
@@ -160,7 +160,7 @@ export default function FireRebuildPage() {
       {/* Hero */}
       <PageHero
         title="Los Angeles Fire Rebuild Experts"
-        subtitle="WUI-compliant reconstruction for Palisades, Altadena, and Malibu homeowners. Insurance coordination, expedited permits, and expert craftsmanship — we bring you home."
+        subtitle="WUI-compliant reconstruction for Palisades, Altadena, and Malibu homeowners. Insurance coordination, expedited permits, and expert craftsmanship — we bring you home."
         breadcrumbs={[
           { label: "Services", href: "/services" },
           { label: "Fire Rebuild" },
@@ -199,7 +199,7 @@ export default function FireRebuildPage() {
           <SectionHeader
             badge={["WHY", "ECONSTRUCT"]}
             title="Built to Rebuild"
-            subtitle="When fire takes your home, you need a contractor who understands the unique challenges of fire reconstruction — from WUI codes to insurance gaps."
+            subtitle="When fire takes your home, you need a contractor who understands the unique challenges of fire reconstruction — from WUI codes to insurance gaps."
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -352,7 +352,7 @@ export default function FireRebuildPage() {
                     icon: FileCheck,
                     title: "Our Gap Analysis",
                     description:
-                      "We provide a detailed, line-item cost breakdown comparing your settlement to actual construction costs — before you commit to a builder.",
+                      "We provide a detailed, line-item cost breakdown comparing your settlement to actual construction costs — before you commit to a builder.",
                   },
                   {
                     icon: Banknote,

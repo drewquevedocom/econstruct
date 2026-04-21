@@ -83,7 +83,7 @@ export default function Hero() {
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
-                href="/our-work"
+                href="/projects"
                 className="flex items-center justify-center rounded-full border border-white/25 bg-white/[0.06] px-8 py-4 text-sm font-bold text-white transition-all backdrop-blur-md hover:border-white/45 hover:bg-white/[0.1] active:scale-95 md:text-base"
               >
                 View Our Work

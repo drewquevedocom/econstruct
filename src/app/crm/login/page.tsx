@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { loginAction } from "./actions";
 import { Lock, Loader2 } from "lucide-react";
+import Logo from "@/components/Logo";
 
 export default function CRMLoginPage() {
   const [error, setError] = useState<string | null>(null);
@@ -20,8 +21,11 @@ export default function CRMLoginPage() {
     <div className="min-h-screen bg-[#1C1C1E] flex items-center justify-center p-6">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#B8963E]/10 mb-4">
-            <Lock className="w-6 h-6 text-[#B8963E]" />
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Logo height={30} tone="light" />
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#B8963E]/10">
+              <Lock className="w-6 h-6 text-[#B8963E]" />
+            </div>
           </div>
           <h1 className="text-2xl font-bold text-white mb-1">econstruct CRM</h1>
           <p className="text-sm text-gray-500">Enter your access code to continue</p>

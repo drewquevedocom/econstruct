@@ -2,13 +2,7 @@ import { cache } from "react";
 import matter from "gray-matter";
 import { marked, Renderer } from "marked";
 import { blogAuthors, getBlogAuthorBySlug, type BlogAuthor } from "@/lib/blog/authors";
-
-// Static content imports to avoid fs.readdirSync/readFileSync at runtime on Cloudflare
-import post1 from "../../../content/blog/brentwood-luxury-home-modernization-cost-2026.md?raw";
-import post2 from "../../../content/blog/chapter-7a-wui-compliance-homeowner-guide.md?raw";
-import post3 from "../../../content/blog/fire-insurance-gap-palisades-rebuild.md?raw";
-import post4 from "../../../content/blog/pacific-palisades-fire-rebuild-guide-2026.md?raw";
-import post5 from "../../../content/blog/how-to-vet-fire-rebuild-contractor-la.md?raw";
+import { rawBlogPosts } from "@/lib/blog/content-manifest";
 
 const POSTS_PER_PAGE = 9;
 
@@ -105,8 +99,7 @@ function parseBlogPost(fileContents: string): BlogPost {
 }
 
 const loadBlogPosts = cache((): BlogPost[] => {
-  const rawPosts = [post1, post2, post3, post4, post5];
-  return rawPosts
+  return rawBlogPosts
     .map(parseBlogPost)
     .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
 });
@@ -140,7 +133,7 @@ export function getBlogTags() {
   }
   return Array.from(uniqueTags.values());
 }
-export function getPostsByCategorySlug(slug: string) { return loadBlogPosts().filter(p => p.slug === slug); }
+export function getPostsByCategorySlug(slug: string) { return loadBlogPosts().filter(p => p.categorySlug === slug); }
 export function getPostsByTagSlug(slug: string) { return loadBlogPosts().filter(p => p.tagSlugs.some(t => t.slug === slug)); }
 export function getPostsByAuthorSlug(slug: string) { return loadBlogPosts().filter(p => p.author.slug === slug); }
 export function getCategoryLabel(slug: string) { return getBlogCategories().find(c => c.slug === slug)?.name; }

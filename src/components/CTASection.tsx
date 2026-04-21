@@ -47,7 +47,7 @@ export default function CTASection() {
             </p>
             
             {/* The little yellow floating arrow icon on the bottom right of the card */}
-            <Link href="/our-work" className="absolute -bottom-6 -right-6 w-14 h-14 bg-[#E4ED64] rounded-full flex items-center justify-center text-brand-dark shadow-lg hover:scale-110 transition-transform">
+            <Link href="/projects" className="absolute -bottom-6 -right-6 w-14 h-14 bg-[#E4ED64] rounded-full flex items-center justify-center text-brand-dark shadow-lg hover:scale-110 transition-transform">
               <ArrowRight size={20} className="-rotate-45" />
             </Link>
           </div>

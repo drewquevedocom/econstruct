@@ -17,7 +17,7 @@ import ConsultationCTA from "@/components/ConsultationCTA";
 export const metadata: Metadata = generatePageMetadata({
   title: "The Complete Guide to Fire Rebuilds in Los Angeles | econstruct",
   description:
-    "Everything you need to know about rebuilding after a wildfire in Los Angeles — insurance settlements, WUI zone requirements, permits, timelines, costs, and choosing the right contractor.",
+    "Everything you need to know about rebuilding after a wildfire in Los Angeles — insurance settlements, WUI zone requirements, permits, timelines, costs, and choosing the right contractor.",
   path: "/resources/fire-rebuild-guide",
 });
 
@@ -65,7 +65,7 @@ export default function FireRebuildGuidePage() {
 
       <PageHero
         title="The Complete Guide to Fire Rebuilds in Los Angeles"
-        subtitle="Everything homeowners need to know about rebuilding after a wildfire — from insurance and permits to timelines and costs. Written by a team with 25+ years of LA construction experience."
+        subtitle="Everything homeowners need to know about rebuilding after a wildfire — from insurance and permits to timelines and costs. Written by a team with 25+ years of LA construction experience."
         breadcrumbs={[
           { label: "Resources", href: "/resources" },
           { label: "Fire Rebuild Guide" },
@@ -85,7 +85,7 @@ export default function FireRebuildGuidePage() {
               {/* Intro */}
               <AnimatedSection>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                  Losing your home to wildfire is devastating. The path forward — navigating insurance, understanding new building codes, pulling permits, and actually rebuilding — can feel overwhelming. This guide is designed to give you a clear, honest roadmap based on our experience rebuilding dozens of homes across the Pacific Palisades, Malibu, Altadena, and throughout Los Angeles County.
+                  Losing your home to wildfire is devastating. The path forward — navigating insurance, understanding new building codes, pulling permits, and actually rebuilding — can feel overwhelming. This guide is designed to give you a clear, honest roadmap based on our experience rebuilding dozens of homes across the Pacific Palisades, Malibu, Altadena, and throughout Los Angeles County.
                 </p>
                 <p className="text-lg text-gray-700 leading-relaxed mb-12">
                   Whether your home was lost in the Palisades Fire, the Eaton Fire, or a previous event, the fundamentals of the rebuild process are the same. We wrote this guide to help you make informed decisions, avoid common pitfalls, and ultimately build a home that is safer, more beautiful, and more resilient than the one you lost.
@@ -99,10 +99,10 @@ export default function FireRebuildGuidePage() {
                     Understanding Your Insurance Settlement
                   </h2>
                   <p className="text-gray-700 leading-relaxed mb-4">
-                    Your insurance settlement is the financial foundation of your rebuild — and for most homeowners, it is also the source of the greatest frustration. The harsh reality is that the majority of fire insurance settlements in Los Angeles fall short of what it actually costs to rebuild, especially when modern code requirements are factored in.
+                    Your insurance settlement is the financial foundation of your rebuild — and for most homeowners, it is also the source of the greatest frustration. The harsh reality is that the majority of fire insurance settlements in Los Angeles fall short of what it actually costs to rebuild, especially when modern code requirements are factored in.
                   </p>
                   <p className="text-gray-700 leading-relaxed mb-4">
-                    A typical homeowner&apos;s policy includes dwelling coverage (the cost to rebuild your structure), additional living expenses (ALE) while you are displaced, and personal property coverage. The problem lies in dwelling coverage. Most policies base their limits on replacement cost estimates that were calculated when you purchased or last renewed your policy — often years ago. Construction costs in Los Angeles have risen dramatically, and WUI-zone compliance requirements (which we cover in the next section) add significant cost that many policies do not account for.
+                    A typical homeowner&apos;s policy includes dwelling coverage (the cost to rebuild your structure), additional living expenses (ALE) while you are displaced, and personal property coverage. The problem lies in dwelling coverage. Most policies base their limits on replacement cost estimates that were calculated when you purchased or last renewed your policy — often years ago. Construction costs in Los Angeles have risen dramatically, and WUI-zone compliance requirements (which we cover in the next section) add significant cost that many policies do not account for.
                   </p>
                   <h3 className="text-xl font-bold text-brand-dark mt-8 mb-4">
                     Common Gaps in Fire Insurance Settlements
@@ -120,10 +120,10 @@ export default function FireRebuildGuidePage() {
                     First, do not accept the initial offer. The first number from your insurance company is almost always negotiable. Hire a licensed public adjuster or engage an attorney who specializes in fire insurance claims. Their fee (typically 5-10% of the additional recovery) is almost always worth it.
                   </p>
                   <p className="text-gray-700 leading-relaxed mb-4">
-                    Second, get a detailed scope of work from a qualified contractor before negotiating with your adjuster. At econstruct, we provide complimentary scope validation reports that document every line item required to rebuild your home to current code — including WUI compliance, ADA requirements, Title 24 energy compliance, and current material costs. This document becomes your most powerful negotiating tool.
+                    Second, get a detailed scope of work from a qualified contractor before negotiating with your adjuster. At econstruct, we provide complimentary scope validation reports that document every line item required to rebuild your home to current code — including WUI compliance, ADA requirements, Title 24 energy compliance, and current material costs. This document becomes your most powerful negotiating tool.
                   </p>
                   <p className="text-gray-700 leading-relaxed">
-                    Third, understand the difference between Actual Cash Value (ACV) and Replacement Cost Value (RCV). You will typically receive ACV upfront (depreciated value) and the recoverable depreciation later, upon proof of completed repairs. Budget accordingly — the full RCV amount may not arrive until construction is well underway.
+                    Third, understand the difference between Actual Cash Value (ACV) and Replacement Cost Value (RCV). You will typically receive ACV upfront (depreciated value) and the recoverable depreciation later, upon proof of completed repairs. Budget accordingly — the full RCV amount may not arrive until construction is well underway.
                   </p>
                 </section>
               </AnimatedSection>
@@ -152,10 +152,10 @@ export default function FireRebuildGuidePage() {
                     WUI Zone Requirements
                   </h2>
                   <p className="text-gray-700 leading-relaxed mb-4">
-                    WUI stands for Wildland-Urban Interface — the zone where developed neighborhoods meet undeveloped wildland vegetation. Most of the areas devastated by recent Los Angeles wildfires fall within designated WUI zones, including Pacific Palisades, Malibu, portions of Brentwood, Altadena, and hillside communities throughout the county.
+                    WUI stands for Wildland-Urban Interface — the zone where developed neighborhoods meet undeveloped wildland vegetation. Most of the areas devastated by recent Los Angeles wildfires fall within designated WUI zones, including Pacific Palisades, Malibu, portions of Brentwood, Altadena, and hillside communities throughout the county.
                   </p>
                   <p className="text-gray-700 leading-relaxed mb-4">
-                    When you rebuild in a WUI zone, your new home must comply with Chapter 7A of the California Building Code, which mandates fire-resistant construction methods and materials throughout the entire structure. This is not optional — it is a code requirement enforced through the permitting and inspection process.
+                    When you rebuild in a WUI zone, your new home must comply with Chapter 7A of the California Building Code, which mandates fire-resistant construction methods and materials throughout the entire structure. This is not optional — it is a code requirement enforced through the permitting and inspection process.
                   </p>
                   <h3 className="text-xl font-bold text-brand-dark mt-8 mb-4">
                     Key WUI Material Requirements
@@ -166,7 +166,7 @@ export default function FireRebuildGuidePage() {
                     <li><strong>Windows and glazing:</strong> Tempered glass is required in all exterior openings. Dual-pane with one tempered lite is the minimum standard. Multi-pane windows must use tempered glass on the exterior lite at minimum.</li>
                     <li><strong>Vents:</strong> All attic, soffit, foundation, and other ventilation openings must use ember-resistant vent assemblies that prevent ember intrusion during a wildfire. Standard mesh vents are not compliant.</li>
                     <li><strong>Decks and attached structures:</strong> Non-combustible decking materials or ignition-resistant-treated lumber. The underside of elevated decks must be enclosed with non-combustible materials.</li>
-                    <li><strong>Eaves and overhangs:</strong> Enclosed eaves with non-combustible materials. Open eaves — common in mid-century and ranch-style homes — are no longer permitted in WUI zones.</li>
+                    <li><strong>Eaves and overhangs:</strong> Enclosed eaves with non-combustible materials. Open eaves — common in mid-century and ranch-style homes — are no longer permitted in WUI zones.</li>
                   </ul>
                   <h3 className="text-xl font-bold text-brand-dark mt-8 mb-4">
                     Defensible Space Requirements
@@ -179,7 +179,7 @@ export default function FireRebuildGuidePage() {
                     <li><strong>Zone 2 (30-100 feet):</strong> Reduce fuel. Thin brush and trees, remove ladder fuels (vegetation that allows fire to climb from ground level to tree canopy), and create spacing between plants and trees.</li>
                   </ul>
                   <p className="text-gray-700 leading-relaxed">
-                    At econstruct, we design and build WUI-compliant structures from the ground up. Our team understands every nuance of Chapter 7A, and we coordinate with landscape architects to ensure your defensible space plan is integrated into the overall site design — not treated as an afterthought.
+                    At econstruct, we design and build WUI-compliant structures from the ground up. Our team understands every nuance of Chapter 7A, and we coordinate with landscape architects to ensure your defensible space plan is integrated into the overall site design — not treated as an afterthought.
                   </p>
                 </section>
               </AnimatedSection>
@@ -191,7 +191,7 @@ export default function FireRebuildGuidePage() {
                     The Permit Process
                   </h2>
                   <p className="text-gray-700 leading-relaxed mb-4">
-                    The permit process is where many fire rebuild projects stall. The Los Angeles Department of Building and Safety (LADBS) — or the county equivalent for unincorporated areas — must approve your plans before any construction can begin. Understanding this process, and having a team that can navigate it efficiently, will save you months.
+                    The permit process is where many fire rebuild projects stall. The Los Angeles Department of Building and Safety (LADBS) — or the county equivalent for unincorporated areas — must approve your plans before any construction can begin. Understanding this process, and having a team that can navigate it efficiently, will save you months.
                   </p>
                   <h3 className="text-xl font-bold text-brand-dark mt-8 mb-4">
                     Step-by-Step: LADBS Permitting for Fire Rebuilds
@@ -202,16 +202,16 @@ export default function FireRebuildGuidePage() {
                     <li><strong>Plan check submission:</strong> Plans are submitted to LADBS for review. The city checks for zoning compliance, structural adequacy, fire safety, accessibility, and energy code compliance. Standard plan check takes 4-8 weeks. Express plan check can reduce this to 2-3 weeks.</li>
                     <li><strong>Corrections and resubmission:</strong> Most plans receive correction notices on the first review. Your architect addresses the corrections and resubmits. This back-and-forth can add 2-6 weeks to the timeline if not managed proactively.</li>
                     <li><strong>Permit issuance:</strong> Once plans are approved, you pay permit fees and receive your building permit. You can now begin construction.</li>
-                    <li><strong>Inspections during construction:</strong> LADBS conducts inspections at key milestones — foundation, framing, rough MEP, insulation, and final. Each must pass before proceeding to the next phase.</li>
+                    <li><strong>Inspections during construction:</strong> LADBS conducts inspections at key milestones — foundation, framing, rough MEP, insulation, and final. Each must pass before proceeding to the next phase.</li>
                   </ol>
                   <h3 className="text-xl font-bold text-brand-dark mt-8 mb-4">
                     How econstruct Expedites Permitting
                   </h3>
                   <p className="text-gray-700 leading-relaxed mb-4">
-                    Our 25+ years of experience with LA permitting means we know exactly what plan checkers look for — and we address those items before submission. We maintain relationships with LADBS staff, use express plan check services, and pre-clear common WUI compliance questions before formal review. The result: our clients typically receive permits 3-4 months faster than the industry average.
+                    Our 25+ years of experience with LA permitting means we know exactly what plan checkers look for — and we address those items before submission. We maintain relationships with LADBS staff, use express plan check services, and pre-clear common WUI compliance questions before formal review. The result: our clients typically receive permits 3-4 months faster than the industry average.
                   </p>
                   <p className="text-gray-700 leading-relaxed">
-                    For fire rebuild clients, we also navigate any special expedited permitting programs that the city may implement after a major fire event. These programs are time-limited and require specific documentation — our team ensures you qualify and take advantage of every available acceleration.
+                    For fire rebuild clients, we also navigate any special expedited permitting programs that the city may implement after a major fire event. These programs are time-limited and require specific documentation — our team ensures you qualify and take advantage of every available acceleration.
                   </p>
                 </section>
               </AnimatedSection>
@@ -261,14 +261,14 @@ export default function FireRebuildGuidePage() {
                     <li>No physical office or established local presence.</li>
                     <li>Unwillingness to provide a detailed written contract.</li>
                     <li>Pressure to sign immediately or claims of limited availability.</li>
-                    <li>Quotes that are dramatically lower than other bids — this almost always leads to change orders later.</li>
+                    <li>Quotes that are dramatically lower than other bids — this almost always leads to change orders later.</li>
                     <li>No workers&apos; compensation insurance (ask for a certificate of insurance).</li>
                   </ul>
                   <h3 className="text-xl font-bold text-brand-dark mt-8 mb-4">
                     Why econstruct
                   </h3>
                   <p className="text-gray-700 leading-relaxed">
-                    econstruct has been building luxury homes in Los Angeles for over 25 years. We hold California Contractor License #964015, carry comprehensive insurance, and have completed over 340 projects. Owner Frank Neimroozi is personally involved in every project, from initial consultation through final walkthrough. We specialize in WUI-compliant construction, expedited permitting, and insurance coordination — because those are the three areas where fire rebuild homeowners need the most expertise.
+                    econstruct has been building luxury homes in Los Angeles for over 25 years. We hold California Contractor License #964015, carry comprehensive insurance, and have completed over 340 projects. Owner Frank Neimroozi is personally involved in every project, from initial consultation through final walkthrough. We specialize in WUI-compliant construction, expedited permitting, and insurance coordination — because those are the three areas where fire rebuild homeowners need the most expertise.
                   </p>
                 </section>
               </AnimatedSection>
@@ -401,9 +401,9 @@ export default function FireRebuildGuidePage() {
                   <ul className="list-disc list-inside space-y-2 text-gray-700 mb-4">
                     <li><strong>Hillside lots:</strong> Steep slopes require engineered foundations (caissons, grade beams, retaining walls) that can add $100,000-$500,000+ depending on the geology.</li>
                     <li><strong>Custom design complexity:</strong> Cantilevered structures, floor-to-ceiling glazing walls, rooftop decks, infinity pools, and home theaters all require specialized engineering and trades.</li>
-                    <li><strong>Material selections:</strong> Imported Italian stone vs. domestic tile, custom steel windows vs. aluminum, solid walnut cabinetry vs. painted MDF — material choices can swing costs 30-50%.</li>
+                    <li><strong>Material selections:</strong> Imported Italian stone vs. domestic tile, custom steel windows vs. aluminum, solid walnut cabinetry vs. painted MDF — material choices can swing costs 30-50%.</li>
                     <li><strong>Market conditions:</strong> After a major fire event, contractor demand surges and material costs increase. Locking in a contract early can save significant money.</li>
-                    <li><strong>Design changes during construction:</strong> Change orders are the single biggest cause of budget overruns. Thorough pre-construction planning — which econstruct emphasizes heavily — minimizes this risk.</li>
+                    <li><strong>Design changes during construction:</strong> Change orders are the single biggest cause of budget overruns. Thorough pre-construction planning — which econstruct emphasizes heavily — minimizes this risk.</li>
                   </ul>
                   <h3 className="text-xl font-bold text-brand-dark mt-8 mb-4">
                     Example: 3,500 Sq Ft Premium Rebuild in Pacific Palisades

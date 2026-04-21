@@ -12,16 +12,16 @@ import ConsultationCTA from "@/components/ConsultationCTA";
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-  title: "Projects | econstruct — Luxury Home Remodels & Custom Builds in Los Angeles",
+  title: "Projects | econstruct — Luxury Home Remodels & Custom Builds in Los Angeles",
   description:
     "Explore completed luxury remodel and custom home construction projects by econstruct across Hollywood Hills, Bell Canyon, Lawndale, and greater Los Angeles. 639+ projects delivered since 2001.",
   alternates: {
     canonical: `${SITE_URL}/projects`,
   },
   openGraph: {
-    title: "Projects | econstruct — Luxury Home Remodels in Los Angeles",
+    title: "Projects | econstruct — Luxury Home Remodels in Los Angeles",
     description:
-      "Portfolio of completed high-end residential projects by econstruct — Hollywood Hills remodels, Bell Canyon estate transformations, coastal condo renovations, and custom engineering.",
+      "Portfolio of completed high-end residential projects by econstruct — Hollywood Hills remodels, Bell Canyon estate transformations, coastal condo renovations, and custom engineering.",
     url: `${SITE_URL}/projects`,
     images: [{ url: "/projects/devista-hero.jpg", width: 1200, height: 630 }],
   },
@@ -49,7 +49,7 @@ export default function ProjectsPage() {
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "econstruct Completed Projects — Los Angeles",
+    name: "econstruct Completed Projects — Los Angeles",
     description: "Portfolio of completed luxury residential construction and remodel projects by eConstruct Homes.",
     itemListElement: promptProjectSummaries.map((project, index) => ({
       "@type": "ListItem",
@@ -68,10 +68,10 @@ export default function ProjectsPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
 
-      {/* Ã¢â€â‚¬Ã¢â€â‚¬ Hero Ã¢â€â‚¬Ã¢â€â‚¬ */}
+      {/* Ã¢â€â‚¬Ã¢â€â‚¬ Hero Ã¢â€â‚¬Ã¢â€â‚¬ */}
       <PageHero
         title="Our Work Across Los Angeles"
-        subtitle="639+ projects delivered since 2001 — from Hollywood Hills luxury remodels and Bell Canyon estate transformations to coastal condo renovations and custom engineering solutions."
+        subtitle="639+ projects delivered since 2001 — from Hollywood Hills luxury remodels and Bell Canyon estate transformations to coastal condo renovations and custom engineering solutions."
         breadcrumbs={[{ label: "Projects" }]}
         backgroundImage={featured.image}
         stats={[
@@ -81,7 +81,7 @@ export default function ProjectsPage() {
         ]}
       />
 
-      {/* Ã¢â€â‚¬Ã¢â€â‚¬ Featured project Ã¢â€â‚¬Ã¢â€â‚¬ */}
+      {/* Ã¢â€â‚¬Ã¢â€â‚¬ Featured project Ã¢â€â‚¬Ã¢â€â‚¬ */}
       <section className="bg-[#f6f2ea] py-20 md:py-28">
         <Container>
           <p className="mb-8 text-[11px] font-semibold uppercase tracking-[0.34em] text-accent-gold">
@@ -156,7 +156,7 @@ export default function ProjectsPage() {
         </Container>
       </section>
 
-      {/* Ã¢â€â‚¬Ã¢â€â‚¬ Project grid Ã¢â€â‚¬Ã¢â€â‚¬ */}
+      {/* Ã¢â€â‚¬Ã¢â€â‚¬ Project grid Ã¢â€â‚¬Ã¢â€â‚¬ */}
       <section className="bg-white py-20 md:py-28">
         <Container>
           <div className="mb-12 flex flex-col gap-4 min-[700px]:flex-row min-[700px]:items-end min-[700px]:justify-between">
