@@ -4,11 +4,11 @@ import { Resend } from "resend";
 
 export const maxDuration = 30;
 
-// DEV MODE — swap these when going live:
-// const ALERT_TO = "frank@econstructinc.com";
-// const ALERT_CC = ["marketing@econstructinc.com", "robyn@econstructinc.com"];
-const ALERT_TO = "marketing@econstructinc.com";
-const ALERT_CC: string[] = [];
+const ALERT_TO = process.env.FRANK_EMAIL || "frank@econstructhomes.com";
+const ALERT_CC: string[] = [
+  "marketing@econstructhomes.com",
+  "robyn@econstructhomes.com",
+];
 
 // SMS goes to Frank only
 const FRANK_PHONE = "+13108444656";

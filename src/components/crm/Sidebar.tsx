@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Users, Bot, PanelLeftClose, PanelLeft } from "lucide-react";
+import { LayoutDashboard, Users, Bot, Mail, PanelLeftClose, PanelLeft } from "lucide-react";
 import { useState } from "react";
 
 const navItems = [
   { href: "/crm/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/crm/leads", label: "Leads", icon: Users },
+  { href: "/crm/sequences", label: "Sequences", icon: Mail },
   { href: "/crm/agents", label: "Agents", icon: Bot },
 ];
 

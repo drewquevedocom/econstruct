@@ -2,12 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { createClient } from "@supabase/supabase-js";
 
-// DEV MODE - all notifications go to Drew only for testing
-// When ready to go live, swap these back:
-// const NOTIFY_TO = "info@econstructinc.com";
-// const NOTIFY_CC = ["robyn@econstructinc.com", "marketing@econstructinc.com"];
-const NOTIFY_TO = "marketing@econstructinc.com";
-const NOTIFY_CC: string[] = [];
+const NOTIFY_TO = "info@econstructhomes.com";
+const NOTIFY_CC: string[] = [
+  "robyn@econstructhomes.com",
+  "marketing@econstructhomes.com",
+];
 
 const SUPABASE_URL = "https://dzudtdhmvnuipqyoogem.supabase.co";
 

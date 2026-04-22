@@ -43,6 +43,14 @@ jobs:
             --max-time 60
         continue-on-error: true
 
+      - name: Campaign Enroll
+        run: |
+          curl -sf -X POST "https://econstructhomes.com/api/agents/campaign-enroll" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            -H "Content-Type: application/json" \
+            --max-time 90
+        continue-on-error: true
+
   deed-monitor:
     runs-on: ubuntu-latest
     timeout-minutes: 10

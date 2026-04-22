@@ -55,8 +55,8 @@ async function notifyAgentFailure(agentName: string, message: string) {
       },
       body: JSON.stringify({
         from: "econstruct Alerts <no-reply@econstructinc.com>",
-        // DEV MODE — swap to frank@econstructinc.com when going live
-        to: "marketing@econstructinc.com",
+        to: process.env.FRANK_EMAIL || "frank@econstructhomes.com",
+        cc: ["marketing@econstructhomes.com"],
         subject: `⚠️ Agent Failed: ${agentName}`,
         html: `<p style="font-family:sans-serif;"><b>${agentName}</b> agent encountered an error:<br><br><code>${message}</code></p>`,
       }),
