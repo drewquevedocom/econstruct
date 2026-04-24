@@ -31,6 +31,7 @@ export const projects: Project[] = [
     heroImage: "/projects/saddlebow-50-hero.jpg",
     images: [
       "/projects/saddlebow-50-hero.jpg",
+      "/projects/saddlebow-50-2.webp",
     ],
     specs: { scope: "Hillside Lift Installation" },
   },

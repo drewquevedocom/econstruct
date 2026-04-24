@@ -3,6 +3,11 @@ main = ".open-next/worker.js"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
 
+# Raise CPU budget so the 2.5MB OpenNext handler doesn't trip Error 1102.
+# Workers Standard plan allows up to 30s CPU per request.
+[limits]
+cpu_ms = 30000
+
 [[routes]]
 pattern = "econstructhomes.com"
 custom_domain = true
@@ -31,6 +36,9 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOi
 
 [env.production]
 name = "econstruct"
+
+[env.production.limits]
+cpu_ms = 30000
 
 [env.production.vars]
 NODE_ENV = "production"

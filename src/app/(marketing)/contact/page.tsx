@@ -127,7 +127,7 @@ export default function ContactPage() {
                 <div className="bg-brand-dark rounded-2xl p-8 text-white">
                   <div className="flex items-center gap-3 mb-4">
                     <Clock size={20} className="text-accent-gold" />
-                    <h3 className="text-lg font-bold">
+                    <h3 className="text-lg font-bold text-white">
                       24-Hour Response Guarantee
                     </h3>
                   </div>

@@ -27,11 +27,6 @@ const filters = [
     href: "/blog/category/industry-insights",
     slug: "industry-insights",
   },
-  {
-    label: "Local Guides",
-    href: "/blog/category/local-guides",
-    slug: "local-guides",
-  },
 ];
 
 export default function BlogFilters({ active = "all" }: BlogFiltersProps) {
