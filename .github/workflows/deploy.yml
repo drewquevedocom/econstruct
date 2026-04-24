@@ -22,6 +22,14 @@ jobs:
       - name: Build with OpenNext
         run: npx @opennextjs/cloudflare build
 
+      # Copy prerendered cache files into the static asset bundle so the
+      # Worker can serve HTML directly via the ASSETS binding instead of
+      # re-rendering every request (root cause of Cloudflare Error 1102).
+      - name: Populate static-assets cache
+        run: npx @opennextjs/cloudflare populateCache local --env production
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
       - name: Deploy to Cloudflare Workers
         run: npx wrangler deploy --env production
         env:
