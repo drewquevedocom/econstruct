@@ -5,30 +5,48 @@ import { withRetry } from "@/lib/utils/retry";
 export const maxDuration = 60;
 
 const APOLLO_API_KEY = process.env.APOLLO_API_KEY;
-const APOLLO_BASE = "https://api.apollo.io/v1";
+const APOLLO_BASE = "https://api.apollo.io/api/v1";
 
-async function apolloSearch(ownerName: string, state = "California") {
+type ApolloPerson = {
+  email?: string | null;
+  personal_emails?: string[] | null;
+  phone_numbers?: Array<{ sanitized_number?: string | null }> | null;
+  linkedin_url?: string | null;
+};
+
+function getPrimaryOwnerName(name: string) {
+  return name
+    .split("&")[0]
+    .replace(/,TR\b/i, "")
+    .replace(/\bTRUST\b/i, "")
+    .trim();
+}
+
+async function apolloMatch(ownerName: string) {
   if (!APOLLO_API_KEY) throw new Error("APOLLO_API_KEY not set");
   return withRetry(async () => {
-    const res = await fetch(`${APOLLO_BASE}/people/search`, {
+    const params = new URLSearchParams({
+      name: ownerName,
+      reveal_personal_emails: "true",
+    });
+
+    const res = await fetch(`${APOLLO_BASE}/people/match?${params.toString()}`, {
       method: "POST",
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
         "x-api-key": APOLLO_API_KEY,
       },
-      body: JSON.stringify({
-        q_person_name: ownerName,
-        person_locations: [state],
-        page: 1,
-        per_page: 1,
-      }),
     });
     if (!res.ok) {
-      const err: any = new Error(`Apollo error ${res.status}`);
+      const body = await res.text();
+      const err = new Error(
+        `Apollo ${res.status}: ${body.slice(0, 300)}`
+      ) as Error & { status?: number };
       err.status = res.status;
       throw err;
     }
-    return res.json();
+    return (await res.json()) as { person?: ApolloPerson | null };
   });
 }
 
@@ -79,8 +97,8 @@ export async function POST(req: Request) {
           continue;
         }
 
-        const apolloResult = await apolloSearch(searchName);
-        const person = apolloResult?.people?.[0];
+        const apolloResult = await apolloMatch(getPrimaryOwnerName(searchName));
+        const person = apolloResult.person;
 
         if (!person) {
           await supabase
@@ -91,10 +109,11 @@ export async function POST(req: Request) {
         }
 
         // Update lead with enriched data
-        const updates: Record<string, any> = {
+        const updates: Record<string, string | null> = {
           enrichment_status: "done",
         };
-        if (person.email) updates.email = person.email;
+        const email = person.email ?? person.personal_emails?.[0] ?? null;
+        if (email) updates.email = email;
         if (person.phone_numbers?.[0]?.sanitized_number) {
           updates.phone = person.phone_numbers[0].sanitized_number;
         }
@@ -113,14 +132,15 @@ export async function POST(req: Request) {
         });
 
         enriched++;
-      } catch (err: any) {
-        errors.push(`lead ${item.lead_id}: ${err.message}`);
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        errors.push(`lead ${item.lead_id}: ${message}`);
         const isMaxAttempts = item.attempts + 1 >= 3;
         await supabase
           .from("enrichment_queue")
           .update({
             status: isMaxAttempts ? "failed" : "pending",
-            last_error: err.message,
+            last_error: message,
           })
           .eq("id", item.id);
       }

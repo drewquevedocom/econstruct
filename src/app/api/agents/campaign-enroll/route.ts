@@ -4,6 +4,7 @@ import { createServiceClient } from "@/lib/supabase/server";
 export const maxDuration = 60;
 
 const INSTANTLY_API = "https://api.instantly.ai/api/v2";
+const MIN_CAMPAIGN_LEAD_SCORE = Number(process.env.MIN_CAMPAIGN_LEAD_SCORE ?? 70);
 
 async function enrollInInstantly(params: {
   email: string;
@@ -62,25 +63,44 @@ export async function POST(req: Request) {
     const { data: leads, error } = await supabase
       .from("leads")
       .select(
-        "id, name, first_name, last_name, owner_name, email, phone, address, zip_code, property_value, fire_damage_status, lead_score"
+        "id, name, owner_name, email, phone, address, zip_code, property_value, fire_damage_status, lead_score"
       )
-      .gte("lead_score", 85)
+      .gte("lead_score", MIN_CAMPAIGN_LEAD_SCORE)
       .eq("lifecycle_stage", "new")
       .not("email", "is", null)
-      .is("campaign_enrolled_at", null)
       .limit(50);
 
     if (error) throw new Error(`Fetch failed: ${error.message}`);
     if (!leads?.length) return { records_pulled: 0, records_updated: 0 };
 
+    const { data: existingActivities, error: activityError } = await supabase
+      .from("lead_activities")
+      .select("lead_id")
+      .eq("type", "campaign_enrolled")
+      .eq("channel", "instantly")
+      .in(
+        "lead_id",
+        leads.map((lead) => lead.id)
+      );
+
+    if (activityError) {
+      throw new Error(`Activity fetch failed: ${activityError.message}`);
+    }
+
+    const enrolledLeadIds = new Set(
+      existingActivities?.map((activity) => activity.lead_id) ?? []
+    );
+    const eligibleLeads = leads.filter((lead) => !enrolledLeadIds.has(lead.id));
+    if (!eligibleLeads.length) {
+      return { records_pulled: leads.length, records_updated: 0 };
+    }
+
     let enrolled = 0;
     const errors: string[] = [];
 
-    for (const lead of leads) {
+    for (const lead of eligibleLeads) {
       try {
-        const [firstFromOwner, lastFromOwner] = splitName(lead.owner_name);
-        const firstName = lead.first_name || firstFromOwner;
-        const lastName = lead.last_name || lastFromOwner;
+        const [firstName, lastName] = splitName(lead.name || lead.owner_name);
 
         await enrollInInstantly({
           email: lead.email!,
@@ -101,8 +121,6 @@ export async function POST(req: Request) {
           .from("leads")
           .update({
             lifecycle_stage: "contacted",
-            campaign_enrolled_at: new Date().toISOString(),
-            instantly_campaign_id: campaignId,
             updated_at: new Date().toISOString(),
           })
           .eq("id", lead.id);
@@ -115,13 +133,14 @@ export async function POST(req: Request) {
         });
 
         enrolled++;
-      } catch (err: any) {
-        errors.push(`lead ${lead.id}: ${err.message}`);
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : String(err);
+        errors.push(`lead ${lead.id}: ${message}`);
       }
     }
 
     return {
-      records_pulled: leads.length,
+      records_pulled: eligibleLeads.length,
       records_updated: enrolled,
       errors,
     };

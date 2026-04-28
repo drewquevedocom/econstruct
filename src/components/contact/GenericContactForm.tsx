@@ -60,6 +60,16 @@ export default function GenericContactForm() {
         throw new Error(json.error || "Something went wrong. Please try again.");
       }
 
+      window.dispatchEvent(
+        new CustomEvent("econstruct:form_submit_success", {
+          detail: {
+            form_id: "contact-form-general",
+            form_destination: window.location.href,
+            form_length: 6,
+            form_name: "general contact",
+          },
+        }),
+      );
       setSubmitted(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Network error. Please try again.");
@@ -103,6 +113,7 @@ export default function GenericContactForm() {
 
   return (
     <form
+      id="contact-form-general"
       onSubmit={handleSubmit}
       className="rounded-[32px] border border-gray-100 bg-white p-8 shadow-2xl md:p-12"
     >

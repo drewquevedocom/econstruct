@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Assessor Enrich
+      - name: ATTOM Property Enrich
         run: |
           curl -sf -X POST "https://econstructhomes.com/api/agents/assessor-enrich" \
             -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \

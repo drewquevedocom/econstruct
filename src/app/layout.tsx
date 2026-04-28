@@ -50,6 +50,60 @@ export default function RootLayout({
             gtag('config', 'G-LZ9NRKZ7HT');
           `}
         </Script>
+        <Script id="ga4-lead-tracking" strategy="afterInteractive">
+          {`
+            (function () {
+              function trackEvent(name, params) {
+                if (typeof window.gtag !== "function") return;
+                window.gtag("event", name, params);
+              }
+
+              function getClickText(element) {
+                var text = (element.innerText || element.textContent || element.getAttribute("aria-label") || "").trim();
+                return text || element.getAttribute("href") || "";
+              }
+
+              document.body.addEventListener("click", function (event) {
+                var target = event.target;
+                if (!(target instanceof Element)) return;
+
+                var link = target.closest('a[href^="tel:"], a[href^="mailto:"]');
+                if (!(link instanceof HTMLAnchorElement)) return;
+
+                var href = link.getAttribute("href") || "";
+                var clickText = getClickText(link);
+                var pageLocation = window.location.href;
+
+                if (href.indexOf("tel:") === 0) {
+                  trackEvent("phone_click", {
+                    phone_number: href.replace(/^tel:/i, ""),
+                    click_text: clickText,
+                    page_location: pageLocation,
+                  });
+                  return;
+                }
+
+                if (href.indexOf("mailto:") === 0) {
+                  trackEvent("mailto_click", {
+                    email_address: href.replace(/^mailto:/i, "").split("?")[0],
+                    click_text: clickText,
+                    page_location: pageLocation,
+                  });
+                }
+              });
+
+              window.addEventListener("econstruct:form_submit_success", function (event) {
+                var detail = event && event.detail ? event.detail : {};
+                trackEvent("form_submit", {
+                  form_id: detail.form_id || "",
+                  form_destination: detail.form_destination || window.location.href,
+                  form_length: detail.form_length || 0,
+                  form_name: detail.form_name || "",
+                });
+              });
+            })();
+          `}
+        </Script>
         {children}
       </body>
     </html>

@@ -20,16 +20,30 @@ interface Lead {
   address: string | null;
   owner_name: string | null;
   created_at: string;
+  updated_at: string | null;
+  score_calculated_at: string | null;
 }
 
 type SortKey = "lead_score" | "created_at" | "name";
+type ScoreFilter = "" | "70" | "50" | "scored" | "unscored";
 
 export default function LeadsTable({ leads }: { leads: Lead[] }) {
   const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState<SortKey>("created_at");
   const [sortAsc, setSortAsc] = useState(false);
   const [stageFilter, setStageFilter] = useState("");
+  const [scoreFilter, setScoreFilter] = useState<ScoreFilter>("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  const scoreCounts = useMemo(
+    () => ({
+      scored: leads.filter((lead) => lead.score_calculated_at).length,
+      hot70: leads.filter((lead) => (lead.lead_score ?? 0) >= 70).length,
+      hot50: leads.filter((lead) => (lead.lead_score ?? 0) >= 50).length,
+      unscored: leads.filter((lead) => !lead.score_calculated_at).length,
+    }),
+    [leads]
+  );
 
   const filtered = useMemo(() => {
     let list = leads;
@@ -46,6 +60,15 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
     if (stageFilter) {
       list = list.filter((l) => l.lifecycle_stage === stageFilter);
     }
+    if (scoreFilter === "70") {
+      list = list.filter((l) => (l.lead_score ?? 0) >= 70);
+    } else if (scoreFilter === "50") {
+      list = list.filter((l) => (l.lead_score ?? 0) >= 50);
+    } else if (scoreFilter === "scored") {
+      list = list.filter((l) => Boolean(l.score_calculated_at));
+    } else if (scoreFilter === "unscored") {
+      list = list.filter((l) => !l.score_calculated_at);
+    }
     list = [...list].sort((a, b) => {
       const av = a[sortKey] ?? "";
       const bv = b[sortKey] ?? "";
@@ -54,7 +77,7 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
       return 0;
     });
     return list;
-  }, [leads, search, stageFilter, sortKey, sortAsc]);
+  }, [leads, search, scoreFilter, stageFilter, sortKey, sortAsc]);
 
   const toggleSort = (key: SortKey) => {
     if (sortKey === key) setSortAsc(!sortAsc);
@@ -64,10 +87,8 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
     }
   };
 
-  const SortIcon = ({ col }: { col: SortKey }) =>
-    sortKey === col ? (
-      sortAsc ? <ChevronUp size={14} /> : <ChevronDown size={14} />
-    ) : null;
+  const renderSortIcon = (col: SortKey) =>
+    sortKey === col ? sortAsc ? <ChevronUp size={14} /> : <ChevronDown size={14} /> : null;
 
   const stages = [...new Set(leads.map((l) => l.lifecycle_stage).filter(Boolean))] as string[];
 
@@ -97,9 +118,55 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
             </option>
           ))}
         </select>
+        <select
+          value={scoreFilter}
+          onChange={(e) => setScoreFilter(e.target.value as ScoreFilter)}
+          className="h-9 px-3 border border-[#E8E4DC] rounded-lg bg-white text-sm focus:ring-2 focus:ring-[#B8963E] outline-none"
+        >
+          <option value="">All scores</option>
+          <option value="70">70+ hot ({scoreCounts.hot70})</option>
+          <option value="50">50+ warm ({scoreCounts.hot50})</option>
+          <option value="scored">Scored ({scoreCounts.scored})</option>
+          <option value="unscored">Unscored ({scoreCounts.unscored})</option>
+        </select>
         <span className="text-xs text-gray-400 ml-auto">
           {filtered.length} lead{filtered.length !== 1 ? "s" : ""}
         </span>
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <button
+          type="button"
+          onClick={() => setScoreFilter("scored")}
+          className="rounded-xl border border-[#E8E4DC] bg-white px-4 py-3 text-left hover:border-[#B8963E] transition-colors"
+        >
+          <p className="text-xs uppercase tracking-wide text-gray-400">Scored</p>
+          <p className="text-2xl font-bold text-[#1C1C1E]">{scoreCounts.scored}</p>
+        </button>
+        <button
+          type="button"
+          onClick={() => setScoreFilter("70")}
+          className="rounded-xl border border-[#E8E4DC] bg-white px-4 py-3 text-left hover:border-[#B8963E] transition-colors"
+        >
+          <p className="text-xs uppercase tracking-wide text-gray-400">70+ Hot</p>
+          <p className="text-2xl font-bold text-red-600">{scoreCounts.hot70}</p>
+        </button>
+        <button
+          type="button"
+          onClick={() => setScoreFilter("50")}
+          className="rounded-xl border border-[#E8E4DC] bg-white px-4 py-3 text-left hover:border-[#B8963E] transition-colors"
+        >
+          <p className="text-xs uppercase tracking-wide text-gray-400">50+ Warm</p>
+          <p className="text-2xl font-bold text-amber-600">{scoreCounts.hot50}</p>
+        </button>
+        <button
+          type="button"
+          onClick={() => setScoreFilter("unscored")}
+          className="rounded-xl border border-[#E8E4DC] bg-white px-4 py-3 text-left hover:border-[#B8963E] transition-colors"
+        >
+          <p className="text-xs uppercase tracking-wide text-gray-400">Unscored</p>
+          <p className="text-2xl font-bold text-gray-500">{scoreCounts.unscored}</p>
+        </button>
       </div>
 
       {/* Table */}
@@ -112,7 +179,7 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                 onClick={() => toggleSort("name")}
               >
                 <span className="inline-flex items-center gap-1">
-                  Name <SortIcon col="name" />
+                  Name {renderSortIcon("name")}
                 </span>
               </th>
               <th className="px-4 py-3">Email</th>
@@ -123,7 +190,7 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                 onClick={() => toggleSort("lead_score")}
               >
                 <span className="inline-flex items-center gap-1">
-                  Score <SortIcon col="lead_score" />
+                  Score {renderSortIcon("lead_score")}
                 </span>
               </th>
               <th
@@ -131,7 +198,7 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                 onClick={() => toggleSort("created_at")}
               >
                 <span className="inline-flex items-center gap-1">
-                  Added <SortIcon col="created_at" />
+                  Added {renderSortIcon("created_at")}
                 </span>
               </th>
             </tr>
@@ -151,7 +218,7 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                   className="border-b border-[#E8E4DC]/50 hover:bg-[#F8F6F2] cursor-pointer transition-colors"
                 >
                   <td className="px-5 py-3 font-medium text-[#1C1C1E]">
-                    {lead.name || "--"}
+                    {lead.name || lead.owner_name || "--"}
                   </td>
                   <td className="px-4 py-3 text-gray-500">
                     {lead.email || "--"}

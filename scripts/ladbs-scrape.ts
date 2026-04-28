@@ -1,38 +1,61 @@
 /**
- * LADBS Permit Scraper — econstruct Lead Gen
- * Scrapes eplan.ladbs.org for new permits in Tier 1 zip codes.
- * Filters by type + valuation, deduplicates by APN, upserts to Supabase.
+ * LADBS Permit Ingest - econstruct Lead Gen
+ *
+ * Pulls official City of LA Open Data building permit records for Tier 1 ZIP
+ * codes, filters for residential construction signals, and upserts leads into
+ * Supabase. This avoids brittle browser scraping of the LADBS portal.
  *
  * Run: npx tsx scripts/ladbs-scrape.ts
  * Schedule: GitHub Actions daily 3am PT
  */
 
-import { chromium } from "playwright";
 import { createClient } from "@supabase/supabase-js";
+import { config as loadEnv } from "dotenv";
 
-const SUPABASE_URL = process.env.SUPABASE_URL!;
+loadEnv({ path: ".env.local" });
+
+const SUPABASE_URL = process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 
+const LACITY_DATA_API = "https://data.lacity.org/resource";
+const SUBMITTED_PERMITS_DATASET = "gwh9-jnip"; // Submitted from 2020 to present
+const ISSUED_PERMITS_DATASET = "pi9x-tg5x"; // Issued from 2020 to present
+
 const TIER1_ZIPS = [
-  "90272", "90402",
-  "91001", "91104",
+  "90272",
+  "90402",
+  "91001",
+  "91104",
   "90265",
-  "90210", "90077",
+  "90210",
+  "90077",
   "90049",
-  "91302", "91364",
+  "91302",
+  "91364",
 ];
 
-const PERMIT_TYPES = ["new_construction", "demolition", "major_remodel", "fire_rebuild", "addition"];
-const MIN_VALUATION = 500_000;
+const MIN_VALUATION = Number(process.env.LADBS_MIN_VALUATION ?? 75_000);
+const LOOKBACK_DAYS = Number(process.env.LADBS_LOOKBACK_DAYS ?? 180);
+const QUALIFYING_TERMS = [
+  "accessory dwelling",
+  "addition",
+  "adu",
+  "demo",
+  "demolition",
+  "fire",
+  "grading",
+  "new",
+  "rebuild",
+  "remodel",
+];
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY, {
   auth: { autoRefreshToken: false, persistSession: false },
 });
 
-async function sleep(ms: number) {
-  return new Promise((r) => setTimeout(r, ms));
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
-
 
 async function logAgentRun(
   status: string,
@@ -60,84 +83,114 @@ interface PermitRecord {
   permit_type: string;
   valuation: number;
   permit_number: string;
-  contractor?: string;
-  architect?: string;
+  submitted_date?: string;
+  issue_date?: string;
+  status_desc?: string;
+  latitude?: number;
+  longitude?: number;
 }
 
-async function scrapeZip(
-  page: any,
-  zip: string
-): Promise<PermitRecord[]> {
-  const results: PermitRecord[] = [];
+type SocrataPermit = {
+  permit_nbr?: string;
+  primary_address?: string;
+  zip_code?: string;
+  apn?: string;
+  permit_type?: string;
+  permit_sub_type?: string;
+  submitted_date?: string;
+  issue_date?: string;
+  status_desc?: string;
+  valuation?: string;
+  work_desc?: string;
+  lat?: string;
+  lon?: string;
+};
 
-  try {
-    await page.goto("https://eplan.ladbs.org/LADBSWeb/welcome.do", {
-      waitUntil: "networkidle",
-      timeout: 30_000,
-    });
+function cutoffIso() {
+  const date = new Date();
+  date.setDate(date.getDate() - LOOKBACK_DAYS);
+  return `${date.toISOString().slice(0, 10)}T00:00:00`;
+}
 
-    // Navigate to permit search
-    await page.click('[href*="permitSearch"], a:has-text("Permit Search")');
-    await page.waitForLoadState("networkidle");
+function qualifies(row: SocrataPermit) {
+  const valuation = Number(row.valuation ?? 0) || 0;
+  const text = [row.permit_type, row.permit_sub_type, row.work_desc, row.status_desc]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
 
-    // Fill zip code search
-    await page.fill('[name="zipCode"], input[placeholder*="zip"]', zip);
-    await page.selectOption('[name="permitType"], select[id*="type"]', { label: "All" });
-    await page.click('button[type="submit"], input[type="submit"]');
-    await page.waitForLoadState("networkidle");
-    await sleep(2000); // Rate limit: 1 req / 2s
+  if (valuation >= MIN_VALUATION) return true;
 
-    // Extract permit rows
-    const rows = await page.$$eval("table.results tr, .permit-row", (rows: any[]) =>
-      rows.slice(1).map((row) => {
-        const cells = [...row.querySelectorAll("td")].map((td: any) => td.innerText.trim());
-        return {
-          permit_number: cells[0] ?? "",
-          address: cells[1] ?? "",
-          permit_type: cells[2] ?? "",
-          valuation_raw: cells[3] ?? "0",
-          apn: cells[4] ?? "",
-          contractor: cells[5] ?? "",
-          architect: cells[6] ?? "",
-        };
-      })
-    );
+  const permitType = (row.permit_type ?? "").toLowerCase();
+  if (permitType.includes("alter/repair")) return false;
 
-    for (const row of rows) {
-      const valuation = parseFloat(row.valuation_raw.replace(/[$,]/g, "")) || 0;
-      const permitTypeLower = row.permit_type.toLowerCase();
+  return QUALIFYING_TERMS.some((term) => text.includes(term));
+}
 
-      if (valuation < MIN_VALUATION) continue;
-      if (!PERMIT_TYPES.some((t) => permitTypeLower.includes(t.replace("_", " ")))) continue;
+async function fetchPermitRows(
+  dataset: string,
+  zip: string,
+  dateField: "submitted_date" | "issue_date"
+) {
+  const where = [
+    `zip_code='${zip}'`,
+    "permit_group='Building'",
+    "(permit_sub_type='1 or 2 Family Dwelling' OR permit_sub_type like '%Dwelling%')",
+    `${dateField} >= '${cutoffIso()}'`,
+  ].join(" AND ");
 
-      results.push({
-        apn: row.apn || undefined,
-        address: row.address,
-        zip_code: zip,
-        permit_type: row.permit_type,
-        valuation,
-        permit_number: row.permit_number,
-        contractor: row.contractor || undefined,
-        architect: row.architect || undefined,
-      });
-    }
-  } catch (err: any) {
-    console.error(`Error scraping zip ${zip}:`, err.message);
+  const params = new URLSearchParams({
+    "$limit": "500",
+    "$select":
+      "permit_nbr,primary_address,zip_code,apn,permit_type,permit_sub_type,submitted_date,issue_date,status_desc,valuation,work_desc,lat,lon",
+    "$where": where,
+    "$order": `${dateField} DESC`,
+  });
+
+  const res = await fetch(`${LACITY_DATA_API}/${dataset}.json?${params}`, {
+    headers: { Accept: "application/json" },
+  });
+
+  if (!res.ok) {
+    throw new Error(`LA City Open Data ${dataset} ${res.status}: ${(await res.text()).slice(0, 300)}`);
   }
 
-  return results;
+  return (await res.json()) as SocrataPermit[];
+}
+
+async function scrapeZip(zip: string): Promise<PermitRecord[]> {
+  const seen = new Set<string>();
+  const rows = [
+    ...(await fetchPermitRows(SUBMITTED_PERMITS_DATASET, zip, "submitted_date")),
+    ...(await fetchPermitRows(ISSUED_PERMITS_DATASET, zip, "issue_date")),
+  ];
+
+  return rows.filter(qualifies).flatMap((row) => {
+    if (!row.permit_nbr || !row.primary_address || !row.zip_code) return [];
+    if (seen.has(row.permit_nbr)) return [];
+    seen.add(row.permit_nbr);
+
+    return {
+      apn: row.apn || undefined,
+      address: row.primary_address,
+      zip_code: row.zip_code,
+      permit_type: [row.permit_type, row.permit_sub_type].filter(Boolean).join(" - "),
+      valuation: Number(row.valuation ?? 0) || 0,
+      permit_number: row.permit_nbr,
+      submitted_date: row.submitted_date,
+      issue_date: row.issue_date,
+      status_desc: row.status_desc,
+      latitude: row.lat ? Number(row.lat) : undefined,
+      longitude: row.lon ? Number(row.lon) : undefined,
+    };
+  });
 }
 
 async function upsertPermit(permit: PermitRecord): Promise<"created" | "updated" | "skipped"> {
-  // Check for existing lead by APN (if available) or address
   let existing = null;
 
   if (permit.apn) {
-    const { data } = await supabase
-      .from("leads")
-      .select("id")
-      .eq("apn", permit.apn)
-      .single();
+    const { data } = await supabase.from("leads").select("id").eq("apn", permit.apn).maybeSingle();
     existing = data;
   }
 
@@ -146,54 +199,44 @@ async function upsertPermit(permit: PermitRecord): Promise<"created" | "updated"
       .from("leads")
       .select("id")
       .ilike("address", `%${permit.address.split(",")[0]}%`)
-      .single();
+      .maybeSingle();
     existing = data;
   }
 
   const leadData = {
     source: "ladbs_permits",
-    sub_source: permit.permit_type,
+    subsource: permit.permit_type,
     address: permit.address,
     zip_code: permit.zip_code,
     apn: permit.apn ?? null,
-    property_value: permit.valuation,
+    property_value: permit.valuation || null,
+    latitude: permit.latitude ?? null,
+    longitude: permit.longitude ?? null,
     lifecycle_stage: "new",
-    tags: ["ladbs_permit", permit.permit_type.toLowerCase().replace(/\s+/g, "_")],
-    metadata: {
-      permit_number: permit.permit_number,
-      contractor: permit.contractor,
-      architect: permit.architect,
-    },
+    tags: [
+      "ladbs_permit",
+      permit.permit_number,
+      permit.permit_type.toLowerCase().replace(/[^a-z0-9]+/g, "_"),
+    ],
+    enrichment_status: "pending",
   };
 
   if (existing) {
-    await supabase.from("leads").update(leadData).eq("id", existing.id);
+    await supabase.from("leads").update({ ...leadData, updated_at: new Date().toISOString() }).eq("id", existing.id);
     return "updated";
-  } else {
-    const { data: newLead } = await supabase
-      .from("leads")
-      .insert(leadData)
-      .select("id")
-      .single();
-
-    if (newLead) {
-      await supabase.from("enrichment_queue").insert({ lead_id: newLead.id });
-    }
-    return "created";
   }
+
+  const { data: newLead } = await supabase.from("leads").insert(leadData).select("id").single();
+
+  if (newLead) {
+    await supabase.from("enrichment_queue").insert({ lead_id: newLead.id });
+  }
+
+  return "created";
 }
 
 async function main() {
-  console.log("🏗️  econstruct LADBS Scraper starting...");
-
-  const browser = await chromium.launch({
-    headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  });
-  const context = await browser.newContext({
-    userAgent: "econstruct-leadbot/1.0 (+https://econstructinc.com/bot)",
-  });
-  const page = await context.newPage();
+  console.log("econstruct LADBS Open Data ingest starting...");
 
   let totalPulled = 0;
   let totalCreated = 0;
@@ -201,9 +244,9 @@ async function main() {
   const errors: string[] = [];
 
   for (const zip of TIER1_ZIPS) {
-    console.log(`Scraping zip ${zip}...`);
+    console.log(`Pulling zip ${zip}...`);
     try {
-      const permits = await scrapeZip(page, zip);
+      const permits = await scrapeZip(zip);
       totalPulled += permits.length;
       console.log(`  Found ${permits.length} qualifying permits`);
 
@@ -212,22 +255,22 @@ async function main() {
           const outcome = await upsertPermit(permit);
           if (outcome === "created") totalCreated++;
           else if (outcome === "updated") totalUpdated++;
-        } catch (err: any) {
-          errors.push(`${permit.address}: ${err.message}`);
+        } catch (err: unknown) {
+          const message = err instanceof Error ? err.message : String(err);
+          errors.push(`${permit.address}: ${message}`);
         }
       }
-    } catch (err: any) {
-      errors.push(`zip ${zip}: ${err.message}`);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      errors.push(`zip ${zip}: ${message}`);
     }
 
-    await sleep(2000); // Rate limit between zips
+    await sleep(300);
   }
-
-  await browser.close();
 
   const status = errors.length === 0 ? "success" : totalCreated + totalUpdated > 0 ? "partial" : "failed";
   await logAgentRun(status, totalPulled, totalCreated, totalUpdated, errors.slice(0, 50));
-  console.log(`✅ Done: ${totalCreated} created, ${totalUpdated} updated, ${errors.length} errors`);
+  console.log(`Done: ${totalCreated} created, ${totalUpdated} updated, ${errors.length} errors`);
   process.exit(errors.length > 0 && status === "failed" ? 1 : 0);
 }
 

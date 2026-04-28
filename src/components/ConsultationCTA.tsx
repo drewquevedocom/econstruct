@@ -78,6 +78,16 @@ export default function ConsultationCTA({
         return;
       }
 
+      window.dispatchEvent(
+        new CustomEvent("econstruct:form_submit_success", {
+          detail: {
+            form_id: "consultation-cta-form",
+            form_destination: window.location.href,
+            form_length: 7,
+            form_name: "free consultation",
+          },
+        }),
+      );
       setStep(4); // Success
     } catch {
       setSubmitError("Network error. Please check your connection and try again.");
@@ -262,6 +272,7 @@ export default function ConsultationCTA({
               {/* STEP 3: Budget & Submit */}
               {step === 3 && (
                 <motion.form
+                  id="consultation-cta-form"
                   key="step3"
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}

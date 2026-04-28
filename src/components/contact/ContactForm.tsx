@@ -101,6 +101,16 @@ export default function ContactForm() {
         return;
       }
 
+      window.dispatchEvent(
+        new CustomEvent("econstruct:form_submit_success", {
+          detail: {
+            form_id: "contact-form-consultation",
+            form_destination: window.location.href,
+            form_length: 8,
+            form_name: "consultation request",
+          },
+        }),
+      );
       setIsSubmitted(true);
     } catch {
       setSubmitError("Network error. Please check your connection and try again.");
@@ -155,7 +165,7 @@ export default function ContactForm() {
         />
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form id="contact-form-consultation" onSubmit={handleSubmit(onSubmit)}>
         <div className="relative min-h-[380px]">
           <AnimatePresence mode="wait">
             {/* STEP 1: Project Type & Zip */}

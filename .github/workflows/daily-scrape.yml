@@ -19,9 +19,6 @@ jobs:
       - name: Install dependencies
         run: rm -f package-lock.json && npm install
 
-      - name: Install Playwright
-        run: npm install playwright && npx playwright install chromium --with-deps
-
       - name: Run LADBS scraper
         run: npx tsx scripts/ladbs-scrape.ts
         env:

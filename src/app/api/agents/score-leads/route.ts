@@ -11,12 +11,12 @@ export async function POST(req: Request) {
   const result = await runAgent("score-leads", async () => {
     const supabase = createServiceClient();
 
-    // Find leads updated in the last 30 min that haven't been scored yet
+    // Score leads once we have enough identity/contact signal to rank them.
     const { data: leads, error } = await supabase
       .from("leads")
       .select("id")
       .or("score_calculated_at.is.null,score_calculated_at.lt." + new Date(Date.now() - 30 * 60 * 1000).toISOString())
-      .eq("enrichment_status", "done")
+      .or("owner_name.not.is.null,email.not.is.null")
       .limit(100);
 
     if (error) throw new Error(`Failed to fetch leads: ${error.message}`);
