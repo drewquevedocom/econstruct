@@ -209,7 +209,7 @@ export default function AboutPage() {
             <AnimatedSection>
               <div className="relative overflow-hidden rounded-3xl aspect-[4/5] bg-gray-100">
                 <Image
-                  src="/Frank4.png"
+                  src="/frank_about1.png"
                   alt="Frank Neimroozi — econstruct founder on a job site"
                   fill
                   className="object-cover object-top"
