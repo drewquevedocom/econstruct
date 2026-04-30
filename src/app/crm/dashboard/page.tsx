@@ -120,12 +120,12 @@ export default async function DashboardPage() {
       .from("lead_activities")
       .select("id, lead_id, type, channel, created_at")
       .order("created_at", { ascending: false })
-      .limit(5),
+      .limit(3),
     supabase
       .from("agent_runs")
       .select("id, agent_name, status, started_at, duration_ms, records_pulled, records_created, records_updated")
       .order("started_at", { ascending: false })
-      .limit(6),
+      .limit(3),
     supabase.from("leads").select("source").not("source", "is", null),
     supabase
       .from("leads")
@@ -277,7 +277,7 @@ export default async function DashboardPage() {
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
         <CompactCard title="Lead Sources">
           {Object.keys(sourceMap).length > 0 ? (
-            <div className="mx-auto max-w-[200px]">
+            <div className="mx-auto max-w-[132px]">
               <LeadSourceChart data={sourceMap} />
             </div>
           ) : (
@@ -355,8 +355,8 @@ function MiniAction({
 
 function CompactCard({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div className="min-h-[230px] rounded-xl border border-[#E8E4DC] bg-white p-4">
-      <h2 className="mb-3 text-sm font-bold text-[#1C1C1E]">{title}</h2>
+    <div className="min-h-[128px] rounded-xl border border-[#E8E4DC] bg-white p-3">
+      <h2 className="mb-2 text-sm font-bold text-[#1C1C1E]">{title}</h2>
       {children}
     </div>
   );
