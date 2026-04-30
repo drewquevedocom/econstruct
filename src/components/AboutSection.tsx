@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Building2, Layers, HardHat, Box } from "lucide-react";
 
@@ -138,7 +139,7 @@ export default function AboutSection() {
         {/* Bottom Link */}
         <div className="w-full flex justify-center text-center mt-8">
           <p className="font-bold text-sm text-brand-dark px-4 py-8 pointer-events-none">
-            Discover top-tier real estate development services. <a href="/services" className="pointer-events-auto border-b border-brand-dark hover:text-accent-gold hover:border-accent-gold transition-colors pb-0.5 ml-2">View all services</a>
+            Discover top-tier real estate development services. <Link href="/services" className="pointer-events-auto border-b border-brand-dark hover:text-accent-gold hover:border-accent-gold transition-colors pb-0.5 ml-2">View all services</Link>
           </p>
         </div>
 

@@ -70,6 +70,7 @@ export default function LeadPanel({ leadId, onClose }: PanelProps) {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
     fetch(`/api/crm/lead/${leadId}`)
       .then((r) => r.json())

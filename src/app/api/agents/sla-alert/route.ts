@@ -13,6 +13,20 @@ const ALERT_CC: string[] = [
 // SMS goes to Frank only
 const FRANK_PHONE = "+13108444656";
 
+type HotLeadAlert = {
+  first_name?: string | null;
+  last_name?: string | null;
+  owner_name?: string | null;
+  address?: string | null;
+  zip_code?: string | null;
+  property_value?: number | string | null;
+  lead_score?: number | string | null;
+  source?: string | null;
+  fire_damage_status?: string | null;
+  email?: string | null;
+  phone?: string | null;
+};
+
 async function sendSms(to: string, text: string) {
   const apiKey = process.env.TELNYX_API_KEY;
   const from = process.env.TELNYX_FROM_NUMBER;
@@ -28,7 +42,7 @@ async function sendSms(to: string, text: string) {
   });
 }
 
-async function sendHotLeadAlert(lead: any) {
+async function sendHotLeadAlert(lead: HotLeadAlert) {
   const name =
     lead.first_name && lead.last_name
       ? `${lead.first_name} ${lead.last_name}`

@@ -109,8 +109,9 @@ export async function POST(req: Request) {
             }
           }
         }
-      } catch (err: any) {
-        errors.push(`zip ${zip}: ${err.message}`);
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : String(err);
+        errors.push(`zip ${zip}: ${message}`);
       }
     }
 

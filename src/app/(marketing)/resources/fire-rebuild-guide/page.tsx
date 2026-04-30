@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { generatePageMetadata } from "@/lib/metadata";
 import {
   generateArticleSchema,
@@ -426,7 +427,7 @@ export default function FireRebuildGuidePage() {
                     </div>
                   </div>
                   <p className="text-gray-700 leading-relaxed">
-                    This range accounts for WUI compliance, premium finishes, and standard site conditions. Hillside sites, complex designs, or ultra-premium materials would push toward the higher end. Use our <a href="/resources/cost-calculator" className="text-accent-gold font-semibold hover:underline">interactive cost calculator</a> to get a quick estimate tailored to your specific project parameters.
+                    This range accounts for WUI compliance, premium finishes, and standard site conditions. Hillside sites, complex designs, or ultra-premium materials would push toward the higher end. Use our <Link href="/resources/cost-calculator" className="text-accent-gold font-semibold hover:underline">interactive cost calculator</Link> to get a quick estimate tailored to your specific project parameters.
                   </p>
                 </section>
               </AnimatedSection>

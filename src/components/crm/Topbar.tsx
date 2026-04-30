@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 const titles: Record<string, string> = {
   "/crm/dashboard": "Dashboard",
   "/crm/leads": "Leads",
+  "/crm/outreach": "Outreach Queue",
+  "/crm/partners": "Partner Network",
+  "/crm/sequences": "Sequences",
   "/crm/agents": "Agents",
 };
 

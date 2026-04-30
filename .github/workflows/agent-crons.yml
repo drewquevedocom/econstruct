@@ -27,6 +27,14 @@ jobs:
             --max-time 60
         continue-on-error: true
 
+      - name: Email Enrich
+        run: |
+          curl -sf -X POST "https://econstructhomes.com/api/agents/email-enrich" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            -H "Content-Type: application/json" \
+            --max-time 60
+        continue-on-error: true
+
       - name: Score Leads
         run: |
           curl -sf -X POST "https://econstructhomes.com/api/agents/score-leads" \

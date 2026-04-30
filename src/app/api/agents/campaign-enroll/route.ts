@@ -63,11 +63,13 @@ export async function POST(req: Request) {
     const { data: leads, error } = await supabase
       .from("leads")
       .select(
-        "id, name, owner_name, email, phone, address, zip_code, property_value, fire_damage_status, lead_score"
+        "id, name, owner_name, email, phone, address, zip_code, property_value, fire_damage_status, lead_score, outreach_status, dnc"
       )
       .gte("lead_score", MIN_CAMPAIGN_LEAD_SCORE)
       .eq("lifecycle_stage", "new")
+      .eq("outreach_status", "approved")
       .not("email", "is", null)
+      .or("dnc.is.null,dnc.eq.false")
       .limit(50);
 
     if (error) throw new Error(`Fetch failed: ${error.message}`);
@@ -121,6 +123,10 @@ export async function POST(req: Request) {
           .from("leads")
           .update({
             lifecycle_stage: "contacted",
+            outreach_status: "sent",
+            campaign_enrolled_at: new Date().toISOString(),
+            instantly_campaign_id: campaignId,
+            outreach_status_updated_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),
           })
           .eq("id", lead.id);

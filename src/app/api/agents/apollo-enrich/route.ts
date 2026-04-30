@@ -58,12 +58,28 @@ export async function POST(req: Request) {
   const result = await runAgent("apollo-enrich", async () => {
     const supabase = createServiceClient();
 
-    // Pull up to 20 pending items from enrichment queue
+    // Apollo is a paid B2B fallback. Only spend it on hot, email-missing leads.
     const { data: queue, error } = await supabase
       .from("enrichment_queue")
-      .select("id, lead_id, attempts")
+      .select(
+        `
+        id,
+        lead_id,
+        attempts,
+        leads!inner (
+          owner_name,
+          name,
+          email,
+          phone,
+          lead_score,
+          dnc
+        )
+      `
+      )
       .eq("status", "pending")
       .lt("attempts", 3)
+      .gte("leads.lead_score", 70)
+      .is("leads.email", null)
       .order("created_at")
       .limit(20);
 
@@ -81,12 +97,14 @@ export async function POST(req: Request) {
           .update({ status: "processing", attempts: item.attempts + 1 })
           .eq("id", item.id);
 
-        // Get lead data
-        const { data: lead } = await supabase
-          .from("leads")
-          .select("owner_name, name, email, phone")
-          .eq("id", item.lead_id)
-          .single();
+        const lead = Array.isArray(item.leads) ? item.leads[0] : item.leads;
+        if (lead?.dnc) {
+          await supabase
+            .from("enrichment_queue")
+            .update({ status: "failed", last_error: "Lead is marked do not contact" })
+            .eq("id", item.id);
+          continue;
+        }
 
         const searchName = lead?.owner_name ?? lead?.name;
         if (!searchName) {
@@ -113,13 +131,26 @@ export async function POST(req: Request) {
           enrichment_status: "done",
         };
         const email = person.email ?? person.personal_emails?.[0] ?? null;
-        if (email) updates.email = email;
+        if (email) {
+          updates.email = email;
+          updates.outreach_status = "ready_for_email_review";
+          updates.outreach_status_updated_at = new Date().toISOString();
+        }
         if (person.phone_numbers?.[0]?.sanitized_number) {
           updates.phone = person.phone_numbers[0].sanitized_number;
         }
         if (person.linkedin_url) updates.linkedin_url = person.linkedin_url;
 
         await supabase.from("leads").update(updates).eq("id", item.lead_id);
+        await supabase.from("email_enrichment_attempts").insert({
+          lead_id: item.lead_id,
+          provider: "apollo",
+          status: email ? "success" : "no_match",
+          email,
+          phone: person.phone_numbers?.[0]?.sanitized_number ?? null,
+          cost_estimate: 0.1,
+          metadata: { source: "apollo" },
+        });
         await supabase
           .from("enrichment_queue")
           .update({ status: "done", processed_at: new Date().toISOString() })
