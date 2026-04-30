@@ -15,6 +15,17 @@ export interface AgentContext {
 
 async function createAgentRun(agentName: string): Promise<string> {
   const supabase = createServiceClient();
+  const staleBefore = new Date(Date.now() - 15 * 60 * 1000).toISOString();
+  await supabase
+    .from("agent_runs")
+    .update({
+      status: "failed",
+      ended_at: new Date().toISOString(),
+      errors: ["Marked failed automatically after stale running timeout"],
+    })
+    .eq("status", "running")
+    .lt("started_at", staleBefore);
+
   const { data, error } = await supabase
     .from("agent_runs")
     .insert({ agent_name: agentName, status: "running" })
@@ -81,14 +92,15 @@ export async function runAgent<T extends AgentResult>(
       ...result,
     });
     return result;
-  } catch (err: any) {
+  } catch (err: unknown) {
     const duration_ms = Date.now() - started;
+    const message = err instanceof Error ? err.message : String(err);
     await completeAgentRun(runId, {
       status: "failed",
       duration_ms,
-      errors: [err?.message ?? String(err)],
+      errors: [message],
     });
-    await notifyAgentFailure(agentName, `FAILED after ${duration_ms}ms: ${err?.message}`);
+    await notifyAgentFailure(agentName, `FAILED after ${duration_ms}ms: ${message}`);
 
     throw err;
   }

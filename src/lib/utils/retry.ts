@@ -15,16 +15,18 @@ export async function withRetry<T>(
   for (let attempt = 1; attempt <= attempts; attempt++) {
     try {
       return await fn();
-    } catch (err: any) {
-      lastError = err;
-      const status = err?.status ?? err?.response?.status ?? 0;
+    } catch (err: unknown) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      lastError = error;
+      const maybeStatus = err as { status?: number; response?: { status?: number }; code?: string };
+      const status = maybeStatus.status ?? maybeStatus.response?.status ?? 0;
       const isTransient =
         retryOn.includes(status) ||
-        err?.code === "ECONNRESET" ||
-        err?.code === "ECONNREFUSED" ||
-        err?.code === "ETIMEDOUT";
+        maybeStatus.code === "ECONNRESET" ||
+        maybeStatus.code === "ECONNREFUSED" ||
+        maybeStatus.code === "ETIMEDOUT";
 
-      if (!isTransient || attempt === attempts) throw err;
+      if (!isTransient || attempt === attempts) throw error;
 
       const delay = backoffMs * Math.pow(2, attempt - 1);
       await new Promise((r) => setTimeout(r, delay));

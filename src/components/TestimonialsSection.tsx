@@ -78,7 +78,7 @@ export default function TestimonialsSection() {
                 ))}
               </div>
               <h3 className="text-xl md:text-3xl font-heading text-brand-dark leading-relaxed mb-8 max-w-4xl mx-auto">
-                "{testimonials[currentIndex].quote}"
+                &quot;{testimonials[currentIndex].quote}&quot;
               </h3>
               <p className="font-bold text-brand-dark tracking-wide uppercase text-sm">
                 {testimonials[currentIndex].name} <span className="text-accent-gold mx-2">|</span> <span className="text-gray-500 font-medium">{testimonials[currentIndex].neighborhood}</span>
