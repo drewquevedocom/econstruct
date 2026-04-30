@@ -27,6 +27,67 @@ export interface PromptProjectPage {
 
 export const promptProjects: PromptProjectPage[] = [
   {
+    slug: "calabasas-mediterranean-new-home-build",
+    shortTitle: "Calabasas Mediterranean Estate",
+    title: "Calabasas Mediterranean Estate — New Custom Home Build by econstruct",
+    description:
+      "A ground-up California Mediterranean custom home built in Calabasas, CA. 6,500 sq ft estate featuring stucco facade, clay tile roof, courtyard entry, chef's kitchen, indoor-outdoor great room, primary suite retreat, and resort-style backyard with pool, spa, and outdoor kitchen. Delivered by econstruct, a licensed Calabasas luxury home builder serving the West San Fernando Valley.",
+    image: "/projects/calabas_1.jpeg",
+    gallery: [
+      { src: "/projects/calabas_1.jpeg", alt: "Calabasas Mediterranean estate front exterior with stucco facade clay tile roof and grand entry — new custom home build by econstruct", caption: "Front elevation — California Mediterranean facade with hand-troweled stucco, clay tile roof, and a grand arched entry that anchors the curb appeal." },
+      { src: "/projects/calabas_2.jpeg", alt: "Calabasas custom home courtyard entry with arched openings and Mediterranean stonework", caption: "Courtyard entry — arched openings, custom stonework, and a tranquil approach that sets the tone for the rest of the estate." },
+      { src: "/projects/calabas_3.jpeg", alt: "Calabasas new construction great room with vaulted ceilings disappearing glass walls and indoor-outdoor flow", caption: "Great room — vaulted ceilings, disappearing glass walls, and a true indoor-outdoor flow that opens to the pool and rear yard." },
+      { src: "/projects/calabas_4.jpeg", alt: "Calabasas luxury home chef kitchen with oversized island butler pantry and high-end appliances", caption: "Chef's kitchen — oversized island, dual dishwashers, butler's pantry, and a full Wolf and Sub-Zero appliance package." },
+      { src: "/projects/calabas_5.jpeg", alt: "Calabasas custom home primary suite with vaulted ceilings spa bath and private terrace", caption: "Primary suite — vaulted ceilings, a private terrace overlooking the backyard, and a spa-grade bath retreat." },
+      { src: "/projects/calabas_6.jpeg", alt: "Calabasas new home backyard with resort-style pool spa outdoor kitchen and covered patio", caption: "Backyard — resort-style pool and spa, full outdoor kitchen, and a covered patio designed for Calabasas year-round entertaining." },
+    ],
+    serviceSlug: "custom-home-construction-los-angeles",
+    location: "Calabasas, CA",
+    neighborhood: "Calabasas",
+    scope: "Ground-Up New Construction",
+    timeline: "14 months",
+    squareFootage: "6,500 sq ft",
+    completionDate: "2026",
+    category: "Custom Home Build",
+    highlights: [
+      "6,500 sq ft California Mediterranean custom estate",
+      "5 bedrooms, 6 bathrooms with private primary suite retreat",
+      "Chef's kitchen with butler's pantry and Wolf/Sub-Zero appliance package",
+      "Disappearing glass walls connecting great room to pool deck",
+      "Resort-style backyard with pool, spa, outdoor kitchen, and covered patio",
+      "Hand-troweled stucco facade with authentic clay tile roof",
+      "Smart home automation: lighting, climate, audio, security, shades",
+    ],
+    heroTitle: "Calabasas Mediterranean Estate — Ground-Up Custom Home Build",
+    heroSubtitle: "A 6,500 sq ft California Mediterranean estate in Calabasas, designed and built by econstruct for clients who wanted a turnkey luxury home with authentic architectural character and modern indoor-outdoor living.",
+    challenge: [
+      "The clients had been searching the West San Fernando Valley for over a year and could not find an existing home in Calabasas that met their standards for craftsmanship, layout, and indoor-outdoor flow. They came to econstruct ready to build from the ground up but needed a partner who could manage architecture, permitting, and construction under one roof.",
+      "The brief was demanding: a 6,500 sq ft California Mediterranean estate with authentic architectural character, a true indoor-outdoor great room, a primary suite retreat, a chef's kitchen with full appliance package, and a resort-style backyard — all delivered within an aggressive 14-month timeline that left no room for change orders or trade coordination missteps.",
+    ],
+    approach: [
+      "econstruct managed the project end to end as the general contractor — from coordinating the architectural and engineering team through final landscaping. The clients had a single point of contact and a single accountable party for every milestone.",
+      "Our preconstruction strategy partner ran the permit and plan-check process in parallel with foundation prep, compressing what would normally be a 9-12 month design-permit cycle into roughly 7 months. This is the same model we use on every Calabasas, Hidden Hills, and Pacific Palisades custom build.",
+      "Material selections were made early and locked in: hand-troweled stucco, authentic clay tile roof, walnut hardwood flooring, marble and quartzite stone packages, Wolf and Sub-Zero kitchen appliances, and a Crestron home automation system. Locking the spec early eliminated change orders mid-build.",
+    ],
+    build: [
+      "Foundation and framing were completed in 4 months, including site prep, slab work, and rough utilities. Disciplined sequencing kept the schedule moving even through California's winter weather windows.",
+      "Mechanical, electrical, and plumbing rough-ins were sequenced to allow the framing inspection and drywall to start while the smart home wiring (Crestron, Lutron, Sonos, security) was pulled. This kind of trade coordination is where most luxury custom home projects lose months — disciplined sequencing kept us on track.",
+      "Finish work — flooring, cabinetry, stonework, tile, plaster, and millwork — was executed by our long-standing subcontractor network. Every Calabasas estate we deliver runs through the same vetted trades, which is why the finish quality stays consistent project after project.",
+      "Landscape, pool, hardscape, and outdoor kitchen construction ran in parallel with interior finishes during the final 3 months. The clients moved into a fully finished home with both indoor and outdoor living spaces ready on day one.",
+    ],
+    result: [
+      "A 6,500 sq ft California Mediterranean custom home delivered in 14 months — on schedule, on budget, and ready for the family to move in.",
+      "The completed estate has become a flagship project on the econstruct Calabasas portfolio. The combination of authentic Mediterranean architecture, modern open-plan interiors, and a true indoor-outdoor great room is exactly what high-end Calabasas buyers and builders look for.",
+      "The clients now have a forever home that reflects their lifestyle, holds long-term value in one of the most desirable Calabasas neighborhoods, and was built with the kind of craftsmanship that does not require corrective work years down the line.",
+    ],
+    takeaways: [
+      "Calabasas custom home builds reward early decision-making — locking the architectural style, material spec, and smart-home plan before breaking ground prevents the change orders that blow up most luxury projects.",
+      "Calabasas, Hidden Hills, and West San Fernando Valley permitting can add months to a typical timeline. Working with a contractor who runs preconstruction strategy in parallel with the permit process is the difference between a 14-month build and a 24-month build.",
+      "Indoor-outdoor flow is the single most-requested feature on Calabasas new construction. Designing for it from day one — disappearing glass walls, covered patio, outdoor kitchen, pool sightlines from the great room — is what separates a custom home from a tract build.",
+      "If you're considering a ground-up custom home build in Calabasas, Hidden Hills, Westlake Village, or anywhere in the West San Fernando Valley, econstruct can run the full process from preconstruction strategy through final landscaping. Schedule a consultation to walk through your lot, your design ideas, and your timeline.",
+    ],
+  },
+  {
     slug: "san-vincente-adu",
     shortTitle: "San Vincente ADU",
     title: "San Vincente ADU - Completed Residential ADU Project",

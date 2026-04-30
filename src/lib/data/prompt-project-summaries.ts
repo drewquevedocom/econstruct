@@ -14,6 +14,26 @@ export interface PromptProjectSummary {
 
 export const promptProjectSummaries: PromptProjectSummary[] = [
   {
+    slug: "calabasas-mediterranean-new-home-build",
+    shortTitle: "Calabasas Mediterranean Estate",
+    title: "Calabasas Mediterranean Estate - New Custom Home Build",
+    description:
+      "A ground-up California Mediterranean custom home in Calabasas, delivering a 6,500 sq ft estate with stucco facade, clay tile roof, courtyard entry, chef's kitchen, indoor-outdoor great room, and resort-style backyard. Built by econstruct, one of Calabasas' most trusted luxury home builders.",
+    image: "/projects/calabas_1.jpeg",
+    location: "Calabasas, CA",
+    neighborhood: "Calabasas",
+    scope: "Ground-Up New Construction",
+    completionDate: "2026",
+    category: "Custom Home Build",
+    highlights: [
+      "6,500 sq ft custom California Mediterranean estate",
+      "5 bedrooms, 6 bathrooms with primary suite retreat",
+      "Chef's kitchen with butler's pantry and oversized island",
+      "Indoor-outdoor great room with disappearing glass walls",
+      "Resort-style backyard with pool, spa, and outdoor kitchen",
+    ],
+  },
+  {
     slug: "san-vincente-adu",
     shortTitle: "San Vincente ADU",
     title: "San Vincente ADU - Completed Residential ADU Project",
