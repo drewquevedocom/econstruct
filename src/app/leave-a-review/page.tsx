@@ -1,4 +1,3 @@
-import ReviewFeedbackForm from "@/components/ReviewFeedbackForm";
 import LogoStatic from "@/components/LogoStatic";
 
 const GOOGLE_REVIEW_URL =
@@ -72,16 +71,6 @@ export default function LeaveAReviewPage() {
                 tone="gray"
               />
             </div>
-          </div>
-
-          <div className="my-8 h-px bg-[#E8E4DC]" />
-
-          <div>
-            <h2 className="text-lg font-bold">Prefer to send feedback privately?</h2>
-            <p className="mt-1 text-sm text-gray-500">
-              This goes directly to Frank and Drew.
-            </p>
-            <ReviewFeedbackForm />
           </div>
         </div>
 
