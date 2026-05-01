@@ -40,11 +40,38 @@ export default function LeaveAReviewPage() {
             </p>
           </div>
 
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <ReviewButton icon="G" label="Leave a Google Review" href={GOOGLE_REVIEW_URL} tone="blue" />
-            <ReviewButton icon="B" label="Rate us on BBB" href={BBB_URL} tone="gold" />
-            <ReviewButton icon="H" label="Review us on Houzz" href={HOUZZ_URL} tone="green" />
-            <ReviewButton icon="★" label="Review us on Glassdoor" href={GLASSDOOR_URL} tone="gray" />
+          <div className="mt-8 grid gap-4">
+            <ReviewButton
+              icon="G"
+              label="Leave a Google Review"
+              description="Most helpful for new clients finding econstruct."
+              href={GOOGLE_REVIEW_URL}
+              tone="blue"
+              featured
+            />
+            <div className="grid gap-4 md:grid-cols-3">
+              <ReviewButton
+                icon="B"
+                label="Rate us on BBB"
+                description="Share your service experience."
+                href={BBB_URL}
+                tone="gold"
+              />
+              <ReviewButton
+                icon="H"
+                label="Review us on Houzz"
+                description="Helpful for homeowners planning projects."
+                href={HOUZZ_URL}
+                tone="green"
+              />
+              <ReviewButton
+                icon="GD"
+                label="Review us on Glassdoor"
+                description="Share workplace feedback."
+                href={GLASSDOOR_URL}
+                tone="gray"
+              />
+            </div>
           </div>
 
           <div className="my-8 h-px bg-[#E8E4DC]" />
@@ -69,17 +96,21 @@ export default function LeaveAReviewPage() {
 function ReviewButton({
   icon,
   label,
+  description,
   href,
   tone,
+  featured = false,
 }: {
   icon: string;
   label: string;
+  description: string;
   href: string;
   tone: "blue" | "red" | "gold" | "green" | "gray";
+  featured?: boolean;
 }) {
   const colors =
     tone === "blue"
-      ? "border-blue-100 bg-blue-50 text-blue-700"
+      ? "border-[#B8963E] bg-[#1C1C1E] text-white shadow-[0_24px_70px_rgba(28,28,30,0.18)]"
       : tone === "red"
         ? "border-red-100 bg-red-50 text-red-700"
         : tone === "green"
@@ -93,12 +124,21 @@ function ReviewButton({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`flex min-h-28 flex-col items-center justify-center rounded-2xl border p-4 text-center font-bold transition-transform hover:-translate-y-0.5 ${colors}`}
+      className={`flex flex-col justify-between rounded-2xl border p-5 text-left transition-transform hover:-translate-y-0.5 ${featured ? "min-h-44 md:min-h-52 md:p-8" : "min-h-40"} ${colors}`}
     >
-      <span className="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-white text-lg shadow-sm">
+      <span
+        className={`flex items-center justify-center rounded-full bg-white font-black shadow-sm ${featured ? "h-16 w-16 text-3xl text-[#1C1C1E]" : "h-12 w-12 text-lg"}`}
+      >
         {icon}
       </span>
-      {label}
+      <span className="mt-6 block">
+        <span className={`block font-black tracking-tight ${featured ? "text-3xl md:text-4xl" : "text-xl"}`}>
+          {label}
+        </span>
+        <span className={`mt-2 block text-sm leading-6 ${featured ? "max-w-xl text-[#F2E8C9]" : "text-gray-500"}`}>
+          {description}
+        </span>
+      </span>
     </a>
   );
 }
