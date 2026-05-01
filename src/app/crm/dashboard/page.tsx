@@ -167,10 +167,10 @@ export default async function DashboardPage() {
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#D4B96A]">
                 CRM Command Center
               </p>
-              <h2 className="mt-2 text-3xl font-black tracking-tight">
+              <h2 className="mt-2 text-3xl font-black tracking-tight text-[#FFF8E7]">
                 {hotLeads} hot leads need motion.
               </h2>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-white/70">
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-[#F2E8C9]">
                 Prioritize contactability: find emails for hot leads, approve the few that are email-ready, and mail the rest before they go stale.
               </p>
             </div>
