@@ -44,7 +44,7 @@ const AnimatedCounter = ({
 const stats = [
   { label: ["Building in Los", "Angeles Since"],       value: 2001, suffix: "",     decimals: 0, topPct: 52 },
   { label: ["Projects Completed", "Successfully"],     value: 639,  suffix: "+",    decimals: 0, topPct: 18 },
-  { label: ["Collective Experience", "Btwn Partners"], value: 51,   suffix: " Yrs", decimals: 0, topPct: 42 },
+  { label: ["Collective Experience", "Between Partners"], value: 51,   suffix: " Yrs", decimals: 0, topPct: 42 },
 ];
 
 const slideUp: Variants = {

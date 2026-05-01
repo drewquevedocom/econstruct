@@ -8,9 +8,9 @@ import { ArrowRight, ShieldCheck, Flame, MessageSquare, Star, Wrench, Palette } 
 const features = [
   {
     icon: ShieldCheck,
-    title: "25+ Years Licensed Experience",
+    title: "20+ Years Licensed Experience",
     description:
-      "Our leadership team holds California General Contractor licenses with over $200M in completed luxury residential projects.",
+      "Our leadership team holds California General Contractor licenses with over $200M in completed projects.",
   },
   {
     icon: Flame,
