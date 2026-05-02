@@ -1,4 +1,5 @@
 import LogoStatic from "@/components/LogoStatic";
+import Image from "next/image";
 
 const GOOGLE_REVIEW_URL =
   process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL ||
@@ -6,9 +7,6 @@ const GOOGLE_REVIEW_URL =
 const BBB_URL =
   process.env.NEXT_PUBLIC_BBB_REVIEW_URL ||
   "https://www.bbb.org/us/ca/valencia/profile/construction/econstruct-inc-1216-100043809/leave-a-review";
-const GLASSDOOR_URL =
-  process.env.NEXT_PUBLIC_GLASSDOOR_REVIEW_URL ||
-  "https://www.glassdoor.com/surveys/employer/create?i=2393907&j=true&y=&c=PAGE_INFOSITE_TOP&rt=https://www.glassdoor.com/Reviews/Econstruct-Reviews-E2393907.htm";
 const HOUZZ_URL =
   process.env.NEXT_PUBLIC_HOUZZ_REVIEW_URL ||
   "https://www.houzz.com/writeProReview/cmd=r/n=econstructinc";
@@ -41,34 +39,30 @@ export default function LeaveAReviewPage() {
 
           <div className="mt-8 grid gap-4">
             <ReviewButton
-              icon="G"
+              logoSrc="/lg-66d8fa4c53ece-Google-Logo.webp"
+              logoAlt="Google"
               label="Leave a Google Review"
               description="Most helpful for new clients finding econstruct."
               href={GOOGLE_REVIEW_URL}
               tone="blue"
               featured
             />
-            <div className="grid gap-4 md:grid-cols-3">
+            <div className="grid gap-4 md:grid-cols-2">
               <ReviewButton
-                icon="B"
+                logoSrc="/kisspng-better-business-bureau-of-central-ohio-logo-brand-home-page-slideshow-holy-angels-5bea07088f78b2.3216586615420638805877.jpg"
+                logoAlt="BBB Accredited Business"
                 label="Rate us on BBB"
                 description="Share your service experience."
                 href={BBB_URL}
                 tone="gold"
               />
               <ReviewButton
-                icon="H"
+                logoSrc="/9b7aac91bdc65895025fa78f588fd8.webp"
+                logoAlt="Houzz"
                 label="Review us on Houzz"
                 description="Helpful for homeowners planning projects."
                 href={HOUZZ_URL}
                 tone="green"
-              />
-              <ReviewButton
-                icon="GD"
-                label="Review us on Glassdoor"
-                description="Share workplace feedback."
-                href={GLASSDOOR_URL}
-                tone="gray"
               />
             </div>
           </div>
@@ -83,14 +77,16 @@ export default function LeaveAReviewPage() {
 }
 
 function ReviewButton({
-  icon,
+  logoSrc,
+  logoAlt,
   label,
   description,
   href,
   tone,
   featured = false,
 }: {
-  icon: string;
+  logoSrc: string;
+  logoAlt: string;
   label: string;
   description: string;
   href: string;
@@ -99,7 +95,7 @@ function ReviewButton({
 }) {
   const colors =
     tone === "blue"
-      ? "border-[#B8963E] bg-[#1C1C1E] text-white shadow-[0_24px_70px_rgba(28,28,30,0.18)]"
+      ? "border-[#B8963E] bg-[#FFF8E7] text-[#1C1C1E] shadow-[0_24px_70px_rgba(184,150,62,0.18)]"
       : tone === "red"
         ? "border-red-100 bg-red-50 text-red-700"
         : tone === "green"
@@ -116,15 +112,21 @@ function ReviewButton({
       className={`flex flex-col justify-between rounded-2xl border p-5 text-left transition-transform hover:-translate-y-0.5 ${featured ? "min-h-44 md:min-h-52 md:p-8" : "min-h-40"} ${colors}`}
     >
       <span
-        className={`flex items-center justify-center rounded-full bg-white font-black shadow-sm ${featured ? "h-16 w-16 text-3xl text-[#1C1C1E]" : "h-12 w-12 text-lg"}`}
+        className={`flex items-center justify-center rounded-xl bg-white shadow-sm ${featured ? "h-20 w-40 p-4" : "h-16 w-24 p-3"}`}
       >
-        {icon}
+        <Image
+          src={logoSrc}
+          alt={logoAlt}
+          width={featured ? 160 : 96}
+          height={featured ? 80 : 64}
+          className="h-full w-full object-contain"
+        />
       </span>
       <span className="mt-6 block">
         <span className={`block font-black tracking-tight ${featured ? "text-3xl md:text-4xl" : "text-xl"}`}>
           {label}
         </span>
-        <span className={`mt-2 block text-sm leading-6 ${featured ? "max-w-xl text-[#F2E8C9]" : "text-gray-500"}`}>
+        <span className={`mt-2 block text-sm leading-6 ${featured ? "max-w-xl text-[#6F5A22]" : "text-gray-500"}`}>
           {description}
         </span>
       </span>
