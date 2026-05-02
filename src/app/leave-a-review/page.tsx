@@ -49,7 +49,7 @@ export default function LeaveAReviewPage() {
             />
             <div className="grid gap-4 md:grid-cols-2">
               <ReviewButton
-                logoSrc="/kisspng-better-business-bureau-of-central-ohio-logo-brand-home-page-slideshow-holy-angels-5bea07088f78b2.3216586615420638805877.jpg"
+                logoSrc="/bbb-review-logo-clean.webp"
                 logoAlt="BBB Accredited Business"
                 label="Rate us on BBB"
                 description="Share your service experience."
@@ -57,7 +57,7 @@ export default function LeaveAReviewPage() {
                 tone="gold"
               />
               <ReviewButton
-                logoSrc="/9b7aac91bdc65895025fa78f588fd8.webp"
+                logoSrc="/houzz-review-logo-clean.webp"
                 logoAlt="Houzz"
                 label="Review us on Houzz"
                 description="Helpful for homeowners planning projects."
