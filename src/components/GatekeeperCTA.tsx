@@ -79,7 +79,7 @@ export default function GatekeeperCTA() {
         <div
           className={`absolute inset-0 bg-cover ${isContactPage ? "bg-top" : "bg-center"}`}
           style={{
-            backgroundImage: "url('/projects/calabas_6.jpeg')",
+            backgroundImage: "url('/Let%27s_do_a_angle_of_202604291718.jpeg')",
             ...(isContactPage
               ? {
                   backgroundAttachment: "fixed",
