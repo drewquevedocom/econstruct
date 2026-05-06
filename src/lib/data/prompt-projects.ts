@@ -45,9 +45,9 @@ export const promptProjects: PromptProjectPage[] = [
     location: "Calabasas, CA",
     neighborhood: "Calabasas",
     scope: "Ground-Up New Construction",
-    timeline: "14 months",
+    timeline: "17 months",
     squareFootage: "6,500 sq ft",
-    completionDate: "2026",
+    completionDate: "2024",
     category: "Custom Home Build",
     highlights: [
       "6,500 sq ft California Mediterranean custom estate",
@@ -62,7 +62,7 @@ export const promptProjects: PromptProjectPage[] = [
     heroSubtitle: "A 6,500 sq ft California Mediterranean estate in Calabasas, designed and built by econstruct for clients who wanted a turnkey luxury home with authentic architectural character and modern indoor-outdoor living.",
     challenge: [
       "The clients had been searching the West San Fernando Valley for over a year and could not find an existing home in Calabasas that met their standards for craftsmanship, layout, and indoor-outdoor flow. They came to econstruct ready to build from the ground up but needed a partner who could manage architecture, permitting, and construction under one roof.",
-      "The brief was demanding: a 6,500 sq ft California Mediterranean estate with authentic architectural character, a true indoor-outdoor great room, a primary suite retreat, a chef's kitchen with full appliance package, and a resort-style backyard — all delivered within an aggressive 14-month timeline that left no room for change orders or trade coordination missteps.",
+      "The brief was demanding: a 6,500 sq ft California Mediterranean estate with authentic architectural character, a true indoor-outdoor great room, a primary suite retreat, a chef's kitchen with full appliance package, and a resort-style backyard — all delivered within an aggressive 17-month timeline that left no room for change orders or trade coordination missteps.",
     ],
     approach: [
       "econstruct managed the project end to end as the general contractor — from coordinating the architectural and engineering team through final landscaping. The clients had a single point of contact and a single accountable party for every milestone.",
@@ -76,13 +76,13 @@ export const promptProjects: PromptProjectPage[] = [
       "Landscape, pool, hardscape, and outdoor kitchen construction ran in parallel with interior finishes during the final 3 months. The clients moved into a fully finished home with both indoor and outdoor living spaces ready on day one.",
     ],
     result: [
-      "A 6,500 sq ft California Mediterranean custom home delivered in 14 months — on schedule, on budget, and ready for the family to move in.",
+      "A 6,500 sq ft California Mediterranean custom home delivered in 17 months — on schedule, on budget, and ready for the family to move in.",
       "The completed estate has become a flagship project on the econstruct Calabasas portfolio. The combination of authentic Mediterranean architecture, modern open-plan interiors, and a true indoor-outdoor great room is exactly what high-end Calabasas buyers and builders look for.",
       "The clients now have a forever home that reflects their lifestyle, holds long-term value in one of the most desirable Calabasas neighborhoods, and was built with the kind of craftsmanship that does not require corrective work years down the line.",
     ],
     takeaways: [
       "Calabasas custom home builds reward early decision-making — locking the architectural style, material spec, and smart-home plan before breaking ground prevents the change orders that blow up most luxury projects.",
-      "Calabasas, Hidden Hills, and West San Fernando Valley permitting can add months to a typical timeline. Working with a contractor who runs preconstruction strategy in parallel with the permit process is the difference between a 14-month build and a 24-month build.",
+      "Calabasas, Hidden Hills, and West San Fernando Valley permitting can add months to a typical timeline. Working with a contractor who runs preconstruction strategy in parallel with the permit process is the difference between a 17-month build and a 24-month build.",
       "Indoor-outdoor flow is the single most-requested feature on Calabasas new construction. Designing for it from day one — disappearing glass walls, covered patio, outdoor kitchen, pool sightlines from the great room — is what separates a custom home from a tract build.",
       "If you're considering a ground-up custom home build in Calabasas, Hidden Hills, Westlake Village, or anywhere in the West San Fernando Valley, econstruct can run the full process from preconstruction strategy through final landscaping. Schedule a consultation to walk through your lot, your design ideas, and your timeline.",
     ],

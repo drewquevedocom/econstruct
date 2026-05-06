@@ -23,7 +23,7 @@ export const promptProjectSummaries: PromptProjectSummary[] = [
     location: "Calabasas, CA",
     neighborhood: "Calabasas",
     scope: "Ground-Up New Construction",
-    completionDate: "2026",
+    completionDate: "2024",
     category: "Custom Home Build",
     highlights: [
       "6,500 sq ft custom California Mediterranean estate",
