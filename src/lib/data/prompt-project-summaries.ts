@@ -103,7 +103,7 @@ export const promptProjectSummaries: PromptProjectSummary[] = [
     location: "Lawndale, CA",
     neighborhood: "Lawndale / South Bay",
     scope: "Full Interior & Exterior Condo Remodel",
-    completionDate: "2023",
+    completionDate: "2011",
     category: "Condo Remodel",
     highlights: [
       "Full floor plan reconfiguration - walls removed, doorways enlarged",
@@ -123,7 +123,7 @@ export const promptProjectSummaries: PromptProjectSummary[] = [
     location: "Hollywood Hills, Los Angeles, CA",
     neighborhood: "Hollywood Hills",
     scope: "Full Interior & Exterior Luxury Remodel",
-    completionDate: "2022",
+    completionDate: "2017",
     category: "Luxury Remodel",
     highlights: [
       "Galley kitchen transformed into open chef's kitchen with quartz island",
@@ -143,7 +143,7 @@ export const promptProjectSummaries: PromptProjectSummary[] = [
     location: "Bell Canyon, CA",
     neighborhood: "Bell Canyon",
     scope: "Full Interior & Exterior Luxury Remodel",
-    completionDate: "2021",
+    completionDate: "2014",
     category: "Luxury Remodel",
     highlights: [
       "Full open-concept floor plan - walls removed throughout",

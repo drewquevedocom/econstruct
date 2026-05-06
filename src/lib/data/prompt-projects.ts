@@ -298,7 +298,7 @@ export const promptProjects: PromptProjectPage[] = [
     scope: "Full Interior & Exterior Condo Remodel",
     timeline: "5 months",
     squareFootage: "1,800 sq ft",
-    completionDate: "2023",
+    completionDate: "2011",
     category: "Condo Remodel",
     highlights: [
       "Full floor plan reconfiguration — walls removed, doorways enlarged",
@@ -347,7 +347,7 @@ export const promptProjects: PromptProjectPage[] = [
     scope: "Full Interior & Exterior Luxury Remodel",
     timeline: "11 months",
     squareFootage: "3,800 sq ft",
-    completionDate: "2022",
+    completionDate: "2017",
     category: "Luxury Remodel",
     highlights: [
       "Galley kitchen transformed into open chef's kitchen with quartz island",
@@ -405,7 +405,7 @@ export const promptProjects: PromptProjectPage[] = [
     scope: "Full Interior & Exterior Luxury Remodel",
     timeline: "10 months",
     squareFootage: "3,200 sq ft",
-    completionDate: "2021",
+    completionDate: "2014",
     category: "Luxury Remodel",
     highlights: [
       "Full open-concept floor plan — walls removed throughout",
