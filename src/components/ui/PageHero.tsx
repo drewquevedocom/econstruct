@@ -59,10 +59,7 @@ export default function PageHero({ title, subtitle, breadcrumbs, backgroundImage
           </motion.nav>
         )}
 
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+        <h1
           className="max-w-5xl font-extrabold leading-[0.93] tracking-tight text-white [text-wrap:balance]"
           style={{
             fontSize: "clamp(2.5rem, 5.2vw, 5.25rem)",
@@ -71,17 +68,12 @@ export default function PageHero({ title, subtitle, breadcrumbs, backgroundImage
           }}
         >
           {title}
-        </motion.h1>
+        </h1>
 
         {subtitle && (
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-6 max-w-3xl text-lg font-medium leading-relaxed text-white/92 md:text-[1.35rem]"
-          >
+          <p className="mt-6 max-w-3xl text-lg font-medium leading-relaxed text-white/92 md:text-[1.35rem]">
             {subtitle}
-          </motion.p>
+          </p>
         )}
 
         {stats && stats.length > 0 && (

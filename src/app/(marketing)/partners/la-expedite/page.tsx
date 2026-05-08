@@ -88,8 +88,8 @@ export default function LAExpeditePartnerPage() {
       <section className="relative overflow-hidden bg-brand-dark text-white">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/projects/calabas_3.jpeg"
-            alt="Luxury custom home interior with floor-to-ceiling windows opening to the pool deck"
+            src="/01-palisades-modern-glass-v1.png"
+            alt="Modern Palisades home with glass walls — fire rebuild by econstruct"
             fill
             priority
             className="object-cover opacity-50"
@@ -141,7 +141,7 @@ export default function LAExpeditePartnerPage() {
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <Link
-                  href="#get-quote"
+                  href="/free-consultation?source=la_expedite_flyer"
                   className="group inline-flex items-center justify-center gap-2 rounded-full bg-accent-gold px-7 py-4 text-base font-bold text-brand-dark shadow-lg transition-all hover:bg-white hover:shadow-2xl active:scale-95"
                 >
                   Get Your Free Quote

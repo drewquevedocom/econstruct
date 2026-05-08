@@ -117,7 +117,7 @@ export default function BlogIndexPage() {
                 <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-gold">
                   Newsletter
                 </p>
-                <h3 className="mt-3 text-3xl font-bold tracking-tight">
+                <h3 className="mt-3 text-3xl font-bold tracking-tight text-white">
                   Get the LA Rebuild Newsletter
                 </h3>
                 <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/72">

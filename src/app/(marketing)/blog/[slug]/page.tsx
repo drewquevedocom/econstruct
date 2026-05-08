@@ -356,7 +356,7 @@ export default async function BlogPostPage({
                 <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-gold">
                   Consultation CTA
                 </p>
-                <h2 className="mt-3 text-3xl font-bold tracking-tight">
+                <h2 className="mt-3 text-3xl font-bold tracking-tight text-white">
                   Get a Free Rebuild Consultation
                 </h2>
                 <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/72">
