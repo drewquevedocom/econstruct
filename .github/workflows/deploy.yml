@@ -17,7 +17,10 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies (fresh lockfile for Linux native deps)
-        run: rm -f package-lock.json && npm install
+        # --legacy-peer-deps: @opennextjs/cloudflare auto-bumps to versions
+        # that require next>=16.2.5, but we pin next@16.2.4. The peer mismatch
+        # is harmless at runtime; this flag stops npm from blocking the install.
+        run: rm -f package-lock.json && npm install --legacy-peer-deps
 
       - name: Build with OpenNext
         run: npx @opennextjs/cloudflare build
