@@ -31,12 +31,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* :where() drops specificity to 0,0,0 so any Tailwind utility class
- * (text-white, text-accent-gold, etc.) wins. Without this wrapper, the
- * default brand-dark color silently overrides utilities on dark cards. */
-:where(h1, h2, h3, h4, h5, h6) {
-  font-family: var(--font-heading), serif;
-  color: var(--brand-dark);
+/* Heading defaults wrapped in @layer base so Tailwind's @layer utilities
+ * (where text-white, text-accent-gold etc. live) wins by cascade layer
+ * priority. Without the layer wrapper, this rule lives in the unlayered
+ * cascade and beats layered utilities — text-white silently fails on
+ * every dark-bg card. */
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading), serif;
+    color: var(--brand-dark);
+  }
 }
 
 .blog-prose {
