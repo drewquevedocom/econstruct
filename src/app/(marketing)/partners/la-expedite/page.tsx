@@ -234,7 +234,7 @@ export default function LAExpeditePartnerPage() {
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr,1.2fr]">
             <div className="rounded-3xl bg-white p-8 shadow-lg md:p-10">
               <div className="flex flex-col items-center justify-center gap-6 md:flex-row md:gap-10">
-                <Logo height={44} tone="dark" />
+                <Logo height={44} tone="light" />
                 <div className="text-3xl font-light text-gray-300">×</div>
                 <Image
                   src="/la-expedite-logo.webp"
