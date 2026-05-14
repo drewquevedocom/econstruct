@@ -174,7 +174,7 @@ export default function FireRebuildPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
               { value: "25+", label: "Years Experience" },
-              { value: "639+", label: "Projects Completed" },
+              { value: "639", label: "Partner Projects" },
               { value: "3x", label: "Faster Permitting" },
               { value: `Lic #${COMPANY.license.number}`, label: "CA Licensed & Insured" },
             ].map((stat) => (
@@ -421,10 +421,10 @@ export default function FireRebuildPage() {
               },
               {
                 icon: Users,
-                stat: "639+",
-                label: "Projects Delivered",
+                stat: "639",
+                label: "Partner Projects",
                 description:
-                  "Across all project types in Los Angeles. Our fire rebuild experience is second to none.",
+                  "Combined partner project history, primarily commercial before 2011, with econstruct focused on residential construction since 2011.",
               },
             ].map((item, i) => (
               <AnimatedSection key={item.label} delay={i * 0.1}>

@@ -14,7 +14,7 @@ export const dynamic = "force-static";
 export const metadata: Metadata = {
   title: "Projects | econstruct — Luxury Home Remodels & Custom Builds in Los Angeles",
   description:
-    "Explore completed luxury remodel and custom home construction projects by econstruct across Hollywood Hills, Bell Canyon, Lawndale, and greater Los Angeles. 639+ projects delivered since 2001.",
+    "Explore luxury remodel and custom home construction projects by econstruct across Hollywood Hills, Bell Canyon, Lawndale, and greater Los Angeles, backed by 639 combined partner projects.",
   alternates: {
     canonical: `${SITE_URL}/projects`,
   },
@@ -71,11 +71,11 @@ export default function ProjectsPage() {
       {/* Ã¢â€â‚¬Ã¢â€â‚¬ Hero Ã¢â€â‚¬Ã¢â€â‚¬ */}
       <PageHero
         title="Our Work Across Los Angeles"
-        subtitle="639+ projects delivered since 2001 — from Hollywood Hills luxury remodels and Bell Canyon estate transformations to coastal condo renovations and custom engineering solutions."
+        subtitle="Backed by 639 combined partner projects, with a primarily commercial foundation before 2011 and econstruct's residential focus since 2011."
         breadcrumbs={[{ label: "Projects" }]}
         backgroundImage={featured.image}
         stats={[
-          { value: "639+", label: "Projects Completed" },
+          { value: "639", label: "Partner Projects" },
           { value: "51 Yrs", label: "Combined Partner Experience" },
           { value: "CA #964015", label: "Licensed GC" },
         ]}

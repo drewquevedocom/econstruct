@@ -23,7 +23,7 @@ import ConsultationCTA from "@/components/ConsultationCTA";
 export const metadata: Metadata = generatePageMetadata({
   title: "About econstruct - Building LA Since 2001",
   description:
-    "Meet the team behind econstruct Inc. Building in Los Angeles since 2001, founded as econstruct in 2011, and 639+ premium residential projects delivered. CA Lic #964015.",
+    "Meet the team behind econstruct Inc. Building in Los Angeles since 2001, founded as econstruct in 2011, with 639 combined partner projects. CA Lic #964015.",
   path: "/about",
 });
 
@@ -42,21 +42,15 @@ const milestones = [
   },
   {
     year: "2015",
-    title: "100th Project Completed",
+    title: "High-End Residential Focus",
     description:
-      "Reached a landmark 100-project milestone with a Bel Air custom home, cementing econstruct's reputation for luxury builds.",
-  },
-  {
-    year: "2018",
-    title: "Fire Rebuild Specialists",
-    description:
-      "Led the rebuild effort for Woolsey Fire-affected homes in Malibu, developing deep expertise in WUI-compliant construction.",
+      "econstruct sharpens its Los Angeles focus around high-end residential remodels, custom homes, and disciplined project management.",
   },
   {
     year: "2026",
-    title: "639+ Projects & Counting",
+    title: "639 Combined Partner Projects",
     description:
-      "Completed 639+ projects across Los Angeles with a 100% permit success rate and 5-star client satisfaction.",
+      "The 639 count reflects our partners' combined project history: primarily commercial work before 2011, with econstruct focused on residential construction since 2011.",
   },
 ];
 
@@ -80,7 +74,7 @@ const credentials = [
 ];
 
 const stats = [
-  { value: "639+", label: "Projects Completed", icon: HardHat },
+  { value: "639", label: "Partner Projects", icon: HardHat },
   { value: "Since 2001", label: "Building in LA", icon: Clock },
   { value: "$450-$800", label: "Per Sq Ft", icon: DollarSign },
   { value: "3x", label: "Faster Permits", icon: FileCheck },
@@ -192,7 +186,7 @@ export default function AboutPage() {
                   Over the years, Frank assembled a vetted network of Los Angeles&apos; top architects, engineers, permit expeditors, subcontractors, and vendors — relationships built on mutual accountability and a shared standard of craft. This network is one of econstruct&apos;s most significant competitive advantages and cannot be replicated overnight.
                 </p>
                 <p>
-                  Today, with 639+ completed projects and over two decades of hands-on field experience, econstruct is recognized as one of Los Angeles&apos; most trusted residential construction firms. Our mission has never changed: to build enduring homes of unmatched quality — and to do it with the honesty and discipline that our clients deserve.
+                  Today, with 639 combined partner projects and over two decades of hands-on field experience, econstruct is recognized as one of Los Angeles&apos; most trusted residential construction firms. Our mission has never changed: to build enduring homes of unmatched quality — and to do it with the honesty and discipline that our clients deserve.
                 </p>
               </div>
 

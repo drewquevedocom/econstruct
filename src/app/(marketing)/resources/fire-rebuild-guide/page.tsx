@@ -269,7 +269,7 @@ export default function FireRebuildGuidePage() {
                     Why econstruct
                   </h3>
                   <p className="text-gray-700 leading-relaxed">
-                    econstruct has been building luxury homes in Los Angeles for over 25 years. We hold California Contractor License #964015, carry comprehensive insurance, and have completed over 340 projects. Owner Frank Neimroozi is personally involved in every project, from initial consultation through final walkthrough. We specialize in WUI-compliant construction, expedited permitting, and insurance coordination — because those are the three areas where fire rebuild homeowners need the most expertise.
+                    econstruct has been building luxury homes in Los Angeles for over 25 years. We hold California Contractor License #964015 and carry comprehensive insurance. Our partners bring 639 combined projects of experience, built on a primarily commercial foundation before 2011 and a residential focus since econstruct was formed. Owner Frank Neimroozi is personally involved from initial consultation through final walkthrough because WUI compliance, expedited permitting, and insurance coordination are where fire rebuild homeowners need the most expertise.
                   </p>
                 </section>
               </AnimatedSection>
@@ -353,7 +353,7 @@ export default function FireRebuildGuidePage() {
                     Cost Breakdown
                   </h2>
                   <p className="text-gray-700 leading-relaxed mb-4">
-                    One of the most common questions we receive is: &quot;How much does it cost to rebuild after a fire?&quot; The honest answer is that it depends on many factors, but we can provide clear ranges based on our experience across hundreds of projects in Los Angeles.
+                    One of the most common questions we receive is: &quot;How much does it cost to rebuild after a fire?&quot; The honest answer is that it depends on many factors, but we can provide clear ranges based on our team&apos;s 639-project background in Los Angeles construction.
                   </p>
                   <h3 className="text-xl font-bold text-brand-dark mt-8 mb-4">
                     Typical Cost Ranges (Per Square Foot)

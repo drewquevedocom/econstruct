@@ -43,7 +43,7 @@ const whyChoose = [
     n: "01",
     icon: Award,
     title: "20+ Years Building in LA",
-    body: "Over $200M in completed projects. CA Lic #964015. NAHB Member. Licensed General Contractor leadership.",
+    body: "639 combined partner projects. CA Lic #964015. NAHB Member. Licensed General Contractor leadership.",
   },
   {
     n: "02",
@@ -165,10 +165,10 @@ export default function LAExpeditePartnerPage() {
                   Est. 2011
                 </p>
                 <p className="mt-1 font-heading text-4xl font-extrabold leading-none text-white">
-                  639+
+                  639
                 </p>
                 <p className="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-white/80">
-                  Projects Delivered
+                  Partner Projects
                 </p>
               </div>
               <div className="rounded-2xl border border-white/15 bg-brand-dark/80 p-5 backdrop-blur-md">
@@ -314,11 +314,11 @@ export default function LAExpeditePartnerPage() {
               Free Fire-Rebuild Consultation
             </p>
             <h2 className="font-heading text-3xl font-extrabold leading-tight text-white md:text-4xl">
-              Tell us about your property. We'll respond within 24 hours.
+              Tell us about your property. We&apos;ll respond within 24 hours.
             </h2>
             <p className="mt-5 text-base leading-relaxed text-white/85">
               Fire rebuild questions, insurance coordination, permit timelines, scope
-              estimates — share what you're working with and we'll walk you through the
+              estimates — share what you&apos;re working with and we&apos;ll walk you through the
               path forward together.
             </p>
 
