@@ -79,6 +79,9 @@ export default async function DashboardPage() {
     agentRes,
     sourcesRes,
     hotLeadRes,
+    totalEmailsRes,
+    emailsThisWeekRes,
+    readyForOutreachRes,
   ] = await Promise.all([
     supabase.from("leads").select("id", { count: "exact", head: true }),
     supabase
@@ -135,6 +138,25 @@ export default async function DashboardPage() {
       .order("lead_score", { ascending: false })
       .order("created_at", { ascending: true })
       .limit(8),
+    // Real email-enrichment progress (any score, any stage)
+    supabase
+      .from("leads")
+      .select("id", { count: "exact", head: true })
+      .not("email", "is", null),
+    // Emails Melissa appended in the last 7 days
+    supabase
+      .from("lead_activities")
+      .select("id", { count: "exact", head: true })
+      .eq("type", "enrichment")
+      .eq("channel", "melissa")
+      .gte("created_at", new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()),
+    // Leads with email, not yet enrolled in outreach, not DNC
+    supabase
+      .from("leads")
+      .select("id", { count: "exact", head: true })
+      .not("email", "is", null)
+      .is("outreach_status", null)
+      .or("dnc.is.null,dnc.eq.false"),
   ]);
 
   const totalLeads = totalRes.count ?? 0;
@@ -145,6 +167,9 @@ export default async function DashboardPage() {
   const mailReady = mailReadyRes.count ?? 0;
   const activePipeline = contactedRes.count ?? 0;
   const wonCount = wonRes.count ?? 0;
+  const totalEmails = totalEmailsRes.count ?? 0;
+  const emailsThisWeek = emailsThisWeekRes.count ?? 0;
+  const readyForOutreach = readyForOutreachRes.count ?? 0;
   const activities = activityRes.data ?? [];
   const agentRuns = (agentRes.data ?? []) as AgentRun[];
   const hotLeadRows = (hotLeadRes.data ?? []) as HotLead[];
@@ -184,10 +209,16 @@ export default async function DashboardPage() {
         </div>
 
         <div className="grid grid-cols-3 gap-3">
-          <MiniAction label="Missing email" value={missingHotEmails} tone="red" />
-          <MiniAction label="Email ready" value={hotWithEmail} tone="blue" />
-          <MiniAction label="Mail ready" value={mailReady} tone="amber" />
+          <MiniAction label="Appended this week" value={emailsThisWeek} tone="green" />
+          <MiniAction label="Total emails" value={totalEmails} tone="blue" />
+          <MiniAction label="Ready for outreach" value={readyForOutreach} tone="amber" />
         </div>
+      </div>
+
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+        <MiniAction label="Hot missing email" value={missingHotEmails} tone="red" />
+        <MiniAction label="Hot email-ready" value={hotWithEmail} tone="blue" />
+        <MiniAction label="Hot mail-ready (no email)" value={mailReady} tone="amber" />
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
@@ -336,14 +367,16 @@ function MiniAction({
 }: {
   label: string;
   value: number;
-  tone: "red" | "blue" | "amber";
+  tone: "red" | "blue" | "amber" | "green";
 }) {
   const classes =
     tone === "red"
       ? "bg-red-50 text-red-600 border-red-100"
       : tone === "blue"
         ? "bg-sky-50 text-sky-700 border-sky-100"
-        : "bg-amber-50 text-amber-700 border-amber-100";
+        : tone === "green"
+          ? "bg-emerald-50 text-emerald-700 border-emerald-100"
+          : "bg-amber-50 text-amber-700 border-amber-100";
 
   return (
     <div className={`rounded-2xl border p-4 ${classes}`}>
