@@ -1,16 +1,65 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import type { SupabaseClient } from '@supabase/supabase-js';
 
 const INSTANTLY_API = 'https://api.instantly.ai/api/v2';
-const FRANK_EMAIL = process.env.FRANK_EMAIL || '';
+// Hot-lead notifications go to every address listed in HOT_LEAD_NOTIFY_EMAILS
+// (comma-separated). FRANK_EMAIL is kept as a fallback for the legacy single-address setup.
+const HOT_LEAD_NOTIFY_EMAILS = (process.env.HOT_LEAD_NOTIFY_EMAILS || process.env.FRANK_EMAIL || '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
 
 // ── Supabase client ──────────────────────────────────────────────────────────
 function getSupabase() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://dzudtdhmvnuipqyoogem.supabase.co";
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6dWR0ZGhtdm51aXBxeW9vZ2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyMDQ4MTMsImV4cCI6MjA5MTc4MDgxM30.OUwN6G_BvZRdTdl2XcxsE5Z19vOy_mRvEMKwZUwwNtE";
   if (!url || !key) return null;
   return createClient(url, key);
+}
+
+async function createPartnerReplyTask(
+  supabase: SupabaseClient,
+  partnerLeadId: string,
+  params: { sentiment: string; summary: string; replyText: string }
+) {
+  const today = new Date().toISOString().slice(0, 10);
+  const { data: partner, error: partnerError } = await supabase
+    .from('partner_leads')
+    .select('id, partner_name, notes')
+    .eq('id', partnerLeadId)
+    .maybeSingle();
+
+  if (partnerError || !partner) {
+    console.error('Partner reply lookup error:', partnerError);
+    return;
+  }
+
+  const notes = [
+    partner.notes,
+    `${today}: Instantly reply classified as ${params.sentiment}. ${params.summary} Reply preview: ${params.replyText.slice(0, 300)}`,
+  ]
+    .filter(Boolean)
+    .join('\n');
+
+  await supabase
+    .from('partner_leads')
+    .update({
+      status: 'Contacted',
+      last_contact_date: today,
+      next_follow_up_date: today,
+      notes,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('id', partnerLeadId);
+
+  await supabase.from('partner_tasks').insert({
+    partner_lead_id: partnerLeadId,
+    title: `Review Instantly reply from ${partner.partner_name}`,
+    due_date: today,
+  });
 }
 
 // ── Classify reply sentiment using Claude ────────────────────────────────────
@@ -64,8 +113,8 @@ Respond with ONLY valid JSON: {"sentiment":"<category>","confidence":<0-100>,"su
   }
 }
 
-// ── Send handoff email to Frank via Instantly reply API ─────────────────────
-async function notifyFrank(lead: {
+// ── Send handoff email to hot-lead recipients via Instantly reply API ───────
+async function notifyHotLead(lead: {
   email: string;
   firstName: string;
   lastName: string;
@@ -76,22 +125,22 @@ async function notifyFrank(lead: {
   summary: string;
   campaignName?: string;
 }) {
-  if (!FRANK_EMAIL) {
-    console.warn('FRANK_EMAIL not set — skipping handoff notification');
+  if (HOT_LEAD_NOTIFY_EMAILS.length === 0) {
+    console.warn('HOT_LEAD_NOTIFY_EMAILS / FRANK_EMAIL not set — skipping handoff notification');
     return;
   }
 
   const apiKey = process.env.INSTANTLY_API_KEY;
   if (!apiKey) return;
 
-  console.log('=== WARM LEAD HANDOFF ===');
-  console.log(`To: ${FRANK_EMAIL}`);
+  const toList = HOT_LEAD_NOTIFY_EMAILS.join(',');
+  console.log('=== HOT LEAD HANDOFF ===');
+  console.log(`To: ${toList}`);
   console.log(`Lead: ${lead.firstName} ${lead.lastName} <${lead.email}>`);
   console.log(`Property: ${lead.property}`);
   console.log(`Sentiment: ${lead.sentiment} — ${lead.summary}`);
   console.log('========================');
 
-  // Send Frank a notification email via Instantly test email API
   try {
     const res = await fetch(`${INSTANTLY_API}/emails/test`, {
       method: 'POST',
@@ -101,12 +150,12 @@ async function notifyFrank(lead: {
       },
       body: JSON.stringify({
         eaccount: 'info@econstructllc.com',
-        to_address_email_list: FRANK_EMAIL,
-        subject: `Warm Lead: ${lead.firstName} ${lead.lastName} at ${lead.property || 'property'} — replied interested`,
+        to_address_email_list: toList,
+        subject: `Hot Lead: ${lead.firstName} ${lead.lastName} at ${lead.property || 'property'} — replied interested`,
         body: {
           html: `
             <div style="font-family:Arial,sans-serif;max-width:600px;">
-              <h2 style="color:#B8860B;">Warm Lead Alert</h2>
+              <h2 style="color:#B8860B;">Hot Lead Alert</h2>
               <p><strong>${lead.firstName} ${lead.lastName}</strong> replied to our outreach and the AI classified them as <strong style="color:green;">${lead.sentiment}</strong>.</p>
               <div style="background:#f5f5f0;padding:16px;border-radius:8px;margin:16px 0;border-left:4px solid #B8860B;">
                 <p style="margin:0;font-style:italic;">"${lead.replyText.slice(0, 500)}"</p>
@@ -124,19 +173,18 @@ async function notifyFrank(lead: {
       }),
     });
     const data = await res.json();
-    console.log('Frank notification sent:', data);
+    console.log('Hot lead notification sent:', data);
   } catch (err) {
-    console.error('Failed to notify Frank:', err);
+    console.error('Failed to send hot lead notification:', err);
   }
 
-  // Store handoff event in Supabase
   const supabase = getSupabase();
   if (supabase) {
     await supabase.from('lead_events').insert([{
       lead_email: lead.email,
-      event_type: 'handoff_to_frank',
+      event_type: 'handoff_hot_lead',
       payload: {
-        frank_email: FRANK_EMAIL,
+        notify_emails: HOT_LEAD_NOTIFY_EMAILS,
         sentiment: lead.sentiment,
         summary: lead.summary,
         reply_preview: lead.replyText.slice(0, 500),
@@ -163,6 +211,11 @@ export async function POST(req: NextRequest) {
     const lastName = payload.last_name || payload.lead_last_name || '';
     const phone = payload.phone || '';
     const property = payload.variables?.property || payload.custom_variables?.property || '';
+    const partnerLeadId =
+      payload.variables?.crm_partner_id ||
+      payload.custom_variables?.crm_partner_id ||
+      payload.lead?.custom_variables?.crm_partner_id ||
+      '';
 
     // Log every event to Supabase
     const supabase = getSupabase();
@@ -196,9 +249,17 @@ export async function POST(req: NextRequest) {
         }]);
       }
 
-      // If interested → handoff to Frank
+      if (supabase && partnerLeadId) {
+        await createPartnerReplyTask(supabase, partnerLeadId, {
+          sentiment: classification.sentiment,
+          summary: classification.summary,
+          replyText,
+        });
+      }
+
+      // If interested → hot lead handoff to marketing + Frank
       if (classification.sentiment === 'interested') {
-        await notifyFrank({
+        await notifyHotLead({
           email: leadEmail,
           firstName,
           lastName,
