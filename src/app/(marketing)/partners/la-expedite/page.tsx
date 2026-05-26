@@ -343,7 +343,7 @@ export default function LAExpeditePartnerPage() {
                 <ShieldCheck className="mt-0.5 h-5 w-5 text-accent-gold" />
                 <div className="text-sm">
                   <p className="font-bold text-white">Licensed & Insured</p>
-                  <p>{COMPANY.license.display} — Fully bonded GC in California.</p>
+                  <p>{COMPANY.license.display} — Fully bonded and insured GC in California.</p>
                 </div>
               </div>
             </div>

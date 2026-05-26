@@ -10,7 +10,7 @@ export const COMPANY = {
     display: "(310) 740-9999",
     displaySecondary: "(310) 740-9999",
   },
-  email: "info@econstructhomes.com",
+  email: "info@econstructinc.com",
   address: {
     street: "25350 Magic Mountain Pkwy",
     suite: "Ste. 300",
@@ -31,9 +31,9 @@ export const COMPANY = {
     youtube: "https://youtube.com/@econstructinc",
   },
   team: {
-    owner: { name: "Frank Neimroozi", title: "Owner & President", email: "frank@econstructhomes.com" },
-    vpAdmin: { name: "Katie Krueger", title: "VP Administration", email: "katie@econstructhomes.com" },
-    operations: { name: "Robyn Ellis", title: "Operations", email: "robyn@econstructhomes.com" },
+    owner: { name: "Frank Neimroozi", title: "Owner & President", email: "frank@econstructinc.com" },
+    vpAdmin: { name: "Katie Krueger", title: "VP Administration", email: "katie@econstructinc.com" },
+    operations: { name: "Robyn Ellis", title: "Operations", email: "robyn@econstructinc.com" },
   },
   credentials: [
     "CA License #964015",

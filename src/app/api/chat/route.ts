@@ -12,7 +12,7 @@ You help website visitors learn about eConstruct's services, answer questions ab
 - Licensed General Contractor: CA License #964015
 - NAHB Member, USGBC Member
 - Phone: (310) 740-9999
-- Email: info@econstructhomes.com
+- Email: info@econstructinc.com
 - Website: econstructhomes.com
 
 ## Services
