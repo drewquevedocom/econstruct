@@ -364,10 +364,11 @@ export default function LAExpeditePartnerPage() {
             <p className="text-xs font-bold uppercase tracking-[0.28em] text-accent-gold">
               Visit Our Office
             </p>
-            <p className="mt-2 font-bold text-brand-dark">{COMPANY.address.street}</p>
+            <p className="mt-2 font-bold text-brand-dark">
+              {COMPANY.address.street} {COMPANY.address.suite}
+            </p>
             <p className="text-sm text-body-text">
-              {COMPANY.address.suite}, {COMPANY.address.city}, {COMPANY.address.state}{" "}
-              {COMPANY.address.zip}
+              {COMPANY.address.city}, {COMPANY.address.state} {COMPANY.address.zip}
             </p>
           </div>
           <div>
