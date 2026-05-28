@@ -25,6 +25,18 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  async redirects() {
+    return [
+      {
+        // Renamed 2026-05-28: client (Frank) wants "insurance adjuster" targeting,
+        // not "public adjuster". Permanent 308 redirect preserves any existing
+        // backlinks / bookmarks to the old URL.
+        source: "/for-public-adjusters",
+        destination: "/for-insurance-adjusters",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -19,10 +19,10 @@ import Button from "@/components/ui/Button";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "For Public Adjusters — Partner with econstruct",
+  title: "For Insurance Adjusters — Partner with econstruct",
   description:
     "Partner with LA's fastest fire rebuild team. Your clients get priority scheduling, free scope validation reports, and a builder who makes your work look brilliant.",
-  path: "/for-public-adjusters",
+  path: "/for-insurance-adjusters",
   noIndex: true,
 });
 
@@ -37,7 +37,7 @@ const valueProps = [
     icon: CalendarClock,
     title: "Priority Scheduling",
     description:
-      "PA referrals jump to the front of our queue. Your clients break ground faster, which means faster claim resolution and stronger relationships.",
+      "Adjuster referrals jump to the front of our queue. Your clients break ground faster, which means faster claim resolution and stronger relationships.",
   },
   {
     icon: Phone,
@@ -75,7 +75,7 @@ const stats = [
   { value: "WUI", label: "Certified", icon: ShieldCheck },
 ];
 
-export default function ForPublicAdjustersPage() {
+export default function ForInsuranceAdjustersPage() {
   return (
     <>
       <PageHero
@@ -87,8 +87,8 @@ export default function ForPublicAdjustersPage() {
       <section className="py-24 md:py-32">
         <Container>
           <SectionHeader
-            badge={["PA Partnership"]}
-            title="Why Public Adjusters Choose econstruct"
+            badge={["Adjuster Partnership"]}
+            title="Why Insurance Adjusters Choose econstruct"
             subtitle="We make your job easier and your clients happier. Here's how."
           />
 
@@ -185,10 +185,10 @@ export default function ForPublicAdjustersPage() {
               <SectionHeader
                 badge={["Get Started"]}
                 title="Become a Partner"
-                subtitle="Join the growing network of public adjusters who trust econstruct to deliver for their clients. No contracts, no obligations — just results."
+                subtitle="Join the growing network of insurance adjusters who trust econstruct to deliver for their clients. No contracts, no obligations — just results."
               />
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Button href="/contact?source=public-adjuster" variant="primary" size="lg">
+                <Button href="/contact?source=insurance-adjuster" variant="primary" size="lg">
                   Partner With Us
                 </Button>
                 <Button href={`tel:${COMPANY.phone.primary.replace(/-/g, "")}`} variant="secondary" size="lg">

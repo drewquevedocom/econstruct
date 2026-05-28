@@ -148,7 +148,7 @@ const CRM_EMAIL_CAMPAIGNS = [
   {
     "id": "C3 \u2014 REFERRAL PARTNER OUT",
     "title": "REFERRAL PARTNER OUTREACH",
-    "summary": "Target: Realtors, architects, insurance agents, public adjusters, interior designers in the LA area   |   Trigger: Added manually after meeting or referral conversation",
+    "summary": "Target: Realtors, architects, insurance agents, insurance adjusters, interior designers in the LA area   |   Trigger: Added manually after meeting or referral conversation",
     "emails": [
       {
         "sequence": "1",
@@ -158,7 +158,7 @@ const CRM_EMAIL_CAMPAIGNS = [
         "subjectC": "A partnership that makes sense for both of us",
         "previewText": "We're building a referral network with the best in the business.",
         "purpose": "Warm intro \u2014 establish mutual value and propose a conversation.",
-        "body": "Hi [First Name],\n\nI'm Frank Neimroozi with econstruct Homes \u2014 we're a licensed GC specializing in luxury remodels and fire rebuilds on the West Side.\n\nWe're building out a referral network with the best professionals in the LA market \u2014 realtors, architects, designers, insurance agents, and public adjusters \u2014 people who are seeing the same clients we are.\n\nThe idea is simple: when your clients need a contractor, you send them to us. When our clients need your services, we send them to you. No fees, no contracts \u2014 just good business between trusted professionals.\n\nWould you be open to a 15-minute call to see if there's a fit?\n\n[BOOK A QUICK INTRO CALL]\n\nBest,\nFrank Neimroozi\neconstruct Inc.\nLicense: CA #964015\nPhone: (661) 299-9836\nWebsite: econstructhomes.com",
+        "body": "Hi [First Name],\n\nI'm Frank Neimroozi with econstruct Homes \u2014 we're a licensed GC specializing in luxury remodels and fire rebuilds on the West Side.\n\nWe're building out a referral network with the best professionals in the LA market \u2014 realtors, architects, designers, insurance agents, and insurance adjusters \u2014 people who are seeing the same clients we are.\n\nThe idea is simple: when your clients need a contractor, you send them to us. When our clients need your services, we send them to you. No fees, no contracts \u2014 just good business between trusted professionals.\n\nWould you be open to a 15-minute call to see if there's a fit?\n\n[BOOK A QUICK INTRO CALL]\n\nBest,\nFrank Neimroozi\neconstruct Inc.\nLicense: CA #964015\nPhone: (661) 299-9836\nWebsite: econstructhomes.com",
         "cta": "Book a Quick Intro Call \u2192 [scheduling link]",
         "status": "Draft",
         "notes": "changes made 04-12-26"

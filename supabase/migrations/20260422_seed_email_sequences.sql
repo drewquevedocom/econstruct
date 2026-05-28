@@ -207,7 +207,7 @@ ON CONFLICT (sequence_id, step_number) DO NOTHING;
 -- REFERRAL PARTNER OUTREACH
 WITH seq_referral_partner_outreach AS (
   INSERT INTO email_sequences (name, description, is_active)
-  VALUES ('REFERRAL PARTNER OUTREACH', 'Target: Realtors, architects, insurance agents, public adjusters, interior designers in the LA area   |   Trigger: Added manually after meeting or referral conversation', true)
+  VALUES ('REFERRAL PARTNER OUTREACH', 'Target: Realtors, architects, insurance agents, insurance adjusters, interior designers in the LA area   |   Trigger: Added manually after meeting or referral conversation', true)
   ON CONFLICT DO NOTHING
   RETURNING id
 )
@@ -217,7 +217,7 @@ VALUES
 
 I''m Frank Neimroozi with econstruct Homes — we''re a licensed GC specializing in luxury remodels and fire rebuilds on the West Side.
 
-We''re building out a referral network with the best professionals in the LA market — realtors, architects, designers, insurance agents, and public adjusters — people who are seeing the same clients we are.
+We''re building out a referral network with the best professionals in the LA market — realtors, architects, designers, insurance agents, and insurance adjusters — people who are seeing the same clients we are.
 
 The idea is simple: when your clients need a contractor, you send them to us. When our clients need your services, we send them to you. No fees, no contracts — just good business between trusted professionals.
 
