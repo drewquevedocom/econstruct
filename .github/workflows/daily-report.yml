@@ -1,0 +1,21 @@
+name: Daily CRM Report
+
+on:
+  schedule:
+    # 15:00 UTC Mon-Fri = 8:00 AM PT (PDT) / 7:00 AM PT (PST).
+    # Frank reads it with morning coffee. Skipping weekends — no new motion to report.
+    - cron: '0 15 * * 1-5'
+  workflow_dispatch:
+
+jobs:
+  send-report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Trigger daily-report agent
+        run: |
+          curl -sf -X POST "https://econstructhomes.com/api/agents/daily-report" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            -H "Content-Type: application/json" \
+            --max-time 60
+        continue-on-error: true
