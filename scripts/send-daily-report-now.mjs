@@ -49,8 +49,21 @@ function fmtShort(iso) {
 
 async function buildReport() {
   const now = new Date();
+  const todayPT = ymdInPT(now);
   const yesterdayCutoff = new Date(now.getTime() - 24 * 3600 * 1000).toISOString();
   const c = (q) => q.then((r) => r.count ?? 0);
+
+  // HERO: cold emails sent today (partner enrollments)
+  const { data: sentTodayRows } = await supabase
+    .from("partner_leads")
+    .select("partner_type")
+    .eq("last_contact_date", todayPT);
+  const byType = {};
+  for (const row of sentTodayRows ?? []) {
+    const t = String(row.partner_type ?? "Other");
+    byType[t] = (byType[t] ?? 0) + 1;
+  }
+  const coldEmailsSentToday = sentTodayRows?.length ?? 0;
 
   const [enrolled, replies, interested, newPartners, newPermits, enriched] = await Promise.all([
     c(supabase.from("lead_activities").select("id", { count: "exact", head: true }).eq("type", "campaign_enrolled").eq("channel", "instantly").gte("created_at", yesterdayCutoff)),
@@ -84,7 +97,8 @@ async function buildReport() {
   ]);
 
   return {
-    date: ymdInPT(now),
+    date: todayPT,
+    hero: { coldEmailsSentToday, byType },
     yesterday: {
       coldEmailsEnrolled: enrolled,
       repliesReceived: replies,
@@ -116,18 +130,19 @@ async function buildReport() {
 }
 
 function recommendation(report) {
+  const h = report.hero;
   const y = report.yesterday;
   const s = report.snapshot;
   if (y.agentRunsFailed > 0)
     return { tone: "act", title: `${y.agentRunsFailed} agent run${y.agentRunsFailed === 1 ? "" : "s"} failed in the last 24h.`, body: "Check the failures section below. The system held off on sending to avoid bad data — once the failure is resolved, partners will auto-enroll on the next cron." };
-  if (y.coldEmailsEnrolled === 0 && s.partnersNewLead > 0)
-    return { tone: "act", title: `${s.partnersNewLead} partners ready to send — but no enrollments in 24h.`, body: "Likely the Instantly campaign is paused or the API key isn't deployed. Resume the campaign in Instantly and trigger the partner-enroll agent." };
-  if (y.coldEmailsEnrolled > 0 && y.repliesReceived === 0 && y.coldEmailsEnrolled >= 50)
-    return { tone: "watch", title: `${y.coldEmailsEnrolled} emails out, no replies yet.`, body: "Normal for the first 24-48h. Watch reply rate after day 3. If still 0 by day 5, audit copy or sender reputation." };
+  if (h.coldEmailsSentToday === 0 && s.partnersNewLead > 0)
+    return { tone: "act", title: `${s.partnersNewLead} partners ready to send — but no enrollments today.`, body: "Likely a campaign is paused or a secret isn't deployed. Resume campaigns in Instantly and trigger the partner-enroll agent." };
+  if (h.coldEmailsSentToday >= 50 && y.repliesReceived === 0)
+    return { tone: "watch", title: `${h.coldEmailsSentToday} emails out, no replies yet.`, body: "Normal for the first 24-48h. Watch reply rate after day 3. If still 0 by day 5, audit copy or sender reputation." };
   if (y.interestedReplies > 0)
     return { tone: "good", title: `${y.interestedReplies} interested ${y.interestedReplies === 1 ? "reply" : "replies"} yesterday.`, body: "Follow-up tasks are in the CRM dashboard. Hot-lead alerts were sent to marketing@ and frank@ as they came in." };
-  if (y.coldEmailsEnrolled > 0)
-    return { tone: "good", title: `${y.coldEmailsEnrolled} cold emails enrolled yesterday.`, body: `Currently ramping. ${s.partnersNewLead} more partners queued for the next sends.` };
+  if (h.coldEmailsSentToday > 0)
+    return { tone: "good", title: `${h.coldEmailsSentToday} cold emails sent today.`, body: `Sending across 3 warmed mailboxes into 4 segmented partner campaigns. ${s.partnersNewLead} more partners queued for the next sends.` };
   return { tone: "watch", title: "Quiet day — no sends, no replies.", body: "Systems healthy. Add more leads or resume campaign to keep volume flowing." };
 }
 
@@ -164,6 +179,11 @@ function renderHtml(report) {
       <tr><td style="background:#1C1C1E;padding:24px 28px;">
         <p style="margin:0;font-size:11px;font-weight:bold;letter-spacing:0.22em;text-transform:uppercase;color:#D4B96A;">econstruct CRM · Daily Report</p>
         <h1 style="margin:6px 0 0 0;font-size:24px;font-weight:900;color:#FFF8E7;line-height:1.2;">${fmtDate(report.date)}</h1>
+      </td></tr>
+      <tr><td style="background:#1C1C1E;padding:32px 28px 40px 28px;text-align:center;border-top:1px solid #2B2B2D;">
+        <p style="margin:0;font-size:12px;font-weight:bold;letter-spacing:0.28em;text-transform:uppercase;color:#D4B96A;">Cold Emails Sent Today</p>
+        <p style="margin:8px 0 0 0;font-size:84px;font-weight:900;line-height:1;color:#FFF8E7;font-variant-numeric:tabular-nums;letter-spacing:-2px;">${report.hero.coldEmailsSentToday.toLocaleString()}</p>
+        ${Object.keys(report.hero.byType).length ? `<p style="margin:14px 0 0 0;font-size:13px;color:#F2E8C9;line-height:1.6;">${Object.entries(report.hero.byType).map(([t, n]) => `<span style="display:inline-block;margin:0 8px;"><strong style="color:#FFF8E7;">${n}</strong> ${t.replace(/ \/ .*/, "")}</span>`).join("·")}</p>` : `<p style="margin:14px 0 0 0;font-size:13px;color:#8a8079;">No partner enrollments today yet.</p>`}
       </td></tr>
       <tr><td style="padding:20px 28px 4px 28px;">
         <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:${recBg};border-left:4px solid ${recColor};border-radius:6px;">
