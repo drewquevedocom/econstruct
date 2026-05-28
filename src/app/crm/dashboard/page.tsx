@@ -60,7 +60,6 @@ function formatWhen(date: string) {
 function statusPill(status: string | null) {
   if (status === "success") return "bg-green-50 text-green-700";
   if (status === "running") return "bg-amber-50 text-amber-700";
-  if (status === "interrupted") return "bg-gray-100 text-gray-600";
   return "bg-red-50 text-red-600";
 }
 

@@ -97,8 +97,14 @@ export async function buildDailyReport(): Promise<DailyReportData> {
   const runs = runsRes.data ?? [];
   // Stale-timeout cleanups aren't real failures — they're rows left in 'running'
   // by Worker-timeout-truncated executions. Filter them so Frank only sees real errors.
+  // Match both the current STALE_TIMEOUT prefix and the legacy "stale running timeout"
+  // string so historical rows from older code are also classified as noise.
   const isStaleTimeout = (errs: unknown) =>
-    Array.isArray(errs) && errs.some((e) => String(e).includes("stale running timeout"));
+    Array.isArray(errs) &&
+    errs.some((e) => {
+      const s = String(e);
+      return s.includes("STALE_TIMEOUT") || s.includes("stale running timeout");
+    });
   const failedRuns = runs.filter((r) => r.status === "failed" && !isStaleTimeout(r.errors));
   const staleRuns = runs.filter((r) => r.status === "failed" && isStaleTimeout(r.errors));
 

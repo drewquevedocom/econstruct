@@ -62,7 +62,12 @@ async function buildReport() {
   ]);
 
   const { data: runs } = await supabase.from("agent_runs").select("agent_name, status, started_at, errors").gte("started_at", yesterdayCutoff).order("started_at", { ascending: false });
-  const failedRuns = (runs ?? []).filter((r) => r.status === "failed");
+  // Filter out stale-timeout noise (Worker wall-clock cleanups, not real failures).
+  const isStale = (errs) => Array.isArray(errs) && errs.some((e) => {
+    const s = String(e);
+    return s.includes("STALE_TIMEOUT") || s.includes("stale running timeout");
+  });
+  const failedRuns = (runs ?? []).filter((r) => r.status === "failed" && !isStale(r.errors));
 
   const { data: activity } = await supabase.from("lead_activities").select("type, channel, created_at").gte("created_at", yesterdayCutoff).order("created_at", { ascending: false }).limit(10);
 

@@ -18,15 +18,16 @@ async function createAgentRun(agentName: string): Promise<string> {
   const staleBefore = new Date(Date.now() - 15 * 60 * 1000).toISOString();
   // Stale 'running' rows are agents whose Cloudflare Worker was killed at the 30s
   // wall-clock limit before they could mark themselves complete. The work likely
-  // partially succeeded; the bookkeeping just got truncated. Mark these as
-  // 'interrupted' so the daily report and dashboards don't surface them as real
-  // failures — they're operational noise, not data errors.
+  // partially succeeded; the bookkeeping just got truncated. We mark them 'failed'
+  // (the only DB-allowed terminal state besides 'success'/'partial') with a
+  // distinct STALE_TIMEOUT prefix so the daily report and dashboards can filter
+  // these operational-noise rows out from real data errors.
   await supabase
     .from("agent_runs")
     .update({
-      status: "interrupted",
+      status: "failed",
       ended_at: new Date().toISOString(),
-      errors: ["Marked interrupted after stale running timeout (Worker wall-clock)"],
+      errors: ["STALE_TIMEOUT: Worker wall-clock exceeded before agent finished bookkeeping"],
     })
     .eq("status", "running")
     .lt("started_at", staleBefore);
