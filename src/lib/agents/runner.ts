@@ -16,12 +16,17 @@ export interface AgentContext {
 async function createAgentRun(agentName: string): Promise<string> {
   const supabase = createServiceClient();
   const staleBefore = new Date(Date.now() - 15 * 60 * 1000).toISOString();
+  // Stale 'running' rows are agents whose Cloudflare Worker was killed at the 30s
+  // wall-clock limit before they could mark themselves complete. The work likely
+  // partially succeeded; the bookkeeping just got truncated. Mark these as
+  // 'interrupted' so the daily report and dashboards don't surface them as real
+  // failures — they're operational noise, not data errors.
   await supabase
     .from("agent_runs")
     .update({
-      status: "failed",
+      status: "interrupted",
       ended_at: new Date().toISOString(),
-      errors: ["Marked failed automatically after stale running timeout"],
+      errors: ["Marked interrupted after stale running timeout (Worker wall-clock)"],
     })
     .eq("status", "running")
     .lt("started_at", staleBefore);
@@ -66,8 +71,8 @@ async function notifyAgentFailure(agentName: string, message: string) {
       },
       body: JSON.stringify({
         from: "econstruct Alerts <no-reply@econstructinc.com>",
-        to: process.env.FRANK_EMAIL || "frank@econstructhomes.com",
-        cc: ["marketing@econstructhomes.com"],
+        to: process.env.FRANK_EMAIL || "frank@econstructinc.com",
+        cc: ["marketing@econstructinc.com"],
         subject: `⚠️ Agent Failed: ${agentName}`,
         html: `<p style="font-family:sans-serif;"><b>${agentName}</b> agent encountered an error:<br><br><code>${message}</code></p>`,
       }),

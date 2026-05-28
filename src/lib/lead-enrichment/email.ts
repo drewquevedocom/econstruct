@@ -239,6 +239,25 @@ async function fetchCandidates(leadIds?: string[]) {
 }
 
 export async function enrichLeadEmails(leadIds?: string[]): Promise<EmailEnrichmentResult> {
+  // Fast-skip when neither residential email provider is configured. The pivot
+  // off fire-victim direct email means we don't expect either key in normal
+  // operation, and looping through 25 candidates × 2 providers × ~6 DB ops
+  // each was overflowing the Cloudflare 30s Worker limit and producing zombie
+  // stale-running rows. Remove this guard if/when Drew adds a Melissa/PDL key.
+  const hasMelissa = Boolean(process.env.MELISSA_LICENSE_KEY || process.env.MELISSA_API_KEY);
+  const hasPdl = Boolean(process.env.PEOPLE_DATA_LABS_API_KEY || process.env.PDL_API_KEY);
+  if (!hasMelissa && !hasPdl) {
+    return {
+      records_pulled: 0,
+      records_updated: 0,
+      errors: [],
+      metadata: {
+        skipped: 0,
+        providers: { melissa: providerCounts(), pdl: providerCounts() },
+      },
+    };
+  }
+
   const candidates = await fetchCandidates(leadIds);
   const errors: string[] = [];
   const providers: EmailEnrichmentResult["metadata"]["providers"] = {

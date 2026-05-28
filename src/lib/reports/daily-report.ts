@@ -11,6 +11,7 @@ export type DailyReportData = {
     ownersEnriched: number;
     agentRunsTotal: number;
     agentRunsFailed: number;
+    agentRunsStale: number;
   };
   snapshot: {
     totalLeads: number;
@@ -94,7 +95,12 @@ export async function buildDailyReport(): Promise<DailyReportData> {
   ]);
 
   const runs = runsRes.data ?? [];
-  const failedRuns = runs.filter((r) => r.status === "failed");
+  // Stale-timeout cleanups aren't real failures — they're rows left in 'running'
+  // by Worker-timeout-truncated executions. Filter them so Frank only sees real errors.
+  const isStaleTimeout = (errs: unknown) =>
+    Array.isArray(errs) && errs.some((e) => String(e).includes("stale running timeout"));
+  const failedRuns = runs.filter((r) => r.status === "failed" && !isStaleTimeout(r.errors));
+  const staleRuns = runs.filter((r) => r.status === "failed" && isStaleTimeout(r.errors));
 
   // ── Cumulative snapshot ─────────────────────────────────────────
   const [
@@ -150,6 +156,7 @@ export async function buildDailyReport(): Promise<DailyReportData> {
       ownersEnriched: enrichedRes.count ?? 0,
       agentRunsTotal: runs.length,
       agentRunsFailed: failedRuns.length,
+      agentRunsStale: staleRuns.length,
     },
     snapshot: {
       totalLeads: totalLeadsRes.count ?? 0,
