@@ -5,9 +5,21 @@ export const maxDuration = 60;
 
 const INSTANTLY_API = "https://api.instantly.ai/api/v2";
 
-// Map our partner_type → which Instantly campaign template variant should be used.
-// Instantly's per-lead campaign assignment supports custom variables — the campaign
-// itself uses A/B variants based on the partner_type sent through.
+// Each partner_type routes to its own segmented Instantly campaign so the
+// architect sequence goes to architects, adjuster sequence to adjusters, etc.
+// Cloudflare secrets hold the campaign UUIDs. INSTANTLY_PARTNER_CAMPAIGN_ID
+// is kept as a fallback for any partner_type that doesn't have a dedicated
+// secret set yet.
+function campaignForType(type: string): string | undefined {
+  const map: Record<string, string | undefined> = {
+    Architect: process.env.INSTANTLY_PARTNER_CAMPAIGN_ARCHITECT,
+    "Realtor / Real Estate Agent": process.env.INSTANTLY_PARTNER_CAMPAIGN_REALTOR,
+    "Insurance Agent / Adjuster": process.env.INSTANTLY_PARTNER_CAMPAIGN_ADJUSTER,
+    "Expediter / Permit Runner": process.env.INSTANTLY_PARTNER_CAMPAIGN_EXPEDITER,
+  };
+  return map[type] || process.env.INSTANTLY_PARTNER_CAMPAIGN_ID;
+}
+
 const TEMPLATE_KEY_BY_TYPE: Record<string, string> = {
   Architect: "architect_cold_intro",
   "Realtor / Real Estate Agent": "realtor_cold_intro",
@@ -62,19 +74,26 @@ export async function POST(req: Request) {
   }
 
   const result = await runAgent("partner-enroll", async () => {
-    const campaignId = process.env.INSTANTLY_PARTNER_CAMPAIGN_ID;
-    if (!campaignId) {
+    // We allow per-type campaigns; require at least one to be configured.
+    const anyCampaignConfigured =
+      process.env.INSTANTLY_PARTNER_CAMPAIGN_ARCHITECT ||
+      process.env.INSTANTLY_PARTNER_CAMPAIGN_REALTOR ||
+      process.env.INSTANTLY_PARTNER_CAMPAIGN_ADJUSTER ||
+      process.env.INSTANTLY_PARTNER_CAMPAIGN_EXPEDITER ||
+      process.env.INSTANTLY_PARTNER_CAMPAIGN_ID;
+    if (!anyCampaignConfigured) {
       return {
         records_pulled: 0,
         records_updated: 0,
-        metadata: { skipped: true, reason: "INSTANTLY_PARTNER_CAMPAIGN_ID not set" },
+        metadata: {
+          skipped: true,
+          reason: "No INSTANTLY_PARTNER_CAMPAIGN_* env vars set (need at least one type-specific or fallback)",
+        },
       };
     }
 
     const supabase = createServiceClient();
 
-    // Pull "New Lead" partners with a contact email — these haven't been sent to yet.
-    // Status flips to "Contacted" after enroll, so they won't be picked up again.
     const { data: partners, error } = await supabase
       .from("partner_leads")
       .select(
@@ -90,6 +109,8 @@ export async function POST(req: Request) {
     }
 
     let enrolled = 0;
+    const skippedNoCampaign: string[] = [];
+    const enrolledByCampaign: Record<string, number> = {};
     const errors: string[] = [];
     const today = new Date().toISOString().slice(0, 10);
     const nowIso = new Date().toISOString();
@@ -97,6 +118,12 @@ export async function POST(req: Request) {
     for (const p of partners) {
       try {
         if (!p.contact_email) continue;
+
+        const campaignId = campaignForType(p.partner_type);
+        if (!campaignId) {
+          skippedNoCampaign.push(`${p.id} (type=${p.partner_type})`);
+          continue;
+        }
 
         const firstName = firstWord(p.partner_name);
         const lastName = restWords(p.partner_name);
@@ -136,6 +163,7 @@ export async function POST(req: Request) {
         });
 
         enrolled++;
+        enrolledByCampaign[campaignId] = (enrolledByCampaign[campaignId] || 0) + 1;
       } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
         errors.push(`partner ${p.id}: ${message}`);
@@ -146,7 +174,10 @@ export async function POST(req: Request) {
       records_pulled: partners.length,
       records_updated: enrolled,
       errors,
-      metadata: { campaign_id: campaignId },
+      metadata: {
+        enrolledByCampaign,
+        skippedNoCampaign,
+      },
     };
   });
 
