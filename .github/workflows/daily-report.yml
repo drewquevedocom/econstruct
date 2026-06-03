@@ -2,9 +2,10 @@ name: Daily CRM Report
 
 on:
   schedule:
-    # 15:00 UTC Mon-Fri = 8:00 AM PT (PDT) / 7:00 AM PT (PST).
-    # Frank reads it with morning coffee. Skipping weekends — no new motion to report.
-    - cron: '0 15 * * 1-5'
+    # 00:05 UTC Tue-Sat = 5:05 PM PT (PDT) Mon-Fri.
+    # End-of-business send so Frank/Drew/Katie see the full day's send count
+    # before logging off. Skipping weekends — no new motion to report.
+    - cron: '5 0 * * 2-6'
   workflow_dispatch:
 
 jobs:

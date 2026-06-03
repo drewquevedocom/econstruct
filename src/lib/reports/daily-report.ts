@@ -442,10 +442,13 @@ export function renderDailyReportHtml(report: DailyReportData): string {
 </html>`;
 }
 
-export async function sendDailyReport(recipients: string[]) {
+export async function sendDailyReport(
+  toRecipients: string[],
+  ccRecipients: string[] = []
+) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) throw new Error("RESEND_API_KEY not set");
-  if (!recipients.length) throw new Error("No recipients provided");
+  if (!toRecipients.length) throw new Error("No TO recipients provided");
 
   const report = await buildDailyReport();
   const html = renderDailyReportHtml(report);
@@ -454,18 +457,21 @@ export async function sendDailyReport(recipients: string[]) {
     day: "numeric",
   });
 
+  const payload: Record<string, unknown> = {
+    from: process.env.DAILY_REPORT_FROM || "econstruct CRM <onboarding@resend.dev>",
+    to: toRecipients,
+    subject: `econstruct CRM — Daily Report — ${subjectDate}`,
+    html,
+  };
+  if (ccRecipients.length) payload.cc = ccRecipients;
+
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      from: process.env.DAILY_REPORT_FROM || "econstruct CRM <onboarding@resend.dev>",
-      to: recipients,
-      subject: `econstruct CRM — Daily Report — ${subjectDate}`,
-      html,
-    }),
+    body: JSON.stringify(payload),
   });
 
   const body = await res.json();

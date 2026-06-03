@@ -3,18 +3,17 @@ import { sendDailyReport } from "@/lib/reports/daily-report";
 
 export const maxDuration = 60;
 
-const DEFAULT_RECIPIENTS = ["frank@econstructinc.com", "marketing@econstructinc.com"];
+// Hard defaults — used if env vars are unset. Keeps Frank + Drew on TO no matter what.
+const DEFAULT_TO = ["frank@econstructinc.com", "drewquevedo@gmail.com"];
+const DEFAULT_CC = ["katie@econstructinc.com", "marketing@econstructinc.com"];
 
-function recipientsFromEnv(): string[] {
-  const raw =
-    process.env.DAILY_REPORT_RECIPIENTS ||
-    process.env.HOT_LEAD_NOTIFY_EMAILS ||
-    DEFAULT_RECIPIENTS.join(",");
+function parseList(raw: string | undefined, fallback: string[]): string[] {
+  if (!raw) return fallback;
   const list = raw
     .split(",")
     .map((s) => s.trim())
     .filter(Boolean);
-  return list.length ? list : DEFAULT_RECIPIENTS;
+  return list.length ? list : fallback;
 }
 
 export async function POST(req: Request) {
@@ -23,13 +22,15 @@ export async function POST(req: Request) {
   }
 
   const result = await runAgent("daily-report", async () => {
-    const recipients = recipientsFromEnv();
-    const { report, response } = await sendDailyReport(recipients);
+    const to = parseList(process.env.DAILY_REPORT_TO, DEFAULT_TO);
+    const cc = parseList(process.env.DAILY_REPORT_CC, DEFAULT_CC);
+    const { report, response } = await sendDailyReport(to, cc);
     return {
       records_pulled: report.snapshot.totalLeads,
       records_updated: 1,
       metadata: {
-        recipients,
+        to,
+        cc,
         resend_id: response?.id ?? null,
         date: report.date,
         yesterday: report.yesterday,

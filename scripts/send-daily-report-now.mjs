@@ -11,10 +11,21 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 config({ path: join(__dirname, "..", ".env.local") });
 
 const DRY_RUN = process.argv.includes("--dry-run");
-const RECIPIENTS = (process.env.DAILY_REPORT_RECIPIENTS || process.env.HOT_LEAD_NOTIFY_EMAILS || "frank@econstructinc.com,marketing@econstructinc.com")
-  .split(",")
-  .map((s) => s.trim())
-  .filter(Boolean);
+
+function parseList(raw, fallback) {
+  if (!raw) return fallback;
+  const list = String(raw).split(",").map((s) => s.trim()).filter(Boolean);
+  return list.length ? list : fallback;
+}
+
+const TO_LIST = parseList(
+  process.env.DAILY_REPORT_TO,
+  ["frank@econstructinc.com", "drewquevedo@gmail.com"]
+);
+const CC_LIST = parseList(
+  process.env.DAILY_REPORT_CC,
+  ["katie@econstructinc.com", "marketing@econstructinc.com"]
+);
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -237,16 +248,19 @@ async function main() {
   if (!apiKey) throw new Error("RESEND_API_KEY missing");
 
   const subjectDate = new Date(report.date + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" });
-  console.log(`Sending to: ${RECIPIENTS.join(", ")}`);
+  console.log(`Sending TO: ${TO_LIST.join(", ")}`);
+  if (CC_LIST.length) console.log(`CC:        ${CC_LIST.join(", ")}`);
+  const payload = {
+    from: process.env.DAILY_REPORT_FROM || "econstruct CRM <onboarding@resend.dev>",
+    to: TO_LIST,
+    subject: `econstruct CRM — Daily Report — ${subjectDate}`,
+    html,
+  };
+  if (CC_LIST.length) payload.cc = CC_LIST;
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      from: process.env.DAILY_REPORT_FROM || "econstruct CRM <onboarding@resend.dev>",
-      to: RECIPIENTS,
-      subject: `econstruct CRM — Daily Report — ${subjectDate}`,
-      html,
-    }),
+    body: JSON.stringify(payload),
   });
   const body = await res.json();
   if (!res.ok) throw new Error(`Resend ${res.status}: ${JSON.stringify(body)}`);
