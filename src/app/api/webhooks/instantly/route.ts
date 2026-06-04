@@ -141,6 +141,22 @@ async function notifyHotLead(lead: {
   console.log(`Sentiment: ${lead.sentiment} — ${lead.summary}`);
   console.log('========================');
 
+  // Subject + headline reflect the sentiment when available, or just say "Partner Reply" otherwise.
+  const sentimentNorm = (lead.sentiment || 'unknown').toLowerCase();
+  const isInterested = sentimentNorm === 'interested';
+  const isUnknown = sentimentNorm === 'unknown' || sentimentNorm === '';
+  const subjectPrefix = isInterested
+    ? '🔥 HOT LEAD'
+    : isUnknown
+      ? '📬 PARTNER REPLY'
+      : `📬 REPLY (${sentimentNorm})`;
+  const headlineColor = isInterested ? '#0E7C5C' : '#B8963E';
+  const sentimentBadge = isInterested
+    ? `<strong style="color:#0E7C5C;">${lead.sentiment}</strong>`
+    : isUnknown
+      ? `<strong style="color:#B8963E;">AI classification unavailable</strong>`
+      : `<strong style="color:#B8963E;">${lead.sentiment}</strong>`;
+
   try {
     const res = await fetch(`${INSTANTLY_API}/emails/test`, {
       method: 'POST',
@@ -151,14 +167,14 @@ async function notifyHotLead(lead: {
       body: JSON.stringify({
         eaccount: 'info@econstructllc.com',
         to_address_email_list: toList,
-        subject: `Hot Lead: ${lead.firstName} ${lead.lastName} at ${lead.property || 'property'} — replied interested`,
+        subject: `${subjectPrefix}: ${lead.firstName} ${lead.lastName} — ${lead.replyText.slice(0, 60).replace(/\n/g, ' ')}…`,
         body: {
           html: `
             <div style="font-family:Arial,sans-serif;max-width:600px;">
-              <h2 style="color:#B8860B;">Hot Lead Alert</h2>
-              <p><strong>${lead.firstName} ${lead.lastName}</strong> replied to our outreach and the AI classified them as <strong style="color:green;">${lead.sentiment}</strong>.</p>
-              <div style="background:#f5f5f0;padding:16px;border-radius:8px;margin:16px 0;border-left:4px solid #B8860B;">
-                <p style="margin:0;font-style:italic;">"${lead.replyText.slice(0, 500)}"</p>
+              <h2 style="color:${headlineColor};">${subjectPrefix}</h2>
+              <p><strong>${lead.firstName} ${lead.lastName}</strong> replied to our outreach — sentiment: ${sentimentBadge}.</p>
+              <div style="background:#f5f5f0;padding:16px;border-radius:8px;margin:16px 0;border-left:4px solid ${headlineColor};">
+                <p style="margin:0;font-style:italic;">"${lead.replyText.slice(0, 1500)}"</p>
               </div>
               <table style="width:100%;border-collapse:collapse;margin:16px 0;">
                 <tr><td style="padding:6px 12px;font-weight:bold;color:#666;">Email</td><td style="padding:6px 12px;"><a href="mailto:${lead.email}">${lead.email}</a></td></tr>
@@ -166,7 +182,7 @@ async function notifyHotLead(lead: {
                 ${lead.property ? `<tr><td style="padding:6px 12px;font-weight:bold;color:#666;">Property</td><td style="padding:6px 12px;">${lead.property}</td></tr>` : ''}
                 <tr><td style="padding:6px 12px;font-weight:bold;color:#666;">AI Summary</td><td style="padding:6px 12px;">${lead.summary}</td></tr>
               </table>
-              <p style="color:#666;font-size:13px;">This lead was auto-classified by the econstruct AI system. Reply to the lead directly or call them to close.</p>
+              <p style="color:#666;font-size:13px;">Reply directly to the lead's email above. Follow-up task auto-created in <a href="https://econstructhomes.com/crm/partners">/crm/partners</a>.</p>
             </div>
           `,
         },
@@ -251,26 +267,32 @@ export async function POST(req: NextRequest) {
 
       if (supabase && partnerLeadId) {
         await createPartnerReplyTask(supabase, partnerLeadId, {
-          sentiment: classification.sentiment,
-          summary: classification.summary,
+          sentiment: classification.sentiment ?? 'unknown',
+          summary: classification.summary ?? 'AI classification unavailable',
           replyText,
         });
       }
 
-      // If interested → hot lead handoff to marketing + Frank
-      if (classification.sentiment === 'interested') {
-        await notifyHotLead({
-          email: leadEmail,
-          firstName,
-          lastName,
-          phone,
-          property,
-          replyText,
-          sentiment: classification.sentiment,
-          summary: classification.summary,
-        });
+      // Fire the alert on EVERY reply, not just AI-classified-interested ones.
+      // Classification is informative but not a gate: when Claude is down,
+      // rate-limited, or out of credits, we still need Frank + marketing to
+      // see the reply land in their inbox. Better to surface a "not interested"
+      // sometimes than miss a real hot lead because the AI threw 400.
+      await notifyHotLead({
+        email: leadEmail,
+        firstName,
+        lastName,
+        phone,
+        property,
+        replyText,
+        sentiment: classification.sentiment ?? 'unknown',
+        summary:
+          classification.summary ??
+          'AI classification unavailable — check ANTHROPIC_API_KEY credit balance',
+      });
 
-        // Update lead status in Instantly to "interested"
+      // If AI confirmed interested → also flip Instantly's internal lead status.
+      if (classification.sentiment === 'interested') {
         const apiKey = process.env.INSTANTLY_API_KEY;
         if (apiKey && leadEmail && campaignId) {
           await fetch(`${INSTANTLY_API}/leads/status/update`, {
