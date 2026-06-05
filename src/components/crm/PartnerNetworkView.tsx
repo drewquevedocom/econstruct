@@ -64,11 +64,16 @@ type PartnerTask = {
 type PartnerFormState = { error?: string; success?: boolean };
 
 const PARTNER_TYPES = [
-  "Architect",
   "Realtor / Real Estate Agent",
+  "Real Estate Attorney",
+  "Architect",
   "Insurance Agent / Adjuster",
+  "Interior Designer",
   "Expediter / Permit Runner",
-  "General Contractor (subcontract partner)",
+  "CPA / Wealth Advisor",
+  "Escrow Officer",
+  "Structural / Geotech Engineer",
+  "Fire / Water Restoration",
   "HOA / Property Manager",
   "Other",
 ];
@@ -171,9 +176,14 @@ econstructinc.com`,
 const TYPE_COLORS: Record<string, string> = {
   Architect: "bg-blue-50 text-blue-700",
   "Realtor / Real Estate Agent": "bg-green-50 text-green-700",
+  "Real Estate Attorney": "bg-indigo-50 text-indigo-700",
   "Insurance Agent / Adjuster": "bg-orange-50 text-orange-700",
   "Expediter / Permit Runner": "bg-purple-50 text-purple-700",
-  "General Contractor (subcontract partner)": "bg-slate-100 text-slate-700",
+  "Interior Designer": "bg-pink-50 text-pink-700",
+  "CPA / Wealth Advisor": "bg-emerald-50 text-emerald-700",
+  "Escrow Officer": "bg-amber-50 text-amber-700",
+  "Structural / Geotech Engineer": "bg-stone-100 text-stone-700",
+  "Fire / Water Restoration": "bg-rose-50 text-rose-700",
   "HOA / Property Manager": "bg-teal-50 text-teal-700",
   Other: "bg-gray-100 text-gray-700",
 };
@@ -328,7 +338,7 @@ export default function PartnerNetworkView({
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#B8963E]">Partner Network</p>
-          <h1 className="text-2xl font-black text-[#1C1C1E]">Architects, realtors, adjusters, expediters.</h1>
+          <h1 className="text-2xl font-black text-[#1C1C1E]">10 referral channels feeding luxury LA rebuilds + new builds.</h1>
           <p className="mt-1 text-sm text-gray-500">
             Track referral partners from first outreach to signed active agreement.
           </p>

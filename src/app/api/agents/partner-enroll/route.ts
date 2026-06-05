@@ -16,6 +16,12 @@ function campaignForType(type: string): string | undefined {
     "Realtor / Real Estate Agent": process.env.INSTANTLY_PARTNER_CAMPAIGN_REALTOR,
     "Insurance Agent / Adjuster": process.env.INSTANTLY_PARTNER_CAMPAIGN_ADJUSTER,
     "Expediter / Permit Runner": process.env.INSTANTLY_PARTNER_CAMPAIGN_EXPEDITER,
+    "Interior Designer": process.env.INSTANTLY_PARTNER_CAMPAIGN_DESIGNER,
+    "Real Estate Attorney": process.env.INSTANTLY_PARTNER_CAMPAIGN_ATTORNEY,
+    "CPA / Wealth Advisor": process.env.INSTANTLY_PARTNER_CAMPAIGN_CPA,
+    "Escrow Officer": process.env.INSTANTLY_PARTNER_CAMPAIGN_ESCROW,
+    "Structural / Geotech Engineer": process.env.INSTANTLY_PARTNER_CAMPAIGN_ENGINEER,
+    "Fire / Water Restoration": process.env.INSTANTLY_PARTNER_CAMPAIGN_RESTORATION,
   };
   return map[type] || process.env.INSTANTLY_PARTNER_CAMPAIGN_ID;
 }
@@ -25,6 +31,12 @@ const TEMPLATE_KEY_BY_TYPE: Record<string, string> = {
   "Realtor / Real Estate Agent": "realtor_cold_intro",
   "Insurance Agent / Adjuster": "adjuster_fire_rebuild",
   "Expediter / Permit Runner": "expediter_permit_partner",
+  "Interior Designer": "interior_designer_cold",
+  "Real Estate Attorney": "real_estate_attorney_cold",
+  "CPA / Wealth Advisor": "cpa_wealth_cold",
+  "Escrow Officer": "escrow_officer_cold",
+  "Structural / Geotech Engineer": "structural_engineer_cold",
+  "Fire / Water Restoration": "restoration_cold",
 };
 
 async function enrollPartner(params: {

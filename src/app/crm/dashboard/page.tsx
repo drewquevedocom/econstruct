@@ -11,12 +11,19 @@ function ymdInPT(date: Date) {
   return adjusted.toISOString().slice(0, 10);
 }
 
+// Priority order: top 3 (Realtor, Real Estate Attorney, Architect) per Drew's
+// 2026-06-05 directive — biggest leverage on luxury LA new-builds + rebuilds.
 const PARTNER_TYPE_ORDER = [
-  "Architect",
   "Realtor / Real Estate Agent",
+  "Real Estate Attorney",
+  "Architect",
   "Insurance Agent / Adjuster",
+  "Interior Designer",
   "Expediter / Permit Runner",
-  "General Contractor (subcontract partner)",
+  "CPA / Wealth Advisor",
+  "Escrow Officer",
+  "Structural / Geotech Engineer",
+  "Fire / Water Restoration",
   "HOA / Property Manager",
   "Other",
 ];

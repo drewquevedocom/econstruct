@@ -14,14 +14,25 @@
 
 import { readFileSync } from "node:fs";
 import { argv, exit } from "node:process";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
 import { createClient } from "@supabase/supabase-js";
+import { config } from "dotenv";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+config({ path: join(__dirname, "..", ".env.local") });
 
 const KNOWN_PARTNER_TYPES = new Set([
   "Architect",
   "Realtor / Real Estate Agent",
   "Insurance Agent / Adjuster",
   "Expediter / Permit Runner",
-  "General Contractor (subcontract partner)",
+  "Interior Designer",
+  "Real Estate Attorney",
+  "CPA / Wealth Advisor",
+  "Escrow Officer",
+  "Structural / Geotech Engineer",
+  "Fire / Water Restoration",
   "HOA / Property Manager",
   "Other",
 ]);
