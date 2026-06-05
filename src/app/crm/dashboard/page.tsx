@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Calendar, Handshake, Inbox, Send } from "lucide-react";
+import { Calendar, Inbox, Send, Users } from "lucide-react";
 import { createServiceClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
@@ -62,6 +62,7 @@ export default async function DashboardPage() {
     sentTodayRes,
     repliesWeekRes,
     partnersRes,
+    repliedPartnerIdsRes,
     eventsRes,
     newBuildsTotalRes,
     newBuildsMailReadyRes,
@@ -79,6 +80,10 @@ export default async function DashboardPage() {
       .from("partner_leads")
       .select("id, partner_name, company_firm, partner_type, status, contact_email, last_contact_date, updated_at")
       .order("updated_at", { ascending: false }),
+    supabase
+      .from("partner_tasks")
+      .select("partner_lead_id")
+      .like("title", "Review Instantly reply%"),
     supabase
       .from("crm_events")
       .select("id, title, event_date, location, host_org, event_url, audience, notes")
@@ -104,20 +109,25 @@ export default async function DashboardPage() {
   const newBuildsTotal = newBuildsTotalRes.count ?? 0;
   const newBuildsMailReady = newBuildsMailReadyRes.count ?? 0;
 
-  const ACTIVE_STATUSES = new Set(["Contacted", "Agreement Sent", "Active Partner"]);
-  const activePartners = partners.filter((p) => ACTIVE_STATUSES.has(p.status)).length;
+  // Real funnel buckets — honest about what each status means.
+  // "Contacted" = cold-emailed (no reply yet). "Active Partner" = signed and referring.
+  const totalPartners = partners.length;
+  const coldEmailed = partners.filter((p) =>
+    ["Contacted", "Agreement Sent", "Active Partner"].includes(p.status)
+  ).length;
+  const repliedUniqueIds = new Set(
+    (repliedPartnerIdsRes.data ?? []).map((r) => r.partner_lead_id as string)
+  );
+  const repliedCount = repliedUniqueIds.size;
+  const signedPartners = partners.filter((p) => p.status === "Active Partner").length;
 
-  const byType = new Map<string, { total: number; contacted: number }>();
+  const byType = new Map<string, number>();
   for (const p of partners) {
-    const entry = byType.get(p.partner_type) ?? { total: 0, contacted: 0 };
-    entry.total += 1;
-    if (ACTIVE_STATUSES.has(p.status)) entry.contacted += 1;
-    byType.set(p.partner_type, entry);
+    byType.set(p.partner_type, (byType.get(p.partner_type) ?? 0) + 1);
   }
   const typeRows = PARTNER_TYPE_ORDER.map((t) => ({
     type: t,
-    total: byType.get(t)?.total ?? 0,
-    contacted: byType.get(t)?.contacted ?? 0,
+    total: byType.get(t) ?? 0,
   })).filter((r) => r.total > 0);
 
   const recentPartners = partners.slice(0, 5);
@@ -148,10 +158,10 @@ export default async function DashboardPage() {
             accent="emerald"
           />
           <HeroMetric
-            value={activePartners}
-            label="Active Partners"
-            sublabel="Contacted, in-agreement or signed"
-            icon={Handshake}
+            value={coldEmailed}
+            label="Partners Reached"
+            sublabel={`${repliedCount} replied · ${signedPartners} signed yet`}
+            icon={Users}
             accent="sky"
           />
         </div>
@@ -164,7 +174,7 @@ export default async function DashboardPage() {
             <div>
               <h2 className="text-lg font-bold text-[#1C1C1E]">Partner Network</h2>
               <p className="mt-0.5 text-xs text-gray-500">
-                Primary channel · {partners.length} loaded · {activePartners} engaged
+                Primary channel · {totalPartners} loaded · {repliedCount} replied
               </p>
             </div>
             <Link
@@ -186,15 +196,18 @@ export default async function DashboardPage() {
                   className="flex items-center justify-between gap-3 rounded-lg bg-[#FAF9F6] px-3 py-2"
                 >
                   <span className="text-sm font-semibold text-[#1C1C1E]">{r.type}</span>
-                  <div className="flex items-center gap-3 text-xs">
-                    <span className="text-gray-500 tabular-nums">{r.total} loaded</span>
-                    <span className="rounded-full bg-emerald-50 px-2 py-0.5 font-bold text-emerald-700 tabular-nums">
-                      {r.contacted} engaged
-                    </span>
-                  </div>
+                  <span className="text-sm font-black tabular-nums text-[#1C1C1E]">{r.total}</span>
                 </div>
               ))
             )}
+          </div>
+
+          {/* Real funnel — honest about where partners actually sit */}
+          <div className="mt-4 grid grid-cols-4 gap-2 rounded-lg border border-[#E8E4DC] bg-[#FAF9F6] p-3 text-center">
+            <FunnelStat value={totalPartners} label="Loaded" />
+            <FunnelStat value={coldEmailed} label="Cold-Emailed" accent="amber" />
+            <FunnelStat value={repliedCount} label="Replied" accent="emerald" />
+            <FunnelStat value={signedPartners} label="Signed" accent="gold" />
           </div>
 
           {/* Recent partner activity */}
@@ -363,6 +376,31 @@ function EventCard({ event }: { event: EventRow }) {
     );
   }
   return inner;
+}
+
+function FunnelStat({
+  value,
+  label,
+  accent,
+}: {
+  value: number;
+  label: string;
+  accent?: "amber" | "emerald" | "gold";
+}) {
+  const color =
+    accent === "amber"
+      ? "text-amber-700"
+      : accent === "emerald"
+        ? "text-emerald-700"
+        : accent === "gold"
+          ? "text-[#B8963E]"
+          : "text-[#1C1C1E]";
+  return (
+    <div>
+      <p className={`text-xl font-black tabular-nums ${color}`}>{value.toLocaleString()}</p>
+      <p className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-gray-500">{label}</p>
+    </div>
+  );
 }
 
 function QuickLink({ href, label }: { href: string; label: string }) {
