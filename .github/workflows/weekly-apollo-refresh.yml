@@ -53,4 +53,4 @@ jobs:
             echo
           done
 
-          post /api/agents/partner-enroll
+          echo "partner-enroll is handled separately by agent-crons.yml"
