@@ -62,6 +62,146 @@ async function createPartnerReplyTask(
   });
 }
 
+const PARTNER_INTEL_RULES: Array<{ partnerType: string; patterns: RegExp[] }> = [
+  {
+    partnerType: 'Architect',
+    patterns: [/architect/i, /architecture/i, /design studio/i, /design firm/i, /architectural/i],
+  },
+  {
+    partnerType: 'Realtor / Real Estate Agent',
+    patterns: [/realtor/i, /real estate agent/i, /real estate broker/i, /broker/i, /listing agent/i],
+  },
+  {
+    partnerType: 'Insurance Agent / Adjuster',
+    patterns: [/adjuster/i, /insurance agent/i, /claims adjuster/i, /insurance broker/i],
+  },
+  {
+    partnerType: 'Expediter / Permit Runner',
+    patterns: [/expediter/i, /permit runner/i, /permit expeditor/i],
+  },
+  {
+    partnerType: 'Builder / General Contractor',
+    patterns: [/general contractor/i, /builder/i, /gc\b/i, /construction manager/i],
+  },
+  {
+    partnerType: 'Interior Designer',
+    patterns: [/interior designer/i, /interior design/i],
+  },
+  {
+    partnerType: 'Real Estate Attorney',
+    patterns: [/real estate attorney/i, /real estate lawyer/i, /attorney/i],
+  },
+  {
+    partnerType: 'Structural / Geotech Engineer',
+    patterns: [/structural engineer/i, /geotech/i, /civil engineer/i],
+  },
+  {
+    partnerType: 'Fire / Water Restoration',
+    patterns: [/restoration/i, /water damage/i, /fire restoration/i],
+  },
+];
+
+function detectPartnerIntel(text: string) {
+  const haystack = text || '';
+  for (const rule of PARTNER_INTEL_RULES) {
+    if (rule.patterns.some((pattern) => pattern.test(haystack))) {
+      return rule.partnerType;
+    }
+  }
+  return null;
+}
+
+function displayNameFromLead(firstName: string, lastName: string, email: string) {
+  const combined = `${firstName || ''} ${lastName || ''}`.trim();
+  if (combined) return combined;
+  return email.split('@')[0].replace(/[._-]+/g, ' ').trim() || email;
+}
+
+async function upsertPartnerIntelLead(params: {
+  supabase: SupabaseClient;
+  leadEmail: string;
+  firstName: string;
+  lastName: string;
+  partnerType: string;
+  replyText: string;
+  summary: string;
+}) {
+  const today = new Date().toISOString().slice(0, 10);
+  const nowIso = new Date().toISOString();
+  const displayName = displayNameFromLead(params.firstName, params.lastName, params.leadEmail);
+  const notesLine = `${today}: inbound email intel suggested ${params.partnerType}. ${params.summary} Reply preview: ${params.replyText.slice(0, 300)}`;
+
+  const { data: existing, error: lookupError } = await params.supabase
+    .from('partner_leads')
+    .select('id, notes, status, partner_type')
+    .eq('contact_email', params.leadEmail)
+    .maybeSingle();
+
+  if (lookupError) {
+    throw new Error(`Partner intel lookup failed: ${lookupError.message}`);
+  }
+
+  if (existing?.id) {
+    const notes = [existing.notes, notesLine].filter(Boolean).join('\n');
+    const updates: Record<string, string> = {
+      status: existing.status === 'Active Partner' ? existing.status : 'Contacted',
+      last_contact_date: today,
+      next_follow_up_date: today,
+      notes,
+      updated_at: nowIso,
+    };
+
+    if (!existing.partner_type || existing.partner_type === 'Other') {
+      updates.partner_type = params.partnerType;
+    }
+
+    const { error } = await params.supabase.from('partner_leads').update(updates).eq('id', existing.id);
+    if (error) throw new Error(`Partner intel update failed: ${error.message}`);
+
+    await params.supabase.from('partner_tasks').insert({
+      partner_lead_id: existing.id,
+      title: `Review inbound email intel from ${displayName}`,
+      due_date: today,
+    });
+
+    return { created: false, partnerLeadId: existing.id };
+  }
+
+  const { data: lead, error } = await params.supabase
+    .from('partner_leads')
+    .insert({
+      partner_name: displayName,
+      company_firm: null,
+      partner_type: params.partnerType,
+      specialization: null,
+      source: 'Inbound / Found Us',
+      contact_email: params.leadEmail,
+      contact_phone: null,
+      linkedin_url: null,
+      how_we_met: 'Inbound email intel',
+      referral_agreement_status: 'Not Started',
+      referral_fee: 0,
+      notes: notesLine,
+      next_follow_up_date: today,
+      assigned_to: 'Drew Quevedo',
+      status: 'New Lead',
+    })
+    .select('id')
+    .single();
+
+  if (error || !lead) {
+    throw new Error(`Partner intel insert failed: ${error?.message || 'unknown error'}`);
+  }
+
+  await params.supabase.from('partner_tasks').insert({
+    partner_lead_id: lead.id,
+    title: `Review inbound email intel from ${displayName}`,
+    due_date: today,
+  });
+
+  return { created: true, partnerLeadId: lead.id };
+}
+
 // ── Classify reply sentiment using Claude ────────────────────────────────────
 async function classifyReply(replyText: string): Promise<{
   sentiment: 'interested' | 'not_interested' | 'question' | 'out_of_office' | 'unknown';
@@ -273,8 +413,40 @@ export async function POST(req: NextRequest) {
         });
       }
 
+      const partnerIntelType = detectPartnerIntel(
+        [payload.subject, payload.campaign_name, payload.campaign_title, replyText, firstName, lastName]
+          .filter(Boolean)
+          .join(' ')
+      );
+
+      if (supabase && partnerIntelType && leadEmail) {
+        const intelResult = await upsertPartnerIntelLead({
+          supabase,
+          leadEmail,
+          firstName,
+          lastName,
+          partnerType: partnerIntelType,
+
+          replyText,
+          summary: classification.summary ?? 'AI classification unavailable',
+        });
+
+        await supabase.from('lead_events').insert([{
+          lead_email: leadEmail,
+          event_type: 'partner_intel_captured',
+          campaign_id: campaignId,
+          payload: {
+            partner_type: partnerIntelType,
+            created: intelResult.created,
+            reply_preview: replyText.slice(0, 500),
+            summary: classification.summary ?? 'AI classification unavailable',
+          },
+          created_at: new Date().toISOString(),
+        }]);
+      }
+
       // Fire the alert on EVERY reply, not just AI-classified-interested ones.
-      // Classification is informative but not a gate: when Claude is down,
+
       // rate-limited, or out of credits, we still need Frank + marketing to
       // see the reply land in their inbox. Better to surface a "not interested"
       // sometimes than miss a real hot lead because the AI threw 400.

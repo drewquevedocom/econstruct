@@ -27,7 +27,7 @@ export async function generateMetadata({
   if (!author) {
     return {
       title: "Author Not Found",
-      robots: { index: false, follow: false },
+      robots: { index: false, follow: true }
     };
   }
 
@@ -37,6 +37,7 @@ export async function generateMetadata({
     alternates: {
       canonical: `https://econstructhomes.com/blog/author/${author.slug}`,
     },
+    robots: { index: false, follow: true },
   };
 }
 

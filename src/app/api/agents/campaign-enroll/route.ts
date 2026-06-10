@@ -70,7 +70,8 @@ export async function POST(req: Request) {
       .eq("outreach_status", "approved")
       .not("email", "is", null)
       .or("dnc.is.null,dnc.eq.false")
-      .limit(50);
+      .order("lead_score", { ascending: false })
+      .limit(25);
 
     if (error) throw new Error(`Fetch failed: ${error.message}`);
     if (!leads?.length) return { records_pulled: 0, records_updated: 0 };

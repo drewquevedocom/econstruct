@@ -113,7 +113,8 @@ export async function POST(req: Request) {
       )
       .eq("status", "New Lead")
       .not("contact_email", "is", null)
-      .limit(40);
+      .order("created_at", { ascending: true })
+      .limit(25);
 
     if (error) throw new Error(`Partner fetch failed: ${error.message}`);
     if (!partners?.length) {

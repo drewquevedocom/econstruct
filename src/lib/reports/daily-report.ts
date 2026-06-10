@@ -4,6 +4,8 @@ export type DailyReportData = {
   date: string;
   hero: {
     coldEmailsSentToday: number;
+    partnerColdEmailsSentToday: number;
+    customerColdEmailsSentToday: number;
     byType: Record<string, number>;
   };
   yesterday: {
@@ -45,19 +47,34 @@ export async function buildDailyReport(): Promise<DailyReportData> {
   const todayPT = ymdInPT(now);
   const yesterdayCutoff = new Date(now.getTime() - 24 * 3600 * 1000).toISOString();
 
-  // ── HERO: cold emails sent today (partner enrollments) ─────────
+  // ── HERO: cold emails sent today (partner + new-customer enrollments) ──
   // partner_leads.last_contact_date is set by partner-enroll the moment a
-  // partner is pushed into an Instantly campaign. Same calendar day = sent today.
-  const { data: sentTodayRows } = await supabase
-    .from("partner_leads")
-    .select("partner_type")
-    .eq("last_contact_date", todayPT);
+  // partner is pushed into an Instantly campaign. The new-customer count comes
+  // from campaign_enrolled lead activities so Frank sees both tracks.
+  const [partnerSentTodayRes, customerSentTodayRes] = await Promise.all([
+    supabase
+      .from("partner_leads")
+      .select("partner_type")
+      .eq("last_contact_date", todayPT),
+    supabase
+      .from("lead_activities")
+      .select("id", { count: "exact", head: true })
+      .eq("type", "campaign_enrolled")
+      .eq("channel", "instantly")
+      .gte("created_at", yesterdayCutoff),
+  ]);
+  const partnerSentTodayRows = partnerSentTodayRes.data ?? [];
+  const partnerColdEmailsSentToday = partnerSentTodayRows.length;
+  const customerColdEmailsSentToday = customerSentTodayRes.count ?? 0;
   const byType: Record<string, number> = {};
-  for (const row of sentTodayRows ?? []) {
+  for (const row of partnerSentTodayRows) {
     const t = String(row.partner_type ?? "Other");
     byType[t] = (byType[t] ?? 0) + 1;
   }
-  const coldEmailsSentToday = sentTodayRows?.length ?? 0;
+  if (customerColdEmailsSentToday) {
+    byType["New customer campaigns"] = customerColdEmailsSentToday;
+  }
+  const coldEmailsSentToday = partnerColdEmailsSentToday + customerColdEmailsSentToday;
 
   // ── Yesterday's movement ────────────────────────────────────────
   const [
@@ -174,6 +191,8 @@ export async function buildDailyReport(): Promise<DailyReportData> {
     date: todayPT,
     hero: {
       coldEmailsSentToday,
+      partnerColdEmailsSentToday,
+      customerColdEmailsSentToday,
       byType,
     },
     yesterday: {
@@ -269,7 +288,7 @@ function recommendation(report: DailyReportData): { tone: "good" | "watch" | "ac
     return {
       tone: "good",
       title: `${h.coldEmailsSentToday} cold emails sent today.`,
-      body: `Sending across 3 warmed mailboxes into 4 segmented partner campaigns. ${s.partnersNewLead} more partners queued for the next sends.`,
+      body: `Partner sends: ${h.partnerColdEmailsSentToday}. New-customer sends: ${h.customerColdEmailsSentToday}. ${s.partnersNewLead} more partners are queued for the next sends.`,
     };
   }
   return {
@@ -286,6 +305,8 @@ export function renderDailyReportHtml(report: DailyReportData): string {
 
   const movementRows = [
     { label: "Cold emails sent", value: report.yesterday.coldEmailsEnrolled, icon: "📨" },
+    { label: "Partner cold emails sent", value: report.hero.partnerColdEmailsSentToday, icon: "🤝" },
+    { label: "New customer cold emails sent", value: report.hero.customerColdEmailsSentToday, icon: "🏠" },
     { label: "Replies received", value: report.yesterday.repliesReceived, icon: "💬" },
     { label: "Interested replies (hot)", value: report.yesterday.interestedReplies, icon: "🔥" },
     { label: "New partner leads loaded", value: report.yesterday.newPartnerLeads, icon: "🤝" },
@@ -333,7 +354,7 @@ export function renderDailyReportHtml(report: DailyReportData): string {
                 )
                   .map(([t, n]) => `<span style="display:inline-block;margin:0 8px;"><strong style="color:#FFF8E7;">${n}</strong> ${t.replace(/ \/ .*/, "")}</span>`)
                   .join("·")}</p>`
-              : `<p style="margin:14px 0 0 0;font-size:13px;color:#8a8079;">No partner enrollments today yet.</p>`
+              : `<p style="margin:14px 0 0 0;font-size:13px;color:#8a8079;">No cold emails today yet.</p>`
           }
         </td>
       </tr>

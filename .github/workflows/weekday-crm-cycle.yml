@@ -1,0 +1,44 @@
+name: econstruct weekday crm cycle
+
+on:
+  schedule:
+    # 7:00 AM Pacific on weekdays during PDT (adjust if you need a different send window)
+    - cron: "0 14 * * 1-5"
+  workflow_dispatch:
+
+jobs:
+  crm-cycle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger weekday CRM agents
+        shell: bash
+        env:
+          BASE_URL: ${{ secrets.ECONSTRUCT_BASE_URL }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          set -euo pipefail
+
+          BASE_URL="${BASE_URL:-https://econstructhomes.com}"
+          if [[ -z "${CRON_SECRET:-}" ]]; then
+            echo "CRON_SECRET secret is missing"
+            exit 1
+          fi
+
+          auth_header=$(printf '%s%s%s' 'Authorization:' ' Bearer ' "$CRON_SECRET")
+
+          post() {
+            local path="$1"
+            echo "==> POST ${path}"
+            curl -fsS -X POST -H "$auth_header" "${BASE_URL}${path}"
+            echo
+          }
+
+          # Keep the pipeline fed first, then send the approved daily volume, then report.
+          post /api/agents/score-leads
+          post /api/agents/email-enrich
+          post /api/agents/assessor-enrich
+          post /api/agents/apollo-enrich
+          post /api/agents/partner-enroll
+          post /api/agents/campaign-enroll
+          post /api/agents/event-sync
+          post /api/agents/daily-report

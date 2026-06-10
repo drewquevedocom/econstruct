@@ -113,6 +113,7 @@ export default async function DashboardPage() {
   const repliesWeek = repliesWeekRes.count ?? 0;
   const partners = (partnersRes.data ?? []) as PartnerRow[];
   const events = (eventsRes.data ?? []) as EventRow[];
+  const nextEvent = events[0] ?? null;
   const newBuildsTotal = newBuildsTotalRes.count ?? 0;
   const newBuildsMailReady = newBuildsMailReadyRes.count ?? 0;
 
@@ -149,7 +150,7 @@ export default async function DashboardPage() {
           </h1>
           <span className="text-xs text-gray-400 tabular-nums">{todayPT}</span>
         </div>
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-4">
           <HeroMetric
             value={sentToday}
             label="Cold Emails Sent Today"
@@ -171,12 +172,43 @@ export default async function DashboardPage() {
             icon={Users}
             accent="sky"
           />
+          <HeroMetric
+            value={events.length}
+            label="Upcoming Events"
+            sublabel={nextEvent?.event_date ? `Next: ${new Date(nextEvent.event_date + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })}` : "Weekly refresh"}
+            icon={Calendar}
+            accent="gold"
+          />
         </div>
       </section>
 
-      {/* ── Partner Network + Events ────────────────────────────────── */}
-      <section className="grid grid-cols-1 gap-4 xl:grid-cols-[1.4fr_1fr]">
-        <div className="rounded-2xl border border-[#E8E4DC] bg-white p-5">
+      {/* ── Events + Partner Network ────────────────────────────────── */}
+      <section className="grid grid-cols-1 gap-4 xl:grid-cols-[1fr_1.4fr]">
+        <div className="order-first rounded-2xl border border-[#E8E4DC] bg-white p-5 xl:order-first">
+          <div className="mb-4 flex items-start justify-between gap-3">
+            <div>
+              <h2 className="text-lg font-bold text-[#1C1C1E]">Upcoming Events</h2>
+              <p className="mt-0.5 text-xs text-gray-500">
+                Updated weekly · {events.length} loaded · architects, realtors, builders, and investors
+              </p>
+            </div>
+            <Calendar size={18} className="text-[#B8963E]" />
+          </div>
+
+          {events.length === 0 ? (
+            <p className="text-sm text-gray-400">
+              No events yet. Add them to <code className="rounded bg-gray-100 px-1.5 py-0.5">crm_events</code>.
+            </p>
+          ) : (
+            <div className="space-y-3">
+              {events.map((e) => (
+                <EventCard key={e.id} event={e} />
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="order-last rounded-2xl border border-[#E8E4DC] bg-white p-5 xl:order-last">
           <div className="mb-4 flex items-start justify-between gap-3">
             <div>
               <h2 className="text-lg font-bold text-[#1C1C1E]">Partner Network</h2>
@@ -241,30 +273,6 @@ export default async function DashboardPage() {
                 ))}
               </div>
             </>
-          )}
-        </div>
-
-        <div className="rounded-2xl border border-[#E8E4DC] bg-white p-5">
-          <div className="mb-4 flex items-start justify-between gap-3">
-            <div>
-              <h2 className="text-lg font-bold text-[#1C1C1E]">Upcoming Events</h2>
-              <p className="mt-0.5 text-xs text-gray-500">
-                Show up · hand out cards · meet rebuilders
-              </p>
-            </div>
-            <Calendar size={18} className="text-[#B8963E]" />
-          </div>
-
-          {events.length === 0 ? (
-            <p className="text-sm text-gray-400">
-              No events yet. Add them to <code className="rounded bg-gray-100 px-1.5 py-0.5">crm_events</code>.
-            </p>
-          ) : (
-            <div className="space-y-3">
-              {events.map((e) => (
-                <EventCard key={e.id} event={e} />
-              ))}
-            </div>
           )}
         </div>
       </section>

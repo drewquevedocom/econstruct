@@ -50,8 +50,8 @@ export default function Footer() {
                 <li><Link href="/about" className="text-white/70 hover:text-white transition-colors">About Us</Link></li>
                 <li><Link href="/projects" className="text-white/70 hover:text-white transition-colors">Projects</Link></li>
                 <li><Link href="/blog" className="text-white/70 hover:text-white transition-colors">Blog</Link></li>
-                <li><Link href="/service-areas" className="text-white/70 hover:text-white transition-colors">Service Areas</Link></li>
-                <li><Link href="/contact" className="text-white/70 hover:text-white transition-colors">Contact</Link></li>
+                <li><Link href="/reviews" className="text-white/70 hover:text-white transition-colors">Reviews</Link></li>
+                <li><Link href="/faq" className="text-white/70 hover:text-white transition-colors">FAQ</Link></li>
               </ul>
             </div>
 
@@ -65,7 +65,7 @@ export default function Footer() {
                 </li>
                 <li className="flex items-start gap-3">
                   <Mail size={20} className="text-accent-gold shrink-0 mt-1" />
-                  <a href="mailto:info@econstructinc.com" className="hover:text-white transition-colors">info@econstructinc.com</a>
+                  <a href="mailto:info@econstructhomes.com" className="hover:text-white transition-colors">info@econstructhomes.com</a>
                 </li>
                 <li className="flex items-start gap-3">
                   <MapPin size={20} className="text-accent-gold shrink-0 mt-1" />
@@ -76,7 +76,7 @@ export default function Footer() {
           </div>
 
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-white/50">
-            <p>&copy; {new Date().getFullYear()} econstruct Inc. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} eConstruct Homes. All rights reserved.</p>
             <div className="flex gap-6">
               <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
               <Link href="/careers" className="hover:text-white transition-colors">Careers</Link>

@@ -116,6 +116,21 @@ export function generateWebPageSchema({
   };
 }
 
+export function generateWebSiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: COMPANY.name,
+    url: SITE_URL,
+    publisher: {
+      "@type": "Organization",
+      name: COMPANY.name,
+      url: SITE_URL,
+      logo: `${SITE_URL}/econstruct_logo.png`,
+    },
+  };
+}
+
 export function generateServiceSchema(service: { title: string; description: string; slug: string; priceRange?: string }) {
   return {
     "@context": "https://schema.org",

@@ -21,6 +21,17 @@ export async function POST(req: Request) {
     return new Response("Unauthorized", { status: 401 });
   }
 
+  const weekday = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Los_Angeles",
+    weekday: "short",
+  }).format(new Date());
+  if (weekday === "Sat" || weekday === "Sun") {
+    return Response.json({
+      skipped: true,
+      reason: "Weekend guard active — Frank's CRM update runs Mon-Fri only.",
+    });
+  }
+
   const result = await runAgent("daily-report", async () => {
     const to = parseList(process.env.DAILY_REPORT_TO, DEFAULT_TO);
     const cc = parseList(process.env.DAILY_REPORT_CC, DEFAULT_CC);

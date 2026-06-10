@@ -21,7 +21,7 @@ export async function generateMetadata({
   if (!label) {
     return {
       title: "Tag Not Found",
-      robots: { index: false, follow: false },
+      robots: { index: false, follow: true }
     };
   }
 
@@ -31,6 +31,7 @@ export async function generateMetadata({
     alternates: {
       canonical: `https://econstructhomes.com/blog/tag/${tag}`,
     },
+    robots: { index: false, follow: true },
   };
 }
 

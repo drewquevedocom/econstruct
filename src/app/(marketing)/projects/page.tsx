@@ -12,22 +12,22 @@ import ConsultationCTA from "@/components/ConsultationCTA";
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-  title: "Projects | econstruct — Luxury Home Remodels & Custom Builds in Los Angeles",
+  title: "Projects | eConstruct Homes — Luxury Home Remodels & Custom Builds in Los Angeles",
   description:
-    "Explore luxury remodel and custom home construction projects by econstruct across Hollywood Hills, Bell Canyon, Lawndale, and greater Los Angeles, backed by 639 combined partner projects.",
+    "Explore luxury remodel and custom home construction projects by eConstruct Homes across Hollywood Hills, Bell Canyon, Lawndale, and greater Los Angeles, backed by 639 combined partner projects.",
   alternates: {
     canonical: `${SITE_URL}/projects`,
   },
   openGraph: {
-    title: "Projects | econstruct — Luxury Home Remodels in Los Angeles",
+    title: "Projects | eConstruct Homes — Luxury Home Remodels in Los Angeles",
     description:
-      "Portfolio of completed high-end residential projects by econstruct — Hollywood Hills remodels, Bell Canyon estate transformations, coastal condo renovations, and custom engineering.",
+      "Portfolio of completed high-end residential projects by eConstruct Homes — Hollywood Hills remodels, Bell Canyon estate transformations, coastal condo renovations, and custom engineering.",
     url: `${SITE_URL}/projects`,
     images: [{ url: "/projects/devista-hero.jpg", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Projects | econstruct Los Angeles",
+    title: "Projects | eConstruct Homes Los Angeles",
     description: "Completed luxury remodel and custom home projects across Los Angeles.",
     images: ["/projects/devista-hero.jpg"],
   },

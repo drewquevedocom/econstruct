@@ -27,7 +27,7 @@ export async function generateMetadata({
   if (!categoryLabel) {
     return {
       title: "Category Not Found",
-      robots: { index: false, follow: false },
+      robots: { index: false, follow: true }
     };
   }
 
@@ -37,6 +37,7 @@ export async function generateMetadata({
     alternates: {
       canonical: `https://econstructhomes.com/blog/category/${category}`,
     },
+    robots: { index: false, follow: true },
   };
 }
 

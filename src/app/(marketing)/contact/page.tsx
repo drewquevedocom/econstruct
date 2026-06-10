@@ -16,9 +16,9 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 import GenericContactForm from "@/components/contact/GenericContactForm";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Contact econstruct",
+  title: "Contact eConstruct Homes",
   description:
-    "Contact econstruct Inc. with a general inquiry, vendor question, or project message. Call 310-740-9999 for direct support.",
+    "Contact eConstruct Homes with a general inquiry, vendor question, or project message. Call 310-740-9999 for direct support.",
   path: "/contact",
 });
 
