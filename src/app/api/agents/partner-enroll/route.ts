@@ -120,7 +120,7 @@ export async function POST(req: Request) {
       .eq("status", "New Lead")
       .not("contact_email", "is", null)
       .order("created_at", { ascending: true })
-      .limit(25);
+      .limit(10);
 
     if (error) throw new Error(`Partner fetch failed: ${error.message}`);
     if (!partners?.length) {
