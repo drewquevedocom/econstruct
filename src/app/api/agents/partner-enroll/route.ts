@@ -12,10 +12,10 @@ const INSTANTLY_API = "https://api.instantly.ai/api/v2";
 // secret set yet.
 function campaignForType(type: string): string | undefined {
   const map: Record<string, string | undefined> = {
-    Architect: process.env.INSTANTLY_PARTNER_CAMPAIGN_ARCHITECT,
-    "Realtor / Real Estate Agent": process.env.INSTANTLY_PARTNER_CAMPAIGN_REALTOR,
-    "Insurance Agent / Adjuster": process.env.INSTANTLY_PARTNER_CAMPAIGN_ADJUSTER,
-    "Expediter / Permit Runner": process.env.INSTANTLY_PARTNER_CAMPAIGN_EXPEDITER,
+    Architect: process.env.INSTANTLY_PARTNER_CAMPAIGN_ARCHITECT || "97f518ff-27a1-475e-a9a1-7ae74d2e6df3",
+    "Realtor / Real Estate Agent": process.env.INSTANTLY_PARTNER_CAMPAIGN_REALTOR || "ca4fbf88-6cb1-4eee-9aea-362b43465e76",
+    "Insurance Agent / Adjuster": process.env.INSTANTLY_PARTNER_CAMPAIGN_ADJUSTER || "be462f28-7c1c-441f-b31c-2c6bccb30899",
+    "Expediter / Permit Runner": process.env.INSTANTLY_PARTNER_CAMPAIGN_EXPEDITER || "f413efe9-7a93-43ff-8286-e78bdff63d18",
     "Interior Designer": process.env.INSTANTLY_PARTNER_CAMPAIGN_DESIGNER,
     "Real Estate Attorney": process.env.INSTANTLY_PARTNER_CAMPAIGN_ATTORNEY,
     "CPA / Wealth Advisor": process.env.INSTANTLY_PARTNER_CAMPAIGN_CPA,
@@ -87,19 +87,25 @@ export async function POST(req: Request) {
 
   const result = await runAgent("partner-enroll", async () => {
     // We allow per-type campaigns; require at least one to be configured.
-    const anyCampaignConfigured =
-      process.env.INSTANTLY_PARTNER_CAMPAIGN_ARCHITECT ||
-      process.env.INSTANTLY_PARTNER_CAMPAIGN_REALTOR ||
-      process.env.INSTANTLY_PARTNER_CAMPAIGN_ADJUSTER ||
-      process.env.INSTANTLY_PARTNER_CAMPAIGN_EXPEDITER ||
-      process.env.INSTANTLY_PARTNER_CAMPAIGN_ID;
+    const anyCampaignConfigured = Boolean(
+      campaignForType("Architect") ||
+        campaignForType("Realtor / Real Estate Agent") ||
+        campaignForType("Insurance Agent / Adjuster") ||
+        campaignForType("Expediter / Permit Runner") ||
+        campaignForType("Interior Designer") ||
+        campaignForType("Real Estate Attorney") ||
+        campaignForType("CPA / Wealth Advisor") ||
+        campaignForType("Escrow Officer") ||
+        campaignForType("Structural / Geotech Engineer") ||
+        campaignForType("Fire / Water Restoration")
+    );
     if (!anyCampaignConfigured) {
       return {
         records_pulled: 0,
         records_updated: 0,
         metadata: {
           skipped: true,
-          reason: "No INSTANTLY_PARTNER_CAMPAIGN_* env vars set (need at least one type-specific or fallback)",
+          reason: "No Instantly campaigns configured",
         },
       };
     }
