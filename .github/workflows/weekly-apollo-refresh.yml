@@ -33,5 +33,24 @@ jobs:
             echo
           }
 
-          post /api/agents/partner-refresh
+          partner_types=(
+            "Realtor / Real Estate Agent"
+            "Real Estate Attorney"
+            "Architect"
+            "Interior Designer"
+            "Insurance Agent / Adjuster"
+            "Expediter / Permit Runner"
+            "CPA / Wealth Advisor"
+            "Escrow Officer"
+            "Structural / Geotech Engineer"
+            "Fire / Water Restoration"
+          )
+
+          for partner_type in "${partner_types[@]}"; do
+            encoded_partner_type=$(PARTNER_TYPE="$partner_type" python -c 'import os, urllib.parse; print(urllib.parse.quote(os.environ["PARTNER_TYPE"], safe=""))')
+            echo "==> POST /api/agents/partner-refresh?partner_type=${partner_type}"
+            curl -fsS -X POST -H "$auth_header" "${BASE_URL}/api/agents/partner-refresh?partner_type=${encoded_partner_type}"
+            echo
+          done
+
           post /api/agents/partner-enroll

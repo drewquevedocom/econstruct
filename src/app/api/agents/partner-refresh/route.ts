@@ -313,6 +313,18 @@ export async function POST(req: Request) {
     return new Response("Unauthorized", { status: 401 });
   }
 
+  const url = new URL(req.url);
+  const requestedPartnerType = url.searchParams.get("partner_type");
+  const configs = requestedPartnerType
+    ? PARTNER_REFRESH_CONFIGS.filter((config) => config.partnerType === requestedPartnerType)
+    : PARTNER_REFRESH_CONFIGS;
+
+  if (requestedPartnerType && !configs.length) {
+    return Response.json({
+      error: `Unknown partner_type: ${requestedPartnerType}`,
+    }, { status: 400 });
+  }
+
   const result = await runAgent("partner-refresh", async () => {
     const supabase = createServiceClient();
     const byType: Array<Record<string, unknown>> = [];
@@ -320,7 +332,7 @@ export async function POST(req: Request) {
     let recordsInserted = 0;
     const errors: string[] = [];
 
-    for (const config of PARTNER_REFRESH_CONFIGS) {
+    for (const config of configs) {
       try {
         const collected: ApolloSearchPerson[] = [];
         const maxPages = 3;
