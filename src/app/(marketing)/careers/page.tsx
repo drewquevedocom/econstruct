@@ -9,7 +9,6 @@ import {
   Mail,
 } from "lucide-react";
 import { generatePageMetadata } from "@/lib/metadata";
-import { COMPANY } from "@/lib/constants";
 import PageHero from "@/components/ui/PageHero";
 import Container from "@/components/ui/Container";
 import SectionHeader from "@/components/ui/SectionHeader";
@@ -20,7 +19,7 @@ import ConsultationCTA from "@/components/ConsultationCTA";
 export const metadata: Metadata = generatePageMetadata({
   title: "Careers at econstruct — Join Our Team",
   description:
-    "Build your career with econstruct Inc. We're hiring project managers, carpenters, estimators, and construction professionals across Los Angeles.",
+    "Build your career with eConstruct Homes. We're hiring project managers, carpenters, estimators, and construction professionals across Los Angeles.",
   path: "/careers",
 });
 
@@ -156,7 +155,7 @@ export default function CareersPage() {
                   </div>
                   <div className="flex-shrink-0">
                     <Button
-                      href={`mailto:careers@econstructinc.com?subject=Application: ${position.title}`}
+                      href={`mailto:careers@econstructhomes.com?subject=Application: ${position.title}`}
                       variant="secondary"
                     >
                       Apply Now
@@ -184,7 +183,7 @@ export default function CareersPage() {
               />
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Button
-                  href="mailto:careers@econstructinc.com"
+                  href="mailto:careers@econstructhomes.com"
                   variant="primary"
                   size="lg"
                 >
@@ -195,7 +194,7 @@ export default function CareersPage() {
                 </Button>
               </div>
               <p className="text-gray-400 text-sm mt-6">
-                careers@econstructinc.com
+                careers@econstructhomes.com
               </p>
             </div>
           </AnimatedSection>

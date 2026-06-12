@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { createClient } from "@supabase/supabase-js";
 
-const NOTIFY_TO = "info@econstructhomes.com";
+const NOTIFY_TO = "info@econstructinc.com";
 const NOTIFY_CC: string[] = [
-  "robyn@econstructhomes.com",
-  "marketing@econstructhomes.com",
+  "robyn@econstructinc.com",
+  "marketing@econstructinc.com",
 ];
 
 const SUPABASE_URL = "https://dzudtdhmvnuipqyoogem.supabase.co";

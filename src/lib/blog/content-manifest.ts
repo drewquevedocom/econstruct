@@ -4,11 +4,18 @@
 import post0 from "../../../content/blog/altadena-fire-rebuild-permits-costs-2026.md?raw";
 import post1 from "../../../content/blog/brentwood-luxury-home-modernization-cost-2026.md?raw";
 import post2 from "../../../content/blog/chapter-7a-wui-compliance-homeowner-guide.md?raw";
-import post3 from "../../../content/blog/fire-insurance-gap-palisades-rebuild.md?raw";
-import post4 from "../../../content/blog/how-to-vet-fire-rebuild-contractor-la.md?raw";
-import post5 from "../../../content/blog/luxury-home-automation-control4-crestron-savant.md?raw";
-import post6 from "../../../content/blog/pacific-palisades-fire-rebuild-guide-2026.md?raw";
-import post7 from "../../../content/blog/santa-monica-hillside-construction-geotechnical.md?raw";
+import post3 from "../../../content/blog/custom-home-builders-bel-air-los-angeles.md?raw";
+import post4 from "../../../content/blog/custom-home-builders-hidden-hills.md?raw";
+import post5 from "../../../content/blog/fire-insurance-gap-palisades-rebuild.md?raw";
+import post6 from "../../../content/blog/how-to-vet-fire-rebuild-contractor-la.md?raw";
+import post7 from "../../../content/blog/luxury-home-automation-control4-crestron-savant.md?raw";
+import post8 from "../../../content/blog/luxury-home-builders-beverly-hills.md?raw";
+import post9 from "../../../content/blog/luxury-home-builders-calabasas.md?raw";
+import post10 from "../../../content/blog/luxury-home-builders-malibu.md?raw";
+import post11 from "../../../content/blog/luxury-home-builders-pacific-palisades.md?raw";
+import post12 from "../../../content/blog/luxury-home-builders-platinum-triangle-bel-air-holmby-hills-beverly-hills.md?raw";
+import post13 from "../../../content/blog/pacific-palisades-fire-rebuild-guide-2026.md?raw";
+import post14 from "../../../content/blog/santa-monica-hillside-construction-geotechnical.md?raw";
 
 export const rawBlogPosts = [
   post0,
@@ -19,4 +26,11 @@ export const rawBlogPosts = [
   post5,
   post6,
   post7,
+  post8,
+  post9,
+  post10,
+  post11,
+  post12,
+  post13,
+  post14,
 ];

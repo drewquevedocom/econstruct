@@ -62,7 +62,7 @@ export default async function PromptServicePage({
     name: service.title,
     provider: {
       "@type": "GeneralContractor",
-      name: "econstruct Inc.",
+      name: "eConstruct Homes",
     },
     areaServed: {
       "@type": "City",

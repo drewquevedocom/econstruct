@@ -16,6 +16,8 @@ interface RawBlogPostFrontmatter {
   factCheckedBy?: string; heroImage: string; heroImageWebp?: string; heroImageAlt: string;
   ogImage: string; excerpt: string; targetKeyword: string; takeaways?: string[];
   sources?: BlogSource[]; faq?: BlogFaqItem[]; relatedSlugs?: string[]; localAreas?: string[];
+  draft?: boolean;
+  approvalStatus?: string;
 }
 
 export interface BlogPostSummary {
@@ -25,6 +27,8 @@ export interface BlogPostSummary {
   readTime: string; wordCount: number; heroImage: string; heroImageWebp?: string;
   heroImageAlt: string; ogImage: string; author: BlogAuthor; reviewedBy: string;
   factCheckedBy: string; takeaways: string[]; targetKeyword: string; localAreas: string[];
+  draft: boolean;
+  approvalStatus?: string;
 }
 
 export interface BlogPost extends BlogPostSummary { html: string; toc: BlogTocItem[]; sources: BlogSource[]; faq: BlogFaqItem[]; relatedSlugs: string[]; }
@@ -94,18 +98,23 @@ function parseBlogPost(fileContents: string): BlogPost {
     factCheckedBy: frontmatter.factCheckedBy || "Fact-checked by econstruct project development team",
     takeaways: frontmatter.takeaways ?? [], targetKeyword: frontmatter.targetKeyword,
     localAreas: frontmatter.localAreas ?? [], html, toc, sources: frontmatter.sources ?? [],
-    faq: frontmatter.faq ?? [], relatedSlugs: frontmatter.relatedSlugs ?? []
+    faq: frontmatter.faq ?? [], relatedSlugs: frontmatter.relatedSlugs ?? [],
+    draft: Boolean(frontmatter.draft), approvalStatus: frontmatter.approvalStatus
   };
 }
 
-const loadBlogPosts = cache((): BlogPost[] => {
+const loadAllBlogPosts = cache((): BlogPost[] => {
   return rawBlogPosts
     .map(parseBlogPost)
     .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
 });
 
+const loadBlogPosts = cache((): BlogPost[] => loadAllBlogPosts().filter((post) => !post.draft));
+
 export function getAllBlogPosts() { return loadBlogPosts(); }
 export function getBlogPostBySlug(slug: string): BlogPost | undefined { return loadBlogPosts().find(p => p.slug === slug); }
+export function getDraftBlogPosts() { return loadAllBlogPosts().filter((post) => post.draft); }
+export function getDraftBlogPostBySlug(slug: string): BlogPost | undefined { return getDraftBlogPosts().find(p => p.slug === slug); }
 export function getRelatedPosts(slug: string, categorySlug: string, tags: string[]) {
   const posts = loadBlogPosts().filter(p => p.slug !== slug);
   const sameCategory = posts.filter(p => p.categorySlug === categorySlug);

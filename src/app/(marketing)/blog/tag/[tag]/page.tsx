@@ -28,6 +28,7 @@ export async function generateMetadata({
   return {
     title: `${label} Articles | econstruct Blog`,
     description: `Tagged content related to ${label} on the econstruct blog.`,
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://econstructhomes.com/blog/tag/${tag}`,
     },

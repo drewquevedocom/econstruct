@@ -352,6 +352,110 @@ async function notifyHotLead(lead: {
   }
 }
 
+// ── Unsubscribe handler ─────────────────────────────────────────────────────
+async function handleUnsubscribe(params: {
+  supabase: SupabaseClient;
+  partnerLeadId: string;
+  leadEmail: string;
+  firstName: string;
+  lastName: string;
+  campaignName: string;
+}) {
+  const { supabase, partnerLeadId, leadEmail, firstName, lastName, campaignName } = params;
+  const today = new Date().toISOString().slice(0, 10);
+
+  // Try lookup by partnerLeadId first (custom var), fall back to email match.
+  let partner: { id: string; partner_name: string; contact_email: string | null; notes: string | null; partner_type: string } | null = null;
+
+  if (partnerLeadId) {
+    const { data } = await supabase
+      .from('partner_leads')
+      .select('id, partner_name, contact_email, notes, partner_type')
+      .eq('id', partnerLeadId)
+      .maybeSingle();
+    partner = data as typeof partner;
+  }
+  if (!partner && leadEmail) {
+    const { data } = await supabase
+      .from('partner_leads')
+      .select('id, partner_name, contact_email, notes, partner_type')
+      .eq('contact_email', leadEmail.toLowerCase())
+      .maybeSingle();
+    partner = data as typeof partner;
+  }
+
+  if (!partner) {
+    console.warn(`Unsubscribe: no partner found for email=${leadEmail} id=${partnerLeadId}`);
+    return;
+  }
+
+  const notes = [
+    partner.notes,
+    `${today}: UNSUBSCRIBED via Instantly${campaignName ? ' (' + campaignName + ')' : ''}. Status set to Inactive. Do not re-contact.`,
+  ]
+    .filter(Boolean)
+    .join('\n');
+
+  await supabase
+    .from('partner_leads')
+    .update({
+      status: 'Inactive',
+      notes,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('id', partner.id);
+
+  await supabase.from('partner_tasks').insert({
+    partner_lead_id: partner.id,
+    title: `Unsubscribed — verify suppression in Instantly for ${partner.partner_name}`,
+    due_date: today,
+  });
+
+  await notifyUnsubscribe({
+    email: partner.contact_email || leadEmail,
+    name: partner.partner_name || `${firstName} ${lastName}`.trim() || leadEmail,
+    partnerType: partner.partner_type || 'Unknown',
+    campaignName,
+  });
+}
+
+async function notifyUnsubscribe(params: {
+  email: string;
+  name: string;
+  partnerType: string;
+  campaignName: string;
+}) {
+  if (HOT_LEAD_NOTIFY_EMAILS.length === 0) return;
+  const apiKey = process.env.INSTANTLY_API_KEY;
+  if (!apiKey) return;
+
+  try {
+    await fetch(`${INSTANTLY_API}/emails/test`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        eaccount: 'info@econstructllc.com',
+        to_address_email_list: HOT_LEAD_NOTIFY_EMAILS.join(','),
+        subject: `🚫 Unsubscribe: ${params.name} (${params.partnerType}) opted out`,
+        body: {
+          html: `<div style="font-family:Arial,sans-serif;max-width:600px;color:#222;">
+            <h2 style="color:#B91C1C;margin-top:0;">Partner Unsubscribed</h2>
+            <p><strong>${params.name}</strong> (<a href="mailto:${params.email}">${params.email}</a>) opted out of econstruct cold outreach.</p>
+            <table style="width:100%;border-collapse:collapse;margin:16px 0;background:#FAF9F6;border-radius:8px;">
+              <tr><td style="padding:8px 12px;font-weight:bold;color:#666;">Partner Type</td><td style="padding:8px 12px;">${params.partnerType}</td></tr>
+              ${params.campaignName ? `<tr><td style="padding:8px 12px;font-weight:bold;color:#666;">Campaign</td><td style="padding:8px 12px;">${params.campaignName}</td></tr>` : ''}
+              <tr><td style="padding:8px 12px;font-weight:bold;color:#666;">CRM Action</td><td style="padding:8px 12px;color:#0E7C5C;">✓ Status set to Inactive · Follow-up task created · Auto-suppressed from future sends</td></tr>
+            </table>
+            <p style="color:#666;font-size:13px;">Instantly auto-blocklists this address — they will not receive any further emails from us. View in <a href="https://econstructhomes.com/crm/partners" style="color:#B8963E;">/crm/partners</a>.</p>
+          </div>`,
+        },
+      }),
+    });
+  } catch (err) {
+    console.error('Failed to send unsubscribe notification:', err);
+  }
+}
+
 // ── Webhook handler ──────────────────────────────────────────────────────────
 export async function POST(req: NextRequest) {
   try {
@@ -385,6 +489,26 @@ export async function POST(req: NextRequest) {
       }]).then(({ error }) => {
         if (error) console.error('Supabase event log error:', error);
       });
+    }
+
+    // Unsubscribe events — set status=Inactive, create task, notify Drew + Frank
+    if (
+      eventType === 'lead_unsubscribed' ||
+      eventType === 'unsubscribed' ||
+      eventType === 'lead_unsubscribe' ||
+      eventType === 'unsubscribe'
+    ) {
+      if (supabase) {
+        await handleUnsubscribe({
+          supabase,
+          partnerLeadId,
+          leadEmail,
+          firstName,
+          lastName,
+          campaignName: payload.campaign_name || payload.campaign_title || '',
+        });
+      }
+      return NextResponse.json({ success: true, event: eventType, handled: 'unsubscribe' });
     }
 
     // Only process reply events for AI classification

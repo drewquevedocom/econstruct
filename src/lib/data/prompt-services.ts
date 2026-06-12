@@ -78,7 +78,7 @@ export const promptServices: PromptServicePage[] = [
       { question: "How long does it take to build a custom luxury home in LA?", answer: "Most luxury custom homes take 12 to 24 months for construction after design and permitting are substantially complete." },
       { question: "Do you handle architecture and design, or do I need my own architect?", answer: "Either approach works. We can coordinate with your current architect or help assemble the right team." },
       { question: "What Los Angeles neighborhoods do you serve for luxury home construction?", answer: "We work across Los Angeles, including Beverly Hills, Bel Air, Pacific Palisades, Malibu, Santa Monica, Brentwood, Encino, Calabasas, and Hidden Hills." },
-      { question: "Are you licensed and insured for luxury construction in California?", answer: "Yes. econstruct Inc. is a fully licensed California general contractor, bonded, and insured for premium residential work." },
+      { question: "Are you licensed and insured for luxury construction in California?", answer: "Yes. eConstruct Homes is a fully licensed California general contractor, bonded, and insured for premium residential work." },
     ],
     relatedLinks: [
       { label: "See our project portfolio", href: "/projects" },

@@ -360,6 +360,64 @@ export default function PartnerNetworkView({
         <Metric icon={DollarSign} label="Referral Value" value={money(totalReferralValue)} tone="gold" />
       </div>
 
+      {/* ── Active Partners hero panel ─────────────────────────────────── */}
+      {/* Promoted to its own celebrated section so Frank sees signed partners
+          at a glance instead of buried in a kanban column. Drew's spec
+          2026-06-11: "when a partner does sign up they move to a partner
+          partner section on the partner page". */}
+      <div className="relative overflow-hidden rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-emerald-50 p-5">
+        <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-emerald-400/15 blur-3xl" />
+        <div className="relative flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <p className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.22em] text-emerald-700">
+              🎉 Active Partner Network
+            </p>
+            <h2 className="mt-1 text-xl font-black text-[#1C1C1E]">
+              {activePartners.length > 0
+                ? `${activePartners.length} signed ${activePartners.length === 1 ? "partner" : "partners"} actively referring.`
+                : "Your first signed partner shows up here."}
+            </h2>
+            <p className="mt-1 max-w-2xl text-sm text-gray-600">
+              {activePartners.length > 0
+                ? `${money(totalReferralValue)} in committed referral fees. Treat these relationships like gold — schedule the monthly check-in, send referrals back their way.`
+                : "When a lead signs the referral agreement and moves to Active Partner status, they land here automatically. Drew + Frank also get an instant celebration alert."}
+            </p>
+          </div>
+          {activePartners.length > 0 && (
+            <button
+              type="button"
+              onClick={() => setView("active")}
+              className="inline-flex h-9 items-center gap-2 rounded-lg bg-emerald-600 px-3 text-xs font-bold text-white hover:bg-emerald-700"
+            >
+              View All Active
+            </button>
+          )}
+        </div>
+        {activePartners.length > 0 && (
+          <div className="relative mt-4 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
+            {activePartners.slice(0, 6).map((partner) => (
+              <button
+                key={partner.id}
+                type="button"
+                onClick={() => setView("active")}
+                className="flex items-center justify-between gap-3 rounded-xl border border-emerald-200 bg-white px-3 py-2.5 text-left transition hover:border-emerald-500 hover:shadow-sm"
+              >
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-bold text-[#1C1C1E]">{partner.partner_name}</p>
+                  <p className="truncate text-[11px] text-gray-500">
+                    {partner.partner_type}
+                    {partner.company_firm ? ` · ${partner.company_firm}` : ""}
+                  </p>
+                </div>
+                <span className="shrink-0 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-black uppercase tracking-wide text-emerald-700">
+                  Signed
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
       <div className="rounded-xl border border-[#E8E4DC] bg-[#1C1C1E] p-4 text-white">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>

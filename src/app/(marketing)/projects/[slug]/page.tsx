@@ -118,7 +118,7 @@ export default async function ProjectPage({
     name: "eConstruct",
     url: "https://econstructhomes.com",
     telephone: "+1-310-740-9999",
-    email: "info@econstructinc.com",
+    email: "info@econstructhomes.com",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Los Angeles",

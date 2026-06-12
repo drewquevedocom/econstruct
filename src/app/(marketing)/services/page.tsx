@@ -10,7 +10,7 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Los Angeles Construction Services - From Luxury Homes to Fire Rebuilds",
+  title: "Los Angeles Construction Services | eConstruct Homes",
   description:
     "Los Angeles construction services from luxury home building to fire rebuilds, additions, and custom residential work.",
   path: "/services",

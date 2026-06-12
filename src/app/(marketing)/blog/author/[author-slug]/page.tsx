@@ -34,6 +34,7 @@ export async function generateMetadata({
   return {
     title: `${author.name} | econstruct Blog`,
     description: author.shortBio,
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://econstructhomes.com/blog/author/${author.slug}`,
     },

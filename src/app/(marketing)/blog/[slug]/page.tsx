@@ -43,13 +43,13 @@ export async function generateMetadata({
   const url = `https://econstructhomes.com/blog/${post.slug}`;
 
   return {
-    title: `${post.title} | econstruct`,
+    title: post.title,
     description: post.description,
     alternates: {
       canonical: url,
     },
     openGraph: {
-      title: `${post.title} | econstruct`,
+      title: post.title,
       description: post.description,
       url,
       type: "article",
@@ -62,7 +62,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${post.title} | econstruct`,
+      title: post.title,
       description: post.description,
       images: [post.ogImage],
     },

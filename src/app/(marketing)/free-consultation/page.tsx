@@ -7,9 +7,9 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 import ConsultationCTA from "@/components/ConsultationCTA";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Free Consultation",
+  title: "Free Construction Consultation | eConstruct Homes",
   description:
-    "Request a free consultation with econstruct for fire rebuilds, luxury homes, additions, and other high-end residential projects.",
+    "Request a free consultation with eConstruct Homes for fire rebuilds, luxury homes, additions, and other high-end residential projects.",
   path: "/free-consultation",
 });
 

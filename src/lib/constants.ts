@@ -25,10 +25,10 @@ export const COMPANY = {
     verificationUrl: "https://www.cslb.ca.gov/onlineservices/checklicenseII/checklicense.aspx",
   },
   social: {
-    instagram: "https://instagram.com/econstructinc",
-    linkedin: "https://linkedin.com/company/econstruct-inc",
-    houzz: "https://houzz.com/professionals/econstruct-inc",
-    youtube: "https://youtube.com/@econstructinc",
+    instagram: "https://instagram.com/econstructhomes",
+    linkedin: "https://linkedin.com/company/econstruct-homes",
+    houzz: "https://houzz.com/professionals/econstruct-homes",
+    youtube: "https://youtube.com/@econstructhomes",
   },
   team: {
     owner: { name: "Frank Neimroozi", title: "Owner & President", email: "frank@econstructhomes.com" },

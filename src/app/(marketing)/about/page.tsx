@@ -23,7 +23,7 @@ import ConsultationCTA from "@/components/ConsultationCTA";
 export const metadata: Metadata = generatePageMetadata({
   title: "About econstruct - Building LA Since 2001",
   description:
-    "Meet the team behind econstruct Inc. Building in Los Angeles since 2001, founded as econstruct in 2011, with 639 combined partner projects. CA Lic #964015.",
+    "Meet the team behind eConstruct Homes. Building in Los Angeles since 2001, founded as econstruct in 2011, with 639 combined partner projects. CA Lic #964015.",
   path: "/about",
 });
 
@@ -38,7 +38,7 @@ const milestones = [
     year: "2011",
     title: "econstruct Founded",
     description:
-      "econstruct Inc. is founded to bring a single, disciplined standard to high-end residential construction across Los Angeles.",
+      "eConstruct Homes is founded to bring a single, disciplined standard to high-end residential construction across Los Angeles.",
   },
   {
     year: "2015",
@@ -211,7 +211,7 @@ export default function AboutPage() {
                 />
                 <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-brand-dark/80 to-transparent p-8">
                   <p className="text-white font-bold text-xl">Frank Neimroozi</p>
-                  <p className="text-white/70 text-sm">Founder &amp; President — econstruct Inc.</p>
+                  <p className="text-white/70 text-sm">Founder &amp; President — eConstruct Homes</p>
                 </div>
               </div>
             </AnimatedSection>

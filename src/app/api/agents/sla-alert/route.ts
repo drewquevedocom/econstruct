@@ -4,10 +4,10 @@ import { Resend } from "resend";
 
 export const maxDuration = 30;
 
-const ALERT_TO = process.env.FRANK_EMAIL || "frank@econstructhomes.com";
+const ALERT_TO = process.env.FRANK_EMAIL || "frank@econstructinc.com";
 const ALERT_CC: string[] = [
-  "marketing@econstructhomes.com",
-  "robyn@econstructhomes.com",
+  "marketing@econstructinc.com",
+  "robyn@econstructinc.com",
 ];
 
 // SMS goes to Frank only

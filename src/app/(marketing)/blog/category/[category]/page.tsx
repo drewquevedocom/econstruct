@@ -34,6 +34,7 @@ export async function generateMetadata({
   return {
     title: `${categoryLabel} Articles | econstruct Blog`,
     description: getBlogArchiveSummary(category),
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://econstructhomes.com/blog/category/${category}`,
     },

@@ -12,12 +12,12 @@ async function verifyHmac(value: string, secret: string): Promise<boolean> {
       new TextEncoder().encode(secret),
       { name: "HMAC", hash: "SHA-256" },
       false,
-      ["sign"]
+      ["sign"],
     );
     const expected = await crypto.subtle.sign(
       "HMAC",
       key,
-      new TextEncoder().encode(payload)
+      new TextEncoder().encode(payload),
     );
     const expectedHex = Array.from(new Uint8Array(expected))
       .map((b) => b.toString(16).padStart(2, "0"))
@@ -31,6 +31,13 @@ async function verifyHmac(value: string, secret: string): Promise<boolean> {
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
+  const host = req.headers.get("host");
+
+  if (host === "www.econstructhomes.com") {
+    const url = req.nextUrl.clone();
+    url.hostname = "econstructhomes.com";
+    return NextResponse.redirect(url, 308);
+  }
 
   if (pathname === "/our-work") {
     return NextResponse.redirect(new URL("/projects", req.url), 301);
@@ -52,5 +59,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/crm/:path*", "/our-work"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };

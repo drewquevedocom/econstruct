@@ -48,7 +48,7 @@ export function generatePageMetadata({
       description,
       images: [ogImage],
     },
-    ...(noIndex && { robots: { index: false, follow: false } }),
+    ...(noIndex && { robots: { index: false, follow: true } }),
   };
 }
 
