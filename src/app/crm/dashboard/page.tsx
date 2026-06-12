@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Calendar, Inbox, Send, Users } from "lucide-react";
+import { Calendar, Eye, Home, Inbox, Send, Users } from "lucide-react";
 import { createServiceClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
@@ -59,6 +59,36 @@ type EventRow = {
   notes: string | null;
 };
 
+async function fetchInstantlyOpens(): Promise<{ opens: number; sent: number; replies: number }> {
+  const apiKey = process.env.INSTANTLY_API_KEY;
+  if (!apiKey) return { opens: 0, sent: 0, replies: 0 };
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 3000);
+  try {
+    const res = await fetch("https://api.instantly.ai/api/v2/campaigns/analytics", {
+      headers: { Authorization: `Bearer ${apiKey}` },
+      cache: "no-store",
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+    if (!res.ok) return { opens: 0, sent: 0, replies: 0 };
+    const data = await res.json();
+    if (!Array.isArray(data)) return { opens: 0, sent: 0, replies: 0 };
+    let opens = 0,
+      sent = 0,
+      replies = 0;
+    for (const c of data) {
+      opens += c.open_count_unique || c.open_count || 0;
+      sent += c.emails_sent_count || 0;
+      replies += c.reply_count_unique || c.reply_count || 0;
+    }
+    return { opens, sent, replies };
+  } catch {
+    clearTimeout(timeout);
+    return { opens: 0, sent: 0, replies: 0 };
+  }
+}
+
 export default async function DashboardPage() {
   const supabase = createServiceClient();
   const now = new Date();
@@ -73,6 +103,8 @@ export default async function DashboardPage() {
     eventsRes,
     newBuildsTotalRes,
     newBuildsMailReadyRes,
+    newBuildsEnrichedRes,
+    instantlyStats,
   ] = await Promise.all([
     supabase
       .from("partner_leads")
@@ -107,6 +139,12 @@ export default async function DashboardPage() {
       .eq("source", "ladbs_permits")
       .eq("owner_type", "entity")
       .not("owner_mailing_address", "is", null),
+    supabase
+      .from("leads")
+      .select("id", { count: "exact", head: true })
+      .eq("source", "ladbs_permits")
+      .not("owner_name", "is", null),
+    fetchInstantlyOpens(),
   ]);
 
   const sentToday = sentTodayRes.count ?? 0;
@@ -116,6 +154,10 @@ export default async function DashboardPage() {
   const nextEvent = events[0] ?? null;
   const newBuildsTotal = newBuildsTotalRes.count ?? 0;
   const newBuildsMailReady = newBuildsMailReadyRes.count ?? 0;
+  const newBuildsEnriched = newBuildsEnrichedRes.count ?? 0;
+  const totalOpens = instantlyStats.opens;
+  const totalSent = instantlyStats.sent;
+  const openRate = totalSent > 0 ? Math.round((totalOpens / totalSent) * 1000) / 10 : 0;
 
   // Real funnel buckets — honest about what each status means.
   // "Contacted" = cold-emailed (no reply yet). "Active Partner" = signed and referring.
@@ -182,7 +224,51 @@ export default async function DashboardPage() {
         </div>
       </section>
 
-      {/* ── Events + Partner Network ────────────────────────────────── */}
+      {/* ── Cold Email Opens — CTA spotlight ────────────────────────── */}
+      <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1C1C1E] via-[#2A2A2D] to-[#1C1C1E] p-6 text-white shadow-xl">
+        <div className="pointer-events-none absolute -right-12 -top-12 h-56 w-56 rounded-full bg-[#B8963E]/35 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-16 -left-10 h-48 w-48 rounded-full bg-[#B8963E]/15 blur-3xl" />
+        <div className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div className="max-w-md">
+            <div className="flex items-center gap-2">
+              <Eye size={18} className="text-[#D4B96A]" />
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#D4B96A]">
+                Engagement Signal
+              </p>
+            </div>
+            <h2 className="mt-2 text-3xl font-black tracking-tight text-[#FFF8E7]">
+              Cold Email Opens
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-[#F2E8C9]">
+              The leading indicator before replies. When partners open, the pitch is landing — when
+              they don&apos;t, deliverability or copy needs work. Watch this number daily.
+            </p>
+          </div>
+          <div className="flex items-center gap-6">
+            <div className="text-center">
+              <p className="text-6xl font-black tabular-nums text-[#FFF8E7] md:text-7xl">
+                {totalOpens.toLocaleString()}
+              </p>
+              <p className="mt-2 text-[11px] font-black uppercase tracking-wide text-[#D4B96A]">
+                Total Opens
+              </p>
+            </div>
+            <div className="border-l border-white/15 pl-6 text-center">
+              <p className="text-3xl font-black tabular-nums text-[#FFF8E7] md:text-4xl">
+                {openRate}%
+              </p>
+              <p className="mt-2 text-[11px] font-black uppercase tracking-wide text-[#D4B96A]">
+                Open Rate
+              </p>
+              <p className="mt-0.5 text-[10px] text-[#F2E8C9]/70 tabular-nums">
+                of {totalSent.toLocaleString()} sent
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Events + (Partner Network stacked over Homeowner) ──────── */}
       <section className="grid grid-cols-1 gap-4 xl:grid-cols-[1fr_1.4fr]">
         <div className="order-first rounded-2xl border border-[#E8E4DC] bg-white p-5 xl:order-first">
           <div className="mb-4 flex items-start justify-between gap-3">
@@ -208,7 +294,8 @@ export default async function DashboardPage() {
           )}
         </div>
 
-        <div className="order-last rounded-2xl border border-[#E8E4DC] bg-white p-5 xl:order-last">
+        <div className="order-last flex flex-col gap-4 xl:order-last">
+          <div className="rounded-2xl border border-[#E8E4DC] bg-white p-5">
           <div className="mb-4 flex items-start justify-between gap-3">
             <div>
               <h2 className="text-lg font-bold text-[#1C1C1E]">Partner Network</h2>
@@ -274,33 +361,47 @@ export default async function DashboardPage() {
               </div>
             </>
           )}
+          </div>
+
+          {/* Homeowner Pipeline — ~1/3 the height of partner card, sits underneath */}
+          <div className="rounded-2xl border border-[#E8E4DC] bg-white p-4">
+            <div className="mb-3 flex items-start justify-between gap-3">
+              <div className="flex items-start gap-2">
+                <Home size={16} className="mt-0.5 text-[#B8963E]" />
+                <div>
+                  <h2 className="text-base font-bold text-[#1C1C1E]">Homeowner Pipeline</h2>
+                  <p className="mt-0.5 text-[11px] text-gray-500">
+                    Luxury LA permits → ATTOM enrichment → printed mail via Lob
+                  </p>
+                </div>
+              </div>
+              <Link
+                href="/crm/new-builds"
+                className="rounded-lg bg-[#1C1C1E] px-3 py-1.5 text-xs font-bold text-white hover:bg-[#B8963E]"
+              >
+                Open
+              </Link>
+            </div>
+            <div className="grid grid-cols-3 gap-2 rounded-lg bg-[#FAF9F6] p-3 text-center">
+              <div>
+                <p className="text-2xl font-black tabular-nums text-[#1C1C1E]">{newBuildsTotal.toLocaleString()}</p>
+                <p className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-gray-500">Permits</p>
+              </div>
+              <div>
+                <p className="text-2xl font-black tabular-nums text-emerald-700">{newBuildsEnriched.toLocaleString()}</p>
+                <p className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-gray-500">Enriched</p>
+              </div>
+              <div>
+                <p className="text-2xl font-black tabular-nums text-[#B8963E]">{newBuildsMailReady.toLocaleString()}</p>
+                <p className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-gray-500">Mail-Ready</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ── Compact footer: secondary channels + quick links ────────── */}
-      <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <div className="rounded-xl border border-[#E8E4DC] bg-white p-4">
-          <div className="mb-2 flex items-center justify-between">
-            <h3 className="text-sm font-bold text-[#1C1C1E]">New-Build Direct Mail</h3>
-            <Link href="/crm/new-builds" className="text-xs font-bold text-[#B8963E] hover:underline">
-              View
-            </Link>
-          </div>
-          <p className="text-xs text-gray-500">
-            Secondary channel · luxury LADBS permits enriched via ATTOM, mailed via Lob.
-          </p>
-          <div className="mt-3 flex items-center gap-4 text-xs">
-            <span className="tabular-nums">
-              <span className="font-black text-[#1C1C1E]">{newBuildsTotal}</span>{" "}
-              <span className="text-gray-500">permits</span>
-            </span>
-            <span className="tabular-nums">
-              <span className="font-black text-[#1C1C1E]">{newBuildsMailReady}</span>{" "}
-              <span className="text-gray-500">mail-ready</span>
-            </span>
-          </div>
-        </div>
-
+      {/* ── Compact footer: quick links ────────────────────────────── */}
+      <section>
         <div className="rounded-xl border border-[#E8E4DC] bg-white p-4">
           <h3 className="mb-2 text-sm font-bold text-[#1C1C1E]">Jump To</h3>
           <div className="flex flex-wrap gap-2">
