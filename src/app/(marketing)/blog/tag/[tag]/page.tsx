@@ -32,7 +32,6 @@ export async function generateMetadata({
     alternates: {
       canonical: `https://econstructhomes.com/blog/tag/${tag}`,
     },
-    robots: { index: false, follow: true },
   };
 }
 

@@ -59,6 +59,41 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/luxury-home-builders-beverly-hills",
+        destination: "/blog/luxury-home-builders-beverly-hills",
+        permanent: true,
+      },
+      {
+        source: "/custom-home-builders-bel-air-los-angeles",
+        destination: "/blog/custom-home-builders-bel-air-los-angeles",
+        permanent: true,
+      },
+      {
+        source: "/luxury-home-builders-calabasas",
+        destination: "/blog/luxury-home-builders-calabasas",
+        permanent: true,
+      },
+      {
+        source: "/luxury-home-builders-pacific-palisades",
+        destination: "/blog/luxury-home-builders-pacific-palisades",
+        permanent: true,
+      },
+      {
+        source: "/luxury-home-builders-malibu",
+        destination: "/blog/luxury-home-builders-malibu",
+        permanent: true,
+      },
+      {
+        source: "/custom-home-builders-hidden-hills",
+        destination: "/blog/custom-home-builders-hidden-hills",
+        permanent: true,
+      },
+      {
+        source: "/luxury-home-builders-platinum-triangle-bel-air-holmby-hills-beverly-hills",
+        destination: "/blog/luxury-home-builders-platinum-triangle-bel-air-holmby-hills-beverly-hills",
+        permanent: true,
+      },
+      {
         // Renamed 2026-05-28: client (Frank) wants "insurance adjuster" targeting,
         // not "public adjuster". Permanent 308 redirect preserves any existing
         // backlinks / bookmarks to the old URL.

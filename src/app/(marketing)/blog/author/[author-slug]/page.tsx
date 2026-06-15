@@ -38,7 +38,6 @@ export async function generateMetadata({
     alternates: {
       canonical: `https://econstructhomes.com/blog/author/${author.slug}`,
     },
-    robots: { index: false, follow: true },
   };
 }
 

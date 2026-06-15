@@ -365,7 +365,14 @@ async function handleUnsubscribe(params: {
   const today = new Date().toISOString().slice(0, 10);
 
   // Try lookup by partnerLeadId first (custom var), fall back to email match.
-  let partner: { id: string; partner_name: string; contact_email: string | null; notes: string | null; partner_type: string } | null = null;
+  type PartnerLead = {
+    id: string;
+    partner_name: string;
+    contact_email: string | null;
+    notes: string | null;
+    partner_type: string;
+  };
+  let partner: PartnerLead | null = null;
 
   if (partnerLeadId) {
     const { data } = await supabase
@@ -373,7 +380,7 @@ async function handleUnsubscribe(params: {
       .select('id, partner_name, contact_email, notes, partner_type')
       .eq('id', partnerLeadId)
       .maybeSingle();
-    partner = data as typeof partner;
+    partner = data as PartnerLead | null;
   }
   if (!partner && leadEmail) {
     const { data } = await supabase
@@ -381,7 +388,7 @@ async function handleUnsubscribe(params: {
       .select('id, partner_name, contact_email, notes, partner_type')
       .eq('contact_email', leadEmail.toLowerCase())
       .maybeSingle();
-    partner = data as typeof partner;
+    partner = data as PartnerLead | null;
   }
 
   if (!partner) {
