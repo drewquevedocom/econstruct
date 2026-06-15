@@ -59,6 +59,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/lot-walk",
+        destination: "/private-lot-walk",
+        permanent: false,
+      },
+      {
         source: "/luxury-home-builders-beverly-hills",
         destination: "/blog/luxury-home-builders-beverly-hills",
         permanent: true,
