@@ -52,6 +52,8 @@ localAreas:
   - "Bel Air"
   - "Holmby Hills"
   - "Los Angeles"
+draft: true
+approvalStatus: "Awaiting final blog images before publishing"
 ---
 Bel Air is a neighborhood built on the idea that exceptional living requires exceptional space. With winding roads, private gates, and estates perched on hillside lots with views stretching from downtown to the Pacific, it remains one of LA's most sought-after addresses for custom home construction. Building here demands more than skilled craftsmanship — it requires deep local knowledge and the ability to navigate one of the most complex terrain and regulatory environments in Los Angeles.
 

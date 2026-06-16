@@ -50,6 +50,8 @@ relatedSlugs:
 localAreas:
   - "Los Angeles"
   - "Beverly Hills"
+draft: true
+approvalStatus: "Awaiting final blog images before publishing"
 ---
 Beverly Hills. Two words that conjure images of sweeping driveways, manicured hedges, and estates that feel more like resorts than residences. If you're planning to build or renovate your home in one of the world's most iconic neighborhoods, the decisions you make today will define how you live for decades to come. At econstruct, we understand that luxury home construction in Beverly Hills isn't just about building square footage — it's about crafting a legacy.
 

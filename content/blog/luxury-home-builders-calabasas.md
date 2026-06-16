@@ -51,6 +51,8 @@ relatedSlugs:
 localAreas:
   - "Los Angeles"
   - "Calabasas"
+draft: true
+approvalStatus: "Awaiting final blog images before publishing"
 ---
 Calabasas offers something rare in the Los Angeles luxury market: space. With sprawling lots, a mountain backdrop, and the kind of quiet that the rest of LA simply can't provide, it's become one of the region's most coveted addresses for homeowners who want luxury without compromise. Building here — especially within its iconic gated communities — comes with a specific set of rules and processes that can catch even experienced contractors off guard.
 

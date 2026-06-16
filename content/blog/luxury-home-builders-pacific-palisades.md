@@ -52,6 +52,8 @@ localAreas:
   - "Pacific Palisades"
   - "Los Angeles"
   - "Westside LA"
+draft: true
+approvalStatus: "Awaiting final blog images before publishing"
 ---
 Pacific Palisades has always been one of Los Angeles's most beloved communities — perched between the mountains and the Pacific, with tree-lined streets, top-rated schools, and a neighborhood character that's genuinely irreplaceable. After the devastating fires, the path to rebuilding isn't simple. But it is possible. And for homeowners ready to restore — or reimagine — their properties, now is the time to move with an experienced contractor who knows this community and this process inside and out.
 
