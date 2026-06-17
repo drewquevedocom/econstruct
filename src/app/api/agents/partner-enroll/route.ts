@@ -23,7 +23,10 @@ function campaignForType(type: string): string | undefined {
     "Structural / Geotech Engineer": process.env.INSTANTLY_PARTNER_CAMPAIGN_ENGINEER,
     "Fire / Water Restoration": process.env.INSTANTLY_PARTNER_CAMPAIGN_RESTORATION,
   };
-  return map[type] || process.env.INSTANTLY_PARTNER_CAMPAIGN_ID;
+  // No global fallback — undefined return skips the partner cleanly.
+  // Falling through to INSTANTLY_PARTNER_CAMPAIGN_ID was hitting a
+  // workspace-mismatch 403 and freezing the queue.
+  return map[type];
 }
 
 const TEMPLATE_KEY_BY_TYPE: Record<string, string> = {
@@ -112,6 +115,25 @@ export async function POST(req: Request) {
 
     const supabase = createServiceClient();
 
+    // Only pull partner_types with a configured Instantly campaign.
+    // Otherwise queue stalls on the same failing partners every run.
+    const enabledTypes = [
+      "Architect",
+      "Realtor / Real Estate Agent",
+      "Insurance Agent / Adjuster",
+      "Expediter / Permit Runner",
+    ];
+    for (const t of [
+      "Interior Designer",
+      "Real Estate Attorney",
+      "CPA / Wealth Advisor",
+      "Escrow Officer",
+      "Structural / Geotech Engineer",
+      "Fire / Water Restoration",
+    ]) {
+      if (campaignForType(t)) enabledTypes.push(t);
+    }
+
     const { data: partners, error } = await supabase
       .from("partner_leads")
       .select(
@@ -119,8 +141,9 @@ export async function POST(req: Request) {
       )
       .eq("status", "New Lead")
       .not("contact_email", "is", null)
+      .in("partner_type", enabledTypes)
       .order("created_at", { ascending: true })
-      .limit(10);
+      .limit(25);
 
     if (error) throw new Error(`Partner fetch failed: ${error.message}`);
     if (!partners?.length) {
