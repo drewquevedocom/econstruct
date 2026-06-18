@@ -22,6 +22,11 @@ jobs:
         # is harmless at runtime; this flag stops npm from blocking the install.
         run: npm ci --legacy-peer-deps
 
+      - name: Install lightningcss Linux native binary (Tailwind v4 requirement)
+        # The lockfile bundles macOS/Windows binaries; install the Linux one
+        # explicitly so Tailwind v4 can compile CSS in CI.
+        run: npm install --no-save lightningcss-linux-x64-gnu
+
       - name: Build with OpenNext
         run: npx @opennextjs/cloudflare build
 
