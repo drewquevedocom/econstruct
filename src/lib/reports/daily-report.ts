@@ -7,6 +7,9 @@ export type DailyReportData = {
     partnerColdEmailsSentToday: number;
     customerColdEmailsSentToday: number;
     byType: Record<string, number>;
+    instantlyDripSinceLastReport: number;
+    instantlyTotalSent: number;
+    instantlyActiveCampaigns: number;
   };
   yesterday: {
     coldEmailsEnrolled: number;
@@ -29,6 +32,7 @@ export type DailyReportData = {
     partnersWithEmail: number;
     partnersContacted: number;
     partnersNewLead: number;
+    instantlyTotalSent: number;
   };
   topActivity: Array<{ when: string; type: string; channel: string | null; detail?: string }>;
   recentFailures: Array<{ agent: string; when: string; error: string }>;
@@ -39,6 +43,34 @@ const PT_TZ_OFFSET_HOURS = 7; // PT is UTC-7 (PDT). Close enough for daily windo
 function ymdInPT(date: Date) {
   const adjusted = new Date(date.getTime() - PT_TZ_OFFSET_HOURS * 3600 * 1000);
   return adjusted.toISOString().slice(0, 10);
+}
+
+
+async function fetchInstantlyTotals(): Promise<{ totalEnrolled: number; totalSent: number; activeCampaigns: number }> {
+  const apiKey = process.env.INSTANTLY_API_KEY;
+  if (!apiKey) return { totalEnrolled: 0, totalSent: 0, activeCampaigns: 0 };
+  const ctrl = new AbortController();
+  const timeoutId = setTimeout(() => ctrl.abort(), 5000);
+  try {
+    const res = await fetch("https://api.instantly.ai/api/v2/campaigns/analytics", {
+      headers: { Authorization: `Bearer ${apiKey}` },
+      signal: ctrl.signal,
+    });
+    clearTimeout(timeoutId);
+    if (!res.ok) return { totalEnrolled: 0, totalSent: 0, activeCampaigns: 0 };
+    const data = await res.json();
+    if (!Array.isArray(data)) return { totalEnrolled: 0, totalSent: 0, activeCampaigns: 0 };
+    let totalEnrolled = 0, totalSent = 0, activeCampaigns = 0;
+    for (const c of data) {
+      totalEnrolled += c.leads_count || 0;
+      totalSent += c.emails_sent_count || 0;
+      if (c.campaign_status === 1) activeCampaigns++;
+    }
+    return { totalEnrolled, totalSent, activeCampaigns };
+  } catch {
+    clearTimeout(timeoutId);
+    return { totalEnrolled: 0, totalSent: 0, activeCampaigns: 0 };
+  }
 }
 
 export async function buildDailyReport(): Promise<DailyReportData> {
@@ -187,6 +219,21 @@ export async function buildDailyReport(): Promise<DailyReportData> {
       .not("contact_email", "is", null),
   ]);
 
+  // Pull live Instantly campaign analytics + compare to previous report snapshot
+  // so the hero reflects ACTUAL Instantly drip sends, not just new enrollments.
+  const instantlyTotals = await fetchInstantlyTotals();
+  const previousReportRes = await supabase
+    .from("agent_runs")
+    .select("metadata, started_at")
+    .eq("agent_name", "daily-report")
+    .eq("status", "success")
+    .order("started_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  const prevSnapshot = (previousReportRes.data?.metadata?.snapshot ?? null) as Record<string, number> | null;
+  const previousTotalSent = typeof prevSnapshot?.instantlyTotalSent === "number" ? prevSnapshot.instantlyTotalSent : 0;
+  const instantlyDripSinceLastReport = Math.max(0, instantlyTotals.totalSent - previousTotalSent);
+
   return {
     date: todayPT,
     hero: {
@@ -194,6 +241,9 @@ export async function buildDailyReport(): Promise<DailyReportData> {
       partnerColdEmailsSentToday,
       customerColdEmailsSentToday,
       byType,
+      instantlyDripSinceLastReport,
+      instantlyTotalSent: instantlyTotals.totalSent,
+      instantlyActiveCampaigns: instantlyTotals.activeCampaigns,
     },
     yesterday: {
       coldEmailsEnrolled: enrolledRes.count ?? 0,
@@ -216,6 +266,7 @@ export async function buildDailyReport(): Promise<DailyReportData> {
       partnersWithEmail: partnersWithEmailRes.count ?? 0,
       partnersContacted: partnersContactedRes.count ?? 0,
       partnersNewLead: partnersNewLeadRes.count ?? 0,
+      instantlyTotalSent: instantlyTotals.totalSent,
     },
     topActivity: (activityRes.data ?? []).slice(0, 10).map((a) => ({
       when: a.created_at,
@@ -346,7 +397,9 @@ export function renderDailyReportHtml(report: DailyReportData): string {
       <tr>
         <td style="background:#1C1C1E;padding:32px 28px 40px 28px;text-align:center;border-top:1px solid #2B2B2D;">
           <p style="margin:0;font-size:12px;font-weight:bold;letter-spacing:0.28em;text-transform:uppercase;color:#D4B96A;">Cold Emails Sent Today</p>
-          <p style="margin:8px 0 0 0;font-size:84px;font-weight:900;line-height:1;color:#FFF8E7;font-variant-numeric:tabular-nums;letter-spacing:-2px;">${report.hero.coldEmailsSentToday.toLocaleString()}</p>
+          <p style="margin:8px 0 0 0;font-size:84px;font-weight:900;line-height:1;color:#FFF8E7;font-variant-numeric:tabular-nums;letter-spacing:-2px;">${(report.hero.coldEmailsSentToday + report.hero.instantlyDripSinceLastReport).toLocaleString()}</p>
+          <p style="margin:10px 0 0 0;font-size:12px;color:#F2E8C9;line-height:1.4;"><strong style="color:#FFF8E7;">${report.hero.coldEmailsSentToday}</strong> new enrollments today · <strong style="color:#FFF8E7;">${report.hero.instantlyDripSinceLastReport}</strong> from Instantly drip queue since last report</p>
+          <p style="margin:6px 0 0 0;font-size:11px;color:#8a8079;">${report.hero.instantlyActiveCampaigns} active campaigns · ${report.hero.instantlyTotalSent.toLocaleString()} total cold emails sent all-time</p>
           ${
             Object.keys(report.hero.byType).length
               ? `<p style="margin:14px 0 0 0;font-size:13px;color:#F2E8C9;line-height:1.6;">${Object.entries(
