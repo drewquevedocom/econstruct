@@ -1,0 +1,20 @@
+name: Weekly Events Recap
+
+on:
+  schedule:
+    # 15:00 UTC Monday = 8:00 AM PT Monday — start-of-week event list for Frank.
+    - cron: '0 15 * * 1'
+  workflow_dispatch:
+
+jobs:
+  send-events-recap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Trigger events-weekly agent
+        run: |
+          curl -sf -X POST "https://econstructhomes.com/api/agents/events-weekly" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            -H "Content-Type: application/json" \
+            --max-time 60
+        continue-on-error: true

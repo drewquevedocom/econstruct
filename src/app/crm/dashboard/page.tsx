@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Calendar, Eye, Home, Inbox, Send, Users } from "lucide-react";
+import { Calendar, Eye, Home, Inbox, Mail, Send, Users } from "lucide-react";
 import { createServiceClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
@@ -127,6 +127,7 @@ export default async function DashboardPage() {
       .from("crm_events")
       .select("id, title, event_date, location, host_org, event_url, audience, notes")
       .eq("is_archived", false)
+      .or(`event_date.gte.${todayPT},event_date.is.null`)
       .order("event_date", { ascending: true, nullsFirst: false })
       .limit(6),
     supabase
@@ -188,7 +189,7 @@ export default async function DashboardPage() {
       <section>
         <div className="mb-3 flex items-baseline justify-between">
           <h1 className="text-sm font-bold uppercase tracking-[0.18em] text-[#1C1C1E]/60">
-            Today&apos;s Pulse
+            Partner Pipeline
           </h1>
           <span className="text-xs text-gray-400 tabular-nums">{todayPT}</span>
         </div>
@@ -223,6 +224,81 @@ export default async function DashboardPage() {
           />
         </div>
       </section>
+
+      {/* ── Homeowner Pipeline + Direct Mail Pipeline (side-by-side) ─── */}
+      <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="rounded-2xl border border-[#E8E4DC] bg-white p-4">
+          <div className="mb-3 flex items-start justify-between gap-3">
+            <div className="flex items-start gap-2">
+              <Home size={16} className="mt-0.5 text-[#B8963E]" />
+              <div>
+                <h2 className="text-base font-bold text-[#1C1C1E]">Homeowner Pipeline</h2>
+                <p className="mt-0.5 text-[11px] text-gray-500">
+                  Luxury LA permits → ATTOM owner enrichment
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/crm/new-builds"
+              className="rounded-lg bg-[#1C1C1E] px-3 py-1.5 text-xs font-bold text-white hover:bg-[#B8963E]"
+            >
+              Open
+            </Link>
+          </div>
+          <div className="grid grid-cols-3 gap-2 rounded-lg bg-[#FAF9F6] p-3 text-center">
+            <div>
+              <p className="text-2xl font-black tabular-nums text-[#1C1C1E]">{newBuildsTotal.toLocaleString()}</p>
+              <p className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-gray-500">Permits</p>
+            </div>
+            <div>
+              <p className="text-2xl font-black tabular-nums text-emerald-700">{newBuildsEnriched.toLocaleString()}</p>
+              <p className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-gray-500">Enriched</p>
+            </div>
+            <div>
+              <p className="text-2xl font-black tabular-nums text-[#B8963E]">{newBuildsMailReady.toLocaleString()}</p>
+              <p className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-gray-500">Mail-Ready</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-[#E8E4DC] bg-white p-4">
+          <div className="mb-3 flex items-start justify-between gap-3">
+            <div className="flex items-start gap-2">
+              <Mail size={16} className="mt-0.5 text-[#B8963E]" />
+              <div>
+                <h2 className="text-base font-bold text-[#1C1C1E]">Direct Mail Pipeline</h2>
+                <p className="mt-0.5 text-[11px] text-gray-500">
+                  Mail-Ready Queue → printed + sent via Lob.com
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/crm/new-builds"
+              className="rounded-lg bg-[#1C1C1E] px-3 py-1.5 text-xs font-bold text-white hover:bg-[#B8963E]"
+            >
+              Open
+            </Link>
+          </div>
+          <div className="grid grid-cols-3 gap-2 rounded-lg bg-[#FAF9F6] p-3 text-center">
+            <div>
+              <p className="text-2xl font-black tabular-nums text-[#B8963E]">{newBuildsMailReady.toLocaleString()}</p>
+              <p className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-gray-500">In Queue</p>
+            </div>
+            <div>
+              <p className="text-2xl font-black tabular-nums text-[#1C1C1E]">0</p>
+              <p className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-gray-500">This Week</p>
+            </div>
+            <div>
+              <p className="text-2xl font-black tabular-nums text-emerald-700">0</p>
+              <p className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-gray-500">Mailed Total</p>
+            </div>
+          </div>
+          <p className="mt-2 text-[10px] italic text-gray-400">
+            Lob.com batch send not yet wired — queue ready to ship the moment integration lands.
+          </p>
+        </div>
+      </section>
+
 
       {/* ── Cold Email Opens — CTA spotlight ────────────────────────── */}
       <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1C1C1E] via-[#2A2A2D] to-[#1C1C1E] p-6 text-white shadow-xl">
@@ -268,7 +344,7 @@ export default async function DashboardPage() {
         </div>
       </section>
 
-      {/* ── Events + (Partner Network stacked over Homeowner) ──────── */}
+      {/* ── Events + Partner Network (2-column main) ──────────────── */}
       <section className="grid grid-cols-1 gap-4 xl:grid-cols-[1fr_1.4fr]">
         <div className="order-first rounded-2xl border border-[#E8E4DC] bg-white p-5 xl:order-first">
           <div className="mb-4 flex items-start justify-between gap-3">
@@ -363,40 +439,6 @@ export default async function DashboardPage() {
           )}
           </div>
 
-          {/* Homeowner Pipeline — ~1/3 the height of partner card, sits underneath */}
-          <div className="rounded-2xl border border-[#E8E4DC] bg-white p-4">
-            <div className="mb-3 flex items-start justify-between gap-3">
-              <div className="flex items-start gap-2">
-                <Home size={16} className="mt-0.5 text-[#B8963E]" />
-                <div>
-                  <h2 className="text-base font-bold text-[#1C1C1E]">Homeowner Pipeline</h2>
-                  <p className="mt-0.5 text-[11px] text-gray-500">
-                    Luxury LA permits → ATTOM enrichment → printed mail via Lob
-                  </p>
-                </div>
-              </div>
-              <Link
-                href="/crm/new-builds"
-                className="rounded-lg bg-[#1C1C1E] px-3 py-1.5 text-xs font-bold text-white hover:bg-[#B8963E]"
-              >
-                Open
-              </Link>
-            </div>
-            <div className="grid grid-cols-3 gap-2 rounded-lg bg-[#FAF9F6] p-3 text-center">
-              <div>
-                <p className="text-2xl font-black tabular-nums text-[#1C1C1E]">{newBuildsTotal.toLocaleString()}</p>
-                <p className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-gray-500">Permits</p>
-              </div>
-              <div>
-                <p className="text-2xl font-black tabular-nums text-emerald-700">{newBuildsEnriched.toLocaleString()}</p>
-                <p className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-gray-500">Enriched</p>
-              </div>
-              <div>
-                <p className="text-2xl font-black tabular-nums text-[#B8963E]">{newBuildsMailReady.toLocaleString()}</p>
-                <p className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-gray-500">Mail-Ready</p>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
