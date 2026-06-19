@@ -70,7 +70,7 @@ export default function DraftBlogReviewPage() {
                 Ask About Your Project
               </Link>
             </div>
-            <PostCard post={featuredPost} featured hrefBase="/blog/drafts" />
+            <PostCard post={featuredPost} featured hrefBase="/blog/temporary-blogs" />
           </Container>
         </section>
       ) : null}
@@ -91,7 +91,7 @@ export default function DraftBlogReviewPage() {
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
             {pagedPosts.map((post) => (
-              <PostCard key={post.slug} post={post} hrefBase="/blog/drafts" />
+              <PostCard key={post.slug} post={post} hrefBase="/blog/temporary-blogs" />
             ))}
           </div>
 

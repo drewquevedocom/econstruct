@@ -50,7 +50,7 @@ export async function generateMetadata({
     };
   }
 
-  const url = `https://econstructhomes.com/blog/drafts/${post.slug}`;
+  const url = `https://econstructhomes.com/blog/temporary-blogs/${post.slug}`;
 
   return {
     title: `${post.title} | Draft Review`,
@@ -93,7 +93,7 @@ export default async function DraftBlogPostPage({
   }
 
   const relatedPosts = getRelatedDraftPosts(post.slug, post.categorySlug, post.tags);
-  const canonicalUrl = `https://econstructhomes.com/blog/drafts/${post.slug}`;
+  const canonicalUrl = `https://econstructhomes.com/blog/temporary-blogs/${post.slug}`;
 
   const breadcrumbSchema = generateBlogBreadcrumbSchema([
     { name: "Home", url: "https://econstructhomes.com" },
@@ -441,7 +441,7 @@ export default async function DraftBlogPostPage({
           </div>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
             {relatedPosts.map((relatedPost) => (
-              <PostCard key={relatedPost.slug} post={relatedPost} hrefBase="/blog/drafts" />
+              <PostCard key={relatedPost.slug} post={relatedPost} hrefBase="/blog/temporary-blogs" />
             ))}
           </div>
         </Container>
