@@ -69,6 +69,8 @@ For homeowners with the opportunity to rebuild, this moment — while undeniably
 
 The key word is executed right. In the wake of a major disaster, unlicensed and inexperienced contractors flood the market. Choosing a CSLB-licensed general contractor with genuine experience in Pacific Palisades and LA City permitting protects you — your investment, your timeline, and your peace of mind.
 
+![Pacific Palisades luxury home concept with coastal setting and modern rebuild expression](/blog/draft-palisades-hero.jpeg "Pacific Palisades rebuild strategy has to balance coastal context, modern code, and the opportunity to build back stronger")
+
 ## Unique Construction Challenges for Pacific Palisades Rebuilds
 
 The City of LA has implemented streamlined rebuild permitting for fire-damaged properties, but accessing those expedited pathways requires knowing which channels to use and how to submit. Not every contractor is aware of, or qualified for, these fast-track options.
@@ -90,6 +92,8 @@ WUI fire-resistant construction is now mandatory throughout the Palisades: Class
 4. Transparent Rebuild Timelines: The Pacific Palisades rebuild is a multi-year process for most homeowners. A contractor who tells you otherwise isn't being honest with you.
 
 5. Full-Service Scope: From site assessment through permitting and foundation demolition, construction, and final walkthrough — working with one team for the entire process is significantly more efficient and less costly than piecing it together.
+
+![Pacific Palisades rebuild design concept focused on recovery, entitlement, and coastal reconstruction](/blog/draft-palisades-og.jpeg "The rebuild window is also a planning window - the earlier the scope and permit path are set, the smoother the Palisades project moves")
 
 ## The econstruct Approach: Rebuilding Pacific Palisades with Precision and Passion
 

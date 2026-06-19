@@ -68,6 +68,8 @@ The city's equestrian zoning is what truly sets it apart from every other luxury
 
 Building permits in Hidden Hills are issued through LA County's Department of Regional Planning (DRP) — the same unincorporated LA County pathway as Calabasas — but the Hidden Hills Community Association adds its own layer through a strict Architectural Review Committee that governs all construction and significant renovations.
 
+![Hidden Hills equestrian estate planning session with ranch compound model and horse facilities](/blog/draft-hidden-hills-hero.jpeg "Hidden Hills projects often combine estate design, equestrian structures, and ARC expectations in one coordinated planning effort")
+
 ## Unique Construction Challenges in Hidden Hills
 
 The Hidden Hills Community Association's Architectural Review Committee must approve all new construction, major remodels, additions, and significant exterior changes before building permits can be issued. ARC submissions typically require detailed plans, material samples, and landscape proposals — and revision requests are common without thorough preparation. Expect a minimum of 4–8 weeks for ARC review.
@@ -89,6 +91,8 @@ The community's prevailing aesthetic leans toward rustic luxury — ranch-inspir
 4. Multi-Structure Compound Capability: Large lots mean complex projects. Make sure your contractor can manage multiple structures, multiple permits, and multiple ARC submissions simultaneously.
 
 5. Design Sensitivity to Hidden Hills Character: The ARC will push back on designs that feel out of character. A contractor who understands the community's aesthetic — and can work within it — saves you time and revision cycles.
+
+![Private Hidden Hills equestrian estate with pool, long drive, and mountain backdrop](/blog/draft-hidden-hills-og.jpeg "The finished Hidden Hills result depends on getting privacy, scale, equestrian use, and community character right from the start")
 
 ## The econstruct Approach: Building Hidden Hills Estates with Precision and Passion
 

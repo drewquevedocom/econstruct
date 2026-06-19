@@ -68,6 +68,8 @@ Calabasas' gated communities add another layer entirely. The Oaks of Calabasas a
 
 The result is a construction environment that rewards preparation. Homeowners who work with contractors who understand Calabasas before breaking ground save many months and significant cost. Those who don't, learn the hard way.
 
+![Calabasas gated community luxury estate with mountain backdrop and expansive pool](/blog/draft-calabasas-hero.jpeg "Calabasas projects succeed when gated-community constraints, lot potential, and lifestyle goals are coordinated before submittals begin")
+
 ## Unique Construction Challenges in Calabasas
 
 ARC approval in The Oaks of Calabasas typically adds 8–12 weeks before building permit submission can begin — and revision requests from the ARC can extend that timeline further if plans aren't well-prepared from the start. econstruct designs with ARC standards in mind from the first concept sketch, reducing the likelihood of costly revisions.
@@ -87,6 +89,8 @@ For properties near Malibu Creek State Park and Las Virgenes Road wildlife corri
 4. Design Sensitivity to HOA Standards: The best Calabasas builds balance ARC compliance with your personal aesthetic — they don't look like generic HOA houses.
 
 5. Multi-Structure Capability: Calabasas' large lots often accommodate guest houses, ADUs, casitas, and detached garages — make sure your contractor can permit and build all of them.
+
+![Calabasas luxury home planning meeting with estate model, finish samples, and site drawings](/blog/draft-calabasas-og.jpeg "ARC-compliant estate planning in Calabasas gets easier when design, materials, and approval strategy are reviewed together early")
 
 ## The econstruct Approach: Building Calabasas Estates with Precision and Passion
 

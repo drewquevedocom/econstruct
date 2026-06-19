@@ -69,6 +69,8 @@ Unlike Beverly Hills, Bel Air falls under LA City jurisdiction — meaning permi
 
 Privacy is also paramount in Bel Air. Motor courts, deep setbacks, mature tree integration, and acoustically engineered windows are common client requests — and designing for privacy from day one is far more effective than trying to add it in later.
 
+![Bel Air luxury estate overlooking Los Angeles at dusk](/blog/draft-bel-air-overlook.jpeg "Bel Air estate positioning, privacy, and hillside orientation are part of the build strategy long before construction begins")
+
 ## Unique Construction Challenges in Bel Air
 
 LA's Hillside Ordinance adds specific requirements for grading, drainage, and fire protection on sloped lots that significantly affect project cost and timeline. Any project on a hillside lot in Bel Air must account for these requirements from the design phase onward.
@@ -88,6 +90,8 @@ For homeowners seeking to maximize Bel Air's most valuable asset — the views �
 4. Design-Build Capability for Custom Hillside Architecture: Hillside homes require designs that work with the terrain, not against it — a design-build firm does this in one integrated process.
 
 5. Privacy-Forward Design Expertise: Gate systems, landscape screening, and site orientation for privacy should be built into the design from day one.
+
+![Bel Air hillside construction planning session with site model and estate drawings](/blog/draft-bel-air-planning.jpeg "Bel Air hillside construction decisions get better when lot strategy, grading, and design intent are aligned early")
 
 ## The econstruct Approach: Building Bel Air Estates with Precision and Passion
 

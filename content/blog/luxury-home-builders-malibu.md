@@ -68,6 +68,8 @@ Malibu has a certified Local Coastal Program (LCP) that governs all development 
 
 And unlike most of LA, Malibu does not have a citywide sewer system. The vast majority of properties operate on onsite septic systems — which directly affects where structures can be sited, how large they can be, and what site improvements are possible.
 
+![Malibu coastal luxury estate set on the bluff at sunset](/blog/draft-malibu-hero.jpeg "Malibu design decisions are inseparable from coastal siting, bluff conditions, and the relationship between the house and the Pacific")
+
 ## Unique Construction Challenges in Malibu
 
 The Coastal Development Permit (CDP) process is the central challenge of any Malibu build. For projects that comply straightforwardly with Malibu's LCP, expect 6–12 months for CDP approval. Complex projects or those requiring a California Coastal Commission hearing can take 12–18+ months — and this timeline must be built into your project schedule from day one.
@@ -89,6 +91,8 @@ Indoor/outdoor living is the defining design element of Malibu estates — retra
 4. WUI and Geotechnical Coordination: Wildfire and geological risks must be addressed in both design and construction. Look for a contractor with strong engineer & consultant relationships in both areas.
 
 5. Design-Build Capability for Indoor/Outdoor Living: Retractable walls, cantilevered decks, and oceanfront infinity pools require integrated design and construction — a design-build firm delivers this more efficiently than a fragmented team.
+
+![Malibu home design planning session focused on coastal estate layout and approvals](/blog/draft-malibu-og.jpeg "The strongest Malibu projects treat Coastal Commission strategy, structural planning, and indoor-outdoor living as one integrated process")
 
 ## The econstruct Approach: Building Malibu Estates with Precision and Passion
 

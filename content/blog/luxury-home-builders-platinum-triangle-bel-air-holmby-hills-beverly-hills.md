@@ -67,6 +67,8 @@ A contractor building in the Platinum Triangle must navigate all three jurisdict
 
 Holmby Hills in particular features some of the largest private lots in Los Angeles — some reaching 2–5+ acres — with estates that include multiple buildings, full staff quarters, and grounds that rival private parks. The architectural history here is extraordinary: French châteaux and English manors built in the 1930s now sit alongside contemporary masterpieces designed by architecture's most celebrated names.
 
+![Platinum Triangle luxury estate in Los Angeles with formal arrival and resort-scale grounds](/blog/draft-platinum-triangle-hero.jpeg "The Platinum Triangle is a market where land, privacy, and execution standards all operate at a different level")
+
 ## Unique Construction Challenges in the Platinum Triangle
 
 Multi-year project timelines are the norm at this level. A full custom estate build in the Platinum Triangle typically takes 3–5 years from initial concept to completion — with permitting alone often requiring 12–18 months across community association review and building department approval processes.
@@ -86,6 +88,8 @@ The caliber of finish expected at this level requires sourcing specialty materia
 3. Meticulous Subcontractor Management: Ultra-luxury finishes require specialized trades — custom millwork, stone fabrication, high-end metalwork, smart home integration. Your GC's ability to manage and hold these trades to the highest standards is critical.
 
 4. Discretion and Professionalism: Privacy isn't just about gates and hedges. It's about the people working on your project. A professional team with protocols for client confidentiality is a baseline requirement at this level.
+
+![Ultra-luxury estate construction planning session with owner team, site model, and finish samples](/blog/draft-platinum-triangle-og.jpeg "Ultra-prime estate work demands disciplined collaboration between contractor, architect, consultants, and owner from the earliest planning stages")
 
 ## The econstruct Approach: Building Platinum Triangle Legacies with Precision and Passion
 

@@ -67,6 +67,8 @@ Beyond jurisdiction, Beverly Hills has some of the most stringent setback, heigh
 
 Underground utility requirements in many Beverly Hills zones add cost and complexity that inexperienced contractors routinely underestimate. Knowing these requirements upfront — before design begins — is what separates a smooth project from a costly one.
 
+![Beverly Hills luxury estate at golden hour with formal approach and manicured grounds](/blog/draft-beverly-hills-hero.jpeg "Beverly Hills luxury construction is as much about disciplined site planning and entitlement strategy as it is about the finished architecture")
+
 ## Unique Construction Challenges in Beverly Hills
 
 For new construction, expect permit timelines of 8–12 months through Beverly Hills Building & Safety. Larger estates or projects requiring discretionary approvals can run longer. This isn't a warning — it's a reality that should shape your project timeline from the very first conversation with your contractor.
@@ -84,6 +86,8 @@ For gated enclaves and communities with Covenants, Conditions & Restrictions (CC
 3. Transparent Budgeting with Contingency Planning: Beverly Hills projects routinely encounter site conditions that affect cost. An experienced & trustworthy contractor bakes in realistic contingency, not wishful optimism.
 
 4. Collaborative Approach: The best luxury builds in Beverly Hills happen when the contractor, architect, MEP consultants, interior designers, landscapong architects, and client stay in sync throughout. Look for a team that holds regular stakeholder meetings on-site.
+
+![Beverly Hills estate with pool and layered outdoor living spaces](/blog/draft-beverly-hills-og.jpeg "Premium Beverly Hills projects reward teams that can coordinate architecture, landscape, and high-finish execution without losing control of scope")
 
 ## The econstruct Approach: Building Beverly Hills Estates with Precision and Passion
 
