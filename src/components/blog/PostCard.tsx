@@ -6,13 +6,14 @@ import type { BlogPostSummary } from "@/lib/blog";
 interface PostCardProps {
   post: BlogPostSummary;
   featured?: boolean;
+  hrefBase?: string;
 }
 
-export default function PostCard({ post, featured = false }: PostCardProps) {
+export default function PostCard({ post, featured = false, hrefBase = "/blog" }: PostCardProps) {
   if (featured) {
     return (
       <Link
-        href={`/blog/${post.slug}`}
+        href={`${hrefBase}/${post.slug}`}
         className="group grid overflow-hidden rounded-[2rem] border border-black/8 bg-white shadow-[0_24px_60px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(0,0,0,0.1)] lg:grid-cols-[1.2fr_0.95fr]"
       >
         <div className="relative h-full min-h-[320px] overflow-hidden">
@@ -61,7 +62,7 @@ export default function PostCard({ post, featured = false }: PostCardProps) {
 
   return (
     <Link
-      href={`/blog/${post.slug}`}
+      href={`${hrefBase}/${post.slug}`}
       className="group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-black/8 bg-white shadow-[0_18px_44px_rgba(0,0,0,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(0,0,0,0.09)]"
     >
       <div className="relative">
