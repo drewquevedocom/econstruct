@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import PostCard from "@/components/blog/PostCard";
+import BlogFilters from "@/components/blog/BlogFilters";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import {
@@ -10,6 +11,7 @@ import {
   getDraftBlogPosts,
   paginatePosts,
 } from "@/lib/blog";
+import { generateBlogBreadcrumbSchema } from "@/lib/blog/schema";
 
 export const metadata: Metadata = {
   title: "Temporary Blogs | econstruct",
@@ -23,9 +25,19 @@ export default function DraftBlogReviewPage() {
   const remainingPosts = draftPosts.slice(1);
   const pagedPosts = paginatePosts(remainingPosts, 1);
   const totalPages = getBlogIndexPages(draftPosts.length);
+  const breadcrumbSchema = generateBlogBreadcrumbSchema([
+    { name: "Home", url: "https://econstructhomes.com" },
+    { name: "Blog", url: "https://econstructhomes.com/blog" },
+    { name: "Temporary Blogs", url: "https://econstructhomes.com/blog/temporary-blogs" },
+  ]);
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       <PageHero
         title="Temporary Blogs"
         subtitle="Draft blog previews in the same teaser layout as the live blog, kept separate until images are approved."
@@ -33,23 +45,29 @@ export default function DraftBlogReviewPage() {
         backgroundImage="/blog/draft-platinum-triangle-hero.jpeg"
       />
 
+      <section className="bg-secondary py-16 md:py-20">
+        <Container>
+          <BlogFilters />
+        </Container>
+      </section>
+
       {featuredPost ? (
         <section className="py-16 md:py-20">
           <Container>
             <div className="mb-8 flex items-center justify-between gap-6">
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-gold">
-                  Temporary Review
+                  Latest From The Field
                 </p>
                 <h2 className="mt-3 text-3xl font-bold tracking-tight text-brand-dark md:text-4xl">
-                  Featured Draft
+                  Featured Analysis
                 </h2>
               </div>
               <Link
-                href="/blog"
+                href="/contact"
                 className="hidden rounded-full border border-brand-dark/12 px-5 py-3 text-sm font-bold text-brand-dark transition-colors hover:border-accent-gold hover:text-accent-gold md:inline-flex"
               >
-                Back To Live Blog
+                Ask About Your Project
               </Link>
             </div>
             <PostCard post={featuredPost} featured hrefBase="/blog/drafts" />
@@ -81,26 +99,26 @@ export default function DraftBlogReviewPage() {
             <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-gold">
-                  Temporary Review
+                  Newsletter
                 </p>
                 <h3 className="mt-3 text-3xl font-bold tracking-tight text-white">
-                  Draft Blogs Awaiting Image Approval
+                  Get the LA Rebuild Newsletter
                 </h3>
                 <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/72">
-                  These article teasers are intentionally separated from the live blog until the
-                  final image direction is approved.
+                  Monthly insight from active job sites, permit counters, and reconstruction budgets.
+                  For now, use our contact page and we will add you manually.
                 </p>
               </div>
               <div className="rounded-[1.5rem] border border-white/10 bg-white/6 p-6">
                 <p className="text-sm leading-relaxed text-white/72">
-                  Review the teaser image, headline, and excerpt treatment here first. Open any
-                  draft card to inspect the full article preview if needed.
+                  Tell us your neighborhood, project type, and timeline. We will route you to the
+                  right rebuild or modernization contact.
                 </p>
                 <Link
-                  href="/blog"
+                  href="/contact"
                   className="mt-5 inline-flex items-center gap-2 rounded-full bg-accent-gold px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-white hover:text-brand-dark"
                 >
-                  View Live Blog
+                  Join via Contact
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
