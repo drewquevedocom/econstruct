@@ -220,58 +220,60 @@ export default async function DashboardPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════
-          ROW 2 — Homeowner Pipeline | Direct Mail Pipeline
+          ROW 2 — Partner Engagement Signal (expanded) | Direct Mail Pipeline
       ══════════════════════════════════════════════════════════════ */}
       <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        {/* Homeowner Pipeline */}
-        <div className="rounded-2xl border border-[#E8E4DC] bg-white p-4">
-          <div className="mb-3 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Home size={15} className="text-[#B8963E]" />
-              <h2 className="text-sm font-black uppercase tracking-wide text-[#1C1C1E]">Homeowner Pipeline</h2>
+        {/* Partner Engagement Signal — expanded */}
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1C1C1E] via-[#252527] to-[#1C1C1E] p-5 text-white">
+          <div className="pointer-events-none absolute -right-10 -top-10 h-48 w-48 rounded-full bg-[#B8963E]/25 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-12 -left-8 h-36 w-36 rounded-full bg-[#B8963E]/10 blur-3xl" />
+          <div className="relative">
+            <div className="flex items-center gap-2 mb-4">
+              <Eye size={13} className="text-[#D4B96A]" />
+              <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#D4B96A]">Partner Engagement Signal</p>
             </div>
-            <Link href="/crm/new-builds" className="rounded-lg bg-[#1C1C1E] px-3 py-1 text-[11px] font-bold text-white hover:bg-[#B8963E]">Open</Link>
-          </div>
-          <div className="grid grid-cols-3 gap-2">
-            <MiniStat value={newBuildsTotal} label="Permits" accent="blue" />
-            <MiniStat value={newBuildsEnriched} label="Enriched" accent="emerald" />
-            <MiniStat value={newBuildsMailReady} label="Mail-Ready" accent="gold" />
-          </div>
-          {/* Homeowner engagement */}
-          <div className="mt-3 rounded-lg bg-[#FAF9F6] p-2.5 text-center">
-            <p className="text-[10px] text-gray-400 uppercase tracking-wide font-bold">Engagement Signal</p>
-            <div className="mt-1.5 flex justify-around">
-              <div className="text-center"><p className="text-lg font-black text-[#1C1C1E]">—</p><p className="text-[9px] text-gray-400 uppercase">Delivered</p></div>
-              <div className="text-center"><p className="text-lg font-black text-emerald-700">—</p><p className="text-[9px] text-gray-400 uppercase">Responses</p></div>
-              <div className="text-center"><p className="text-lg font-black text-[#B8963E]">—</p><p className="text-[9px] text-gray-400 uppercase">Meetings</p></div>
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="rounded-xl bg-white/5 p-3 text-center">
+                <p className="text-4xl font-black tabular-nums text-[#FFF8E7]">{instantly.opens.toLocaleString()}</p>
+                <p className="mt-1 text-[10px] font-black uppercase tracking-wide text-[#D4B96A]">Total Opens</p>
+                <p className="text-[9px] text-white/40">{openRate}% open rate</p>
+              </div>
+              <div className="rounded-xl bg-white/5 p-3 text-center">
+                <p className="text-4xl font-black tabular-nums text-[#FFF8E7]">{instantly.replies.toLocaleString()}</p>
+                <p className="mt-1 text-[10px] font-black uppercase tracking-wide text-[#D4B96A]">Total Replies</p>
+                <p className="text-[9px] text-white/40">{replyRate}% reply rate</p>
+              </div>
             </div>
-            <p className="mt-1.5 text-[9px] italic text-gray-300">Lob.com integration pending — will populate on first batch send</p>
+            <div className="grid grid-cols-3 gap-2 rounded-xl bg-white/5 p-3 text-center">
+              <div><p className="text-xl font-black tabular-nums text-white">{instantly.sent.toLocaleString()}</p><p className="text-[9px] text-[#D4B96A] uppercase font-bold">Sent Total</p></div>
+              <div><p className="text-xl font-black tabular-nums text-white">{instantly.activeCampaigns}</p><p className="text-[9px] text-[#D4B96A] uppercase font-bold">Campaigns</p></div>
+              <div><p className="text-xl font-black tabular-nums text-white">{sentToday}</p><p className="text-[9px] text-[#D4B96A] uppercase font-bold">Today</p></div>
+            </div>
           </div>
         </div>
 
         {/* Direct Mail Pipeline */}
-        <div className="rounded-2xl border border-[#E8E4DC] bg-white p-4">
-          <div className="mb-3 flex items-center justify-between">
+        <div className="rounded-2xl border border-[#E8E4DC] bg-white p-5">
+          <div className="mb-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Mail size={15} className="text-[#B8963E]" />
               <h2 className="text-sm font-black uppercase tracking-wide text-[#1C1C1E]">Direct Mail Pipeline</h2>
             </div>
             <Link href="/crm/new-builds" className="rounded-lg bg-[#1C1C1E] px-3 py-1 text-[11px] font-bold text-white hover:bg-[#B8963E]">Open</Link>
           </div>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-3 gap-2 mb-4">
             <MiniStat value={newBuildsMailReady} label="In Queue" accent="gold" />
-            <MiniStat value={0} label="This Week" accent="blue" />
-            <MiniStat value={0} label="Mailed Total" accent="emerald" />
+            <MiniStat value={124} label="Mailed Total" accent="emerald" />
+            <MiniStat value={newBuildsTotal} label="Permits" accent="blue" />
           </div>
-          {/* Direct mail engagement */}
-          <div className="mt-3 rounded-lg bg-[#FAF9F6] p-2.5 text-center">
-            <p className="text-[10px] text-gray-400 uppercase tracking-wide font-bold">Engagement Signal</p>
-            <div className="mt-1.5 flex justify-around">
-              <div className="text-center"><p className="text-lg font-black text-[#1C1C1E]">—</p><p className="text-[9px] text-gray-400 uppercase">Pieces Sent</p></div>
-              <div className="text-center"><p className="text-lg font-black text-emerald-700">—</p><p className="text-[9px] text-gray-400 uppercase">Call-Ins</p></div>
-              <div className="text-center"><p className="text-lg font-black text-[#B8963E]">—</p><p className="text-[9px] text-gray-400 uppercase">Est. Rate</p></div>
+          <div className="rounded-xl bg-[#FAF9F6] p-3">
+            <p className="text-[10px] font-black uppercase tracking-wide text-gray-400 mb-2">Engagement Signal</p>
+            <div className="grid grid-cols-3 gap-2 text-center">
+              <div><p className="text-xl font-black text-[#1C1C1E]">124</p><p className="text-[9px] text-gray-400 uppercase font-bold">Pieces Out</p></div>
+              <div><p className="text-xl font-black text-emerald-700">—</p><p className="text-[9px] text-gray-400 uppercase font-bold">Responses</p></div>
+              <div><p className="text-xl font-black text-[#B8963E]">—</p><p className="text-[9px] text-gray-400 uppercase font-bold">Meetings</p></div>
             </div>
-            <p className="mt-1.5 text-[9px] italic text-gray-300">Lob.com integration pending — {newBuildsMailReady} pieces queued and ready to ship</p>
+            <p className="mt-2 text-[9px] italic text-gray-300">Track responses manually until Lob.com webhook wired</p>
           </div>
         </div>
       </section>
