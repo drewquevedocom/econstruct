@@ -22,7 +22,7 @@ const SOURCES = [
   "Other",
 ];
 
-const STATUSES = ["New Lead", "Contacted", "Agreement Sent", "Active Partner", "Inactive"];
+const STATUSES = ["New Lead", "Contacted", "Replied", "Agreement Sent", "Active Partner", "Inactive"];
 const AGREEMENT_STATUSES = ["Not Started", "Sent", "Signed", "Active"];
 
 function addDays(days: number) {
@@ -157,10 +157,18 @@ export async function updatePartnerStatus(partnerLeadId: string, status: string)
     updates.last_contact_date = new Date().toISOString().slice(0, 10);
     updates.next_follow_up_date = addDays(5);
   }
-
+  if (status === "Replied") {
+    updates.next_follow_up_date = addDays(1); // Frank should act on a reply same/next day
+  }
+  if (status === "Agreement Sent") {
+    updates.next_follow_up_date = addDays(7);
+  }
   if (status === "Active Partner") {
     updates.date_signed = new Date().toISOString().slice(0, 10);
     updates.next_follow_up_date = addDays(30);
+  }
+  if (status === "Inactive") {
+    updates.next_follow_up_date = addDays(90); // re-check in 90d in case they change their mind
   }
 
   const { error } = await supabase.from("partner_leads").update(updates).eq("id", partnerLeadId);
@@ -169,23 +177,47 @@ export async function updatePartnerStatus(partnerLeadId: string, status: string)
   if (status === "Contacted") {
     await supabase.from("partner_tasks").insert({
       partner_lead_id: partnerLeadId,
-      title: "Check in - did they respond?",
+      title: "Check in — did they respond to the cold email?",
       due_date: addDays(5),
+    });
+  }
+
+  if (status === "Replied") {
+    await supabase.from("partner_tasks").insert({
+      partner_lead_id: partnerLeadId,
+      title: `Review reply from ${priorRow?.partner_name || "partner"} and send agreement if interested`,
+      due_date: addDays(1),
+    });
+  }
+
+  if (status === "Agreement Sent") {
+    await supabase.from("partner_tasks").insert({
+      partner_lead_id: partnerLeadId,
+      title: `Follow up — ${priorRow?.partner_name || "partner"} hasn't signed yet`,
+      due_date: addDays(7),
     });
   }
 
   if (status === "Active Partner") {
     await supabase.from("partner_tasks").insert({
       partner_lead_id: partnerLeadId,
-      title: `Welcome ${priorRow?.partner_name || "new partner"} — send referral playbook + monthly check-in`,
+      title: `Welcome ${priorRow?.partner_name || "new partner"} — send referral playbook + save number`,
       due_date: addDays(2),
     });
     await supabase.from("partner_tasks").insert({
       partner_lead_id: partnerLeadId,
-      title: `Monthly check-in: any referrals this month?`,
+      title: `Monthly check-in with ${priorRow?.partner_name || "partner"} — any referrals this month?`,
       due_date: addDays(30),
       is_recurring: true,
       recurrence: "monthly",
+    });
+  }
+
+  if (status === "Inactive") {
+    await supabase.from("partner_tasks").insert({
+      partner_lead_id: partnerLeadId,
+      title: `${priorRow?.partner_name || "Partner"} marked Inactive — re-engage in 90 days?`,
+      due_date: addDays(90),
     });
   }
 

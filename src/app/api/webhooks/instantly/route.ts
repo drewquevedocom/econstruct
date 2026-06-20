@@ -44,12 +44,14 @@ async function createPartnerReplyTask(
     .filter(Boolean)
     .join('\n');
 
+  // Move to "Replied" stage — surfaces in the Replied column of the Kanban
+  // so Frank knows to review and decide whether to send the agreement.
   await supabase
     .from('partner_leads')
     .update({
-      status: 'Contacted',
+      status: 'Replied',
       last_contact_date: today,
-      next_follow_up_date: today,
+      next_follow_up_date: today, // due today — Frank should act same day
       notes,
       updated_at: new Date().toISOString(),
     })
@@ -57,7 +59,7 @@ async function createPartnerReplyTask(
 
   await supabase.from('partner_tasks').insert({
     partner_lead_id: partnerLeadId,
-    title: `Review Instantly reply from ${partner.partner_name}`,
+    title: `Review reply from ${partner.partner_name} — send agreement if interested`,
     due_date: today,
   });
 }

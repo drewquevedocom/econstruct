@@ -90,7 +90,7 @@ const SOURCES = [
   "Other",
 ];
 
-const STATUSES = ["New Lead", "Contacted", "Agreement Sent", "Active Partner", "Inactive"];
+const STATUSES = ["New Lead", "Contacted", "Replied", "Agreement Sent", "Active Partner", "Inactive"];
 const AGREEMENTS = ["Not Started", "Sent", "Signed", "Active"];
 
 const ASAP_EMAILS = [
@@ -557,19 +557,71 @@ export default function PartnerNetworkView({
   );
 }
 
+const STAGE_META: Record<string, { label: string; next: string; color: string; border: string }> = {
+  "New Lead":       { label: "1 · New Lead",       next: "Cron enrolls → cold email sent",    color: "text-gray-500",    border: "border-gray-200" },
+  "Contacted":      { label: "2 · Contacted",       next: "Waiting for reply from partner",     color: "text-sky-600",     border: "border-sky-200" },
+  "Replied":        { label: "3 · Replied ⚡",      next: "Frank reviews → Send Agreement",     color: "text-amber-700",   border: "border-amber-300" },
+  "Agreement Sent": { label: "4 · Agreement Sent",  next: "Partner clicks 'I Agree' to sign",  color: "text-violet-700",  border: "border-violet-200" },
+  "Active Partner": { label: "5 · Active Partner ✓",next: "Monthly check-in · track referrals", color: "text-emerald-700", border: "border-emerald-300" },
+  "Inactive":       { label: "Inactive",             next: "Re-engage in 90 days",               color: "text-gray-400",    border: "border-gray-100" },
+};
+
 function Kanban({ leads }: { leads: PartnerLead[] }) {
+  const VISIBLE = ["New Lead", "Contacted", "Replied", "Agreement Sent", "Active Partner"];
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-5 gap-3">
-      {STATUSES.map((status) => (
-        <div key={status} className="min-h-[260px] rounded-xl border border-[#E8E4DC] bg-white p-3">
-          <p className="mb-3 text-xs font-black uppercase tracking-wide text-gray-400">{status}</p>
-          <div className="space-y-2">
-            {leads.filter((lead) => lead.status === status).map((lead) => (
+    <div className="space-y-2">
+      {/* Workflow header */}
+      <div className="grid grid-cols-5 gap-2 px-1">
+        {VISIBLE.map((status, i) => {
+          const meta = STAGE_META[status];
+          const count = leads.filter((l) => l.status === status).length;
+          return (
+            <div key={status} className={`rounded-lg border ${meta.border} bg-white px-2 py-1.5 text-center`}>
+              <p className={`text-[10px] font-black uppercase tracking-wide ${meta.color}`}>{meta.label}</p>
+              <p className="text-lg font-black tabular-nums text-[#1C1C1E]">{count}</p>
+              <p className="text-[9px] text-gray-400 leading-3">{meta.next}</p>
+              {i < VISIBLE.length - 1 && (
+                <p className="mt-1 text-[10px] text-gray-300">→</p>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Kanban columns */}
+      <div className="grid grid-cols-1 xl:grid-cols-5 gap-3">
+        {VISIBLE.map((status) => {
+          const meta = STAGE_META[status];
+          const colLeads = leads.filter((l) => l.status === status);
+          return (
+            <div key={status} className={`min-h-[200px] rounded-xl border ${meta.border} bg-white p-3`}>
+              <p className={`mb-3 text-[10px] font-black uppercase tracking-wide ${meta.color}`}>
+                {meta.label} ({colLeads.length})
+              </p>
+              <div className="space-y-2">
+                {colLeads.map((lead) => <PartnerCard key={lead.id} lead={lead} />)}
+                {colLeads.length === 0 && (
+                  <p className="py-4 text-center text-[11px] text-gray-300">—</p>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Inactive — collapsed at bottom */}
+      {leads.filter((l) => l.status === "Inactive").length > 0 && (
+        <details className="rounded-xl border border-gray-100 bg-gray-50 p-3">
+          <summary className="cursor-pointer text-xs font-bold text-gray-400">
+            Inactive ({leads.filter((l) => l.status === "Inactive").length}) — click to expand
+          </summary>
+          <div className="mt-2 grid grid-cols-2 gap-2 md:grid-cols-4">
+            {leads.filter((l) => l.status === "Inactive").map((lead) => (
               <PartnerCard key={lead.id} lead={lead} />
             ))}
           </div>
-        </div>
-      ))}
+        </details>
+      )}
     </div>
   );
 }
@@ -630,20 +682,34 @@ function PartnerCard({ lead }: { lead: PartnerLead }) {
         <span>Next: {dateLabel(lead.next_follow_up_date)}</span>
       </div>
       <div className="mt-2 flex flex-wrap gap-1">
-        <SendAgreementButton lead={lead} />
-        {lead.status !== "Contacted" && (
-          <button onClick={() => updatePartnerStatus(lead.id, "Contacted")} className="rounded bg-white px-2 py-1 text-[11px] font-bold text-sky-700">
-            Contacted
+        {/* Show contextual NEXT STEP button based on current stage */}
+        {lead.status === "New Lead" && (
+          <button onClick={() => updatePartnerStatus(lead.id, "Contacted")} className="rounded bg-sky-600 px-2 py-1 text-[11px] font-bold text-white">
+            Mark Contacted
           </button>
         )}
-        {lead.referral_agreement_status !== "Sent" && lead.status !== "Active Partner" && (
-          <button onClick={() => updateAgreementStatus(lead.id, "Sent")} className="rounded bg-white px-2 py-1 text-[11px] font-bold text-amber-700">
-            Agreement Sent
+        {lead.status === "Contacted" && (
+          <button onClick={() => updatePartnerStatus(lead.id, "Replied")} className="rounded bg-amber-500 px-2 py-1 text-[11px] font-bold text-white">
+            They Replied ⚡
           </button>
         )}
-        {lead.status !== "Active Partner" && (
-          <button onClick={() => updateAgreementStatus(lead.id, "Signed")} className="rounded bg-white px-2 py-1 text-[11px] font-bold text-green-700">
-            Signed
+        {lead.status === "Replied" && (
+          <SendAgreementButton lead={lead} />
+        )}
+        {lead.status === "Agreement Sent" && (
+          <button onClick={() => updateAgreementStatus(lead.id, "Signed")} className="rounded bg-emerald-600 px-2 py-1 text-[11px] font-bold text-white">
+            Mark Signed ✓
+          </button>
+        )}
+        {lead.status === "Active Partner" && (
+          <span className="rounded bg-emerald-50 px-2 py-1 text-[11px] font-bold text-emerald-700">
+            ✓ Active
+          </span>
+        )}
+        {/* Mark inactive on any non-signed stage */}
+        {lead.status !== "Active Partner" && lead.status !== "Inactive" && (
+          <button onClick={() => updatePartnerStatus(lead.id, "Inactive")} className="rounded bg-gray-100 px-2 py-1 text-[11px] font-bold text-gray-500">
+            Inactive
           </button>
         )}
       </div>
