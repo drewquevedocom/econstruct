@@ -5,10 +5,13 @@ import type { LucideIcon } from "lucide-react";
 import {
   Building2,
   CalendarClock,
+  CheckCircle2,
   Copy,
   DollarSign,
   Download,
+  FileSignature,
   Handshake,
+  Loader2,
   Mail,
   Plus,
   Rocket,
@@ -571,11 +574,54 @@ function Kanban({ leads }: { leads: PartnerLead[] }) {
   );
 }
 
+function SendAgreementButton({ lead }: { lead: PartnerLead }) {
+  const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  if (!lead.contact_email || lead.status === "Active Partner" || lead.status === "Inactive") return null;
+
+  async function handleSend() {
+    setState("sending");
+    try {
+      const res = await fetch("/api/crm/send-agreement", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ partner_lead_id: lead.id }),
+      });
+      if (res.ok) setState("sent");
+      else setState("error");
+    } catch {
+      setState("error");
+    }
+  }
+
+  if (state === "sent") return (
+    <span className="inline-flex items-center gap-1 rounded bg-emerald-50 px-2 py-1 text-[11px] font-bold text-emerald-700">
+      <CheckCircle2 size={11} /> Sent!
+    </span>
+  );
+
+  return (
+    <button
+      type="button"
+      onClick={handleSend}
+      disabled={state === "sending"}
+      className="inline-flex items-center gap-1 rounded bg-[#B8963E] px-2 py-1 text-[11px] font-bold text-white hover:bg-[#9A7B2F] disabled:opacity-50"
+      title={`Send referral agreement email to ${lead.contact_email}`}
+    >
+      {state === "sending" ? <Loader2 size={11} className="animate-spin" /> : <FileSignature size={11} />}
+      {state === "sending" ? "Sending…" : "Send Agreement"}
+    </button>
+  );
+}
+
 function PartnerCard({ lead }: { lead: PartnerLead }) {
   return (
     <div className="rounded-xl border border-[#E8E4DC] bg-[#FAF9F6] p-3">
       <p className="text-sm font-bold text-[#1C1C1E]">{lead.partner_name}</p>
       <p className="mt-0.5 text-xs text-gray-500">{lead.company_firm || "--"}</p>
+      {lead.contact_email && (
+        <p className="mt-0.5 truncate text-[11px] text-gray-400">{lead.contact_email}</p>
+      )}
       <span className={`mt-2 inline-block rounded-full px-2 py-0.5 text-[11px] font-bold ${TYPE_COLORS[lead.partner_type] || TYPE_COLORS.Other}`}>
         {lead.partner_type}
       </span>
@@ -583,7 +629,8 @@ function PartnerCard({ lead }: { lead: PartnerLead }) {
         <span>Last: {dateLabel(lead.last_contact_date)}</span>
         <span>Next: {dateLabel(lead.next_follow_up_date)}</span>
       </div>
-      <div className="mt-2 flex gap-1">
+      <div className="mt-2 flex flex-wrap gap-1">
+        <SendAgreementButton lead={lead} />
         {lead.status !== "Contacted" && (
           <button onClick={() => updatePartnerStatus(lead.id, "Contacted")} className="rounded bg-white px-2 py-1 text-[11px] font-bold text-sky-700">
             Contacted
@@ -615,7 +662,7 @@ function FollowUpTable({ leads }: { leads: PartnerLead[] }) {
           <Td>{dateLabel(lead.last_contact_date)}</Td>
           <Td>{dateLabel(lead.next_follow_up_date)}</Td>
           <Td>{lead.status}</Td>
-          <Td>{lead.notes?.slice(0, 80) || "--"}</Td>
+          <td className="px-4 py-2"><SendAgreementButton lead={lead} /></td>
         </tr>
       ))}
     </TableShell>
