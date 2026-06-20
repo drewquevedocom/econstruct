@@ -1,0 +1,229 @@
+/* eslint-disable @next/next/no-img-element */
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { generateBreadcrumbSchema } from "@/lib/schema";
+import { SITE_URL } from "@/lib/constants";
+import { temporaryProjectSummaries } from "@/lib/data/temp-projects";
+import Container from "@/components/ui/Container";
+import PageHero from "@/components/ui/PageHero";
+import ConsultationCTA from "@/components/ConsultationCTA";
+
+export const dynamic = "force-static";
+
+export const metadata: Metadata = {
+  title: "Temporary Projects | eConstruct Homes",
+  description:
+    "Hidden review page for upcoming eConstruct Homes portfolio case studies before approval.",
+  alternates: {
+    canonical: `${SITE_URL}/projects/temporary-projects`,
+  },
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
+const categoryColors: Record<string, string> = {
+  "Custom Home Build": "bg-accent-gold/12 text-accent-gold",
+  "Luxury Remodel": "bg-blue-500/10 text-blue-700",
+  "Luxury New Build": "bg-emerald-500/10 text-emerald-700",
+};
+
+export default function TemporaryProjectsPage() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: SITE_URL },
+    { name: "Projects", url: `${SITE_URL}/projects` },
+    { name: "Temporary Projects", url: `${SITE_URL}/projects/temporary-projects` },
+  ]);
+
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Temporary econstruct Project Reviews",
+    description: "Internal review set for upcoming eConstruct Homes project case studies.",
+    itemListElement: temporaryProjectSummaries.map((project, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: project.title,
+      url: `${SITE_URL}/projects/temporary-projects/${project.slug}`,
+      image: `${SITE_URL}${project.image}`,
+      description: project.description,
+    })),
+  };
+
+  const [featured, ...rest] = temporaryProjectSummaries;
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
+
+      <PageHero
+        title="Temporary Project Reviews"
+        subtitle="Five upcoming residential case studies kept off the main portfolio until they are approved."
+        breadcrumbs={[
+          { label: "Projects", href: "/projects" },
+          { label: "Temporary Projects" },
+        ]}
+        backgroundImage={featured.image}
+        stats={[
+          { value: "5", label: "Pending Projects" },
+          { value: "2021-2025", label: "Completion Span" },
+          { value: "Private", label: "Review Only" },
+        ]}
+      />
+
+      <section className="bg-[#f6f2ea] py-20 md:py-28">
+        <Container>
+          <p className="mb-8 text-[11px] font-semibold uppercase tracking-[0.34em] text-accent-gold">
+            Featured Review
+          </p>
+
+          <Link
+            href={`/projects/temporary-projects/${featured.slug}`}
+            className="group block overflow-hidden rounded-3xl bg-white shadow-[0_24px_60px_rgba(0,0,0,0.1)] transition-all duration-500 hover:shadow-[0_32px_80px_rgba(0,0,0,0.14)] lg:grid lg:grid-cols-[1.2fr_0.8fr]"
+          >
+            <div className="relative aspect-[16/10] overflow-hidden lg:aspect-auto lg:min-h-[520px]">
+              <img
+                src={featured.image}
+                alt={featured.title}
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+              <div className="absolute left-6 top-6">
+                <span className={`rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.22em] ${categoryColors[featured.category] ?? "bg-white/20 text-white"}`}>
+                  {featured.category}
+                </span>
+              </div>
+              <div className="absolute bottom-6 left-6">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-accent-gold">
+                  {featured.neighborhood}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col justify-between p-8 md:p-12">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-body-text/45">
+                  Temporary Approval Page
+                </p>
+                <h2 className="mt-3 font-heading text-[1.85rem] leading-[1.08] tracking-tight text-brand-dark md:text-[2.2rem]">
+                  {featured.title}
+                </h2>
+                <p className="mt-5 text-[0.95rem] leading-[1.75] text-black/60">
+                  {featured.description}
+                </p>
+
+                <ul className="mt-8 space-y-2.5">
+                  {featured.highlights.map((h) => (
+                    <li key={h} className="flex items-start gap-2.5 text-[0.875rem] text-black/65">
+                      <span className="mt-[5px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent-gold" />
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-10 flex flex-wrap gap-4 border-t border-black/8 pt-8 text-[11px] font-semibold uppercase tracking-[0.2em]">
+                <div>
+                  <p className="text-black/35">Scope</p>
+                  <p className="mt-1 text-brand-dark">{featured.scope}</p>
+                </div>
+                <div>
+                  <p className="text-black/35">Location</p>
+                  <p className="mt-1 text-brand-dark">{featured.location}</p>
+                </div>
+                <div>
+                  <p className="text-black/35">Year</p>
+                  <p className="mt-1 text-brand-dark">{featured.completionDate}</p>
+                </div>
+              </div>
+
+              <div className="mt-8 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-accent-gold transition-colors group-hover:text-brand-dark">
+                View Project
+                <ArrowUpRight size={14} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </div>
+            </div>
+          </Link>
+        </Container>
+      </section>
+
+      <section className="bg-white py-20 md:py-28">
+        <Container>
+          <div className="mb-12 flex flex-col gap-4 min-[700px]:flex-row min-[700px]:items-end min-[700px]:justify-between">
+            <div>
+              <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.34em] text-accent-gold">
+                Review Set
+              </p>
+              <h2 className="font-heading text-[2.2rem] leading-tight tracking-tight text-brand-dark md:text-[2.8rem]">
+                Upcoming Portfolio Additions
+              </h2>
+            </div>
+            <p className="max-w-sm text-[0.9rem] leading-[1.7] text-black/50">
+              These case studies are separated from the live project portfolio until image selection and positioning are approved.
+            </p>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-2">
+            {rest.map((project, i) => (
+              <Link
+                key={project.slug}
+                href={`/projects/temporary-projects/${project.slug}`}
+                className="group block overflow-hidden rounded-2xl border border-black/8 bg-white shadow-sm transition-all duration-400 hover:-translate-y-1 hover:shadow-xl"
+                style={{ animationDelay: `${i * 80}ms` }}
+              >
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="h-full w-full object-cover transition-transform duration-600 group-hover:scale-[1.04]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+                  <div className="absolute left-5 top-5">
+                    <span className={`rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] backdrop-blur-sm ${categoryColors[project.category] ?? "bg-white/20 text-white"}`}>
+                      {project.category}
+                    </span>
+                  </div>
+                  <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-accent-gold">
+                      {project.neighborhood}
+                    </p>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/60">
+                      {project.completionDate}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-7 md:p-8">
+                  <h3 className="font-heading text-[1.35rem] leading-snug tracking-tight text-brand-dark">
+                    {project.shortTitle}
+                  </h3>
+                  <p className="mt-3 text-[0.875rem] leading-[1.72] text-black/55 line-clamp-3">
+                    {project.description}
+                  </p>
+
+                  <div className="mt-6 flex flex-wrap gap-x-5 gap-y-1 border-t border-black/8 pt-5">
+                    {project.highlights.slice(0, 3).map((h) => (
+                      <span key={h} className="flex items-center gap-1.5 text-[11px] font-medium text-black/45">
+                        <span className="h-1 w-1 rounded-full bg-accent-gold" />
+                        {h}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-5 inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-accent-gold transition-colors group-hover:text-brand-dark">
+                    View Case Study
+                    <ArrowUpRight size={13} />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <ConsultationCTA />
+    </>
+  );
+}
