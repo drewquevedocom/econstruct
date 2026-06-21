@@ -192,29 +192,29 @@ export default async function DashboardPage() {
           </div>
         </div>
 
-        {/* Engagement Signal — Partner */}
+        {/* Engagement Signal — Direct Mail */}
         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1C1C1E] via-[#252527] to-[#1C1C1E] p-4 text-white">
           <div className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full bg-[#B8963E]/30 blur-3xl" />
           <div className="relative">
             <div className="flex items-center gap-2 mb-3">
-              <Eye size={13} className="text-[#D4B96A]" />
-              <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#D4B96A]">Partner Engagement Signal</p>
+              <Mail size={13} className="text-[#D4B96A]" />
+              <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#D4B96A]">Direct Mail Engagement Signal</p>
             </div>
             <div className="grid grid-cols-3 gap-3 text-center">
               <div>
-                <p className="text-3xl font-black tabular-nums text-[#FFF8E7]">{instantly.opens.toLocaleString()}</p>
-                <p className="mt-1 text-[10px] font-black uppercase tracking-wide text-[#D4B96A]">Opens</p>
+                <p className="text-3xl font-black tabular-nums text-[#FFF8E7]">124</p>
+                <p className="mt-1 text-[10px] font-black uppercase tracking-wide text-[#D4B96A]">Mailed</p>
               </div>
               <div className="border-x border-white/10">
-                <p className="text-3xl font-black tabular-nums text-[#FFF8E7]">{openRate}%</p>
-                <p className="mt-1 text-[10px] font-black uppercase tracking-wide text-[#D4B96A]">Open Rate</p>
+                <p className="text-3xl font-black tabular-nums text-[#FFF8E7]">—</p>
+                <p className="mt-1 text-[10px] font-black uppercase tracking-wide text-[#D4B96A]">Responses</p>
               </div>
               <div>
-                <p className="text-3xl font-black tabular-nums text-[#FFF8E7]">{replyRate}%</p>
-                <p className="mt-1 text-[10px] font-black uppercase tracking-wide text-[#D4B96A]">Reply Rate</p>
+                <p className="text-3xl font-black tabular-nums text-[#FFF8E7]">—</p>
+                <p className="mt-1 text-[10px] font-black uppercase tracking-wide text-[#D4B96A]">Meetings</p>
               </div>
             </div>
-            <p className="mt-3 text-[10px] text-[#F2E8C9]/60 tabular-nums text-center">{instantly.activeCampaigns} active campaigns · {instantly.sent.toLocaleString()} total sent</p>
+            <p className="mt-3 text-[10px] text-[#F2E8C9]/60 text-center">Live tracking via Lob.com — integration pending</p>
           </div>
         </div>
       </section>
