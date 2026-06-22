@@ -16,7 +16,7 @@ reviewedBy: "Reviewed by Frank Neimroozi, econstruct"
 factCheckedBy: "Fact-checked by econstruct project development team"
 heroImage: "/blog/draft-beverly-hills-hero.jpeg"
 heroImageAlt: "Beverly Hills luxury custom home construction by econstruct"
-ogImage: "/blog/draft-beverly-hills-og.jpeg"
+ogImage: "/blog/beverly-hills-estate-review-20260622.jpeg"
 excerpt: "Looking for luxury home builders in Beverly Hills? econstruct delivers bespoke estate construction with precision and passion. Schedule your free consultation today."
 targetKeyword: "luxury home builders Beverly Hills"
 takeaways:
@@ -87,7 +87,7 @@ For gated enclaves and communities with Covenants, Conditions & Restrictions (CC
 
 4. Collaborative Approach: The best luxury builds in Beverly Hills happen when the contractor, architect, MEP consultants, interior designers, landscapong architects, and client stay in sync throughout. Look for a team that holds regular stakeholder meetings on-site.
 
-![Beverly Hills estate with pool and layered outdoor living spaces](/blog/draft-beverly-hills-og.jpeg "Premium Beverly Hills projects reward teams that can coordinate architecture, landscape, and high-finish execution without losing control of scope")
+![Beverly Hills estate with pool and layered outdoor living spaces](/blog/beverly-hills-estate-review-20260622.jpeg "Premium Beverly Hills projects reward teams that can coordinate architecture, landscape, and high-finish execution without losing control of scope")
 
 ## The econstruct Approach: Building Beverly Hills Estates with Precision and Passion
 

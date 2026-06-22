@@ -16,7 +16,7 @@ reviewedBy: "Reviewed by Frank Neimroozi, econstruct"
 factCheckedBy: "Fact-checked by econstruct project development team"
 heroImage: "/blog/draft-platinum-triangle-hero.jpeg"
 heroImageAlt: "Beverly Hills luxury custom home construction by econstruct"
-ogImage: "/blog/draft-platinum-triangle-og.jpeg"
+ogImage: "/blog/platinum-triangle-construction-review-20260622.jpeg"
 excerpt: "Building in the Platinum Triangle? econstruct crafts ultra-luxury estates in Bel Air, Holmby Hills, and Beverly Hills with unmatched precision. Free consultation available."
 targetKeyword: "luxury home builders Bel Air Holmby Hills Beverly Hills"
 takeaways:
@@ -89,7 +89,7 @@ The caliber of finish expected at this level requires sourcing specialty materia
 
 4. Discretion and Professionalism: Privacy isn't just about gates and hedges. It's about the people working on your project. A professional team with protocols for client confidentiality is a baseline requirement at this level.
 
-![Ultra-luxury estate construction planning session with owner team, site model, and finish samples](/blog/draft-platinum-triangle-og.jpeg "Ultra-prime estate work demands disciplined collaboration between contractor, architect, consultants, and owner from the earliest planning stages")
+![Ultra-luxury estate construction planning session with owner team, site model, and finish samples](/blog/platinum-triangle-construction-review-20260622.jpeg "Ultra-prime estate work demands disciplined collaboration between contractor, architect, consultants, and owner from the earliest planning stages")
 
 ## The econstruct Approach: Building Platinum Triangle Legacies with Precision and Passion
 

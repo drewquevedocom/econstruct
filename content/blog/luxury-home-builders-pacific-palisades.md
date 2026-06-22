@@ -17,7 +17,7 @@ reviewedBy: "Reviewed by Frank Neimroozi, econstruct"
 factCheckedBy: "Fact-checked by econstruct project development team"
 heroImage: "/blog/draft-palisades-hero.jpeg"
 heroImageAlt: "Pacific Palisades luxury fire rebuild and custom home construction planning"
-ogImage: "/blog/draft-palisades-og.jpeg"
+ogImage: "/blog/palisades-coastal-review-20260622.jpeg"
 excerpt: "Rebuilding your Pacific Palisades home after the fires? econstruct specializes in luxury custom construction and fire rebuild projects. Get expert guidance — free consultation."
 targetKeyword: "luxury home builders Pacific Palisades"
 takeaways:
@@ -93,7 +93,7 @@ WUI fire-resistant construction is now mandatory throughout the Palisades: Class
 
 5. Full-Service Scope: From site assessment through permitting and foundation demolition, construction, and final walkthrough — working with one team for the entire process is significantly more efficient and less costly than piecing it together.
 
-![Pacific Palisades rebuild design concept focused on recovery, entitlement, and coastal reconstruction](/blog/draft-palisades-og.jpeg "The rebuild window is also a planning window - the earlier the scope and permit path are set, the smoother the Palisades project moves")
+![Pacific Palisades rebuild design concept focused on recovery, entitlement, and coastal reconstruction](/blog/palisades-coastal-review-20260622.jpeg "The rebuild window is also a planning window - the earlier the scope and permit path are set, the smoother the Palisades project moves")
 
 ## The econstruct Approach: Rebuilding Pacific Palisades with Precision and Passion
 
