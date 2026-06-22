@@ -21,7 +21,7 @@ export const blogAuthors: BlogAuthor[] = [
       "Frank's recent focus has centered on Pacific Palisades, Brentwood, Santa Monica, Altadena, and other neighborhoods where code changes, insurance pressure, and schedule risk intersect. He works closely with architects, engineers, permit teams, and owners to translate rebuilding complexity into clear scope, budget, and sequencing decisions.",
     ],
     credentials: [
-      "Licensed General Contractor (CSLB # TODO)",
+      "Licensed General Contractor (CSLB #964015)",
       "20+ years managing Los Angeles residential construction",
       "Fire rebuild and WUI compliance project leadership",
       "Luxury modernization and custom home delivery",
