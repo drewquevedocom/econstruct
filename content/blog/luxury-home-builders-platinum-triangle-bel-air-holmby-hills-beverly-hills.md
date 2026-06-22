@@ -50,8 +50,6 @@ relatedSlugs:
 localAreas:
   - "Los Angeles"
   - "Beverly Hills"
-draft: true
-approvalStatus: "Awaiting final blog images before publishing"
 ---
 There is a triangle on the map of Los Angeles where the land itself seems to carry a different kind of weight. Bel Air to the north. Beverly Hills to the south. Holmby Hills connecting them in the middle. This is the Platinum Triangle — home to some of the most valuable and storied residential real estate on earth, and the address of choice for the world's most discerning homeowners. Building here isn't just a construction project. It's a statement. And every decision — from the contractor you choose to the marble you select — reflects the standard this neighborhood demands.
 
