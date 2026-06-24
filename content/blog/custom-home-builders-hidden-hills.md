@@ -51,7 +51,6 @@ relatedSlugs:
 localAreas:
   - "Los Angeles"
   - "Hidden Hills"
-draft: true
 approvalStatus: "Awaiting final blog images before publishing"
 ---
 Hidden Hills lives up to its name. Entirely gated, equestrian-zoned, and tucked away from the noise of greater Los Angeles, it's one of the most private and distinctive communities in Southern California. Every resident enters through the same gate. Every lot is at least an acre. The lifestyle — horses, open space, and genuine community — is something you simply can't replicate anywhere else in LA. Building or renovating here requires a contractor who understands not just construction, but the unique character of this one-of-a-kind neighborhood.
