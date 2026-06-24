@@ -1,2 +1,5 @@
-export { metadata } from "../drafts/page";
-export { default } from "../drafts/page";
+import { redirect } from "next/navigation";
+
+export default function TemporaryBlogsPage() {
+  redirect("/blog");
+}
