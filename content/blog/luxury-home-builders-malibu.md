@@ -51,7 +51,6 @@ relatedSlugs:
 localAreas:
   - "Los Angeles"
   - "Malibu"
-draft: true
 approvalStatus: "Awaiting final blog images before publishing"
 ---
 Malibu is unlike anywhere else in the world. Thirty miles of Pacific coastline, canyon estates tucked into the Santa Monica Mountains, and some of the most valuable residential real estate in California. Building here — whether on a beachfront lot in Carbon Beach or a canyon retreat above Point Dume — is a privilege. It's also one of the most complex construction environments in the state. Navigating the California Coastal Commission, Malibu's own planning department, and a unique set of environmental requirements demands a contractor who has done this before.

@@ -1,3 +1,5 @@
+import { temporaryProjectPages } from "@/lib/data/temp-projects";
+
 export interface PromptProjectPage {
   slug: string;
   title: string;
@@ -25,7 +27,7 @@ export interface PromptProjectPage {
   youtubeUrl?: string;
 }
 
-export const promptProjects: PromptProjectPage[] = [
+const basePromptProjects: PromptProjectPage[] = [
   {
     slug: "calabasas-mediterranean-new-home-build",
     shortTitle: "Calabasas Mediterranean Estate",
@@ -442,6 +444,11 @@ export const promptProjects: PromptProjectPage[] = [
       name: "Bell Canyon homeowner",
     },
   },
+];
+
+export const promptProjects: PromptProjectPage[] = [
+  ...basePromptProjects,
+  ...temporaryProjectPages,
 ];
 
 export function getPromptProjectBySlug(slug: string): PromptProjectPage | undefined {

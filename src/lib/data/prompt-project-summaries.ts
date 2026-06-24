@@ -1,3 +1,5 @@
+import { temporaryProjectSummaries } from "@/lib/data/temp-projects";
+
 export interface PromptProjectSummary {
   slug: string;
   shortTitle: string;
@@ -12,7 +14,7 @@ export interface PromptProjectSummary {
   highlights: string[];
 }
 
-export const promptProjectSummaries: PromptProjectSummary[] = [
+const basePromptProjectSummaries: PromptProjectSummary[] = [
   {
     slug: "calabasas-mediterranean-new-home-build",
     shortTitle: "Calabasas Mediterranean Estate",
@@ -153,4 +155,9 @@ export const promptProjectSummaries: PromptProjectSummary[] = [
       "Drought-tolerant landscaping",
     ],
   },
+];
+
+export const promptProjectSummaries: PromptProjectSummary[] = [
+  ...basePromptProjectSummaries,
+  ...temporaryProjectSummaries,
 ];
