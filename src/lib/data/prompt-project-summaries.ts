@@ -160,4 +160,4 @@ const basePromptProjectSummaries: PromptProjectSummary[] = [
 export const promptProjectSummaries: PromptProjectSummary[] = [
   ...basePromptProjectSummaries,
   ...temporaryProjectSummaries,
-];
+].sort((a, b) => Number.parseInt(b.completionDate, 10) - Number.parseInt(a.completionDate, 10));
