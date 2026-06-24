@@ -19,7 +19,7 @@ export const temporaryProjectPages: PromptProjectPage[] = [
   {
     slug: "altadena-craftsman-estate",
     shortTitle: "Altadena Craftsman Estate",
-    title: "Altadena Craftsman Estate - Temporary Portfolio Review",
+    title: "Altadena Craftsman Estate",
     description:
       "A warm, detail-rich Craftsman estate concept for Altadena, combining mountain views, stone detailing, a generous great room, a statement kitchen, and resort-caliber outdoor living.",
     image: tempImage("altadena-craftsman-estate", 1),
@@ -86,7 +86,7 @@ export const temporaryProjectPages: PromptProjectPage[] = [
     ],
     heroTitle: "Altadena Craftsman Estate",
     heroSubtitle:
-      "A temporary review project built around classic Craftsman character, foothill views, and a strong indoor-outdoor family layout.",
+      "A classic Craftsman estate concept built around foothill views and a strong indoor-outdoor family layout.",
     challenge: [
       "The design had to capture traditional Craftsman warmth without feeling heavy or overly nostalgic. In Altadena, that balance matters because the foothill light and mountain backdrop reward homes that feel grounded but still open.",
       "The program also required a large family layout, generous entertaining spaces, and a pool-centered backyard, all while keeping the architecture coherent from curb to rear terrace.",
@@ -101,7 +101,7 @@ export const temporaryProjectPages: PromptProjectPage[] = [
     ],
     result: [
       "The finished concept reads as a substantial Altadena estate with clear architectural identity, strong outdoor usability, and a material palette that should age well over time.",
-      "As a temporary portfolio review piece, it also broadens the visible range of styles on the econstruct residential side without drifting away from the premium-Los-Angeles market position.",
+      "It broadens the visible range of styles on the econstruct residential side without drifting away from the premium Los Angeles market position.",
     ],
     takeaways: [
       "Traditional architecture lands better when the outdoor spaces are designed with the same discipline as the interior.",
@@ -112,7 +112,7 @@ export const temporaryProjectPages: PromptProjectPage[] = [
   {
     slug: "hollywood-hills-midcentury-modern",
     shortTitle: "Hollywood Hills MCM",
-    title: "Hollywood Hills Midcentury Modern - Temporary Portfolio Review",
+    title: "Hollywood Hills Midcentury Modern",
     description:
       "A Hollywood Hills midcentury-modern residence shaped around city views, sculptural indoor-outdoor spaces, a dramatic pool terrace, and a polished material palette suited to hillside living.",
     image: tempImage("hollywood-hills-midcentury-modern", 1),
@@ -179,7 +179,7 @@ export const temporaryProjectPages: PromptProjectPage[] = [
     ],
     heroTitle: "Hollywood Hills Midcentury Modern",
     heroSubtitle:
-      "A temporary review project focused on view-driven hillside living, clean architectural geometry, and a more sculptural take on the Hollywood Hills lifestyle.",
+      "A view-driven hillside project focused on clean architectural geometry and a more sculptural take on the Hollywood Hills lifestyle.",
     challenge: [
       "The core challenge was giving the home a strong midcentury-modern identity without making it feel like a period exercise. In the Hollywood Hills, the architecture still has to work as a current luxury residence.",
       "The second challenge was sequencing the indoor and outdoor spaces around the skyline. If the circulation or room hierarchy is wrong, a view house can still feel flat.",
@@ -194,7 +194,7 @@ export const temporaryProjectPages: PromptProjectPage[] = [
     ],
     result: [
       "The concept reads as a convincing Hollywood Hills showcase property and expands the portfolio's range in a direction that aligns well with the local market.",
-      "It also gives the temporary review page a project with a clear nighttime identity, which helps the five-project set feel less repetitive.",
+      "It gives the portfolio a project with a clear nighttime identity, which helps the set feel less repetitive.",
     ],
     takeaways: [
       "A view house works best when circulation is choreographed as carefully as the main rooms.",
@@ -205,7 +205,7 @@ export const temporaryProjectPages: PromptProjectPage[] = [
   {
     slug: "manhattan-beach-contemporary-residence",
     shortTitle: "Manhattan Beach Contemporary",
-    title: "Manhattan Beach Contemporary Residence - Temporary Portfolio Review",
+    title: "Manhattan Beach Contemporary Residence",
     description:
       "A sleek contemporary residence in Manhattan Beach, balancing privacy, ocean-near indoor-outdoor living, crisp entry detailing, and a calm modern interior palette.",
     image: tempImage("manhattan-beach-contemporary-residence", 1),
@@ -272,7 +272,7 @@ export const temporaryProjectPages: PromptProjectPage[] = [
     ],
     heroTitle: "Manhattan Beach Contemporary Residence",
     heroSubtitle:
-      "A temporary review project that leans into quiet luxury, strong proportions, and the kind of indoor-outdoor modern living that fits Manhattan Beach.",
+      "A project that leans into quiet luxury, strong proportions, and the kind of indoor-outdoor modern living that fits Manhattan Beach.",
     challenge: [
       "The design needed to feel contemporary and high-end without turning cold. In a coastal neighborhood, that balance between precision and comfort is easy to miss.",
       "The site also called for multiple distinct outdoor moments, including a stronger entertaining zone and a more private upper-level experience.",
@@ -287,7 +287,7 @@ export const temporaryProjectPages: PromptProjectPage[] = [
     ],
     result: [
       "The finished concept expands the visible portfolio into a cleaner contemporary coastal direction while staying consistent with econstruct's premium-home positioning.",
-      "It also adds geographic diversity to the temporary set, which is useful for internal review and future public rollout.",
+      "It adds geographic diversity to the portfolio while staying aligned with econstruct's premium-home positioning.",
     ],
     takeaways: [
       "Contemporary coastal homes need warmth in the material palette or they risk feeling generic.",
@@ -298,7 +298,7 @@ export const temporaryProjectPages: PromptProjectPage[] = [
   {
     slug: "calabasas-mediterranean-estate-review",
     shortTitle: "Calabasas Mediterranean",
-    title: "Calabasas Mediterranean Estate - Temporary Portfolio Review",
+    title: "Calabasas Mediterranean Estate",
     description:
       "A sunlit Mediterranean estate in Calabasas with a strong arrival sequence, red-tile rooflines, generous entertaining rooms, and layered backyard living built around pool, terrace, and lounge spaces.",
     image: tempImage("calabasas-mediterranean-estate-review", 1),
@@ -365,7 +365,7 @@ export const temporaryProjectPages: PromptProjectPage[] = [
     ],
     heroTitle: "Calabasas Mediterranean Estate",
     heroSubtitle:
-      "A temporary review project shaped around a classic Southern California estate vocabulary and a clean, contemporary approach to luxury family living.",
+      "A project shaped around a classic Southern California estate vocabulary and a clean, contemporary approach to luxury family living.",
     challenge: [
       "Mediterranean homes can become visually heavy very quickly, especially at this scale. The challenge was preserving the romance of the style while keeping the project sharp and current.",
       "The entertaining program also needed to read clearly, with a believable relationship between front arrival, central family spaces, and the backyard living sequence.",
@@ -379,7 +379,7 @@ export const temporaryProjectPages: PromptProjectPage[] = [
       "The exterior sequence is especially important, with terraces and pool areas designed to work as separate destinations that still read as one composition.",
     ],
     result: [
-      "The finished concept gives the temporary portfolio set a classic estate project that complements the more contemporary and midcentury entries.",
+      "The finished concept gives the portfolio a classic estate project that complements the more contemporary and midcentury entries.",
       "It also pairs well with the existing Calabasas work already visible on the live site without duplicating it directly.",
     ],
     takeaways: [
@@ -391,7 +391,7 @@ export const temporaryProjectPages: PromptProjectPage[] = [
   {
     slug: "bel-air-mediterranean-estate",
     shortTitle: "Bel Air Mediterranean",
-    title: "Bel Air Mediterranean Estate - Temporary Portfolio Review",
+    title: "Bel Air Mediterranean Estate",
     description:
       "A grand Bel Air Mediterranean estate concept with a formal arrival, strong stone detailing, a refined great room, a chef's kitchen, and a resort-caliber backyard designed for entertaining at scale.",
     image: tempImage("bel-air-mediterranean-estate", 1),
@@ -458,7 +458,7 @@ export const temporaryProjectPages: PromptProjectPage[] = [
     ],
     heroTitle: "Bel Air Mediterranean Estate",
     heroSubtitle:
-      "A temporary review project that pushes further into formal estate territory, with a stronger arrival sequence and a more ceremonial luxury tone than the rest of the set.",
+      "A project that pushes further into formal estate territory, with a stronger arrival sequence and a more ceremonial luxury tone than the rest of the set.",
     challenge: [
       "Bel Air demands a more elevated sense of arrival and privacy than a typical luxury project. The architecture has to feel substantial and controlled from the gate onward.",
       "At the same time, the home still needed to support everyday living, not just read as a statement piece in photographs.",
@@ -472,7 +472,7 @@ export const temporaryProjectPages: PromptProjectPage[] = [
       "The backyard strategy treats pool, terrace, and landscape as one luxury system that supports both quiet use and larger social events.",
     ],
     result: [
-      "The concept rounds out the five-project temporary set with the most formal estate expression of the group and gives the portfolio review a distinct Bel Air presence.",
+      "The concept rounds out the five-project set with the most formal estate expression of the group and gives the portfolio a distinct Bel Air presence.",
       "It also creates a strong approval-page anchor because the architecture reads immediately, even before a viewer gets into details.",
     ],
     takeaways: [
