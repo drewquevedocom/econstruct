@@ -1,10 +1,10 @@
 # Daily SEO Opportunities
 
-Generated: 2026-06-24T15:40:46.968Z
+Generated: 2026-06-25T15:58:42.467Z
 
 ## 1. altadena fire rebuild cost
 
-- Score: 29
+- Score: 28
 - Area: Altadena
 - Service: Fire Rebuild
 - Suggested title: Altadena Fire Rebuild Update: After the Eaton fire, ‘In the Gardens of Eaton’ finds unexpected beauty in loss - Los Angeles Times
@@ -19,38 +19,50 @@ Generated: 2026-06-24T15:40:46.968Z
 - Score: 27
 - Area: Pacific Palisades
 - Service: Fire Rebuild
-- Suggested title: Pacific Palisades Fire Rebuild Update: Inmates may not sue prison officials who violate their religious rights, Supreme Court rules - Los Angeles Times
-- Suggested slug: pacific-palisades-fire-rebuild-update-inmates-may-not-sue-prison-officials-who-v
-- Source headline: Inmates may not sue prison officials who violate their religious rights, Supreme Court rules - Los Angeles Times
+- Suggested title: Pacific Palisades Fire Rebuild Update: Venezuela earthquake: Staggering destruction signals urgent warning for California - Los Angeles Times
+- Suggested slug: pacific-palisades-fire-rebuild-update-venezuela-earthquake-staggering-destructio
+- Source headline: Venezuela earthquake: Staggering destruction signals urgent warning for California - Los Angeles Times
 - Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMi2AFBVV95cUxNU3p5QS1yeW1kTkx4VUlGcUZZTVk0UEhIdU5VSTVkM25hVldGRFAwU2ZhOF9TMFN2cURqZTdKQzRXa1RqZENSNkVlZEl4OU5naXhjRGlnRlF6cmxBeEM1ZW1hVUJBMUlaQ05CdHFjb25LMHFKd1VsOGRDdlllWVA5V054QUVTWWNCVWlMUDdlaVRwbG1ta2JGdTJjdnlncDA4WEhqRFg5NWJ2VFAwVXBoSmcxQ3pDelZWWHVJYXA3enp2ajJmRzN1YW84NW1sWENvem1QSmxqdW8?oc=5
+- Link: https://news.google.com/rss/articles/CBMiygFBVV95cUxNaV82OUE2eFRnb0J6SVdmelJnVnFvYWNrOHAtUVhuMGFsS2pqY1p5bGVRTWthN0JObjViN3BBUnJTU1lSbFUyc3hrUVlNSlRlZk00Q1pBWjNnZkxOVEdrQUZvQUszSnI0aDhHRGFSY0lkd3J1cEhfUDFVUWlBY1RTcUthVE1pRFlPYlA0N1Vub25pTVdOTkZtNnpPUkNQQUoyZ2JDNUdTR003dl8xc3J2NWFmcVlGdGowdjhUX0NOcmZSSlRORWYzdGxn?oc=5
 - Why now: Fresh web coverage connected to Pacific Palisades and Fire Rebuild creates a timely angle for ranking on palisades fire rebuild permit timeline.
 
 ## 3. palisades fire rebuild permit timeline
 
-- Score: 26
+- Score: 27
 - Area: Pacific Palisades
 - Service: Fire Rebuild
-- Suggested title: Pacific Palisades Fire Rebuild Update: Federal judge dismisses Trump administration lawsuit challenging L.A.’s sanctuary city ordinance - Los Angeles Times
-- Suggested slug: pacific-palisades-fire-rebuild-update-federal-judge-dismisses-trump-administrati
-- Source headline: Federal judge dismisses Trump administration lawsuit challenging L.A.’s sanctuary city ordinance - Los Angeles Times
+- Suggested title: Pacific Palisades Fire Rebuild Update: Commentary: Puncturing the myth of Alan Greenspan, whose policies gave us the Great Recession - Los Angeles Times
+- Suggested slug: pacific-palisades-fire-rebuild-update-commentary-puncturing-the-myth-of-alan-gre
+- Source headline: Commentary: Puncturing the myth of Alan Greenspan, whose policies gave us the Great Recession - Los Angeles Times
 - Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMilAFBVV95cUxNNjJic0dQdnI4TUY0N2tCRHhZWkNtU0lYRWZyZDRZM1RCeGk1ZUd4M19BUFRsb1RVYzBCaHRLcU9JeVRVTjRZeTgxMS1BbFZjdGVwYzVCVlVqN0FDUFR3cEJjNEdJRlctVzlvSWk4YW8wVnNlUnR1ZDZvWl9Fc0dUdkNaYUNmdVBMYURSLXFxUEJLaW1s?oc=5
+- Link: https://news.google.com/rss/articles/CBMizwFBVV95cUxOTU5fUHhWVlZqZE1DUm41UlNucWtWWEVfcDAxU1NHVGhxNURaVkFLOXRTQW1mUzZWOWkwc2JKWjFEdW9EemdfVUZHdHhScTRwbkRsWWVIdXU0cDBEZnhQVktiQjhpVWhRU3dsZGxIUFg3dHMyM0pHbnJ2RE1ndWJyU2hSY0tocjNFb1NlQ0Mtb3MtZXlqWHFRYlh0elZCeGZJR3g2ZFdWeDF4OFV1aEI4ZUsyeUFuTlhMalJDaWpNVWs2Q05QXzlYT01STnppbE0?oc=5
 - Why now: Fresh web coverage connected to Pacific Palisades and Fire Rebuild creates a timely angle for ranking on palisades fire rebuild permit timeline.
 
 ## 4. palisades fire rebuild permit timeline
 
-- Score: 26
+- Score: 25
 - Area: Pacific Palisades
 - Service: Fire Rebuild
-- Suggested title: Pacific Palisades Fire Rebuild Update: Battle over single-use plastics erupts as 17 states move to block California law - Los Angeles Times
-- Suggested slug: pacific-palisades-fire-rebuild-update-battle-over-single-use-plastics-erupts-as-
-- Source headline: Battle over single-use plastics erupts as 17 states move to block California law - Los Angeles Times
+- Suggested title: Pacific Palisades Fire Rebuild Update: If AI data centers are exploding nationwide, why are so few being built in California? - Los Angeles Times
+- Suggested slug: pacific-palisades-fire-rebuild-update-if-ai-data-centers-are-exploding-nationwid
+- Source headline: If AI data centers are exploding nationwide, why are so few being built in California? - Los Angeles Times
 - Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMizgFBVV95cUxQUkRrTjFleEJwd2V3WHZrNWY5S0xYbFFDMS1QNkVLVXRHMnY5enN4anliSGRydWtEcENRM3I3QjIzYk9YVUJueDQ5MzV2OHNIM2JzSHlyUDZfY2tIOXR4VU1yU2g5N0ZfN0RURm5sVU1weWhSVEhQaE1YN2RqZHZBRkhzWk52ZF9nZE1vbVVCWGJDa01SNnN0c3pDRHNMVXgyWVN3OExMclo2VmVVZFlUU1MzWnJFS3ZHaHkzb0NFWGNiWWxhdFhnTkJFRUY1dw?oc=5
+- Link: https://news.google.com/rss/articles/CBMitgFBVV95cUxOVmJuTWNSMDlaaENHQnVCTWwtRW9fazBZRHN6QlF4UjRZcllXQ1JOS3ZwQVpvVEtBN3lGU0RpSnUzbVBQdHpOeTNpM0U0eEFTOXhva2pEeDBGMGxXZmNnbUFBOHRvbjV2ZU4yNmRDa2U2bFZHSWNtTTY5TF9CZXZlcWIwbDlzOU9WRjMxMTFsd1hnTWZSVlNKZTJiczVSelFNczE2ZHgyQUs2ZVJBa0daVXNSOXlodw?oc=5
 - Why now: Fresh web coverage connected to Pacific Palisades and Fire Rebuild creates a timely angle for ranking on palisades fire rebuild permit timeline.
 
 ## 5. altadena fire rebuild cost
+
+- Score: 25
+- Area: Altadena
+- Service: Fire Rebuild
+- Suggested title: Altadena Fire Rebuild Update: Newsom and L.A. declare state of emergency as Boyle Heights fire continues spewing smoke across region - Los Angeles Times
+- Suggested slug: altadena-fire-rebuild-update-newsom-and-l-a-declare-state-of-emergency-as-boyle-
+- Source headline: Newsom and L.A. declare state of emergency as Boyle Heights fire continues spewing smoke across region - Los Angeles Times
+- Source: Unknown publisher
+- Link: https://news.google.com/rss/articles/CBMikAFBVV95cUxQT19mc0k3dExrREg3ajVHbzRYZGVaelg2UENDZzBjMXpQNkJTa1lqTDMwSDdTTVRBZVpoOW03ekZuSUNXWGxlaWtYd3BOR1BDYVhINHZwWlMzNHNDR2xmdEFpQWlyUWtyV2xFaDh4YU0wckE5VXhyS0pJMDZsZmd0QXN1OW11dlNWU3JkaWNOQXI?oc=5
+- Why now: Fresh web coverage connected to Altadena and Fire Rebuild creates a timely angle for ranking on altadena fire rebuild cost.
+
+## 6. altadena fire rebuild cost
 
 - Score: 23
 - Area: Altadena
@@ -62,40 +74,28 @@ Generated: 2026-06-24T15:40:46.968Z
 - Link: https://news.google.com/rss/articles/CBMiO0FVX3lxTE1UZDNKZ0RpVnNWUjdNRERQaFRVZDdXQ1VvcHZIV1VlUFFGVW1ZN2RURURCdVpsTFFLQjY4?oc=5
 - Why now: Fresh web coverage connected to Altadena and Fire Rebuild creates a timely angle for ranking on altadena fire rebuild cost.
 
-## 6. altadena fire rebuild cost
-
-- Score: 23
-- Area: Altadena
-- Service: Fire Rebuild
-- Suggested title: Altadena Fire Rebuild Update: News from California, across the nation and world - Los Angeles Times - Los Angeles Times
-- Suggested slug: altadena-fire-rebuild-update-news-from-california-across-the-nation-and-world-lo
-- Source headline: News from California, across the nation and world - Los Angeles Times - Los Angeles Times
-- Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMiPEFVX3lxTE9pZjFpSTY4NVVHVV83ekdyUExvZUFnenVyYnZWcnV1cWg4WnhfRW9uTmFqWXoxMlFCSTVHNw?oc=5
-- Why now: Fresh web coverage connected to Altadena and Fire Rebuild creates a timely angle for ranking on altadena fire rebuild cost.
-
 ## 7. los angeles adu permit changes
 
-- Score: 19
+- Score: 23
 - Area: Los Angeles
 - Service: Home Additions
-- Suggested title: Los Angeles Home Additions Update: Electrical Permits - City of Los Angeles (.gov)
-- Suggested slug: los-angeles-home-additions-update-electrical-permits-city-of-los-angeles-gov
-- Source headline: Electrical Permits - City of Los Angeles (.gov)
+- Suggested title: Los Angeles Home Additions Update: He dreamed of a Midcentury compound on an ‘unbuildable’ L.A. hillside. It took 12 years - Los Angeles Times
+- Suggested slug: los-angeles-home-additions-update-he-dreamed-of-a-midcentury-compound-on-an-unbu
+- Source headline: He dreamed of a Midcentury compound on an ‘unbuildable’ L.A. hillside. It took 12 years - Los Angeles Times
 - Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMifkFVX3lxTE5peVlEel9hbFJ1c0RmeGZuSzNscFVyNXUyd2N2eWNuV2liU3hqVHpGZTZ4VHh0SzZvMUZRNkt2am55VWgyR2Ryb2dPZkhfSVNMY3M4c3RoeVNjdmtzV1dDSE1uQjRfaWdoTWQtVXMxTC1wcS13RFlYZ01RUFRTdw?oc=5
+- Link: https://news.google.com/rss/articles/CBMizgFBVV95cUxQS2dTeEZ6b09zbzJhNEt6VTN0VVhEMmYtLW93bTdnaGhLWS1pY2VvZzFjbk5BYzRVYUFVT2x1aDlKTzJiT1pKYTJBcUVDdDVIMVFoc1BsUjVwV3lGeGoyWHNkSG1JYjNzdExQRnprSTNFQTEyRDl0czRId2o1a3J3aUh2RUV4VUJaX0w1WUpTRFhpLVgzaGFNZ0ZXY1psUmZjVlJWOXpnY2hpV2JFX3NQb29FYWxsV09IWjFzS3ZPVWFPZ1F4Ty15MW00cDl3UQ?oc=5
 - Why now: Fresh web coverage connected to Los Angeles and Home Additions creates a timely angle for ranking on los angeles adu permit changes.
 
 ## 8. los angeles adu permit changes
 
-- Score: 18
+- Score: 19
 - Area: Los Angeles
 - Service: Home Additions
-- Suggested title: Los Angeles Home Additions Update: So you have an unpermitted ADU? Here’s how to bring it up to code - Los Angeles Times
-- Suggested slug: los-angeles-home-additions-update-so-you-have-an-unpermitted-adu-here-s-how-to-b
-- Source headline: So you have an unpermitted ADU? Here’s how to bring it up to code - Los Angeles Times
+- Suggested title: Los Angeles Home Additions Update: Express Permits - City of Los Angeles (.gov)
+- Suggested slug: los-angeles-home-additions-update-express-permits-city-of-los-angeles-gov
+- Source headline: Express Permits - City of Los Angeles (.gov)
 - Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMiqgFBVV95cUxQZjIxal92M0pDS0xkM0FwNkNZQzJnbTVZeHZUeUlvcUpfbEZDeS1nTy1uUzJEU3dpUHlKOTFoYkxmNUhLVDlJdmpKMkQ0eGE4aU9jS3RjMjYxR3ZpV3h6bWFVRkxma0NlazNoUkNtOEpHbDdKRDNmblVJWGdVSmoxM3dDTzZ6SWc2RFgxQl9MUmJETXphVVlFRVVSQW02OEVKOUNaRGxKWFF4UQ?oc=5
+- Link: https://news.google.com/rss/articles/CBMikgFBVV95cUxON2UwMF9HSVczcWJXY0FLczBZbVhYa1ZmSVRBLVBWRXZPbEVPcVNDa0tIT3ZNZ0dfc2pITkdvRXVWR0lUZjcyWWZvTWs1VDZWM3NPVHB3cjQ4djlzX05obGh5eVBKc1VBc0xrYWNDODJ4RHdNMnA2SXkwT0RNYWVtTUt1UkRUR2R4dTJSekxmZUZYZw?oc=5
 - Why now: Fresh web coverage connected to Los Angeles and Home Additions creates a timely angle for ranking on los angeles adu permit changes.
 
 ## 9. malibu rebuild code requirements
@@ -122,7 +122,19 @@ Generated: 2026-06-24T15:40:46.968Z
 - Link: https://news.google.com/rss/articles/CBMirwFBVV95cUxOS2JucVdHQmVpOWNnNXdPLWpvLURyUWhLd1ozVVVVUDduVG5PQ3JadnQ5ekc4ZjhwRVF3M2pSa3hCV2tDR3ZEU1VMQnRxYWUtbnNWVDRRY0FOYkwwZFc1WWhNcGtRSElhWm5PZ1oweHdxcVdydmZ2TURMR1hFNXgwbTI4cFZmdFJzUXNxaWFhRVpFXy1qN0lqb25zak5DNDBlUzVRSmdjOGpJY0JjVWxr?oc=5
 - Why now: Fresh web coverage connected to Malibu and Fire Rebuild creates a timely angle for ranking on malibu rebuild code requirements.
 
-## 11. malibu rebuild code requirements
+## 11. santa monica hillside construction
+
+- Score: 17
+- Area: Santa Monica
+- Service: Custom Homes
+- Suggested title: Santa Monica Custom Homes Update: Magnitude 5.6 earthquake shakes Northern California, hitting Mendocino County - Los Angeles Times
+- Suggested slug: santa-monica-custom-homes-update-magnitude-5-6-earthquake-shakes-northern-califo
+- Source headline: Magnitude 5.6 earthquake shakes Northern California, hitting Mendocino County - Los Angeles Times
+- Source: Unknown publisher
+- Link: https://news.google.com/rss/articles/CBMitgFBVV95cUxOOG1rTjYyUHVXZmN3Y0NWV0FNWWRiUU56blJ2eXJEMUZWVDctUk9IRENHMEFBQm9YLVJkUW0wblVhR1lOU19mRXF2TmVsZnlVUDhEQUViY1lOUHZScW1GdFlkanNpbG1lc3VraFNOUWsxbTloaVFFaFU2U3BTdXdjTDhBRTJrMXpUYXMzSFdWRS1LMEV2SWVRQXp3S1N3REstWi1IWXNPVzgwRHpmNVhMUmItN3RRZw?oc=5
+- Why now: Fresh web coverage connected to Santa Monica and Custom Homes creates a timely angle for ranking on santa monica hillside construction.
+
+## 12. malibu rebuild code requirements
 
 - Score: 15
 - Area: Malibu
@@ -133,15 +145,3 @@ Generated: 2026-06-24T15:40:46.968Z
 - Source: Unknown publisher
 - Link: https://news.google.com/rss/articles/CBMiO0FVX3lxTE1UZDNKZ0RpVnNWUjdNRERQaFRVZDdXQ1VvcHZIV1VlUFFGVW1ZN2RURURCdVpsTFFLQjY4?oc=5
 - Why now: Fresh web coverage connected to Malibu and Fire Rebuild creates a timely angle for ranking on malibu rebuild code requirements.
-
-## 12. los angeles adu permit changes
-
-- Score: 15
-- Area: Los Angeles
-- Service: Home Additions
-- Suggested title: Los Angeles Home Additions Update: Home Page | LADBS - City of Los Angeles (.gov)
-- Suggested slug: los-angeles-home-additions-update-home-page-ladbs-city-of-los-angeles-gov
-- Source headline: Home Page | LADBS - City of Los Angeles (.gov)
-- Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMiO0FVX3lxTE1UZDNKZ0RpVnNWUjdNRERQaFRVZDdXQ1VvcHZIV1VlUFFGVW1ZN2RURURCdVpsTFFLQjY4?oc=5
-- Why now: Fresh web coverage connected to Los Angeles and Home Additions creates a timely angle for ranking on los angeles adu permit changes.
