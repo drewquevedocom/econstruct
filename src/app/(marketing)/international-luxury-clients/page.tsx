@@ -199,7 +199,7 @@ export default function InternationalLuxuryClientsPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
               { value: "25+", label: "Years in Los Angeles" },
-              { value: "639", label: "Partner Projects" },
+              { value: "634", label: "Partner Projects" },
               { value: `Lic #${COMPANY.license.number}`, label: "CA Licensed & Insured" },
               { value: "100%", label: "Remote-Capable" },
             ].map((stat) => (

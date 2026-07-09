@@ -78,7 +78,7 @@ const pillars = [
     icon: Award,
     title: "The Work Speaks for Itself",
     description:
-      "25+ years in Los Angeles. 639 partner projects. A track record built entirely on referral trust. We have built our reputation on delivering exactly what we promise — and that reputation is what you are lending to your client when you refer us.",
+      "25+ years in Los Angeles. 634 partner projects. A track record built entirely on referral trust. We have built our reputation on delivering exactly what we promise — and that reputation is what you are lending to your client when you refer us.",
   },
 ];
 
@@ -189,7 +189,7 @@ export default function TrustedPartnerProgramPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
               { value: "25+", label: "Years in Los Angeles" },
-              { value: "639", label: "Partner Projects" },
+              { value: "634", label: "Partner Projects" },
               { value: `Lic #${COMPANY.license.number}`, label: "CA Licensed & Insured" },
               { value: "100%", label: "Referral-Based Growth" },
             ].map((stat) => (

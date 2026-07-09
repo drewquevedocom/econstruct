@@ -174,7 +174,7 @@ export default function FireRebuildPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
               { value: "25+", label: "Years Experience" },
-              { value: "639", label: "Partner Projects" },
+              { value: "634", label: "Partner Projects" },
               { value: "3x", label: "Faster Permitting" },
               { value: `Lic #${COMPANY.license.number}`, label: "CA Licensed & Insured" },
             ].map((stat) => (
@@ -421,7 +421,7 @@ export default function FireRebuildPage() {
               },
               {
                 icon: Users,
-                stat: "639",
+                stat: "634",
                 label: "Partner Projects",
                 description:
                   "Combined partner project history, primarily commercial before 2011, with econstruct focused on residential construction since 2011.",
