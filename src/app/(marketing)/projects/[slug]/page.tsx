@@ -200,7 +200,7 @@ export default async function ProjectPage({
               ["Timeline", project.timeline],
               ["Square Footage", project.squareFootage],
               ["Completion", project.completionDate],
-            ].map(([label, value], index) => (
+            ].filter(([, value]) => value).map(([label, value], index) => (
               <AnimatedSection key={label} delay={index * 0.05}>
                 <div className="h-full rounded-3xl border border-gray-100 bg-white p-8 shadow-sm transition-transform duration-300 hover:-translate-y-1">
                   <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent-gold">

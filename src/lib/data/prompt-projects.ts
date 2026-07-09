@@ -178,7 +178,7 @@ const basePromptProjects: PromptProjectPage[] = [
       { src: "/projects/Untitled-design-2023-10-23T105827.240.webp", alt: "Newcomb Road exterior staircase and landscaping", caption: "Exterior staircase — custom concrete steps and landscaped entry" },
     ],
     serviceSlug: "luxury-home-builder-los-angeles",
-    location: "Los Angeles, CA",
+    location: "",
     neighborhood: "Los Angeles",
     scope: "Full Interior & Exterior Remodel",
     timeline: "8 months",
