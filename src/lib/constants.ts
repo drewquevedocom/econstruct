@@ -10,7 +10,7 @@ export const COMPANY = {
     display: "(310) 740-9999",
     displaySecondary: "(310) 740-9999",
   },
-  email: "info@econstructhomes.com",
+  email: "info@econstructinc.com",
   address: {
     street: "25350 Magic Mountain Pkwy",
     suite: "Ste. 300",

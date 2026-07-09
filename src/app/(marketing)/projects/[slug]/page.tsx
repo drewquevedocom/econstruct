@@ -10,6 +10,7 @@ import Container from "@/components/ui/Container";
 import SectionHeader from "@/components/ui/SectionHeader";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import ConsultationCTA from "@/components/ConsultationCTA";
+import ProjectLightbox from "@/components/ui/ProjectLightbox";
 
 const devistaGalleryImages = [
   {
@@ -118,7 +119,7 @@ export default async function ProjectPage({
     name: "eConstruct",
     url: "https://econstructhomes.com",
     telephone: "+1-310-740-9999",
-    email: "info@econstructhomes.com",
+    email: "info@econstructinc.com",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Los Angeles",
@@ -329,28 +330,7 @@ export default async function ProjectPage({
 
       <section className="bg-[#F8F6F2] py-24 md:py-32">
         <Container>
-          <div className="grid gap-8 lg:grid-cols-3">
-            {galleryImages.map((image, index) => (
-              <AnimatedSection key={image.src} delay={index * 0.08}>
-                <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm">
-                  <div className="relative aspect-[4/3]">
-                    <img
-                      src={image.src}
-                      alt={image.alt}
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <p className="leading-relaxed text-body-text">
-                      {image.caption}
-                    </p>
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
+          <ProjectLightbox images={galleryImages} />
         </Container>
       </section>
 

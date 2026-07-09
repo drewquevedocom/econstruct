@@ -43,7 +43,7 @@ const AnimatedCounter = ({
 // topPct = vertical position of the dot/number from the top of the section
 const stats = [
   { label: ["Building in Los", "Angeles Since"],       value: 2001, suffix: "",     decimals: 0, topPct: 52 },
-  { label: ["Combined Partner", "Projects"],           value: 639,  suffix: "",     decimals: 0, topPct: 18 },
+  { label: ["Lifetime Projects", "Completed"],          value: 639,  suffix: "",     decimals: 0, topPct: 18 },
   { label: ["Collective Experience", "Between Partners"], value: 51,   suffix: " Yrs", decimals: 0, topPct: 42 },
 ];
 

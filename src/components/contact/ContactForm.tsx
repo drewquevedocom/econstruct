@@ -10,6 +10,7 @@ import {
   CheckCircle2,
   Loader2,
 } from "lucide-react";
+import { COMPANY } from "@/lib/constants";
 
 const contactSchema = z.object({
   projectType: z.string().min(1, "Select a project type"),
@@ -410,10 +411,10 @@ export default function ContactForm() {
                 <p className="text-center text-xs text-gray-400 mt-2">
                   Or call us directly:{" "}
                   <a
-                    href="tel:+18182552210"
+                    href={`tel:${COMPANY.phone.primary.replace(/[^0-9+]/g, "")}`}
                     className="text-accent-gold font-bold hover:underline"
                   >
-                    (818) 255-2210
+                    {COMPANY.phone.display}
                   </a>
                 </p>
               </motion.div>

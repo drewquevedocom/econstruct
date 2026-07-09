@@ -52,6 +52,8 @@ export default function Footer() {
                 <li><Link href="/blog" className="text-white/70 hover:text-white transition-colors">Blog</Link></li>
                 <li><Link href="/reviews" className="text-white/70 hover:text-white transition-colors">Reviews</Link></li>
                 <li><Link href="/faq" className="text-white/70 hover:text-white transition-colors">FAQ</Link></li>
+                <li><Link href="/international-luxury-clients" className="text-white/70 hover:text-white transition-colors">International Clients</Link></li>
+                <li><Link href="/trusted-partner-program" className="text-white/70 hover:text-white transition-colors">Partner Program</Link></li>
               </ul>
             </div>
 
@@ -65,7 +67,7 @@ export default function Footer() {
                 </li>
                 <li className="flex items-start gap-3">
                   <Mail size={20} className="text-accent-gold shrink-0 mt-1" />
-                  <a href="mailto:info@econstructhomes.com" className="hover:text-white transition-colors">info@econstructhomes.com</a>
+                  <a href="mailto:info@econstructinc.com" className="hover:text-white transition-colors">info@econstructinc.com</a>
                 </li>
                 <li className="flex items-start gap-3">
                   <MapPin size={20} className="text-accent-gold shrink-0 mt-1" />
