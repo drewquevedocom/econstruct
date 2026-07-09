@@ -22,14 +22,49 @@ export const temporaryProjectPages: PromptProjectPage[] = [
     title: "Mulholland Drive Residence — Hollywood Hills Hillside Remodel",
     description:
       "A comprehensive remodel of a 1970s Hollywood Hills hillside home that modernized the floorplan and elevated the indoor-outdoor living experience. Work included an open-concept kitchen with quartz island, master suite renovation, pool resurfacing, covered patio addition, and full glass wall replacements to capture panoramic city views.",
-    image: "/projects/mulholland-hero.jpg",
-    gallery: [
+    image: tempImage("mulholland-drive-residence", 1),
+    gallery: tempGallery("mulholland-drive-residence", [
       {
-        src: "/projects/mulholland-hero.jpg",
-        alt: "Mulholland Drive Hollywood Hills hillside residence exterior with city views and pool",
-        caption: "Exterior view — the remodeled hillside home opens fully toward the city panorama, with updated glass walls and a resurfaced pool anchoring the outdoor living zone.",
+        alt: "Mulholland Drive hillside estate exterior with tiled roof and panoramic Los Angeles views",
+        caption: "Exterior overview — the remodeled hillside home commands unobstructed Los Angeles views, with a classic roofline and landscaping that frames the canyon approach.",
       },
-    ],
+      {
+        alt: "Mulholland Drive residence illuminated at night with warm interior lighting and city backdrop",
+        caption: "Night presence — interior lighting and the city panorama below create the kind of evening atmosphere that defines Hollywood Hills hillside living.",
+      },
+      {
+        alt: "Grand foyer interior with estate-level entry sequence and high ceilings",
+        caption: "Entry foyer — the remodel opens the arrival sequence with volume and natural light, setting the tone for the rest of the home.",
+      },
+      {
+        alt: "Great room with expansive glass walls and panoramic city views beyond",
+        caption: "Great room — floor-to-ceiling glass replaced the original wall system, making the Los Angeles skyline the room's primary design element.",
+      },
+      {
+        alt: "Spa-style primary bathroom with marble surfaces and luxury finishes",
+        caption: "Primary bath — fully renovated with a spa-inspired material palette, freestanding fixtures, and a calm, light-filled atmosphere.",
+      },
+      {
+        alt: "Arched entry with double wooden doors and refined exterior detailing",
+        caption: "Front entry — the remodeled entry sequence uses solid wood doors and arched detailing to create a strong residential arrival moment.",
+      },
+      {
+        alt: "Chef's kitchen with Mediterranean styling, stone island, and premium appliances",
+        caption: "Chef's kitchen — a new open-concept kitchen anchors the home's social core with a quartz island, premium appliances, and direct sightlines to the terrace.",
+      },
+      {
+        alt: "Primary bedroom suite with views and refined luxury finish package",
+        caption: "Primary suite — renovated with an elevated finish package and positioned to capture the hillside outlook from the bedroom level.",
+      },
+      {
+        alt: "Backyard infinity pool reflecting the sky with city lights in the distance",
+        caption: "Pool deck — the resurfaced pool and new deck hardscape create an outdoor centerpiece that connects directly to the remodeled interior.",
+      },
+      {
+        alt: "Backyard stone patio with outdoor furniture and hillside entertaining zone",
+        caption: "Outdoor entertaining — a covered patio addition and new stone hardscape turned the rear of the home into a fully usable year-round living space.",
+      },
+    ]),
     serviceSlug: "luxury-home-builder-los-angeles",
     location: "Hollywood Hills, Los Angeles, CA",
     neighborhood: "Hollywood Hills",
