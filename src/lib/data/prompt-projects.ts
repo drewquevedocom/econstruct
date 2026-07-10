@@ -38,10 +38,8 @@ const basePromptProjects: PromptProjectPage[] = [
     gallery: [
       { src: "/projects/calabas_1.jpeg", alt: "Calabasas Mediterranean estate front exterior with stucco facade clay tile roof and grand entry — new custom home build by econstruct", caption: "Front elevation — California Mediterranean facade with hand-troweled stucco, clay tile roof, and a grand arched entry that anchors the curb appeal." },
       { src: "/projects/calabas_2.jpeg", alt: "Calabasas custom home courtyard entry with arched openings and Mediterranean stonework", caption: "Courtyard entry — arched openings, custom stonework, and a tranquil approach that sets the tone for the rest of the estate." },
-      { src: "/projects/calabas_3.jpeg", alt: "Calabasas new construction great room with vaulted ceilings disappearing glass walls and indoor-outdoor flow", caption: "Great room — vaulted ceilings, disappearing glass walls, and a true indoor-outdoor flow that opens to the pool and rear yard." },
       { src: "/projects/calabas_4.jpeg", alt: "Calabasas luxury home chef kitchen with oversized island butler pantry and high-end appliances", caption: "Chef's kitchen — oversized island, dual dishwashers, butler's pantry, and a full Wolf and Sub-Zero appliance package." },
       { src: "/projects/calabas_5.jpeg", alt: "Calabasas custom home primary suite with vaulted ceilings spa bath and private terrace", caption: "Primary suite — vaulted ceilings, a private terrace overlooking the backyard, and a spa-grade bath retreat." },
-      { src: "/projects/calabas_6.jpeg", alt: "Calabasas new home backyard with resort-style pool spa outdoor kitchen and covered patio", caption: "Backyard — resort-style pool and spa, full outdoor kitchen, and a covered patio designed for Calabasas year-round entertaining." },
     ],
     serviceSlug: "custom-home-construction-los-angeles",
     location: "Calabasas, CA",
