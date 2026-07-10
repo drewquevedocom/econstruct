@@ -64,6 +64,42 @@ async function activateCampaign(campaignId: string) {
   }
 }
 
+// Pre-send verification via Instantly. Policy: hard invalids are blocked and
+// retired (status Inactive) so they never re-enter the queue or re-spend a
+// verification credit; everything else fails open — bounce protect remains
+// the backstop. The 21.7% bounce pause on the Realtor campaign came from
+// enrolling unverified emails.
+type VerifyOutcome = "verified" | "invalid" | "risky" | "unknown";
+
+async function verifyEmail(email: string): Promise<VerifyOutcome> {
+  const apiKey = process.env.INSTANTLY_API_KEY;
+  if (!apiKey) return "unknown";
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 6000);
+  try {
+    const res = await fetch(`${INSTANTLY_API}/email-verification`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+      signal: controller.signal,
+    });
+    if (!res.ok) return "unknown";
+    const data = (await res.json()) as { verification_status?: string };
+    const status = (data.verification_status || "").toLowerCase();
+    if (status === "verified" || status === "valid") return "verified";
+    if (status === "invalid") return "invalid";
+    if (status === "risky" || status === "catch_all" || status === "accept_all") return "risky";
+    return "unknown";
+  } catch {
+    return "unknown";
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 const TEMPLATE_KEY_BY_TYPE: Record<string, string> = {
   Architect: "architect_cold_intro",
   "Realtor / Real Estate Agent": "realtor_cold_intro",
@@ -217,6 +253,13 @@ export async function POST(req: Request) {
     }
 
     let enrolled = 0;
+    let blockedInvalid = 0;
+    const verifyCounts: Record<VerifyOutcome, number> = {
+      verified: 0,
+      invalid: 0,
+      risky: 0,
+      unknown: 0,
+    };
     const skippedNoCampaign: string[] = [];
     const enrolledByCampaign: Record<string, number> = {};
     const enrolledByType: Record<string, number> = {};
@@ -224,9 +267,37 @@ export async function POST(req: Request) {
     const today = new Date().toISOString().slice(0, 10);
     const nowIso = new Date().toISOString();
 
+    // Verify the whole batch in parallel up front (bounded by the 6s
+    // per-call timeout) so the sequential enroll loop stays inside the
+    // Worker wall clock.
+    const verdicts = new Map<string, VerifyOutcome>();
+    await Promise.all(
+      partners.map(async (p) => {
+        if (p.contact_email) {
+          verdicts.set(p.id, await verifyEmail(p.contact_email));
+        }
+      })
+    );
+
     for (const p of partners) {
       try {
         if (!p.contact_email) continue;
+
+        const verdict = verdicts.get(p.id) ?? "unknown";
+        verifyCounts[verdict]++;
+        if (verdict === "invalid") {
+          // Retire hard bounces before they ever hit a campaign.
+          await supabase
+            .from("partner_leads")
+            .update({
+              status: "Inactive",
+              notes: `Email failed verification (invalid) ${today} — auto-retired by partner-enroll`,
+              updated_at: nowIso,
+            })
+            .eq("id", p.id);
+          blockedInvalid++;
+          continue;
+        }
 
         const campaignId = campaignForType(p.partner_type);
         if (!campaignId) {
@@ -292,6 +363,7 @@ export async function POST(req: Request) {
         enrolledByCampaign,
         enrolledByType,
         skippedNoCampaign,
+        verification: { ...verifyCounts, blockedInvalid },
       },
     };
   });

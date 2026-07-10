@@ -334,17 +334,38 @@ export async function POST(req: Request) {
 
     for (const config of configs) {
       try {
+        // Search pages are free; only bulk_match spends credits. Walk deeper
+        // pages and drop people we already hold (matched on linkedin_url)
+        // BEFORE enrichment — otherwise every weekly run re-buys page 1 of
+        // the same search and dedupes it away after the credits are spent.
         const collected: ApolloSearchPerson[] = [];
-        const maxPages = 3;
+        const maxPages = 5;
         for (let page = 1; page <= maxPages; page++) {
-            const search = await apolloSearchPeople(config, page);
+          const search = await apolloSearchPeople(config, page);
           const people = search.people ?? [];
-          collected.push(...people);
-          if (people.length < 100) break;
-          if (collected.length >= config.weeklyTarget * 3) break;
-        }
+          recordsPulled += people.length;
 
-        recordsPulled += collected.length;
+          const urls = people
+            .map((p) => p.linkedin_url)
+            .filter((u): u is string => Boolean(u));
+          const known = new Set<string>();
+          for (let i = 0; i < urls.length; i += 200) {
+            const chunk = urls.slice(i, i + 200);
+            const { data: existing } = await supabase
+              .from("partner_leads")
+              .select("linkedin_url")
+              .in("linkedin_url", chunk);
+            for (const row of existing ?? []) {
+              if (row.linkedin_url) known.add(String(row.linkedin_url));
+            }
+          }
+          collected.push(
+            ...people.filter((p) => !p.linkedin_url || !known.has(p.linkedin_url))
+          );
+
+          if (people.length < 100) break;
+          if (collected.length >= config.weeklyTarget * 2) break;
+        }
 
         const ids = collected
           .map((person) => person.id ?? person.person_id)
