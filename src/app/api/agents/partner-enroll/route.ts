@@ -8,8 +8,8 @@ const INSTANTLY_API = "https://api.instantly.ai/api/v2";
 // Each partner_type routes to its own segmented Instantly campaign so the
 // architect sequence goes to architects, adjuster sequence to adjusters, etc.
 // Campaign UUIDs verified against the Instantly workspace 2026-07-10 via
-// instantly-audit; env vars remain as overrides. Escrow Officer has no
-// campaign yet — stays env-only until one is created.
+// instantly-audit; env vars remain as overrides. Escrow campaign created
+// 2026-07-10 via the one-time escrow-campaign-setup agent.
 function campaignForType(type: string): string | undefined {
   const map: Record<string, string | undefined> = {
     Architect: process.env.INSTANTLY_PARTNER_CAMPAIGN_ARCHITECT || "97f518ff-27a1-475e-a9a1-7ae74d2e6df3",
@@ -19,7 +19,7 @@ function campaignForType(type: string): string | undefined {
     "Interior Designer": process.env.INSTANTLY_PARTNER_CAMPAIGN_DESIGNER || "5a23a045-e7a0-44e1-a47c-f04fa3765142",
     "Real Estate Attorney": process.env.INSTANTLY_PARTNER_CAMPAIGN_ATTORNEY || "ec973032-17b6-48a2-aa79-e229964fe215",
     "CPA / Wealth Advisor": process.env.INSTANTLY_PARTNER_CAMPAIGN_CPA || "6fbbaeef-482c-40c2-897f-6b1227e42d79",
-    "Escrow Officer": process.env.INSTANTLY_PARTNER_CAMPAIGN_ESCROW,
+    "Escrow Officer": process.env.INSTANTLY_PARTNER_CAMPAIGN_ESCROW || "0048f3ed-6928-4ecd-8ca6-83e82d16a8cf",
     "Structural / Geotech Engineer": process.env.INSTANTLY_PARTNER_CAMPAIGN_ENGINEER || "7ce7ec5b-0740-4488-88ed-a851cbbd05d1",
     "Fire / Water Restoration": process.env.INSTANTLY_PARTNER_CAMPAIGN_RESTORATION || "5ee2e1b5-830e-4f30-9900-59f901b9ce6d",
   };
