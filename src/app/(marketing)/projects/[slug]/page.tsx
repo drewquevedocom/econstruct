@@ -343,7 +343,7 @@ export default async function ProjectPage({
             centered={false}
             className="mb-12"
           />
-          <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+          <div className={`grid gap-8 ${project.testimonial ? "lg:grid-cols-[1.05fr_0.95fr] lg:items-start" : ""}`}>
             <AnimatedSection>
               <div className="rounded-[2rem] bg-brand-dark p-8 text-white shadow-[0_24px_70px_rgba(0,0,0,0.18)] md:p-10">
                 <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-gold">
@@ -360,40 +360,54 @@ export default async function ProjectPage({
                     </li>
                   ))}
                 </ul>
+                {!project.testimonial && (
+                  <div className="mt-10 flex flex-wrap gap-4">
+                    <Link
+                      href={`/services/${project.serviceSlug}`}
+                      className="rounded-full bg-accent-gold px-5 py-3 text-sm font-bold text-brand-dark transition-colors hover:bg-white hover:text-brand-dark"
+                    >
+                      Related Service
+                    </Link>
+                    <Link
+                      href="/projects"
+                      className="rounded-full border border-white/20 px-5 py-3 text-sm font-bold text-white transition-colors hover:border-accent-gold hover:text-accent-gold"
+                    >
+                      Back to Projects
+                    </Link>
+                  </div>
+                )}
               </div>
             </AnimatedSection>
 
-            <AnimatedSection delay={0.12}>
-              <div className="rounded-[2rem] border border-black/8 bg-white p-8 shadow-sm md:p-10">
-                {project.testimonial && (
-                  <>
-                    <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-gold">
-                      Client Perspective
-                    </p>
-                    <p className="mt-5 text-xl leading-relaxed text-body-text">
-                      &ldquo;{project.testimonial.quote}&rdquo;
-                    </p>
-                    <p className="mt-6 text-sm font-bold uppercase tracking-[0.18em] text-accent-gold">
-                      {project.testimonial.name}
-                    </p>
-                  </>
-                )}
-                <div className="mt-10 flex flex-wrap gap-4">
-                  <Link
-                    href={`/services/${project.serviceSlug}`}
-                    className="rounded-full bg-brand-dark px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-accent-gold hover:text-brand-dark"
-                  >
-                    Related Service
-                  </Link>
-                  <Link
-                    href="/projects"
-                    className="rounded-full border border-brand-dark/15 px-5 py-3 text-sm font-bold text-brand-dark transition-colors hover:border-accent-gold hover:text-accent-gold"
-                  >
-                    Back to Projects
-                  </Link>
+            {project.testimonial && (
+              <AnimatedSection delay={0.12}>
+                <div className="rounded-[2rem] border border-black/8 bg-white p-8 shadow-sm md:p-10">
+                  <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-gold">
+                    Client Perspective
+                  </p>
+                  <p className="mt-5 text-xl leading-relaxed text-body-text">
+                    &ldquo;{project.testimonial.quote}&rdquo;
+                  </p>
+                  <p className="mt-6 text-sm font-bold uppercase tracking-[0.18em] text-accent-gold">
+                    {project.testimonial.name}
+                  </p>
+                  <div className="mt-10 flex flex-wrap gap-4">
+                    <Link
+                      href={`/services/${project.serviceSlug}`}
+                      className="rounded-full bg-brand-dark px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-accent-gold hover:text-brand-dark"
+                    >
+                      Related Service
+                    </Link>
+                    <Link
+                      href="/projects"
+                      className="rounded-full border border-brand-dark/15 px-5 py-3 text-sm font-bold text-brand-dark transition-colors hover:border-accent-gold hover:text-accent-gold"
+                    >
+                      Back to Projects
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </AnimatedSection>
+              </AnimatedSection>
+            )}
           </div>
         </Container>
       </section>
