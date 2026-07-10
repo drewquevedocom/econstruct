@@ -56,6 +56,7 @@ export async function POST(req: Request) {
       const res = await fetch(`${INSTANTLY_API}/campaigns/${id}/activate`, {
         method: "POST",
         headers,
+        body: "{}",
       });
       const body = await res.text();
       const after = await fetch(`${INSTANTLY_API}/campaigns/${id}`, { headers });
