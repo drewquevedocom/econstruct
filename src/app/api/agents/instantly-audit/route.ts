@@ -45,8 +45,8 @@ export async function POST(req: Request) {
 
   try {
     const [accounts, campaigns, analytics] = await Promise.all([
-      instantlyGet("/accounts"),
-      instantlyGet("/campaigns"),
+      instantlyGet("/accounts?limit=50"),
+      instantlyGet("/campaigns?limit=100"),
       instantlyGet("/campaigns/analytics"),
     ]);
 
