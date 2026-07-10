@@ -51,10 +51,19 @@ const REST_TYPES = [
 
 // Instantly marks a campaign 3 (completed) when it exhausts its leads; new
 // leads added to a completed campaign sit idle until it is activated again.
+// Only status 3 is resumed — bounce-protect (-2) and manual pauses (2) are
+// deliberate stops and must never be overridden here (the Realtor campaign
+// still holds unverified leads behind a bounce-protect pause).
 async function activateCampaign(campaignId: string) {
   const apiKey = process.env.INSTANTLY_API_KEY;
   if (!apiKey) return;
   try {
+    const res = await fetch(`${INSTANTLY_API}/campaigns/${campaignId}`, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    });
+    if (!res.ok) return;
+    const campaign = (await res.json()) as { status?: number };
+    if (campaign.status !== 3) return;
     await fetch(`${INSTANTLY_API}/campaigns/${campaignId}/activate`, {
       method: "POST",
       headers: { Authorization: `Bearer ${apiKey}` },

@@ -18,10 +18,10 @@ const PARTNER_REFRESH_CONFIGS = [
   {
     partnerType: "Real Estate Attorney",
     weeklyTarget: 30,
-    personTitles: ["real estate attorney", "property litigation attorney", "attorney"],
+    personTitles: ["real estate attorney", "attorney", "lawyer", "counsel"],
     personSeniorities: ["owner", "founder", "partner", "vp", "director"],
-    qKeywords: "real estate property litigation",
-    organizationLocations: ["Los Angeles"],
+    qKeywords: "real estate",
+    organizationLocations: ["Los Angeles", "Los Angeles County"],
   },
   {
     partnerType: "Architect",
@@ -50,26 +50,26 @@ const PARTNER_REFRESH_CONFIGS = [
   {
     partnerType: "Expediter / Permit Runner",
     weeklyTarget: 15,
-    personTitles: ["expediter", "permit runner", "permit expeditor"],
+    personTitles: ["expediter", "permit expeditor", "permit consultant", "entitlement consultant"],
     personSeniorities: ["owner", "founder", "partner", "vp", "director", "manager"],
-    qKeywords: "LADBS permit",
-    organizationLocations: ["Los Angeles"],
+    qKeywords: "permit",
+    organizationLocations: ["Los Angeles", "Los Angeles County"],
   },
   {
     partnerType: "CPA / Wealth Advisor",
     weeklyTarget: 25,
-    personTitles: ["cpa", "wealth advisor", "financial advisor"],
+    personTitles: ["cpa", "certified public accountant", "wealth advisor", "financial advisor", "wealth manager"],
     personSeniorities: ["owner", "founder", "partner", "vp", "director"],
-    qKeywords: "real estate",
-    organizationLocations: ["Los Angeles"],
+    qKeywords: "",
+    organizationLocations: ["Los Angeles", "Los Angeles County"],
   },
   {
     partnerType: "Escrow Officer",
     weeklyTarget: 20,
-    personTitles: ["escrow officer"],
+    personTitles: ["escrow officer", "escrow manager", "senior escrow officer", "escrow assistant", "title officer"],
     personSeniorities: ["owner", "founder", "partner", "vp", "director", "manager"],
-    qKeywords: "real estate",
-    organizationLocations: ["Los Angeles County"],
+    qKeywords: "",
+    organizationLocations: ["Los Angeles", "Los Angeles County"],
   },
   {
     partnerType: "Structural / Geotech Engineer",
@@ -82,10 +82,10 @@ const PARTNER_REFRESH_CONFIGS = [
   {
     partnerType: "Fire / Water Restoration",
     weeklyTarget: 15,
-    personTitles: ["restoration", "fire damage", "water damage"],
+    personTitles: ["owner", "president", "general manager", "project manager", "estimator"],
     personSeniorities: ["owner", "founder", "partner", "vp", "director", "manager"],
-    qKeywords: "restoration fire damage water damage",
-    organizationLocations: ["Los Angeles"],
+    qKeywords: "restoration",
+    organizationLocations: ["Los Angeles", "Los Angeles County"],
   },
 ] as const;
 
@@ -161,8 +161,11 @@ async function apolloSearchPeople(config: (typeof PARTNER_REFRESH_CONFIGS)[numbe
   for (const seniority of config.personSeniorities) params.append("person_seniorities[]", seniority);
   for (const location of config.organizationLocations) params.append("organization_locations[]", location);
   params.append("contact_email_status[]", "verified");
-  params.set("q_keywords", config.qKeywords);
-  params.set("include_similar_titles", "false");
+  if (config.qKeywords) params.set("q_keywords", config.qKeywords);
+  // Similar titles widen the candidate pool substantially — the exact-title
+  // searches returned zero hits for five of ten partner types once the small
+  // LA-exact pools were mined out.
+  params.set("include_similar_titles", "true");
   params.set("per_page", "100");
   params.set("page", String(page));
 
