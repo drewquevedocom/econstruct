@@ -80,11 +80,23 @@ async function activateCampaign(campaignId: string) {
 // enrolling unverified emails.
 type VerifyOutcome = "verified" | "invalid" | "risky" | "unknown";
 
-async function verifyEmail(email: string): Promise<VerifyOutcome> {
+function mapVerifyStatus(raw: string | undefined): VerifyOutcome | "pending" {
+  const status = (raw || "").toLowerCase();
+  if (status === "verified" || status === "valid") return "verified";
+  if (status === "invalid") return "invalid";
+  if (status === "risky" || status === "catch_all" || status === "accept_all") return "risky";
+  if (status === "pending" || status === "verifying") return "pending";
+  return "unknown";
+}
+
+// Instantly verification is async: the initial POST usually answers
+// "pending" and the result lands on a follow-up GET a moment later.
+async function verifyEmail(
+  email: string,
+  httpStatuses: Record<string, number>
+): Promise<VerifyOutcome> {
   const apiKey = process.env.INSTANTLY_API_KEY;
   if (!apiKey) return "unknown";
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 6000);
   try {
     const res = await fetch(`${INSTANTLY_API}/email-verification`, {
       method: "POST",
@@ -93,19 +105,30 @@ async function verifyEmail(email: string): Promise<VerifyOutcome> {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email }),
-      signal: controller.signal,
+      signal: AbortSignal.timeout(6000),
     });
+    httpStatuses[String(res.status)] = (httpStatuses[String(res.status)] || 0) + 1;
     if (!res.ok) return "unknown";
-    const data = (await res.json()) as { verification_status?: string };
-    const status = (data.verification_status || "").toLowerCase();
-    if (status === "verified" || status === "valid") return "verified";
-    if (status === "invalid") return "invalid";
-    if (status === "risky" || status === "catch_all" || status === "accept_all") return "risky";
-    return "unknown";
+    let data = (await res.json()) as { verification_status?: string };
+    let outcome = mapVerifyStatus(data.verification_status);
+
+    for (let attempt = 0; outcome === "pending" && attempt < 3; attempt++) {
+      await new Promise((r) => setTimeout(r, 2000));
+      const poll = await fetch(
+        `${INSTANTLY_API}/email-verification/${encodeURIComponent(email)}`,
+        {
+          headers: { Authorization: `Bearer ${apiKey}` },
+          signal: AbortSignal.timeout(6000),
+        }
+      );
+      if (!poll.ok) return "unknown";
+      data = (await poll.json()) as { verification_status?: string };
+      outcome = mapVerifyStatus(data.verification_status);
+    }
+
+    return outcome === "pending" ? "unknown" : outcome;
   } catch {
     return "unknown";
-  } finally {
-    clearTimeout(timer);
   }
 }
 
@@ -276,14 +299,15 @@ export async function POST(req: Request) {
     const today = new Date().toISOString().slice(0, 10);
     const nowIso = new Date().toISOString();
 
-    // Verify the whole batch in parallel up front (bounded by the 6s
-    // per-call timeout) so the sequential enroll loop stays inside the
-    // Worker wall clock.
+    // Verify the whole batch in parallel up front (bounded per call by the
+    // 6s timeout plus up to three 2s result polls) so the sequential enroll
+    // loop stays inside the Worker wall clock.
+    const verifyHttpStatuses: Record<string, number> = {};
     const verdicts = new Map<string, VerifyOutcome>();
     await Promise.all(
       partners.map(async (p) => {
         if (p.contact_email) {
-          verdicts.set(p.id, await verifyEmail(p.contact_email));
+          verdicts.set(p.id, await verifyEmail(p.contact_email, verifyHttpStatuses));
         }
       })
     );
@@ -372,7 +396,7 @@ export async function POST(req: Request) {
         enrolledByCampaign,
         enrolledByType,
         skippedNoCampaign,
-        verification: { ...verifyCounts, blockedInvalid },
+        verification: { ...verifyCounts, blockedInvalid, http: verifyHttpStatuses },
       },
     };
   });
