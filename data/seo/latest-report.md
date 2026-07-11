@@ -1,10 +1,10 @@
 # Daily SEO Opportunities
 
-Generated: 2026-07-10T15:43:32.795Z
+Generated: 2026-07-11T14:34:08.317Z
 
 ## 1. palisades fire rebuild permit timeline
 
-- Score: 32
+- Score: 31
 - Area: Pacific Palisades
 - Service: Fire Rebuild
 - Suggested title: Pacific Palisades Fire Rebuild Update: Fire-damaged Pacific Palisades shopping center sets reopening date - Los Angeles Times
@@ -16,7 +16,7 @@ Generated: 2026-07-10T15:43:32.795Z
 
 ## 2. altadena fire rebuild cost
 
-- Score: 29
+- Score: 28
 - Area: Altadena
 - Service: Fire Rebuild
 - Suggested title: Altadena Fire Rebuild Update: Prefab housing builders seek to show their stuff in L.A. fire recovery - Los Angeles Times
@@ -28,7 +28,7 @@ Generated: 2026-07-10T15:43:32.795Z
 
 ## 3. altadena fire rebuild cost
 
-- Score: 29
+- Score: 28
 - Area: Altadena
 - Service: Fire Rebuild
 - Suggested title: Altadena Fire Rebuild Update: Even in the heart of L.A., they still rely on old-fashioned landlines and don't want to lose them - Los Angeles Times
@@ -40,7 +40,7 @@ Generated: 2026-07-10T15:43:32.795Z
 
 ## 4. palisades fire rebuild permit timeline
 
-- Score: 25
+- Score: 24
 - Area: Pacific Palisades
 - Service: Fire Rebuild
 - Suggested title: Pacific Palisades Fire Rebuild Update: Pasadena doctor who drove family off cliff has charges of attempted murder dismissed - Los Angeles Times
@@ -52,7 +52,7 @@ Generated: 2026-07-10T15:43:32.795Z
 
 ## 5. palisades fire rebuild permit timeline
 
-- Score: 25
+- Score: 24
 - Area: Pacific Palisades
 - Service: Fire Rebuild
 - Suggested title: Pacific Palisades Fire Rebuild Update: Environmental justice group sues California over carbon market overhaul - Los Angeles Times
@@ -67,16 +67,16 @@ Generated: 2026-07-10T15:43:32.795Z
 - Score: 23
 - Area: Altadena
 - Service: Fire Rebuild
-- Suggested title: Altadena Fire Rebuild Update: Home insurer surcharges for wildfires is legal, judge rules - Los Angeles Times
-- Suggested slug: altadena-fire-rebuild-update-home-insurer-surcharges-for-wildfires-is-legal-judg
-- Source headline: Home insurer surcharges for wildfires is legal, judge rules - Los Angeles Times
+- Suggested title: Altadena Fire Rebuild Update: Home Page | LADBS - City of Los Angeles (.gov)
+- Suggested slug: altadena-fire-rebuild-update-home-page-ladbs-city-of-los-angeles-gov
+- Source headline: Home Page | LADBS - City of Los Angeles (.gov)
 - Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMirAFBVV95cUxOVmgteWk5RTFhenB1cU13STFhTVlBVExpX1ZPX3BjMmhtN1Y3LWNtalptbWxwUDVHOG9xbGpsVE15cEpvSUtXRjh2ZzNNY3kwQU04RjJ4ZmVIazNla2kwUWZnenFlSzU4SktNNW9wR2s0YmxTNUJfLWV6TFhabC0xV3RudkEtbTZCOFotM2gyaFd3VjYyRHVTaEVaXzRCSWhaVlc4M3UxMWk1YkRE?oc=5
+- Link: https://news.google.com/rss/articles/CBMiO0FVX3lxTE1UZDNKZ0RpVnNWUjdNRERQaFRVZDdXQ1VvcHZIV1VlUFFGVW1ZN2RURURCdVpsTFFLQjY4?oc=5
 - Why now: Fresh web coverage connected to Altadena and Fire Rebuild creates a timely angle for ranking on altadena fire rebuild cost.
 
 ## 7. los angeles adu permit changes
 
-- Score: 23
+- Score: 22
 - Area: Los Angeles
 - Service: Home Additions
 - Suggested title: Los Angeles Home Additions Update: Prefab housing builders seek to show their stuff in L.A. fire recovery - Los Angeles Times
@@ -86,19 +86,7 @@ Generated: 2026-07-10T15:43:32.795Z
 - Link: https://news.google.com/rss/articles/CBMivAFBVV95cUxOS3dZLXdMZGVFTnplSzE4UXV2YmNldDZaNEltaS1YSjN4Mkl2QXBTVmFsUjdjeEh5US0tWDQ5RGNFLWtIOFhwREcwX1FVeXl5OWhxV1cyY1dtaGdKSlpCRk8yS1VEVGJTajMzTmVqV202T0xSRzdoUXB4cWZhNTFuNTNZV2JIbkROcVNfSW5yQWhwQzdvTjA0MUpjUXRqb244d0loSHBBZFpFcHptamtmNjhyRk93U1VVME4yNg?oc=5
 - Why now: Fresh web coverage connected to Los Angeles and Home Additions creates a timely angle for ranking on los angeles adu permit changes.
 
-## 8. malibu rebuild code requirements
-
-- Score: 21
-- Area: Malibu
-- Service: Fire Rebuild
-- Suggested title: Malibu Fire Rebuild Update: Trump signs executive order to ‘preempt’ permitting process for fire-destroyed homes in L.A. - Los Angeles Times
-- Suggested slug: malibu-fire-rebuild-update-trump-signs-executive-order-to-preempt-permitting-pro
-- Source headline: Trump signs executive order to ‘preempt’ permitting process for fire-destroyed homes in L.A. - Los Angeles Times
-- Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMiwwFBVV95cUxObmRvV0JmZnNDVy1jaDNuUGxfV0R5a3FHRXVxZ2hQdFRpUDJWY1dVc3FsXzRjd25Qd0NzSll0TnJrdWtNc0g3Nl9OM2ZsdlI5d3F4THBFNlFfWm9CUTl3Nm9fYTVpeUtfNEQ5di1aM2ZxZVNheVVwMXZ2eVNWV3lsMURsZUs3NFE3QmpKZ0Z4OGJ5eWZINjBwVGpzRFMyNkxDdktHbHFuS2J6ZHViaHJZYnlBb09hWmFFTllMZk0tOEtvR0U?oc=5
-- Why now: Fresh web coverage connected to Malibu and Fire Rebuild creates a timely angle for ranking on malibu rebuild code requirements.
-
-## 9. beverly hills custom home permit
+## 8. beverly hills custom home permit
 
 - Score: 18
 - Area: Beverly Hills
@@ -110,7 +98,7 @@ Generated: 2026-07-10T15:43:32.795Z
 - Link: https://news.google.com/rss/articles/CBMiakFVX3lxTE9BQzFsSWdGeDJsdW5Vajg3X3B5SWFRekpUTWYyM1dGYmJxQ1Y4c29HV0dXNXU1RHlvNlRxN09IUFR4Q3pzeG9PVXhWajdBWS1wX2VzZ1dwSEZqQ3EyOERMMXk3WjJWZk9jaUE?oc=5
 - Why now: Fresh web coverage connected to Beverly Hills and Custom Homes creates a timely angle for ranking on beverly hills custom home permit.
 
-## 10. los angeles adu permit changes
+## 9. los angeles adu permit changes
 
 - Score: 18
 - Area: Los Angeles
@@ -122,7 +110,7 @@ Generated: 2026-07-10T15:43:32.795Z
 - Link: https://news.google.com/rss/articles/CBMiqgFBVV95cUxQZjIxal92M0pDS0xkM0FwNkNZQzJnbTVZeHZUeUlvcUpfbEZDeS1nTy1uUzJEU3dpUHlKOTFoYkxmNUhLVDlJdmpKMkQ0eGE4aU9jS3RjMjYxR3ZpV3h6bWFVRkxma0NlazNoUkNtOEpHbDdKRDNmblVJWGdVSmoxM3dDTzZ6SWc2RFgxQl9MUmJETXphVVlFRVVSQW02OEVKOUNaRGxKWFF4UQ?oc=5
 - Why now: Fresh web coverage connected to Los Angeles and Home Additions creates a timely angle for ranking on los angeles adu permit changes.
 
-## 11. malibu rebuild code requirements
+## 10. malibu rebuild code requirements
 
 - Score: 17
 - Area: Malibu
@@ -134,7 +122,7 @@ Generated: 2026-07-10T15:43:32.795Z
 - Link: https://news.google.com/rss/articles/CBMiywFBVV95cUxOX2R6M09IVTdWTWtXbnJpT1lBdkRLSVFyaXFhMS1rTU95Z01nbGdvTTNmdmhVVzhfLV91NFhHdDFsSk03MHA0V2VGNk1iYk5NcmFlZi1aOE9wRnItRmxBaGdQd1p1OFJZanZkXy1ITTZ1Y3p3N2UxaF9OZWR5cWdTcnhmUUFrcTN6X2d4UkhGYjZGYWU1cDR0bkpZN01pSXV3QnpidDBKSmVkbWQ0OWhCRk14N0tuejN4RG1NeTZ5X2lQajZWMEFTS0N0Yw?oc=5
 - Why now: Fresh web coverage connected to Malibu and Fire Rebuild creates a timely angle for ranking on malibu rebuild code requirements.
 
-## 12. malibu rebuild code requirements
+## 11. malibu rebuild code requirements
 
 - Score: 17
 - Area: Malibu
@@ -145,3 +133,15 @@ Generated: 2026-07-10T15:43:32.795Z
 - Source: Unknown publisher
 - Link: https://news.google.com/rss/articles/CBMirwFBVV95cUxOS2JucVdHQmVpOWNnNXdPLWpvLURyUWhLd1ozVVVVUDduVG5PQ3JadnQ5ekc4ZjhwRVF3M2pSa3hCV2tDR3ZEU1VMQnRxYWUtbnNWVDRRY0FOYkwwZFc1WWhNcGtRSElhWm5PZ1oweHdxcVdydmZ2TURMR1hFNXgwbTI4cFZmdFJzUXNxaWFhRVpFXy1qN0lqb25zak5DNDBlUzVRSmdjOGpJY0JjVWxr?oc=5
 - Why now: Fresh web coverage connected to Malibu and Fire Rebuild creates a timely angle for ranking on malibu rebuild code requirements.
+
+## 12. santa monica hillside construction
+
+- Score: 17
+- Area: Santa Monica
+- Service: Custom Homes
+- Suggested title: Santa Monica Custom Homes Update: Man and woman found fatally shot inside Westwood home in possible murder-suicide - Los Angeles Times
+- Suggested slug: santa-monica-custom-homes-update-man-and-woman-found-fatally-shot-inside-westwoo
+- Source headline: Man and woman found fatally shot inside Westwood home in possible murder-suicide - Los Angeles Times
+- Source: Unknown publisher
+- Link: https://news.google.com/rss/articles/CBMivwFBVV95cUxNWmFtc0twN0hCek45dVdmaG5aOWVOLWxibGRhTnc3cFlIRHdYQnVXMkM3WjF3Vng4TVZuWG5WTFBHczRSZ293RWdZMnZzZTl3WGxUdUhyQTh1QWY2WTJJSl9yRWlHY3NuSjhXRXhyVXJYbmRrelZweUpYaGdBa1lRWTliSWtNcHktYk1PdG9MbkhlQzh1SFNqYkFpN0tnbXotd0pqMWt0bmVHTkZqTF9XSjJHT29FTEVEVWt6Mkt1TQ?oc=5
+- Why now: Fresh web coverage connected to Santa Monica and Custom Homes creates a timely angle for ranking on santa monica hillside construction.
