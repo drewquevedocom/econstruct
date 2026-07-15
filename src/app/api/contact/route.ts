@@ -4,6 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 
 const NOTIFY_TO = "info@econstructinc.com";
 const NOTIFY_CC: string[] = [
+  "frank@econstructinc.com",
   "robyn@econstructinc.com",
   "marketing@econstructinc.com",
 ];
@@ -40,9 +41,9 @@ export async function POST(req: NextRequest) {
     // Build Supabase service client inline — avoids crash if env var missing
     const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
     if (!serviceKey) {
-      console.error("SUPABASE_SERVICE_ROLE_KEY is not set");
+      console.error("[contact/route] MISSING ENV VAR: SUPABASE_SERVICE_ROLE_KEY — add to Vercel → Settings → Environment Variables → redeploy");
       return NextResponse.json(
-        { error: "Server configuration error. Please contact us directly." },
+        { error: "Server configuration error. Please contact us directly at (310) 740-9999." },
         { status: 500 }
       );
     }
@@ -71,6 +72,9 @@ export async function POST(req: NextRequest) {
     }
 
     // Send email notification
+    if (!process.env.RESEND_API_KEY) {
+      console.error("[contact/route] MISSING ENV VAR: RESEND_API_KEY — email notifications disabled. Add to Vercel → Settings → Environment Variables → redeploy");
+    }
     if (process.env.RESEND_API_KEY) {
       const resend = new Resend(process.env.RESEND_API_KEY);
       const normalizedProjectType = projectType || "General Inquiry";
