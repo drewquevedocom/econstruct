@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { createClient } from "@supabase/supabase-js";
 
-const NOTIFY_TO = "info@econstructinc.com";
+const NOTIFY_TO = "frank@econstructinc.com";
 const NOTIFY_CC: string[] = [
+  "info@econstructinc.com",
   "robyn@econstructinc.com",
   "marketing@econstructinc.com",
 ];
