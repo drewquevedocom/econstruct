@@ -151,7 +151,7 @@ export default function FoodDistributionPage() {
             California.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button href="/contact" variant="primary" size="lg">
+            <Button href="/food-distribution-construction/site-walk" variant="primary" size="lg">
               Request a Site Walk
             </Button>
             <a
@@ -310,7 +310,7 @@ export default function FoodDistributionPage() {
               <Button href="/contact" variant="secondary" size="lg">
                 Request Budget Pricing
               </Button>
-              <Button href="/contact" variant="primary" size="lg">
+              <Button href="/food-distribution-construction/site-walk" variant="primary" size="lg">
                 Request a Site Walk
               </Button>
               <Button href="/contact" variant="secondary" size="lg">
