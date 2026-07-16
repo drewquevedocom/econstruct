@@ -11,7 +11,7 @@ export function generateLocalBusinessSchema() {
     "@type": ["GeneralContractor", "HomeAndConstructionBusiness"],
     name: COMPANY.name,
     legalName: COMPANY.name,
-    description: "Los Angeles' premier high-end residential contractor specializing in fire rebuilds, luxury modernization, and ground-up custom homes. 639 combined partner projects, with a commercial foundation before 2011 and a residential focus since 2011. CA License #964015.",
+    description: "Los Angeles' premier high-end residential contractor specializing in fire rebuilds, luxury modernization, and ground-up custom homes. 634 combined partner projects, with a commercial foundation before 2011 and a residential focus since 2011. CA License #964015.",
     url: SITE_URL,
     telephone: COMPANY.phone.primary,
     email: COMPANY.email,

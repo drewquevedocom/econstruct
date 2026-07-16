@@ -4,7 +4,12 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { generateBreadcrumbSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/constants";
-import { promptProjectSummaries } from "@/lib/data/prompt-project-summaries";
+import {
+  featuredProjectSummary,
+  highEndProjectSummaries,
+  completedProjectSummaries,
+  promptProjectSummaries,
+} from "@/lib/data/prompt-project-summaries";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import ConsultationCTA from "@/components/ConsultationCTA";
@@ -14,7 +19,7 @@ export const dynamic = "force-static";
 export const metadata: Metadata = {
   title: "Projects | eConstruct Homes — Luxury Home Remodels & Custom Builds in Los Angeles",
   description:
-    "Explore luxury remodel and custom home construction projects by eConstruct Homes across Hollywood Hills, Bell Canyon, Lawndale, and greater Los Angeles, backed by 639 combined partner projects.",
+    "Explore luxury remodel and custom home construction projects by eConstruct Homes across Hollywood Hills, Bell Canyon, Lawndale, and greater Los Angeles, backed by 634 combined partner projects.",
   alternates: {
     canonical: `${SITE_URL}/projects`,
   },
@@ -61,7 +66,7 @@ export default function ProjectsPage() {
     })),
   };
 
-  const [featured, ...rest] = promptProjectSummaries;
+  const featured = featuredProjectSummary;
 
   return (
     <>
@@ -71,11 +76,11 @@ export default function ProjectsPage() {
       {/* Ã¢â€â‚¬Ã¢â€â‚¬ Hero Ã¢â€â‚¬Ã¢â€â‚¬ */}
       <PageHero
         title="Our Work Across Los Angeles"
-        subtitle="Backed by 639 combined partner projects, with a primarily commercial foundation before 2011 and econstruct's residential focus since 2011."
+        subtitle="Backed by 634 combined partner projects, with a primarily commercial foundation before 2011 and econstruct's residential focus since 2011."
         breadcrumbs={[{ label: "Projects" }]}
         backgroundImage={featured.image}
         stats={[
-          { value: "639", label: "Partner Projects" },
+          { value: "634", label: "Partner Projects" },
           { value: "51 Yrs", label: "Combined Partner Experience" },
           { value: "CA #964015", label: "Licensed GC" },
         ]}
@@ -156,32 +161,31 @@ export default function ProjectsPage() {
         </Container>
       </section>
 
-      {/* Ã¢â€â‚¬Ã¢â€â‚¬ Project grid Ã¢â€â‚¬Ã¢â€â‚¬ */}
+      {/* High-End Projects */}
       <section className="bg-white py-20 md:py-28">
         <Container>
           <div className="mb-12 flex flex-col gap-4 min-[700px]:flex-row min-[700px]:items-end min-[700px]:justify-between">
             <div>
               <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.34em] text-accent-gold">
-                All Projects
+                Luxury Showcase
               </p>
               <h2 className="font-heading text-[2.2rem] leading-tight tracking-tight text-brand-dark md:text-[2.8rem]">
-                Portfolio of Work
+                High-End Projects
               </h2>
             </div>
             <p className="max-w-sm text-[0.9rem] leading-[1.7] text-black/50">
-              Every project reflects eConstruct Homes commitment to premium execution, clear communication, and results that outlast the build.
+              Premium residential builds across Los Angeles&apos;s most prestigious neighborhoods — custom estates, luxury new construction, and landmark remodels.
             </p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-2">
-            {rest.map((project, i) => (
+            {highEndProjectSummaries.map((project, i) => (
               <Link
                 key={project.slug}
                 href={`/projects/${project.slug}`}
                 className="group block overflow-hidden rounded-2xl border border-black/8 bg-white shadow-sm transition-all duration-400 hover:-translate-y-1 hover:shadow-xl"
                 style={{ animationDelay: `${i * 80}ms` }}
               >
-                {/* Image */}
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <img
                     src={project.image}
@@ -203,8 +207,6 @@ export default function ProjectsPage() {
                     </span>
                   </div>
                 </div>
-
-                {/* Body */}
                 <div className="p-7 md:p-8">
                   <h3 className="font-heading text-[1.35rem] leading-snug tracking-tight text-brand-dark">
                     {project.shortTitle}
@@ -212,7 +214,6 @@ export default function ProjectsPage() {
                   <p className="mt-3 text-[0.875rem] leading-[1.72] text-black/55 line-clamp-3">
                     {project.description}
                   </p>
-
                   <div className="mt-6 flex flex-wrap gap-x-5 gap-y-1 border-t border-black/8 pt-5">
                     {project.highlights.slice(0, 3).map((h) => (
                       <span key={h} className="flex items-center gap-1.5 text-[11px] font-medium text-black/45">
@@ -221,7 +222,78 @@ export default function ProjectsPage() {
                       </span>
                     ))}
                   </div>
+                  <div className="mt-5 inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-accent-gold transition-colors group-hover:text-brand-dark">
+                    View Case Study
+                    <ArrowUpRight size={13} />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </Container>
+      </section>
 
+      {/* econstruct Completed Projects */}
+      <section className="bg-[#F8F6F2] py-20 md:py-28">
+        <Container>
+          <div className="mb-12 flex flex-col gap-4 min-[700px]:flex-row min-[700px]:items-end min-[700px]:justify-between">
+            <div>
+              <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.34em] text-accent-gold">
+                econstruct Completed
+              </p>
+              <h2 className="font-heading text-[2.2rem] leading-tight tracking-tight text-brand-dark md:text-[2.8rem]">
+                Completed Projects
+              </h2>
+            </div>
+            <p className="max-w-sm text-[0.9rem] leading-[1.7] text-black/50">
+              Finished builds delivered by econstruct — fire rebuilds, custom estates, full-home renovations, and custom engineering across greater Los Angeles.
+            </p>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-2">
+            {completedProjectSummaries.map((project, i) => (
+              <Link
+                key={project.slug}
+                href={`/projects/${project.slug}`}
+                className="group block overflow-hidden rounded-2xl border border-black/8 bg-white shadow-sm transition-all duration-400 hover:-translate-y-1 hover:shadow-xl"
+                style={{ animationDelay: `${i * 80}ms` }}
+              >
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="h-full w-full object-cover transition-transform duration-600 group-hover:scale-[1.04]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+                  <div className="absolute left-5 top-5">
+                    <span className={`rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] backdrop-blur-sm ${categoryColors[project.category] ?? "bg-white/20 text-white"}`}>
+                      {project.category}
+                    </span>
+                  </div>
+                  <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-accent-gold">
+                      {project.neighborhood}
+                    </p>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/60">
+                      {project.completionDate}
+                    </span>
+                  </div>
+                </div>
+                <div className="p-7 md:p-8">
+                  <h3 className="font-heading text-[1.35rem] leading-snug tracking-tight text-brand-dark">
+                    {project.shortTitle}
+                  </h3>
+                  <p className="mt-3 text-[0.875rem] leading-[1.72] text-black/55 line-clamp-3">
+                    {project.description}
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-x-5 gap-y-1 border-t border-black/8 pt-5">
+                    {project.highlights.slice(0, 3).map((h) => (
+                      <span key={h} className="flex items-center gap-1.5 text-[11px] font-medium text-black/45">
+                        <span className="h-1 w-1 rounded-full bg-accent-gold" />
+                        {h}
+                      </span>
+                    ))}
+                  </div>
                   <div className="mt-5 inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-accent-gold transition-colors group-hover:text-brand-dark">
                     View Case Study
                     <ArrowUpRight size={13} />

@@ -43,7 +43,7 @@ const whyChoose = [
     n: "01",
     icon: Award,
     title: "20+ Years Building in LA",
-    body: "639 combined partner projects. CA Lic #964015. NAHB Member. Licensed General Contractor leadership.",
+    body: "634 combined partner projects. CA Lic #964015. NAHB Member. Licensed General Contractor leadership.",
   },
   {
     n: "02",
@@ -165,7 +165,7 @@ export default function LAExpeditePartnerPage() {
                   Est. 2011
                 </p>
                 <p className="mt-1 font-heading text-4xl font-extrabold leading-none text-white">
-                  639
+                  634
                 </p>
                 <p className="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-white/80">
                   Partner Projects

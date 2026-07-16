@@ -24,7 +24,6 @@ export const metadata: Metadata = generatePageMetadata({
   description:
     "From permits to keys. Turnkey fire rebuild packages designed for investor ROI. Essential, Premium, and Luxury Spec builds from $450-$1000+/sq ft.",
   path: "/for-investors",
-  noIndex: true,
 });
 
 const keyStats = [

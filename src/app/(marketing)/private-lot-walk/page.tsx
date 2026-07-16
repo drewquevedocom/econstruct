@@ -19,7 +19,7 @@ export const metadata: Metadata = generatePageMetadata({
 
 const proofStats = [
   { value: "15", label: "Years heritage" },
-  { value: "639", label: "Custom projects" },
+  { value: "634", label: "Custom projects" },
   { value: "$200M", label: "Total built" },
 ];
 

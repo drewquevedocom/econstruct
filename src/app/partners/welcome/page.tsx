@@ -1,5 +1,10 @@
 export const dynamic = "force-static";
 
+export const metadata = {
+  title: "Partner Welcome | econstruct",
+  robots: { index: false, follow: false },
+};
+
 export default function WelcomePage() {
   return (
     <main className="mx-auto min-h-screen max-w-2xl px-6 py-12">

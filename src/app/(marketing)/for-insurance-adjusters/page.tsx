@@ -23,7 +23,6 @@ export const metadata: Metadata = generatePageMetadata({
   description:
     "Partner with LA's fastest fire rebuild team. Your clients get priority scheduling, free scope validation reports, and a builder who makes your work look brilliant.",
   path: "/for-insurance-adjusters",
-  noIndex: true,
 });
 
 const valueProps = [

@@ -23,7 +23,6 @@ export const metadata: Metadata = generatePageMetadata({
   description:
     "We don't cut corners on your plans. econstruct delivers architectural intent with premium craftsmanship and WUI compliance across Los Angeles.",
   path: "/for-architects",
-  noIndex: true,
 });
 
 const valueProps = [

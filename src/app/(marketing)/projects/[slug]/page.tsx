@@ -10,6 +10,7 @@ import Container from "@/components/ui/Container";
 import SectionHeader from "@/components/ui/SectionHeader";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import ConsultationCTA from "@/components/ConsultationCTA";
+import ProjectLightbox from "@/components/ui/ProjectLightbox";
 
 const devistaGalleryImages = [
   {
@@ -118,7 +119,7 @@ export default async function ProjectPage({
     name: "eConstruct",
     url: "https://econstructhomes.com",
     telephone: "+1-310-740-9999",
-    email: "info@econstructhomes.com",
+    email: "info@econstructinc.com",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Los Angeles",
@@ -199,7 +200,7 @@ export default async function ProjectPage({
               ["Timeline", project.timeline],
               ["Square Footage", project.squareFootage],
               ["Completion", project.completionDate],
-            ].map(([label, value], index) => (
+            ].filter(([, value]) => value).map(([label, value], index) => (
               <AnimatedSection key={label} delay={index * 0.05}>
                 <div className="h-full rounded-3xl border border-gray-100 bg-white p-8 shadow-sm transition-transform duration-300 hover:-translate-y-1">
                   <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent-gold">
@@ -329,28 +330,7 @@ export default async function ProjectPage({
 
       <section className="bg-[#F8F6F2] py-24 md:py-32">
         <Container>
-          <div className="grid gap-8 lg:grid-cols-3">
-            {galleryImages.map((image, index) => (
-              <AnimatedSection key={image.src} delay={index * 0.08}>
-                <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm">
-                  <div className="relative aspect-[4/3]">
-                    <img
-                      src={image.src}
-                      alt={image.alt}
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <p className="leading-relaxed text-body-text">
-                      {image.caption}
-                    </p>
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
+          <ProjectLightbox images={galleryImages} />
         </Container>
       </section>
 
@@ -363,7 +343,7 @@ export default async function ProjectPage({
             centered={false}
             className="mb-12"
           />
-          <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+          <div className={`grid gap-8 ${project.testimonial ? "lg:grid-cols-[1.05fr_0.95fr] lg:items-start" : ""}`}>
             <AnimatedSection>
               <div className="rounded-[2rem] bg-brand-dark p-8 text-white shadow-[0_24px_70px_rgba(0,0,0,0.18)] md:p-10">
                 <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-gold">
@@ -380,40 +360,54 @@ export default async function ProjectPage({
                     </li>
                   ))}
                 </ul>
+                {!project.testimonial && (
+                  <div className="mt-10 flex flex-wrap gap-4">
+                    <Link
+                      href={`/services/${project.serviceSlug}`}
+                      className="rounded-full bg-accent-gold px-5 py-3 text-sm font-bold text-brand-dark transition-colors hover:bg-white hover:text-brand-dark"
+                    >
+                      Related Service
+                    </Link>
+                    <Link
+                      href="/projects"
+                      className="rounded-full border border-white/20 px-5 py-3 text-sm font-bold text-white transition-colors hover:border-accent-gold hover:text-accent-gold"
+                    >
+                      Back to Projects
+                    </Link>
+                  </div>
+                )}
               </div>
             </AnimatedSection>
 
-            <AnimatedSection delay={0.12}>
-              <div className="rounded-[2rem] border border-black/8 bg-white p-8 shadow-sm md:p-10">
-                {project.testimonial && (
-                  <>
-                    <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-gold">
-                      Client Perspective
-                    </p>
-                    <p className="mt-5 text-xl leading-relaxed text-body-text">
-                      &ldquo;{project.testimonial.quote}&rdquo;
-                    </p>
-                    <p className="mt-6 text-sm font-bold uppercase tracking-[0.18em] text-accent-gold">
-                      {project.testimonial.name}
-                    </p>
-                  </>
-                )}
-                <div className="mt-10 flex flex-wrap gap-4">
-                  <Link
-                    href={`/services/${project.serviceSlug}`}
-                    className="rounded-full bg-brand-dark px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-accent-gold hover:text-brand-dark"
-                  >
-                    Related Service
-                  </Link>
-                  <Link
-                    href="/projects"
-                    className="rounded-full border border-brand-dark/15 px-5 py-3 text-sm font-bold text-brand-dark transition-colors hover:border-accent-gold hover:text-accent-gold"
-                  >
-                    Back to Projects
-                  </Link>
+            {project.testimonial && (
+              <AnimatedSection delay={0.12}>
+                <div className="rounded-[2rem] border border-black/8 bg-white p-8 shadow-sm md:p-10">
+                  <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-gold">
+                    Client Perspective
+                  </p>
+                  <p className="mt-5 text-xl leading-relaxed text-body-text">
+                    &ldquo;{project.testimonial.quote}&rdquo;
+                  </p>
+                  <p className="mt-6 text-sm font-bold uppercase tracking-[0.18em] text-accent-gold">
+                    {project.testimonial.name}
+                  </p>
+                  <div className="mt-10 flex flex-wrap gap-4">
+                    <Link
+                      href={`/services/${project.serviceSlug}`}
+                      className="rounded-full bg-brand-dark px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-accent-gold hover:text-brand-dark"
+                    >
+                      Related Service
+                    </Link>
+                    <Link
+                      href="/projects"
+                      className="rounded-full border border-brand-dark/15 px-5 py-3 text-sm font-bold text-brand-dark transition-colors hover:border-accent-gold hover:text-accent-gold"
+                    >
+                      Back to Projects
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </AnimatedSection>
+              </AnimatedSection>
+            )}
           </div>
         </Container>
       </section>

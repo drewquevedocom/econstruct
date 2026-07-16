@@ -18,10 +18,10 @@ const PARTNER_REFRESH_CONFIGS = [
   {
     partnerType: "Real Estate Attorney",
     weeklyTarget: 30,
-    personTitles: ["real estate attorney", "property litigation attorney", "attorney"],
+    personTitles: ["real estate attorney", "attorney", "lawyer", "counsel"],
     personSeniorities: ["owner", "founder", "partner", "vp", "director"],
-    qKeywords: "real estate property litigation",
-    organizationLocations: ["Los Angeles"],
+    qKeywords: "real estate",
+    organizationLocations: ["Los Angeles", "Los Angeles County"],
   },
   {
     partnerType: "Architect",
@@ -50,26 +50,26 @@ const PARTNER_REFRESH_CONFIGS = [
   {
     partnerType: "Expediter / Permit Runner",
     weeklyTarget: 15,
-    personTitles: ["expediter", "permit runner", "permit expeditor"],
+    personTitles: ["expediter", "permit expeditor", "permit consultant", "entitlement consultant"],
     personSeniorities: ["owner", "founder", "partner", "vp", "director", "manager"],
-    qKeywords: "LADBS permit",
-    organizationLocations: ["Los Angeles"],
+    qKeywords: "permit",
+    organizationLocations: ["Los Angeles", "Los Angeles County"],
   },
   {
     partnerType: "CPA / Wealth Advisor",
     weeklyTarget: 25,
-    personTitles: ["cpa", "wealth advisor", "financial advisor"],
+    personTitles: ["cpa", "certified public accountant", "wealth advisor", "financial advisor", "wealth manager"],
     personSeniorities: ["owner", "founder", "partner", "vp", "director"],
-    qKeywords: "real estate",
-    organizationLocations: ["Los Angeles"],
+    qKeywords: "",
+    organizationLocations: ["Los Angeles", "Los Angeles County"],
   },
   {
     partnerType: "Escrow Officer",
     weeklyTarget: 20,
-    personTitles: ["escrow officer"],
+    personTitles: ["escrow officer", "escrow manager", "senior escrow officer", "escrow assistant", "title officer"],
     personSeniorities: ["owner", "founder", "partner", "vp", "director", "manager"],
-    qKeywords: "real estate",
-    organizationLocations: ["Los Angeles County"],
+    qKeywords: "",
+    organizationLocations: ["Los Angeles", "Los Angeles County"],
   },
   {
     partnerType: "Structural / Geotech Engineer",
@@ -82,10 +82,10 @@ const PARTNER_REFRESH_CONFIGS = [
   {
     partnerType: "Fire / Water Restoration",
     weeklyTarget: 15,
-    personTitles: ["restoration", "fire damage", "water damage"],
+    personTitles: ["owner", "president", "general manager", "project manager", "estimator"],
     personSeniorities: ["owner", "founder", "partner", "vp", "director", "manager"],
-    qKeywords: "restoration fire damage water damage",
-    organizationLocations: ["Los Angeles"],
+    qKeywords: "restoration",
+    organizationLocations: ["Los Angeles", "Los Angeles County"],
   },
 ] as const;
 
@@ -161,8 +161,11 @@ async function apolloSearchPeople(config: (typeof PARTNER_REFRESH_CONFIGS)[numbe
   for (const seniority of config.personSeniorities) params.append("person_seniorities[]", seniority);
   for (const location of config.organizationLocations) params.append("organization_locations[]", location);
   params.append("contact_email_status[]", "verified");
-  params.set("q_keywords", config.qKeywords);
-  params.set("include_similar_titles", "false");
+  if (config.qKeywords) params.set("q_keywords", config.qKeywords);
+  // Similar titles widen the candidate pool substantially — the exact-title
+  // searches returned zero hits for five of ten partner types once the small
+  // LA-exact pools were mined out.
+  params.set("include_similar_titles", "true");
   params.set("per_page", "100");
   params.set("page", String(page));
 
@@ -334,17 +337,38 @@ export async function POST(req: Request) {
 
     for (const config of configs) {
       try {
+        // Search pages are free; only bulk_match spends credits. Walk deeper
+        // pages and drop people we already hold (matched on linkedin_url)
+        // BEFORE enrichment — otherwise every weekly run re-buys page 1 of
+        // the same search and dedupes it away after the credits are spent.
         const collected: ApolloSearchPerson[] = [];
-        const maxPages = 3;
+        const maxPages = 5;
         for (let page = 1; page <= maxPages; page++) {
-            const search = await apolloSearchPeople(config, page);
+          const search = await apolloSearchPeople(config, page);
           const people = search.people ?? [];
-          collected.push(...people);
-          if (people.length < 100) break;
-          if (collected.length >= config.weeklyTarget * 3) break;
-        }
+          recordsPulled += people.length;
 
-        recordsPulled += collected.length;
+          const urls = people
+            .map((p) => p.linkedin_url)
+            .filter((u): u is string => Boolean(u));
+          const known = new Set<string>();
+          for (let i = 0; i < urls.length; i += 200) {
+            const chunk = urls.slice(i, i + 200);
+            const { data: existing } = await supabase
+              .from("partner_leads")
+              .select("linkedin_url")
+              .in("linkedin_url", chunk);
+            for (const row of existing ?? []) {
+              if (row.linkedin_url) known.add(String(row.linkedin_url));
+            }
+          }
+          collected.push(
+            ...people.filter((p) => !p.linkedin_url || !known.has(p.linkedin_url))
+          );
+
+          if (people.length < 100) break;
+          if (collected.length >= config.weeklyTarget * 2) break;
+        }
 
         const ids = collected
           .map((person) => person.id ?? person.person_id)

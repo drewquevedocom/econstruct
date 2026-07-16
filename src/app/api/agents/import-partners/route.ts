@@ -3,6 +3,41 @@ import { createServiceClient } from "@/lib/supabase/server";
 
 export const maxDuration = 60;
 
+// This endpoint inserts leads that the outreach agents will cold-email, so it
+// must never be callable anonymously. Two callers are legitimate: automation
+// holding CRON_SECRET, and a logged-in CRM user whose crm_session cookie
+// carries the same HMAC the middleware verifies for /crm pages.
+async function verifyCrmCookie(req: NextRequest): Promise<boolean> {
+  const value = req.cookies.get("crm_session")?.value;
+  const secret = process.env.CRM_COOKIE_SECRET;
+  if (!value || !secret) return false;
+  try {
+    const [payload, signature] = value.split(".");
+    if (!payload || !signature) return false;
+    const key = await crypto.subtle.importKey(
+      "raw",
+      new TextEncoder().encode(secret),
+      { name: "HMAC", hash: "SHA-256" },
+      false,
+      ["sign"]
+    );
+    const expected = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(payload));
+    const expectedHex = Array.from(new Uint8Array(expected))
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+    return expectedHex === signature;
+  } catch {
+    return false;
+  }
+}
+
+async function isAuthorized(req: NextRequest): Promise<boolean> {
+  const auth = req.headers.get("authorization");
+  const cronSecret = process.env.CRON_SECRET;
+  if (cronSecret && auth === `Bearer ${cronSecret}`) return true;
+  return verifyCrmCookie(req);
+}
+
 const KNOWN_PARTNER_TYPES = new Set([
   "Architect",
   "Realtor / Real Estate Agent",
@@ -134,6 +169,10 @@ function mapRow(
 }
 
 export async function POST(req: NextRequest) {
+  if (!(await isAuthorized(req))) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   let body: { csv_text?: string; partner_type?: string; source?: string; dry_run?: boolean };
   try {
     body = await req.json();

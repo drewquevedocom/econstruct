@@ -20,6 +20,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/contact`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.9 },
     { url: `${baseUrl}/reviews`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.6 },
     { url: `${baseUrl}/faq`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.6 },
+    { url: `${baseUrl}/service-areas`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
+    { url: `${baseUrl}/for-architects`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.7 },
+    { url: `${baseUrl}/for-insurance-adjusters`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
+    { url: `${baseUrl}/for-investors`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.7 },
+    { url: `${baseUrl}/international-luxury-clients`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.7 },
+    { url: `${baseUrl}/trusted-partner-program`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.7 },
   ];
 
   const promptServicePages = promptServices.map((service) => ({

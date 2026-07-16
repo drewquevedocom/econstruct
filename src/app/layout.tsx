@@ -80,6 +80,10 @@ export default function RootLayout({
                     click_text: clickText,
                     page_location: pageLocation,
                   });
+                  trackEvent("generate_lead", {
+                    method: "phone",
+                    page_location: pageLocation,
+                  });
                   return;
                 }
 
@@ -87,6 +91,10 @@ export default function RootLayout({
                   trackEvent("mailto_click", {
                     email_address: href.replace(/^mailto:/i, "").split("?")[0],
                     click_text: clickText,
+                    page_location: pageLocation,
+                  });
+                  trackEvent("generate_lead", {
+                    method: "email",
                     page_location: pageLocation,
                   });
                 }
@@ -99,6 +107,12 @@ export default function RootLayout({
                   form_destination: detail.form_destination || window.location.href,
                   form_length: detail.form_length || 0,
                   form_name: detail.form_name || "",
+                });
+                trackEvent("generate_lead", {
+                  method: "form",
+                  form_id: detail.form_id || "",
+                  form_name: detail.form_name || "",
+                  page_location: detail.form_destination || window.location.href,
                 });
               });
             })();

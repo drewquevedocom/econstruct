@@ -64,6 +64,11 @@ const nextConfig: NextConfig = {
         permanent: false,
       },
       {
+        source: "/blog/palisades-fire-rebuild",
+        destination: "/blog/pacific-palisades-fire-rebuild-guide-2026",
+        permanent: true,
+      },
+      {
         source: "/luxury-home-builders-beverly-hills",
         destination: "/blog/luxury-home-builders-beverly-hills",
         permanent: true,

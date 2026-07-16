@@ -1,7 +1,7 @@
 ﻿---
 title: "The 2026 Pacific Palisades Fire Rebuild Guide: Costs, Timelines & Code Requirements"
 slug: "pacific-palisades-fire-rebuild-guide-2026"
-description: "Complete 2026 guide to rebuilding your Pacific Palisades home after the wildfires. Real costs ($450-$800/sq ft), realistic timelines, and Chapter 7A code requirements explained."
+description: "Complete 2026 guide to rebuilding your Pacific Palisades home after the wildfires. Real costs ($550-$800/sq ft), realistic timelines, and Chapter 7A code requirements explained."
 category: "Fire Rebuilds"
 tags:
   - "Pacific Palisades"
@@ -20,8 +20,8 @@ ogImage: "/fire-rebuild-guide2.png"
 excerpt: "A practical 2026 roadmap for Pacific Palisades homeowners comparing real rebuild costs, permit timing, WUI code upgrades, and insurance shortfalls."
 targetKeyword: "pacific palisades fire rebuild cost"
 takeaways:
-  - "In 2026, Pacific Palisades fire rebuild cost usually starts around $450 per square foot and can move past $800 per square foot once WUI detailing, slope conditions, and premium finishes are layered in."
-  - "Owners should budget around 18 to 24 months from post-loss planning to completion, even when teams move decisively."
+  - "In 2026, Pacific Palisades fire rebuild cost usually starts around $550 per square foot and can move past $800 per square foot once WUI detailing, slope conditions, and premium finishes are layered in."
+  - "Owners should budget around 18 to 24 months from post-loss planning to completion, even when teams move decisively, relying on [La Expedite](/partners/la-expedite) as our expediting partner to ensure the plan check process is executed flawlessly."
   - "Chapter 7A compliance is not an upgrade menu; it is a baseline requirement that changes roofing, vents, exterior walls, glazing strategy, and eave detailing."
   - "Insurance estimates often understate ordinance-driven upgrades, temporary conditions, and premium market labor pressure."
 sources:
@@ -36,7 +36,7 @@ sources:
     publisher: "FEMA"
 faq:
   - question: "What is a realistic Pacific Palisades fire rebuild cost in 2026?"
-    answer: "Most serious rebuild budgets in Pacific Palisades start around $450 per square foot and can exceed $800 per square foot once WUI requirements, hillside logistics, premium finishes, and consultant fees are accounted for."
+    answer: "Most serious rebuild budgets in Pacific Palisades start around $550 per square foot and can exceed $800 per square foot once WUI requirements, hillside logistics, premium finishes, and consultant fees are accounted for."
   - question: "How long does a full Palisades rebuild usually take?"
     answer: "A realistic full-project timeline is often 18 to 24 months because design, permitting, demolition, utility coordination, and construction all stack together."
   - question: "Do I have to rebuild to Chapter 7A standards?"
@@ -61,7 +61,7 @@ The most useful way to discuss cost is by separating the house from the process 
 
 ### Base construction is only one layer
 
-For many Pacific Palisades projects, a credible 2026 working range starts around $450 to $800 per square foot. Lower-complexity lots with disciplined scope may sit near the bottom of that range. Architecturally ambitious homes, steep access, premium glazing packages, custom metalwork, or complex site retaining push well beyond it.
+For many Pacific Palisades projects, a credible 2026 working range starts around $550 to $800 per square foot. Lower-complexity lots with disciplined scope may sit near the bottom of that range. Architecturally ambitious homes, steep access, premium glazing packages, custom metalwork, or complex site retaining push well beyond it.
 
 A sentence owners should remember is this: **your rebuild cost is determined less by the house you lost than by the code-compliant house you are allowed and choose to build in 2026.** That distinction matters because the new house must perform under today's approvals, not yesterday's assumptions.
 

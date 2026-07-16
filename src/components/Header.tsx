@@ -36,12 +36,15 @@ export default function Header() {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-gold transition-all duration-300 group-hover/services:w-full"></span>
               </Link>
               <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 invisible group-hover/services:opacity-100 group-hover/services:visible transition-all duration-200">
-                <div className="min-w-[220px] rounded-2xl border border-white/10 bg-[#111419]/95 p-3 shadow-2xl backdrop-blur-xl">
+                <div className="min-w-[240px] rounded-2xl border border-white/10 bg-[#111419]/95 p-3 shadow-2xl backdrop-blur-xl">
                   <Link href="/services/luxury-home-builder-los-angeles" className="block rounded-lg px-4 py-3 text-sm font-semibold text-white/75 transition-colors hover:bg-accent-gold/10 hover:text-accent-gold">Luxury Home Building</Link>
                   <Link href="/services/fire-rebuild-contractor-los-angeles" className="block rounded-lg px-4 py-3 text-sm font-semibold text-white/75 transition-colors hover:bg-accent-gold/10 hover:text-accent-gold">Fire Rebuild</Link>
                   <Link href="/services/custom-home-construction-los-angeles" className="block rounded-lg px-4 py-3 text-sm font-semibold text-white/75 transition-colors hover:bg-accent-gold/10 hover:text-accent-gold">Custom Home Construction</Link>
                   <Link href="/services/home-additions-los-angeles" className="block rounded-lg px-4 py-3 text-sm font-semibold text-white/75 transition-colors hover:bg-accent-gold/10 hover:text-accent-gold">Home Additions</Link>
                   <Link href="/services/home-automation-los-angeles" className="block rounded-lg px-4 py-3 text-sm font-semibold text-white/75 transition-colors hover:bg-accent-gold/10 hover:text-accent-gold">Home Automation</Link>
+                  <div className="my-2 border-t border-white/10" />
+                  <Link href="/international-luxury-clients" className="block rounded-lg px-4 py-3 text-sm font-semibold text-white/75 transition-colors hover:bg-accent-gold/10 hover:text-accent-gold">International Clients</Link>
+                  <Link href="/trusted-partner-program" className="block rounded-lg px-4 py-3 text-sm font-semibold text-white/75 transition-colors hover:bg-accent-gold/10 hover:text-accent-gold">Partner Program</Link>
                 </div>
               </div>
             </div>
@@ -123,6 +126,8 @@ export default function Header() {
               <Link href="/services/custom-home-construction-los-angeles" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-white/65 hover:text-accent-gold">Custom Home Construction</Link>
               <Link href="/services/home-additions-los-angeles" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-white/65 hover:text-accent-gold">Home Additions</Link>
               <Link href="/services/home-automation-los-angeles" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-white/65 hover:text-accent-gold">Home Automation</Link>
+              <Link href="/international-luxury-clients" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-white/65 hover:text-accent-gold">International Clients</Link>
+              <Link href="/trusted-partner-program" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-white/65 hover:text-accent-gold">Partner Program</Link>
             </div>
             <Link href="/projects" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-accent-gold">Projects</Link>
             <Link href="/blog" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-accent-gold">Blog</Link>

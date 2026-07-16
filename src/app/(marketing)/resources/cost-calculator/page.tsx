@@ -48,7 +48,7 @@ export default function CostCalculatorPage() {
           <AnimatedSection delay={0.2} className="mt-16 max-w-3xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center p-6">
-                <div className="text-3xl font-bold text-brand-dark mb-1">639</div>
+                <div className="text-3xl font-bold text-brand-dark mb-1">634</div>
                 <p className="text-gray-500 text-sm font-medium">Partner Projects</p>
               </div>
               <div className="text-center p-6">
@@ -68,7 +68,7 @@ export default function CostCalculatorPage() {
               Construction costs in Los Angeles depend on many variables: lot conditions, slope and
               accessibility, soil quality, design complexity, material selections, WUI zone requirements,
               and current labor market rates. Our calculator provides a starting range based on
-              our partners&apos; 639-project background. For a precise, line-item proposal tailored to your specific
+              our partners&apos; 634-project background. For a precise, line-item proposal tailored to your specific
               property, schedule a free consultation with our team.
             </p>
           </AnimatedSection>
