@@ -93,6 +93,21 @@ export const projects: Project[] = [
     specs: { scope: "Full Remodel" },
   },
   {
+    title: "Santa Monica ADU",
+    slug: "santa-monica-adu",
+    category: "residential",
+    neighborhood: "Santa Monica",
+    description:
+      "Detached accessory dwelling unit construction on San Vicente Boulevard in Santa Monica. Full scope from design coordination and LADBS permitting through construction and final inspection — delivering a code-compliant, high-finish secondary unit that maximizes the property's value.",
+    heroImage: "/projects/05_web.jpg",
+    images: [
+      "/projects/05_web.jpg",
+      "/projects/01_web.jpg",
+      "/projects/06_web.jpg",
+    ],
+    specs: { scope: "ADU Construction" },
+  },
+  {
     title: "Devista Project",
     slug: "devista-project",
     category: "residential",
@@ -296,49 +311,54 @@ export const projects: Project[] = [
     specs: { scope: "Multi-Location Build-Out" },
   },
   {
-    title: "85C Bakery Cafe",
+    title: "85°C Bakery Cafe & Warehouse",
     slug: "85c-bakery-cafe",
     category: "commercial",
-    neighborhood: "Multiple West Coast",
+    neighborhood: "Buena Park & Multiple Los Angeles Locations",
     description:
-      "Eight locations across California and Arizona for the premium bakery concept featuring handcrafted pastries and beverages. Each space showcases an in-house bakery producing fresh items hourly, with dark wood displays, commercial baking equipment, and site-specific design adaptations including a historic early 20th-century building in Downtown LA.",
+      "econstruct delivered nine distinct builds for 85°C as one program: eight individual bakery cafe locations across the Los Angeles area, each with an in-house bakery producing fresh items hourly, dark wood displays, and commercial baking equipment — and a dedicated commercial distribution center and corporate office in Buena Park engineered to supply and support every one of those locations.",
     heroImage:
       "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/09/2017-09-02.jpg",
     images: [
       "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/09/2017-09-02.jpg",
     ],
-    specs: { scope: "Multi-Location Build-Out" },
+    specs: { scope: "9 Builds: 8 Bakery Locations + 1 Distribution Center" },
     featured: true,
   },
   {
-    title: "Jersey Mike's Subs",
-    slug: "jersey-mikes-subs",
+    title: "SBUX – Lancaster",
+    slug: "sbux-lancaster",
     category: "commercial",
-    neighborhood: "Southern California",
+    neighborhood: "Lancaster, CA",
     description:
-      "Over eight new restaurant builds across Southern California including Los Angeles, Riverside, Yucaipa, Redlands, Barstow, and Moreno Valley. Full-service construction from permitting and site preparation through ground-up building and complete interiors tailored to the brand's specifications.",
-    heroImage:
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/09/Jersey_Mikes_LA_1-scaled.jpg",
+      "Ground-up Starbucks restaurant construction in Lancaster, CA. Full-service build from permitting and site preparation through brand-spec interior finishes, drive-through configuration, and opening-day delivery.",
+    heroImage: "/projects/01_Starbucks.jpg",
     images: [
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/09/Jersey_Mikes_LA_1-scaled.jpg",
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/09/Jersey_Mikes_LA_2-scaled.jpg",
-      "https://i1.wp.com/econstructinc.com/wp-content/uploads/2023/09/Jersey_Mikes_LA_3-scaled.jpg",
+      "/projects/01_Starbucks.jpg",
     ],
-    specs: { scope: "Multi-Location Build-Out" },
+    specs: { scope: "Ground-Up Construction" },
+  },
+  {
+    title: "8th Symphony",
+    slug: "8th-symphony",
+    category: "commercial",
+    neighborhood: "Los Angeles",
+    description:
+      "Full commercial tenant improvement build-out in Los Angeles. Complete interior renovation covering structural modifications, MEP coordination, premium finish installation, and certificate of occupancy delivery on schedule.",
+    heroImage: "/projects/01_web.jpg",
+    images: [
+      "/projects/01_web.jpg",
+      "/projects/02_web.jpg",
+    ],
+    specs: { scope: "Tenant Improvement" },
   },
 ];
 
-export const residentialProjects = projects.filter((project) => project.category === "residential");
+export const residentialProjects: Project[] = projects.filter(
+  (p) => p.category === "residential"
+);
 
-export const projectCategories = [
-  { label: "All", value: "all" },
-  { label: "Residential", value: "residential" },
-  { label: "Restaurant", value: "restaurant" },
-  { label: "Retail", value: "retail" },
-  { label: "Commercial", value: "commercial" },
-] as const;
-
-export const residentialProjectCategories = [
-  { label: "All", value: "all" },
-  { label: "Residential", value: "residential" },
-] as const;
+export const residentialProjectCategories: { value: string; label: string }[] = [
+  { value: "all", label: "All Projects" },
+  { value: "residential", label: "Residential" },
+];
