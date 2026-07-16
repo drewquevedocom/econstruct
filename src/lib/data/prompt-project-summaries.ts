@@ -16,6 +16,27 @@ export interface PromptProjectSummary {
 
 const basePromptProjectSummaries: PromptProjectSummary[] = [
   {
+    slug: "pacific-palisades-fire-rebuild",
+    shortTitle: "Pacific Palisades Rebuild",
+    title: "Pacific Palisades Fire Rebuild — WUI-Compliant Contemporary Home by econstruct",
+    description:
+      "A full ground-up fire rebuild in Pacific Palisades following the January 2025 Palisades Fire. econstruct delivered a Chapter 7A WUI-compliant contemporary home with non-combustible stucco and natural stone cladding, Class A standing seam metal roof, large-format fire-rated aluminum windows, defensible space landscaping, and unobstructed Pacific Ocean views from both levels.",
+    image: "/projects/Palisades_-_Hero_Shot_202607071557.jpeg",
+    location: "Pacific Palisades, Los Angeles, CA",
+    neighborhood: "Pacific Palisades",
+    scope: "Fire Rebuild — WUI-Compliant New Construction",
+    completionDate: "2026",
+    category: "Fire Rebuild",
+    highlights: [
+      "Chapter 7A WUI-compliant construction — fully permitted and inspected",
+      "Non-combustible exterior: stucco, natural stone, Class A metal roof",
+      "Fire-rated large-format aluminum window and door systems",
+      "Defensible space landscaping — drought-tolerant and ember-resistant",
+      "Unobstructed Pacific Ocean views from both levels",
+      "Full design-build delivery — one contractor from permit to handoff",
+    ],
+  },
+  {
     slug: "calabasas-mediterranean-new-home-build",
     shortTitle: "Calabasas Mediterranean Estate",
     title: "Calabasas Mediterranean Estate - New Custom Home Build",
@@ -42,7 +63,7 @@ const basePromptProjectSummaries: PromptProjectSummary[] = [
     description:
       "A newly completed San Vincente ADU project showcasing clean lines, premium finishes, and a polished indoor-outdoor feel. Built to deliver comfort, style, and long-term value.",
     image: "/projects/05_web.jpg",
-    location: "Los Angeles, CA",
+    location: "Santa Monica, CA",
     neighborhood: "San Vincente",
     scope: "Detached ADU Construction",
     completionDate: "2026",
@@ -157,7 +178,30 @@ const basePromptProjectSummaries: PromptProjectSummary[] = [
   },
 ];
 
-export const promptProjectSummaries: PromptProjectSummary[] = [
-  ...basePromptProjectSummaries,
+const byDateDesc = (a: PromptProjectSummary, b: PromptProjectSummary) =>
+  Number.parseInt(b.completionDate, 10) - Number.parseInt(a.completionDate, 10);
+
+// Slugs from the base array that belong in the high-end section (not completed)
+const HIGH_END_BASE_SLUGS = new Set(["calabasas-mediterranean-new-home-build"]);
+
+// Featured hero project
+export const featuredProjectSummary = basePromptProjectSummaries[0];
+
+// High-end showcase projects — temp projects + promoted base projects, sorted by date
+export const highEndProjectSummaries = [
   ...temporaryProjectSummaries,
-].sort((a, b) => Number.parseInt(b.completionDate, 10) - Number.parseInt(a.completionDate, 10));
+  ...basePromptProjectSummaries.slice(1).filter((p) => HIGH_END_BASE_SLUGS.has(p.slug)),
+].sort(byDateDesc);
+
+// econstruct completed projects — base projects (minus featured and high-end), sorted by date
+export const completedProjectSummaries = basePromptProjectSummaries
+  .slice(1)
+  .filter((p) => !HIGH_END_BASE_SLUGS.has(p.slug))
+  .sort(byDateDesc);
+
+// Combined for schema and any other consumers
+export const promptProjectSummaries: PromptProjectSummary[] = [
+  featuredProjectSummary,
+  ...highEndProjectSummaries,
+  ...completedProjectSummaries,
+];
