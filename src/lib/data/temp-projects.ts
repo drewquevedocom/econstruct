@@ -17,6 +17,94 @@ function tempGallery(
 
 export const temporaryProjectPages: PromptProjectPage[] = [
   {
+    slug: "mulholland-drive-residence",
+    shortTitle: "Mulholland Drive Residence",
+    title: "Mulholland Drive Residence — Hollywood Hills Hillside Remodel",
+    description:
+      "A comprehensive remodel of a 1970s Hollywood Hills hillside home that modernized the floorplan and elevated the indoor-outdoor living experience. Work included an open-concept kitchen with quartz island, master suite renovation, pool resurfacing, covered patio addition, and full glass wall replacements to capture panoramic city views.",
+    image: "/projects/mulholland-hero.jpg",
+    gallery: tempGallery("mulholland-drive-residence", [
+      {
+        alt: "Mulholland Drive hillside estate exterior with tiled roof and panoramic Los Angeles views",
+        caption: "Exterior overview — the remodeled hillside home commands unobstructed Los Angeles views, with a classic roofline and landscaping that frames the canyon approach.",
+      },
+      {
+        alt: "Mulholland Drive residence illuminated at night with warm interior lighting and city backdrop",
+        caption: "Night presence — interior lighting and the city panorama below create the kind of evening atmosphere that defines Hollywood Hills hillside living.",
+      },
+      {
+        alt: "Grand foyer interior with estate-level entry sequence and high ceilings",
+        caption: "Entry foyer — the remodel opens the arrival sequence with volume and natural light, setting the tone for the rest of the home.",
+      },
+      {
+        alt: "Great room with expansive glass walls and panoramic city views beyond",
+        caption: "Great room — floor-to-ceiling glass replaced the original wall system, making the Los Angeles skyline the room's primary design element.",
+      },
+      {
+        alt: "Spa-style primary bathroom with marble surfaces and luxury finishes",
+        caption: "Primary bath — fully renovated with a spa-inspired material palette, freestanding fixtures, and a calm, light-filled atmosphere.",
+      },
+      {
+        alt: "Arched entry with double wooden doors and refined exterior detailing",
+        caption: "Front entry — the remodeled entry sequence uses solid wood doors and arched detailing to create a strong residential arrival moment.",
+      },
+      {
+        alt: "Chef's kitchen with Mediterranean styling, stone island, and premium appliances",
+        caption: "Chef's kitchen — a new open-concept kitchen anchors the home's social core with a quartz island, premium appliances, and direct sightlines to the terrace.",
+      },
+      {
+        alt: "Primary bedroom suite with views and refined luxury finish package",
+        caption: "Primary suite — renovated with an elevated finish package and positioned to capture the hillside outlook from the bedroom level.",
+      },
+      {
+        alt: "Backyard infinity pool reflecting the sky with city lights in the distance",
+        caption: "Pool deck — the resurfaced pool and new deck hardscape create an outdoor centerpiece that connects directly to the remodeled interior.",
+      },
+      {
+        alt: "Backyard stone patio with outdoor furniture and hillside entertaining zone",
+        caption: "Outdoor entertaining — a covered patio addition and new stone hardscape turned the rear of the home into a fully usable year-round living space.",
+      },
+    ]),
+    serviceSlug: "luxury-home-builder-los-angeles",
+    location: "Hollywood Hills, Los Angeles, CA",
+    neighborhood: "Hollywood Hills",
+    scope: "Full Hillside Home Remodel",
+    timeline: "10 months",
+    squareFootage: "3,200 sq ft",
+    completionDate: "2019",
+    category: "Luxury Remodel",
+    highlights: [
+      "Open-concept kitchen with quartz island and premium appliances",
+      "Full glass wall replacement for unobstructed panoramic city views",
+      "Master suite renovation with luxury bath finishes",
+      "Pool resurfacing and covered patio addition",
+      "Indoor-outdoor flow redesigned for California hillside living",
+    ],
+    heroTitle: "Mulholland Drive Residence — Hollywood Hills Hillside Remodel",
+    heroSubtitle: "A 1970s Hollywood Hills home reimagined for modern hillside living — open concept, panoramic views, and a fully rebuilt outdoor entertaining sequence.",
+    challenge: [
+      "The home's compartmentalized 1970s layout blocked the hillside views and prevented the kind of indoor-outdoor connection that defines Hollywood Hills living at this level.",
+      "The existing pool and patio were dated and disconnected from the interior, making the outdoor spaces feel like an afterthought rather than a primary feature.",
+    ],
+    approach: [
+      "The remodel opened the kitchen and main living area into a single continuous space, then removed the existing wall system on the view elevation and replaced it with large-format glass panels.",
+      "The pool and covered patio were redesigned to connect directly with the interior, turning the rear of the home into a seamless indoor-outdoor entertainment zone with the city as the backdrop.",
+    ],
+    build: [
+      "A new open-concept kitchen anchors the home's social core — quartz island, premium appliances, and direct sightlines to the city-facing terrace. The master suite was fully renovated with an upgraded bath package.",
+      "Glass wall replacements across the view-facing elevation were the project's most significant structural component, requiring careful coordination with engineering to preserve the hillside structure while maximizing the opening.",
+    ],
+    result: [
+      "The completed project delivers what the site always had the potential for — a Hollywood Hills residence where the city view is the central design element, not an incidental backdrop.",
+      "The indoor-outdoor connection is now seamless, the layout is modern and livable, and the outdoor spaces are genuinely usable rather than decorative.",
+    ],
+    takeaways: [
+      "Hollywood Hills remodels succeed when the view is treated as the primary design driver, not just a bonus.",
+      "Glass wall replacements are high-impact — no other single investment changes the character of a hillside home more dramatically.",
+      "Pool and patio continuity with the interior matters; disconnected outdoor spaces underperform the site's potential.",
+    ],
+  },
+  {
     slug: "altadena-craftsman-estate",
     shortTitle: "Altadena Craftsman Estate",
     title: "Altadena Craftsman Estate",
