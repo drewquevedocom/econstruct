@@ -151,7 +151,7 @@ export default function FoodDistributionPage() {
             California.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button href="/food-distribution-construction/site-walk" variant="primary" size="lg">
+            <Button href="/contact" variant="primary" size="lg">
               Request a Site Walk
             </Button>
             <a
@@ -310,7 +310,7 @@ export default function FoodDistributionPage() {
               <Button href="/contact" variant="secondary" size="lg">
                 Request Budget Pricing
               </Button>
-              <Button href="/food-distribution-construction/site-walk" variant="primary" size="lg">
+              <Button href="/contact" variant="primary" size="lg">
                 Request a Site Walk
               </Button>
               <Button href="/contact" variant="secondary" size="lg">
@@ -367,16 +367,4 @@ export default function FoodDistributionPage() {
                 About Your Facility?
               </h2>
               <p className="text-white/70 text-lg mb-10 max-w-xl mx-auto">
-                Tell us the scope, the timeline, and the operational constraints. We&apos;ll build
-                around all three.
-              </p>
-              <Button href="/food-distribution-construction/site-walk" variant="primary" size="lg">
-                Request a Site Walk
-              </Button>
-            </div>
-          </AnimatedSection>
-        </Container>
-      </section>
-    </main>
-  );
-}
+                Tell us the scope, the timeline,
