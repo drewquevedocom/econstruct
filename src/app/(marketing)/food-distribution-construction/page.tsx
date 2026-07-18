@@ -367,7 +367,7 @@ export default function FoodDistributionPage() {
                 About Your Facility?
               </h2>
               <p className="text-white/70 text-lg mb-10 max-w-xl mx-auto">
-                Tell us the scope, the timeline, and what you need built. We'll take it from there.
+                Tell us the scope, the timeline, and what you need built. We&apos;ll take it from there.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button href="/food-distribution-construction/site-walk" variant="primary" size="lg">
@@ -381,10 +381,6 @@ export default function FoodDistributionPage() {
           </AnimatedSection>
         </Container>
       </section>
-    </>
-  );
-}
-n>
-    </>
+    </main>
   );
 }
