@@ -1,22 +1,10 @@
 # Daily SEO Opportunities
 
-Generated: 2026-07-17T14:55:31.974Z
+Generated: 2026-07-18T14:33:39.621Z
 
 ## 1. altadena fire rebuild cost
 
-- Score: 30
-- Area: Altadena
-- Service: Fire Rebuild
-- Suggested title: Altadena Fire Rebuild Update: LAX people mover contractor sues city over ongoing dispute with airport - Los Angeles Times
-- Suggested slug: altadena-fire-rebuild-update-lax-people-mover-contractor-sues-city-over-ongoing-
-- Source headline: LAX people mover contractor sues city over ongoing dispute with airport - Los Angeles Times
-- Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMikwFBVV95cUxOWGdMb3RabWk3Zjg1dVYtQ0VCcWVrMVFJM0xtNnh4TzJHZWxDSDA4RGFNVnh1RkpGdG1sTGpfcXNUYXc1LUpYb2lmalczR1FyWFZNY2tqSkRybk5fUjhtTVdBYzFsaE9JU0pobFpNYTd2cXNkX20wTWktbWI3Sm5tMG1yM2ktT3AxOWFiMEo3bzMzU0U?oc=5
-- Why now: Fresh web coverage connected to Altadena and Fire Rebuild creates a timely angle for ranking on altadena fire rebuild cost.
-
-## 2. altadena fire rebuild cost
-
-- Score: 29
+- Score: 28
 - Area: Altadena
 - Service: Fire Rebuild
 - Suggested title: Altadena Fire Rebuild Update: Fire survivors were finally ready to rebuild homes. A new barrier is leaving them 'demoralized' - Los Angeles Times
@@ -26,21 +14,21 @@ Generated: 2026-07-17T14:55:31.974Z
 - Link: https://news.google.com/rss/articles/CBMi0gFBVV95cUxQaS00UTE4RjhjNUVuUnNKLVN1a2ZmNG1nR096UFlIcXk0bkJzR1Y5MFoyTEpQeGhPTFpWSHY3V1M0Z3VfMFBLNm9aclNGa3hvQnNkbmJZZVprN1p0OEhUVU1FWjJ4WWo5alNGWGgzd0lod3B1Q19hM0VidGp5NW9MaWNpeTIzYmdjQmsyTGszcGFYWDRjRmF6Q2NyTWRudV9NYzdPSWpESTVrZHEtSTlvc0ZFZjhiUTdHaG81NHFBTmJWRkxEZ0NaZmctN0thOWNZZnc?oc=5
 - Why now: Fresh web coverage connected to Altadena and Fire Rebuild creates a timely angle for ranking on altadena fire rebuild cost.
 
-## 3. altadena fire rebuild cost
-
-- Score: 29
-- Area: Altadena
-- Service: Fire Rebuild
-- Suggested title: Altadena Fire Rebuild Update: Eagle Rock brushfire damages multiple homes amid scorching summer heat - Los Angeles Times
-- Suggested slug: altadena-fire-rebuild-update-eagle-rock-brushfire-damages-multiple-homes-amid-sc
-- Source headline: Eagle Rock brushfire damages multiple homes amid scorching summer heat - Los Angeles Times
-- Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMi1gFBVV95cUxNeFBJS2pDbC1PaXZOR2t5eGpmajVUNWo2R2dIcHU2NFp3Z0wzdkpFdUdkWVE3X0R0R2NUUXFGMkxtZGsyMWp1aWdydEVjTmRNYlpRMkV2bk50eGdvRWdZak1vY3l0OTZZd1Z4R3I0VlVnVVNDdWRoV1o0SVBCeEVmYjlvWFBuem1ZbERESndSalZhX0Y1bU81R0dyNWdnTmlWSFZzd2E2bS1WZlJKMFMxcm9pU2FqbldpN2dWSkt0ZzNscUF2ZGdrTHVYMENRQjZYVmVoUzZB?oc=5
-- Why now: Fresh web coverage connected to Altadena and Fire Rebuild creates a timely angle for ranking on altadena fire rebuild cost.
-
-## 4. palisades fire rebuild permit timeline
+## 2. altadena fire rebuild cost
 
 - Score: 27
+- Area: Altadena
+- Service: Fire Rebuild
+- Suggested title: Altadena Fire Rebuild Update: Passenger leaves behind huge hunk of meth in rideshare vehicle - Los Angeles Times
+- Suggested slug: altadena-fire-rebuild-update-passenger-leaves-behind-huge-hunk-of-meth-in-ridesh
+- Source headline: Passenger leaves behind huge hunk of meth in rideshare vehicle - Los Angeles Times
+- Source: Unknown publisher
+- Link: https://news.google.com/rss/articles/CBMiqwFBVV95cUxPa19hbzh0NHAwUWw0djF3ajhXZ3NLRXBZbzdxSy1IeHhGTWhxbExzNDNOMF8tU3VHajlmallxV3FKX1MweVA5cmgwWk5GZWRtc3Q3RmhkRkZDckJhb0tpV2paUVNNVEZYVXhRN3dDTEJ1RmlMQXM5SlRDUEoydkQ0cmtMYnNROEF6ZmN2SzkwV1dOSVJtQXltZ0tSNXRpdzlxMVV4Ni1jMVZLOEk?oc=5
+- Why now: Fresh web coverage connected to Altadena and Fire Rebuild creates a timely angle for ranking on altadena fire rebuild cost.
+
+## 3. palisades fire rebuild permit timeline
+
+- Score: 26
 - Area: Pacific Palisades
 - Service: Fire Rebuild
 - Suggested title: Pacific Palisades Fire Rebuild Update: Fire survivors were finally ready to rebuild homes. A new barrier is leaving them 'demoralized' - Los Angeles Times
@@ -49,6 +37,18 @@ Generated: 2026-07-17T14:55:31.974Z
 - Source: Unknown publisher
 - Link: https://news.google.com/rss/articles/CBMi0gFBVV95cUxQaS00UTE4RjhjNUVuUnNKLVN1a2ZmNG1nR096UFlIcXk0bkJzR1Y5MFoyTEpQeGhPTFpWSHY3V1M0Z3VfMFBLNm9aclNGa3hvQnNkbmJZZVprN1p0OEhUVU1FWjJ4WWo5alNGWGgzd0lod3B1Q19hM0VidGp5NW9MaWNpeTIzYmdjQmsyTGszcGFYWDRjRmF6Q2NyTWRudV9NYzdPSWpESTVrZHEtSTlvc0ZFZjhiUTdHaG81NHFBTmJWRkxEZ0NaZmctN0thOWNZZnc?oc=5
 - Why now: Fresh web coverage connected to Pacific Palisades and Fire Rebuild creates a timely angle for ranking on palisades fire rebuild permit timeline.
+
+## 4. altadena fire rebuild cost
+
+- Score: 26
+- Area: Altadena
+- Service: Fire Rebuild
+- Suggested title: Altadena Fire Rebuild Update: Oil tanker captain didn’t know he was hauling cocaine for cartels. Here’s how he found out - Los Angeles Times
+- Suggested slug: altadena-fire-rebuild-update-oil-tanker-captain-didn-t-know-he-was-hauling-cocai
+- Source headline: Oil tanker captain didn’t know he was hauling cocaine for cartels. Here’s how he found out - Los Angeles Times
+- Source: Unknown publisher
+- Link: https://news.google.com/rss/articles/CBMijwFBVV95cUxQUEpjT2FkQjNZWWFDb1kyeGtmTE53aTZWMFM3aFhGRklmUDZLU0t2dG5pTF9OV2VOUDdhNlFQamRKOG1BTFBGdllGalozbXFCT3E1cHVPSEJBeG1JTkFSNldWbkNiVjZsRF9UWHQxdlhPRUlKbmRwTHpUbVJFcC1RYXRJUTg1UFBTT3ZkNWdXYw?oc=5
+- Why now: Fresh web coverage connected to Altadena and Fire Rebuild creates a timely angle for ranking on altadena fire rebuild cost.
 
 ## 5. palisades fire rebuild permit timeline
 
@@ -64,19 +64,19 @@ Generated: 2026-07-17T14:55:31.974Z
 
 ## 6. palisades fire rebuild permit timeline
 
-- Score: 25
+- Score: 21
 - Area: Pacific Palisades
 - Service: Fire Rebuild
-- Suggested title: Pacific Palisades Fire Rebuild Update: In Palisades visit, Trump officials vow to speed up permits for fire rebuilding - Los Angeles Times
-- Suggested slug: pacific-palisades-fire-rebuild-update-in-palisades-visit-trump-officials-vow-to-
-- Source headline: In Palisades visit, Trump officials vow to speed up permits for fire rebuilding - Los Angeles Times
+- Suggested title: Pacific Palisades Fire Rebuild Update: Home Page | LADBS - City of Los Angeles (.gov)
+- Suggested slug: pacific-palisades-fire-rebuild-update-home-page-ladbs-city-of-los-angeles-gov
+- Source headline: Home Page | LADBS - City of Los Angeles (.gov)
 - Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMiywFBVV95cUxPRC1NUE5ZYWJlc2xIaGhlZm5UVl9raXNEajBjenQtcE9iMmJ1YlBwaVVlMjZlRmhFU2pNaVRCbTlWTHh0c19yUnIzNG5ZRm5rNTFfSW54WGpSRkE1SGJsTkRhM3hibnd0cXduRlBSM21JU1FBSWZqWjdfa1p1dV95SVowT2Z4bVlQeXo5OWxWUWxwaGdWQWlBQW9kYmZJZjBZZ05GVTFOVjZLVXdlemdwZTFtbVFXSUl3TlRiY3VIbDA2clUyejVFVzBabw?oc=5
+- Link: https://news.google.com/rss/articles/CBMiO0FVX3lxTE1UZDNKZ0RpVnNWUjdNRERQaFRVZDdXQ1VvcHZIV1VlUFFGVW1ZN2RURURCdVpsTFFLQjY4?oc=5
 - Why now: Fresh web coverage connected to Pacific Palisades and Fire Rebuild creates a timely angle for ranking on palisades fire rebuild permit timeline.
 
 ## 7. malibu rebuild code requirements
 
-- Score: 20
+- Score: 19
 - Area: Malibu
 - Service: Fire Rebuild
 - Suggested title: Malibu Fire Rebuild Update: These are California's most affordable and least affordable cities. Both lists induce sticker shock - Los Angeles Times
@@ -86,17 +86,17 @@ Generated: 2026-07-17T14:55:31.974Z
 - Link: https://news.google.com/rss/articles/CBMi3gFBVV95cUxOTW1ldmw1MHUydzJsVGl1MHFTY25CeFMwNWZIeExDTkdwUmV3TExEZnBrczNnajQ1VUN6bkk5c3U0emtyTFhmcXdCNXl2Y3dRUmFNRjNaSklVY2tYZEpCSnFsZXlXdFJWX3VOdk9vQndnR0JjdUVyd0J3WElMNEdaMV9vYV82NWEwbTl4aGxfdmZuQjJUc0RxLUg4Y2hjdHA5RldLZWwzTnFtUGt6WjJpZjdzeVctblVIMldpNWlEcXR6LXZBXzc0TkpaMXBEdzkyMkZxRzRLV3R5OUNNQlE?oc=5
 - Why now: Fresh web coverage connected to Malibu and Fire Rebuild creates a timely angle for ranking on malibu rebuild code requirements.
 
-## 8. malibu rebuild code requirements
+## 8. brentwood luxury remodel cost
 
-- Score: 18
-- Area: Malibu
-- Service: Fire Rebuild
-- Suggested title: Malibu Fire Rebuild Update: Scientists crack the code on predicting California’s deadly cliff collapses - Los Angeles Times
-- Suggested slug: malibu-fire-rebuild-update-scientists-crack-the-code-on-predicting-california-s-
-- Source headline: Scientists crack the code on predicting California’s deadly cliff collapses - Los Angeles Times
+- Score: 19
+- Area: Brentwood
+- Service: Luxury Modernization
+- Suggested title: Brentwood Luxury Modernization Update: Home for sale: 530 Moreno Avenue, Brentwood 90049 - Los Angeles Times
+- Suggested slug: brentwood-luxury-modernization-update-home-for-sale-530-moreno-avenue-brentwood-
+- Source headline: Home for sale: 530 Moreno Avenue, Brentwood 90049 - Los Angeles Times
 - Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMinwFBVV95cUxPR3p1RTQxRnFtRkZnTXBmU3hRRTJabUg3ODI3eEZSNmhKeG1QRmJDSGR4cHR4UXdadE9VVE12dWxSTzZDdmE3bTZ4T1ZKWlluWmI5U2trMWp3X0NIcjU2WkNmb0VmOVl3cy02RGNXMDJEZkFUWGh2S0lzY0ZLODktQ0o1RHVPMU5Jb0tOT2tCTEtjQ2M3cUdrVFVDVkFSREU?oc=5
-- Why now: Fresh web coverage connected to Malibu and Fire Rebuild creates a timely angle for ranking on malibu rebuild code requirements.
+- Link: https://news.google.com/rss/articles/CBMingFBVV95cUxPbDZlaWdfZ0NJak52ZUl3VlZ6SXdid0JObXlXOFJsdGF6UG5sYTVkUTlFV1VQcTdLcmEyRUpDUU0zTVJlVWZEajN2R0Zja29lblVkdjRYWUpZSlJYclZVWkZOOWFzMS1FSlV0NlJMbW5ZOExJdlp1Um1GMnlJVGM2OWwxZjNoZlFvWm5Gb3k1ZjVYMGk5MVZuN3dXWVhtZw?oc=5
+- Why now: Fresh web coverage connected to Brentwood and Luxury Modernization creates a timely angle for ranking on brentwood luxury remodel cost.
 
 ## 9. beverly hills custom home permit
 
@@ -127,21 +127,21 @@ Generated: 2026-07-17T14:55:31.974Z
 - Score: 17
 - Area: Malibu
 - Service: Fire Rebuild
+- Suggested title: Malibu Fire Rebuild Update: Scientists crack the code on predicting California’s deadly cliff collapses - Los Angeles Times
+- Suggested slug: malibu-fire-rebuild-update-scientists-crack-the-code-on-predicting-california-s-
+- Source headline: Scientists crack the code on predicting California’s deadly cliff collapses - Los Angeles Times
+- Source: Unknown publisher
+- Link: https://news.google.com/rss/articles/CBMinwFBVV95cUxPR3p1RTQxRnFtRkZnTXBmU3hRRTJabUg3ODI3eEZSNmhKeG1QRmJDSGR4cHR4UXdadE9VVE12dWxSTzZDdmE3bTZ4T1ZKWlluWmI5U2trMWp3X0NIcjU2WkNmb0VmOVl3cy02RGNXMDJEZkFUWGh2S0lzY0ZLODktQ0o1RHVPMU5Jb0tOT2tCTEtjQ2M3cUdrVFVDVkFSREU?oc=5
+- Why now: Fresh web coverage connected to Malibu and Fire Rebuild creates a timely angle for ranking on malibu rebuild code requirements.
+
+## 12. malibu rebuild code requirements
+
+- Score: 17
+- Area: Malibu
+- Service: Fire Rebuild
 - Suggested title: Malibu Fire Rebuild Update: More than six years after wildfires destroyed their Malibu homes, many still struggle to rebuild - Los Angeles Times
 - Suggested slug: malibu-fire-rebuild-update-more-than-six-years-after-wildfires-destroyed-their-m
 - Source headline: More than six years after wildfires destroyed their Malibu homes, many still struggle to rebuild - Los Angeles Times
 - Source: Unknown publisher
 - Link: https://news.google.com/rss/articles/CBMiywFBVV95cUxOX2R6M09IVTdWTWtXbnJpT1lBdkRLSVFyaXFhMS1rTU95Z01nbGdvTTNmdmhVVzhfLV91NFhHdDFsSk03MHA0V2VGNk1iYk5NcmFlZi1aOE9wRnItRmxBaGdQd1p1OFJZanZkXy1ITTZ1Y3p3N2UxaF9OZWR5cWdTcnhmUUFrcTN6X2d4UkhGYjZGYWU1cDR0bkpZN01pSXV3QnpidDBKSmVkbWQ0OWhCRk14N0tuejN4RG1NeTZ5X2lQajZWMEFTS0N0Yw?oc=5
 - Why now: Fresh web coverage connected to Malibu and Fire Rebuild creates a timely angle for ranking on malibu rebuild code requirements.
-
-## 12. santa monica hillside construction
-
-- Score: 17
-- Area: Santa Monica
-- Service: Custom Homes
-- Suggested title: Santa Monica Custom Homes Update: Sunset Strip flooded by ruptured 110-year-old water line, another blow to L.A.'s ancient infrastructure - Los Angeles Times
-- Suggested slug: santa-monica-custom-homes-update-sunset-strip-flooded-by-ruptured-110-year-old-w
-- Source headline: Sunset Strip flooded by ruptured 110-year-old water line, another blow to L.A.'s ancient infrastructure - Los Angeles Times
-- Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMifkFVX3lxTE9IcHVwdkVKenBvTnZBX0ZSWkZzYkpGdlpPbTNEcnpEcFZtbUpXQTNQeHU0cWZBaXNzUGJfVnJBZDZ4UlpFRjRsSEd3VGRLV1FHOE9KODl6TVhZaVlGbV9jVUpsSURFZTU1NVAtMVNFcmdsdXd1NFYzbldobkVZQQ?oc=5
-- Why now: Fresh web coverage connected to Santa Monica and Custom Homes creates a timely angle for ranking on santa monica hillside construction.
