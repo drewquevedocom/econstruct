@@ -57,8 +57,8 @@ export async function POST(req: Request) {
     // untouched, not used here. This endpoint sends only to the non-fire
     // new-construction campaign.
     const campaignId =
-      process.env.INSTANTLY_NEWBUILD_CAMPAIGN_ID || "REPLACE_AFTER_SETUP";
-    if (!campaignId || campaignId === "REPLACE_AFTER_SETUP") {
+      process.env.INSTANTLY_NEWBUILD_CAMPAIGN_ID || "57dac5ee-42e4-4fe0-9380-f83da766ea51";
+    if (!campaignId) {
       return {
         records_pulled: 0,
         records_updated: 0,
