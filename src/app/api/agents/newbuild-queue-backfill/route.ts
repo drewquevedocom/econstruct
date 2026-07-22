@@ -26,30 +26,55 @@ export async function POST(req: Request) {
     .limit(500);
 
   if (error) return Response.json({ ok: false, error: error.message }, { status: 500 });
-  if (!candidates?.length) return Response.json({ ok: true, inserted: 0 });
+  if (!candidates?.length) return Response.json({ ok: true, inserted: 0, reset: 0 });
 
-  const { data: existing } = await supabase
+  const candidateIds = candidates.map((c) => c.id);
+  const { data: existingRows } = await supabase
     .from("enrichment_queue")
-    .select("lead_id")
-    .in(
-      "lead_id",
-      candidates.map((c) => c.id)
-    );
-  const already = new Set((existing ?? []).map((e) => e.lead_id));
+    .select("lead_id, status, last_error")
+    .in("lead_id", candidateIds);
+  const existing = existingRows ?? [];
+  const alreadyIds = new Set(existing.map((e) => e.lead_id));
 
-  const toInsert = candidates.filter((c) => !already.has(c.id)).map((c) => ({
-    lead_id: c.id,
-    status: "pending",
-    attempts: 0,
-  }));
+  const toInsert = candidateIds
+    .filter((id) => !alreadyIds.has(id))
+    .map((id) => ({ lead_id: id, status: "pending", attempts: 0 }));
 
-  if (!toInsert.length) return Response.json({ ok: true, inserted: 0, alreadyQueued: candidates.length });
+  let inserted = 0;
+  if (toInsert.length) {
+    const { error: insertError, count } = await supabase
+      .from("enrichment_queue")
+      .insert(toInsert, { count: "exact" });
+    if (insertError) return Response.json({ ok: false, error: insertError.message }, { status: 500 });
+    inserted = count ?? toInsert.length;
+  }
 
-  const { error: insertError, count } = await supabase
-    .from("enrichment_queue")
-    .insert(toInsert, { count: "exact" });
+  // Reset stuck 'failed' rows for this cohort back to pending — most were
+  // paused specifically because the old Melissa/PDL residential-email
+  // provider doesn't work for this data, or hit a transient error. Apollo
+  // (a person-search provider, not address-based) hasn't been tried on
+  // these leads yet, so retrying them here is a genuinely new attempt, not
+  // an override of the fire-rebuild pivot decision. The 'ATTOM: ... SuccessWithoutResult'
+  // no-match rows are left as-is — that's a real data gap, not a stale pause.
+  const toReset = existing
+    .filter((e) => e.status === "failed" && !(e.last_error || "").includes("SuccessWithoutResult"))
+    .map((e) => e.lead_id);
 
-  if (insertError) return Response.json({ ok: false, error: insertError.message }, { status: 500 });
+  let reset = 0;
+  if (toReset.length) {
+    const { error: resetError, count } = await supabase
+      .from("enrichment_queue")
+      .update({ status: "pending", attempts: 0, last_error: null }, { count: "exact" })
+      .in("lead_id", toReset);
+    if (resetError) return Response.json({ ok: false, error: resetError.message }, { status: 500 });
+    reset = count ?? toReset.length;
+  }
 
-  return Response.json({ ok: true, inserted: count ?? toInsert.length, candidatesSeen: candidates.length });
+  return Response.json({
+    ok: true,
+    inserted,
+    reset,
+    candidatesSeen: candidates.length,
+    alreadyQueued: alreadyIds.size,
+  });
 }
