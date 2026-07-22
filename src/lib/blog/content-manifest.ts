@@ -6,25 +6,19 @@ import post1 from "../../../content/blog/beverly-hills-bel-air-estate-constructi
 import post2 from "../../../content/blog/brentwood-luxury-home-modernization-cost-2026.md?raw";
 import post3 from "../../../content/blog/building-luxury-estate-los-angeles-international-buyer.md?raw";
 import post4 from "../../../content/blog/chapter-7a-wui-compliance-homeowner-guide.md?raw";
-import post5 from "../../../content/blog/cold-storage-construction-california.md?raw";
-import post6 from "../../../content/blog/contractor-for-business-managers-family-offices-los-angeles.md?raw";
-import post7 from "../../../content/blog/custom-home-builders-bel-air-los-angeles.md?raw";
-import post8 from "../../../content/blog/custom-home-builders-hidden-hills.md?raw";
-import post9 from "../../../content/blog/estate-managers-hiring-contractor-los-angeles.md?raw";
-import post10 from "../../../content/blog/fire-insurance-gap-palisades-rebuild.md?raw";
-import post11 from "../../../content/blog/food-distribution-center-construction-los-angeles.md?raw";
-import post12 from "../../../content/blog/ghost-kitchen-construction-los-angeles.md?raw";
-import post13 from "../../../content/blog/how-family-offices-evaluate-select-contractors-high-value-real-estate.md?raw";
-import post14 from "../../../content/blog/how-to-vet-fire-rebuild-contractor-la.md?raw";
-import post15 from "../../../content/blog/luxury-home-automation-control4-crestron-savant.md?raw";
-import post16 from "../../../content/blog/luxury-home-builders-beverly-hills.md?raw";
-import post17 from "../../../content/blog/luxury-home-builders-calabasas.md?raw";
-import post18 from "../../../content/blog/luxury-home-builders-malibu.md?raw";
-import post19 from "../../../content/blog/luxury-home-builders-pacific-palisades.md?raw";
-import post20 from "../../../content/blog/luxury-home-builders-platinum-triangle-bel-air-holmby-hills-beverly-hills.md?raw";
-import post21 from "../../../content/blog/pacific-palisades-fire-rebuild-guide-2026.md?raw";
-import post22 from "../../../content/blog/remote-construction-management-los-angeles-international-property-owners.md?raw";
-import post23 from "../../../content/blog/santa-monica-hillside-construction-geotechnical.md?raw";
+import post5 from "../../../content/blog/custom-home-builders-bel-air-los-angeles.md?raw";
+import post6 from "../../../content/blog/custom-home-builders-hidden-hills.md?raw";
+import post7 from "../../../content/blog/fire-insurance-gap-palisades-rebuild.md?raw";
+import post8 from "../../../content/blog/how-to-vet-fire-rebuild-contractor-la.md?raw";
+import post9 from "../../../content/blog/luxury-home-automation-control4-crestron-savant.md?raw";
+import post10 from "../../../content/blog/luxury-home-builders-beverly-hills.md?raw";
+import post11 from "../../../content/blog/luxury-home-builders-calabasas.md?raw";
+import post12 from "../../../content/blog/luxury-home-builders-malibu.md?raw";
+import post13 from "../../../content/blog/luxury-home-builders-pacific-palisades.md?raw";
+import post14 from "../../../content/blog/luxury-home-builders-platinum-triangle-bel-air-holmby-hills-beverly-hills.md?raw";
+import post15 from "../../../content/blog/pacific-palisades-fire-rebuild-guide-2026.md?raw";
+import post16 from "../../../content/blog/remote-construction-management-los-angeles-international-property-owners.md?raw";
+import post17 from "../../../content/blog/santa-monica-hillside-construction-geotechnical.md?raw";
 
 export const rawBlogPosts = [
   post0,
@@ -45,10 +39,4 @@ export const rawBlogPosts = [
   post15,
   post16,
   post17,
-  post18,
-  post19,
-  post20,
-  post21,
-  post22,
-  post23,
 ];
