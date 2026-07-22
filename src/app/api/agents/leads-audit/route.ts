@@ -115,9 +115,30 @@ export async function POST(req: Request) {
       }
     }
 
+    const { data: targetLeads } = await supabase
+      .from("leads")
+      .select("id")
+      .is("fire_damage_status", null)
+      .is("email", null)
+      .gte("lead_score", 40)
+      .limit(500);
+    const targetIds = (targetLeads ?? []).map((l) => l.id);
+    let targetQueueStatus: Record<string, number> = {};
+    if (targetIds.length) {
+      const { data: targetQueueRows } = await supabase
+        .from("enrichment_queue")
+        .select("status, last_error")
+        .in("lead_id", targetIds);
+      for (const q of targetQueueRows ?? []) {
+        const key = q.status === "failed" ? `failed: ${(q.last_error || "").slice(0, 60)}` : (q.status || "(none)");
+        targetQueueStatus[key] = (targetQueueStatus[key] || 0) + 1;
+      }
+    }
+
     return Response.json({
       ok: true,
       total_leads: rows.length,
+      target_cohort_queue_status: targetQueueStatus,
       enrichment_queue_total: (queueRows ?? []).length,
       enrichment_queue_by_status: qByStatus,
       enrichment_queue_attempts_dist: qAttemptsDist,
