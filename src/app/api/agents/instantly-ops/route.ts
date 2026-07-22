@@ -43,6 +43,30 @@ export async function POST(req: Request) {
       return Response.json({ ok: res.ok, httpStatus: res.status, raw: body.slice(0, 1000) });
     }
 
+    if (action === "env-ids") {
+      return Response.json({
+        ok: true,
+        INSTANTLY_CAMPAIGN_ID: process.env.INSTANTLY_CAMPAIGN_ID || null,
+      });
+    }
+
+    if (action === "sequence") {
+      const id = url.searchParams.get("id");
+      if (!id) return Response.json({ ok: false, error: "id required" }, { status: 400 });
+      const res = await fetch(`${INSTANTLY_API}/campaigns/${id}`, { headers });
+      const data = (await res.json()) as {
+        name?: string;
+        sequences?: Array<{ steps?: Array<{ variants?: Array<{ subject?: string; body?: string }> }> }>;
+      };
+      const firstStep = data.sequences?.[0]?.steps?.[0]?.variants?.[0];
+      return Response.json({
+        ok: res.ok,
+        name: data.name,
+        firstSubject: firstStep?.subject,
+        firstBody: firstStep?.body,
+      });
+    }
+
     if (action === "activate" || action === "status") {
       const id = url.searchParams.get("id");
       if (!id) return Response.json({ ok: false, error: "id required" }, { status: 400 });

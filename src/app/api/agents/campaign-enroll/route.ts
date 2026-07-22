@@ -60,6 +60,11 @@ export async function POST(req: Request) {
 
     const supabase = createServiceClient();
 
+    // fire_damage_status must be null: this campaign is scoped to plain
+    // new-construction/LADBS-permit leads only. Direct cold email to
+    // fire-damage/fire-rebuild leads was retired 2026-05-28 (see deed-monitor)
+    // over disaster-victim solicitation risk and stays excluded here even if
+    // a fire-tagged row ever re-enters lifecycle_stage='new'.
     const { data: leads, error } = await supabase
       .from("leads")
       .select(
@@ -69,6 +74,7 @@ export async function POST(req: Request) {
       .eq("lifecycle_stage", "new")
       .eq("outreach_status", "approved")
       .not("email", "is", null)
+      .is("fire_damage_status", null)
       .or("dnc.is.null,dnc.eq.false")
       .order("lead_score", { ascending: false })
       .limit(25);

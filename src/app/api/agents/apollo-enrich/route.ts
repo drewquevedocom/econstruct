@@ -72,7 +72,8 @@ export async function POST(req: Request) {
           email,
           phone,
           lead_score,
-          dnc
+          dnc,
+          fire_damage_status
         )
       `
       )
@@ -80,6 +81,7 @@ export async function POST(req: Request) {
       .lt("attempts", 3)
       .gte("leads.lead_score", 70)
       .is("leads.email", null)
+      .is("leads.fire_damage_status", null)
       .order("created_at")
       .limit(20);
 

@@ -24,12 +24,14 @@ export async function POST(req: Request) {
       email: string | null;
       dnc: boolean | null;
       created_at: string | null;
+      source: string | null;
+      fire_damage_status: string | null;
     };
     const rows: Row[] = [];
     for (;;) {
       const { data, error } = await supabase
         .from("leads")
-        .select("lifecycle_stage, outreach_status, lead_score, email, dnc, created_at")
+        .select("lifecycle_stage, outreach_status, lead_score, email, dnc, created_at, source, fire_damage_status")
         .range(offset, offset + pageSize - 1);
       if (error) throw new Error(`leads fetch failed: ${error.message}`);
       rows.push(...((data ?? []) as Row[]));
@@ -46,8 +48,14 @@ export async function POST(req: Request) {
     let approvedWithEmailNotYetSent = 0;
     const cutoff7 = new Date(Date.now() - 7 * 864e5).toISOString();
     let createdLast7d = 0;
+    const bySource: Record<string, number> = {};
+    const byFireStatus: Record<string, number> = {};
+    let scoreGte70NoFire = 0;
 
     for (const r of rows) {
+      bySource[r.source || "(none)"] = (bySource[r.source || "(none)"] || 0) + 1;
+      byFireStatus[r.fire_damage_status || "(none)"] = (byFireStatus[r.fire_damage_status || "(none)"] || 0) + 1;
+      if ((r.lead_score ?? 0) >= 70 && !r.fire_damage_status) scoreGte70NoFire++;
       const lc = r.lifecycle_stage || "(none)";
       const os = r.outreach_status || "(none)";
       byLifecycle[lc] = (byLifecycle[lc] || 0) + 1;
@@ -69,9 +77,12 @@ export async function POST(req: Request) {
       by_lifecycle_then_outreach: byLifecycleOutreach,
       with_email: withEmail,
       score_gte_70: scoreGte70,
+      score_gte_70_no_fire: scoreGte70NoFire,
       ready_for_review_unapproved: readyButUnapproved,
       approved_with_email: approvedWithEmailNotYetSent,
       created_last_7d: createdLast7d,
+      by_source: bySource,
+      by_fire_damage_status: byFireStatus,
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
