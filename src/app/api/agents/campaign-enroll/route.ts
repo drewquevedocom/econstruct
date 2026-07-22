@@ -4,7 +4,11 @@ import { createServiceClient } from "@/lib/supabase/server";
 export const maxDuration = 60;
 
 const INSTANTLY_API = "https://api.instantly.ai/api/v2";
-const MIN_CAMPAIGN_LEAD_SCORE = Number(process.env.MIN_CAMPAIGN_LEAD_SCORE ?? 70);
+// This threshold is intentionally independent of MIN_CAMPAIGN_LEAD_SCORE
+// (which was calibrated at 70 for fire-rebuild leads and is kept untouched
+// in case that track is ever deliberately re-enabled). Non-fire LADBS permit
+// leads score on a much lower scale, so this endpoint now uses its own bar.
+const NEW_BUILD_MIN_SCORE = Number(process.env.NEW_BUILD_MIN_SCORE ?? 40);
 
 async function enrollInInstantly(params: {
   email: string;
@@ -49,12 +53,16 @@ export async function POST(req: Request) {
   }
 
   const result = await runAgent("campaign-enroll", async () => {
-    const campaignId = process.env.INSTANTLY_CAMPAIGN_ID;
-    if (!campaignId) {
+    // INSTANTLY_CAMPAIGN_ID points at "Palisades Fire Rebuild" — reserved,
+    // untouched, not used here. This endpoint sends only to the non-fire
+    // new-construction campaign.
+    const campaignId =
+      process.env.INSTANTLY_NEWBUILD_CAMPAIGN_ID || "REPLACE_AFTER_SETUP";
+    if (!campaignId || campaignId === "REPLACE_AFTER_SETUP") {
       return {
         records_pulled: 0,
         records_updated: 0,
-        metadata: { skipped: true, reason: "INSTANTLY_CAMPAIGN_ID not set" },
+        metadata: { skipped: true, reason: "INSTANTLY_NEWBUILD_CAMPAIGN_ID not set" },
       };
     }
 
@@ -70,7 +78,7 @@ export async function POST(req: Request) {
       .select(
         "id, name, owner_name, email, phone, address, zip_code, property_value, fire_damage_status, lead_score, outreach_status, dnc"
       )
-      .gte("lead_score", MIN_CAMPAIGN_LEAD_SCORE)
+      .gte("lead_score", NEW_BUILD_MIN_SCORE)
       .eq("lifecycle_stage", "new")
       .eq("outreach_status", "approved")
       .not("email", "is", null)
@@ -117,11 +125,15 @@ export async function POST(req: Request) {
           lastName,
           campaignId,
           customVariables: {
+            // property/value match the {{property}}/{{value}} merge tags used
+            // by the existing campaign templates (Malibu Coastal, Brentwood
+            // Luxury). address/property_value kept for any other consumer.
+            property: lead.address || "",
+            value: lead.property_value || "",
             address: lead.address || "",
             zip: lead.zip_code || "",
             phone: lead.phone || "",
             property_value: lead.property_value || "",
-            fire_status: lead.fire_damage_status || "",
             score: lead.lead_score || 0,
           },
         });

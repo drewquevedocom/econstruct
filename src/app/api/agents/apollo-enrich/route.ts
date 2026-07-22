@@ -79,7 +79,11 @@ export async function POST(req: Request) {
       )
       .eq("status", "pending")
       .lt("attempts", 3)
-      .gte("leads.lead_score", 70)
+      // 70 was calibrated for fire-rebuild leads (large near-certain jobs);
+      // routine LADBS new-construction permits score much lower on the same
+      // scale, so a fire-scaled floor left 100% of the non-fire pool
+      // unreachable. 40 keeps this to the better half of that pool.
+      .gte("leads.lead_score", 40)
       .is("leads.email", null)
       .is("leads.fire_damage_status", null)
       .order("created_at")
