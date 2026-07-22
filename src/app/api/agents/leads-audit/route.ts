@@ -15,6 +15,11 @@ export async function POST(req: Request) {
   try {
     const supabase = createServiceClient();
 
+    // Schema discovery only — keys, never values, so this stays safe to call
+    // without exposing any lead PII.
+    const { data: sampleRow } = await supabase.from("leads").select("*").limit(1).maybeSingle();
+    const schemaColumns = sampleRow ? Object.keys(sampleRow) : [];
+
     const pageSize = 1000;
     let offset = 0;
     type Row = {
@@ -83,6 +88,7 @@ export async function POST(req: Request) {
       created_last_7d: createdLast7d,
       by_source: bySource,
       by_fire_damage_status: byFireStatus,
+      schema_columns: schemaColumns,
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
