@@ -89,19 +89,29 @@ export async function POST(req: Request) {
 
     const { data: queueRows } = await supabase
       .from("enrichment_queue")
-      .select("status, lead_id, leads!inner(fire_damage_status, lead_score, email)")
+      .select("status, attempts, lead_id, leads!inner(fire_damage_status, lead_score, email, owner_name)")
       .limit(5000);
     type QueueRow = {
       status: string | null;
-      leads: { fire_damage_status: string | null; lead_score: number | null; email: string | null } | { fire_damage_status: string | null; lead_score: number | null; email: string | null }[] | null;
+      attempts: number | null;
+      leads:
+        | { fire_damage_status: string | null; lead_score: number | null; email: string | null; owner_name: string | null }
+        | { fire_damage_status: string | null; lead_score: number | null; email: string | null; owner_name: string | null }[]
+        | null;
     };
     const qByStatus: Record<string, number> = {};
     let qNoFirePendingWithoutEmail = 0;
+    let qEligibleForApollo = 0; // status=pending, attempts<3, score>=40, no fire, no email
+    let qMissingOwnerName = 0;
+    const qAttemptsDist: Record<string, number> = {};
     for (const q of (queueRows as QueueRow[] | null) ?? []) {
       qByStatus[q.status || "(none)"] = (qByStatus[q.status || "(none)"] || 0) + 1;
+      qAttemptsDist[String(q.attempts ?? 0)] = (qAttemptsDist[String(q.attempts ?? 0)] || 0) + 1;
       const lead = Array.isArray(q.leads) ? q.leads[0] : q.leads;
       if (q.status === "pending" && lead && !lead.fire_damage_status && !lead.email) {
         qNoFirePendingWithoutEmail++;
+        if (!lead.owner_name) qMissingOwnerName++;
+        if ((q.attempts ?? 0) < 3 && (lead.lead_score ?? 0) >= 40) qEligibleForApollo++;
       }
     }
 
@@ -110,7 +120,10 @@ export async function POST(req: Request) {
       total_leads: rows.length,
       enrichment_queue_total: (queueRows ?? []).length,
       enrichment_queue_by_status: qByStatus,
+      enrichment_queue_attempts_dist: qAttemptsDist,
       enrichment_queue_no_fire_pending_no_email: qNoFirePendingWithoutEmail,
+      enrichment_queue_missing_owner_name: qMissingOwnerName,
+      enrichment_queue_eligible_for_apollo_now: qEligibleForApollo,
       by_lifecycle_stage: byLifecycle,
       by_outreach_status: byOutreachStatus,
       by_lifecycle_then_outreach: byLifecycleOutreach,
