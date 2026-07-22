@@ -56,11 +56,24 @@ export async function POST(req: Request) {
     const bySource: Record<string, number> = {};
     const byFireStatus: Record<string, number> = {};
     let scoreGte70NoFire = 0;
+    const noFireScoreBuckets = { gte70: 0, gte50: 0, gte40: 0, gte30: 0, gte20: 0, gte10: 0, other: 0 };
+    let noFireWithEmailAndScoreGte30 = 0;
 
     for (const r of rows) {
       bySource[r.source || "(none)"] = (bySource[r.source || "(none)"] || 0) + 1;
       byFireStatus[r.fire_damage_status || "(none)"] = (byFireStatus[r.fire_damage_status || "(none)"] || 0) + 1;
       if ((r.lead_score ?? 0) >= 70 && !r.fire_damage_status) scoreGte70NoFire++;
+      if (!r.fire_damage_status) {
+        const s = r.lead_score ?? 0;
+        if (s >= 70) noFireScoreBuckets.gte70++;
+        else if (s >= 50) noFireScoreBuckets.gte50++;
+        else if (s >= 40) noFireScoreBuckets.gte40++;
+        else if (s >= 30) noFireScoreBuckets.gte30++;
+        else if (s >= 20) noFireScoreBuckets.gte20++;
+        else if (s >= 10) noFireScoreBuckets.gte10++;
+        else noFireScoreBuckets.other++;
+        if (s >= 30 && r.email) noFireWithEmailAndScoreGte30++;
+      }
       const lc = r.lifecycle_stage || "(none)";
       const os = r.outreach_status || "(none)";
       byLifecycle[lc] = (byLifecycle[lc] || 0) + 1;
@@ -88,6 +101,8 @@ export async function POST(req: Request) {
       created_last_7d: createdLast7d,
       by_source: bySource,
       by_fire_damage_status: byFireStatus,
+      no_fire_score_buckets: noFireScoreBuckets,
+      no_fire_with_email_and_score_gte_30: noFireWithEmailAndScoreGte30,
       schema_columns: schemaColumns,
     });
   } catch (error) {
