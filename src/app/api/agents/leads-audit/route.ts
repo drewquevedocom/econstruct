@@ -87,9 +87,30 @@ export async function POST(req: Request) {
       if ((r.created_at || "") >= cutoff7) createdLast7d++;
     }
 
+    const { data: queueRows } = await supabase
+      .from("enrichment_queue")
+      .select("status, lead_id, leads!inner(fire_damage_status, lead_score, email)")
+      .limit(5000);
+    type QueueRow = {
+      status: string | null;
+      leads: { fire_damage_status: string | null; lead_score: number | null; email: string | null } | { fire_damage_status: string | null; lead_score: number | null; email: string | null }[] | null;
+    };
+    const qByStatus: Record<string, number> = {};
+    let qNoFirePendingWithoutEmail = 0;
+    for (const q of (queueRows as QueueRow[] | null) ?? []) {
+      qByStatus[q.status || "(none)"] = (qByStatus[q.status || "(none)"] || 0) + 1;
+      const lead = Array.isArray(q.leads) ? q.leads[0] : q.leads;
+      if (q.status === "pending" && lead && !lead.fire_damage_status && !lead.email) {
+        qNoFirePendingWithoutEmail++;
+      }
+    }
+
     return Response.json({
       ok: true,
       total_leads: rows.length,
+      enrichment_queue_total: (queueRows ?? []).length,
+      enrichment_queue_by_status: qByStatus,
+      enrichment_queue_no_fire_pending_no_email: qNoFirePendingWithoutEmail,
       by_lifecycle_stage: byLifecycle,
       by_outreach_status: byOutreachStatus,
       by_lifecycle_then_outreach: byLifecycleOutreach,
