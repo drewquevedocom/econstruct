@@ -26,7 +26,7 @@ export const COMPANY = {
   },
   social: {
     instagram: "https://instagram.com/econstructhomes",
-    linkedin: "https://linkedin.com/company/econstruct-homes",
+    linkedin: "https://www.linkedin.com/company/econstruct-inc",
     houzz: "https://houzz.com/professionals/econstruct-homes",
     youtube: "https://youtube.com/@econstructhomes",
   },

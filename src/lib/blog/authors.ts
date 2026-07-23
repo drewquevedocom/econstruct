@@ -27,7 +27,7 @@ export const blogAuthors: BlogAuthor[] = [
       "Luxury modernization and custom home delivery",
     ],
     image: "/frank_blog.png",
-    linkedin: "https://www.linkedin.com/company/econstruct-homes",
+    linkedin: "https://www.linkedin.com/company/econstruct-inc",
   },
 ];
 
