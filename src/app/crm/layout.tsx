@@ -7,8 +7,9 @@ import Topbar from "@/components/crm/Topbar";
 export default function CRMLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  // Login page renders full-screen without the shell
-  if (pathname === "/crm/login") {
+  // Login + magic-link callback render full-screen without the shell —
+  // the user isn't authenticated yet at either point.
+  if (pathname === "/crm/login" || pathname.startsWith("/crm/auth/")) {
     return <>{children}</>;
   }
 
