@@ -39,6 +39,7 @@ function wrap(subject: string, bodyHtml: string) {
       </div>
       <div style="background:#F8F6F2;padding:32px;border-radius:0 0 12px 12px;border:1px solid #e5e2db;">
         ${bodyHtml}
+        <p style="margin:24px 0 0;padding-top:16px;border-top:1px solid #e5e2db;font-size:12px;"><a href="https://econstructhomes.com/crm/support" style="color:#B8963E;text-decoration:none;font-weight:600;">View All Tickets →</a></p>
       </div>
     </div>
   `;
