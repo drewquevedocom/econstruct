@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createServiceClient } from "@/lib/supabase/server";
+import { getCurrentRole } from "@/lib/auth/getCurrentRole";
 import {
   notifyDrewNewTicket,
   notifyFrankForReview,
@@ -11,9 +12,30 @@ import {
 } from "@/lib/email/ticketEmails";
 
 const ATTACHMENT_BUCKET = "ticket-attachments";
+const DEV_EMAIL = "dq@drewquevedo.com";
 
 const VALID_CATEGORIES = ["front_end", "back_end", "mobile_app", "other"];
 const VALID_PRIORITIES = ["low", "normal", "high", "urgent"];
+
+/** Real name of whoever is logged in. Falls back to a generic (honest, not
+ * fabricated) label during the CRM_PASSWORD rollout fallback, where there's
+ * no per-user session to attribute to. */
+async function currentActorName(): Promise<string> {
+  const { fullName } = await getCurrentRole();
+  return fullName || "CRM User";
+}
+
+/** The developer tickets are assigned to. Looked up from profiles instead of
+ * hardcoded so it reflects real seeded data — falls back to "Drew" only if
+ * the profiles table hasn't been seeded yet. */
+async function developerName(supabase: ReturnType<typeof createServiceClient>): Promise<string> {
+  const { data } = await supabase
+    .from("profiles")
+    .select("full_name")
+    .eq("email", DEV_EMAIL)
+    .maybeSingle();
+  return data?.full_name || "Drew";
+}
 
 async function fetchTicketForEmail(
   supabase: ReturnType<typeof createServiceClient>,
@@ -39,6 +61,11 @@ export async function createTicket(input: {
   if (!VALID_PRIORITIES.includes(input.priority)) return { error: "Invalid priority" };
 
   const supabase = createServiceClient();
+  const [submittedBy, assignedTo] = await Promise.all([
+    currentActorName(),
+    developerName(supabase),
+  ]);
+
   const { data, error } = await supabase
     .from("support_tickets")
     .insert({
@@ -48,7 +75,8 @@ export async function createTicket(input: {
       priority: input.priority,
       due_date: input.due_date || null,
       status: "new",
-      submitted_by: "Frank",
+      submitted_by: submittedBy,
+      assigned_to: assignedTo,
     })
     .select("id")
     .single();
@@ -118,7 +146,7 @@ export async function sendBack(ticketId: string, note: string) {
   if (note?.trim()) {
     await supabase.from("ticket_activity").insert({
       ticket_id: ticketId,
-      actor: "Frank",
+      actor: await currentActorName(),
       action: "comment",
       note: note.trim(),
     });
@@ -132,14 +160,10 @@ export async function sendBack(ticketId: string, note: string) {
   return { success: true };
 }
 
-export async function addTicketNote(
-  ticketId: string,
-  note: string,
-  actor: string,
-  attachmentUrl?: string
-) {
+export async function addTicketNote(ticketId: string, note: string, attachmentUrl?: string) {
   if (!note?.trim() && !attachmentUrl) return { error: "Note or attachment is required" };
 
+  const actor = await currentActorName();
   const supabase = createServiceClient();
   const { error } = await supabase.from("ticket_activity").insert({
     ticket_id: ticketId,

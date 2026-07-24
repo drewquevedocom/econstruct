@@ -11,9 +11,6 @@ export default function TicketNoteForm({ ticketId }: { ticketId: string }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [note, setNote] = useState("");
   const [file, setFile] = useState<File | null>(null);
-  // No per-user login yet (Phase 2) — whoever is at the shared CRM login
-  // picks their own name so the reply-routing in notifyNewComment works.
-  const [actor, setActor] = useState<"Drew" | "Frank">("Drew");
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
 
@@ -37,7 +34,7 @@ export default function TicketNoteForm({ ticketId }: { ticketId: string }) {
         attachmentUrl = uploadResult.url;
       }
 
-      const result = await addTicketNote(ticketId, note, actor, attachmentUrl);
+      const result = await addTicketNote(ticketId, note, attachmentUrl);
       if (result.error) {
         setError(result.error);
         return;
@@ -52,19 +49,9 @@ export default function TicketNoteForm({ ticketId }: { ticketId: string }) {
 
   return (
     <form onSubmit={handleSubmit} className="rounded-xl border border-[#E8E4DC] bg-[#FAF9F6] p-4">
-      <div className="mb-2 flex items-center justify-between">
-        <label className="block text-xs font-bold uppercase tracking-wide text-gray-500">
-          Add a note
-        </label>
-        <select
-          value={actor}
-          onChange={(e) => setActor(e.target.value as "Drew" | "Frank")}
-          className="rounded-md border border-[#E8E4DC] bg-white px-2 py-1 text-xs font-semibold text-[#1C1C1E] focus:border-[#B8963E] focus:outline-none"
-        >
-          <option value="Drew">Posting as Drew</option>
-          <option value="Frank">Posting as Frank</option>
-        </select>
-      </div>
+      <label className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-500">
+        Add a note
+      </label>
       <textarea
         value={note}
         onChange={(e) => setNote(e.target.value)}

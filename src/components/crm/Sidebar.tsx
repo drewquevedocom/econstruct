@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LayoutDashboard, Users, Bot, Mail, PanelLeftClose, PanelLeft, Send, Handshake, Building2, LifeBuoy } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getCurrentRole } from "@/lib/auth/getCurrentRole";
 
 const navItems = [
   { href: "/crm/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -16,9 +17,21 @@ const navItems = [
   { href: "/crm/agents", label: "Agents", icon: Bot },
 ];
 
+// Mirrors the middleware's STAFF_ALLOWED_PREFIXES — this only controls what's
+// shown, not what's reachable (that's enforced server-side in middleware).
+const STAFF_VISIBLE_HREFS = new Set(["/crm/support", "/crm/leads", "/crm/new-builds"]);
+
 export default function Sidebar() {
   const pathname = usePathname();
   const [pinned, setPinned] = useState(false);
+  const [role, setRole] = useState<"owner" | "staff">("owner");
+
+  useEffect(() => {
+    getCurrentRole().then((user) => setRole(user.role));
+  }, []);
+
+  const visibleNavItems =
+    role === "staff" ? navItems.filter((item) => STAFF_VISIBLE_HREFS.has(item.href)) : navItems;
 
   return (
     <aside
@@ -41,7 +54,7 @@ export default function Sidebar() {
 
       {/* Nav */}
       <nav className="flex-1 py-3 flex flex-col gap-0.5">
-        {navItems.map(({ href, label, icon: Icon }) => {
+        {visibleNavItems.map(({ href, label, icon: Icon }) => {
           const active = pathname === href || pathname.startsWith(href + "/");
           return (
             <Link
