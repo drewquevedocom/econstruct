@@ -30,22 +30,27 @@ export async function GET(req: NextRequest) {
   const format = (url.searchParams.get("format") || "csv").toLowerCase();
 
   const supabase = createServiceClient();
-  let query = supabase
-    .from("leads")
-    .select(
-      "address, zip_code, apn, subsource, property_value, owner_name, owner_mailing_address, owner_type, enrichment_status, updated_at"
-    )
-    .eq("source", "ladbs_permits")
-    .not("owner_name", "is", null)
-    .order("property_value", { ascending: false, nullsFirst: false });
+  // Each branch builds its own query from scratch rather than reassigning a
+  // shared `let query` — reassigning across .eq()/.not() calls sends
+  // TypeScript's generic inference recursively deep enough to fail to
+  // compile ("Type instantiation is excessively deep") on current
+  // @supabase/supabase-js. Same filters, just not accumulated via mutation.
+  const baseQuery = () =>
+    supabase
+      .from("leads")
+      .select(
+        "address, zip_code, apn, subsource, property_value, owner_name, owner_mailing_address, owner_type, enrichment_status, updated_at"
+      )
+      .eq("source", "ladbs_permits")
+      .not("owner_name", "is", null)
+      .order("property_value", { ascending: false, nullsFirst: false });
 
-  if (tier === "mail") {
-    query = query.eq("owner_type", "entity").not("owner_mailing_address", "is", null);
-  } else if (tier === "individual") {
-    query = query.eq("owner_type", "individual");
-  }
-
-  const { data, error } = await query.limit(limit);
+  const { data, error } =
+    tier === "mail"
+      ? await baseQuery().eq("owner_type", "entity").not("owner_mailing_address", "is", null).limit(limit)
+      : tier === "individual"
+        ? await baseQuery().eq("owner_type", "individual").limit(limit)
+        : await baseQuery().limit(limit);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
   const rows = data ?? [];
