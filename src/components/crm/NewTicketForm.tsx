@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, X } from "lucide-react";
-import { createTicket } from "@/app/crm/support/actions";
+import { Plus, X, Camera } from "lucide-react";
+import { createTicket, addTicketNote, uploadTicketAttachment } from "@/app/crm/support/actions";
+import { compressImage } from "@/lib/image/compressImage";
 
 export default function NewTicketForm() {
   const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -16,6 +18,7 @@ export default function NewTicketForm() {
   const [category, setCategory] = useState("front_end");
   const [priority, setPriority] = useState("normal");
   const [dueDate, setDueDate] = useState("");
+  const [screenshot, setScreenshot] = useState<File | null>(null);
 
   function resetForm() {
     setTitle("");
@@ -23,6 +26,8 @@ export default function NewTicketForm() {
     setCategory("front_end");
     setPriority("normal");
     setDueDate("");
+    setScreenshot(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
     setError(null);
   }
 
@@ -41,6 +46,25 @@ export default function NewTicketForm() {
         setError(result.error);
         return;
       }
+
+      if (screenshot && result.id) {
+        const compressed = await compressImage(screenshot);
+        const formData = new FormData();
+        formData.set("file", compressed);
+        const uploadResult = await uploadTicketAttachment(formData);
+        if (uploadResult.error) {
+          // Ticket was already created successfully — refresh so it shows up,
+          // but keep the modal open so the attachment failure is visible
+          // rather than flashing and disappearing.
+          setError(`Ticket created, but the screenshot failed to attach: ${uploadResult.error}`);
+          router.refresh();
+          return;
+        }
+        if (uploadResult.url) {
+          await addTicketNote(result.id, "", uploadResult.url);
+        }
+      }
+
       resetForm();
       setOpen(false);
       router.refresh();
@@ -130,6 +154,25 @@ export default function NewTicketForm() {
                   </select>
                 </div>
               </div>
+
+              {category === "mobile_app" && (
+                <div className="rounded-lg border border-[#B8963E]/30 bg-[#B8963E]/5 p-3">
+                  <label className="mb-2 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-[#B8963E]">
+                    <Camera size={14} />
+                    Attach a screenshot (recommended for mobile issues)
+                  </label>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setScreenshot(e.target.files?.[0] ?? null)}
+                    className="block w-full text-sm text-[#1C1C1E] file:mr-3 file:rounded-lg file:border-0 file:bg-[#1C1C1E] file:px-3 file:py-2 file:text-xs file:font-bold file:text-white hover:file:bg-[#B8963E]"
+                  />
+                  {screenshot && (
+                    <p className="mt-2 text-xs text-gray-500">Selected: {screenshot.name}</p>
+                  )}
+                </div>
+              )}
 
               <div>
                 <label className="mb-1 block text-xs font-bold uppercase tracking-wide text-gray-500">
