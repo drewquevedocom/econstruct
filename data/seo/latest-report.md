@@ -1,10 +1,10 @@
 # Daily SEO Opportunities
 
-Generated: 2026-07-24T15:12:07.274Z
+Generated: 2026-07-25T14:44:48.487Z
 
 ## 1. altadena fire rebuild cost
 
-- Score: 28
+- Score: 27
 - Area: Altadena
 - Service: Fire Rebuild
 - Suggested title: Altadena Fire Rebuild Update: Wildfire survivors angered as utility-funded group claims to represent them - Los Angeles Times
@@ -16,7 +16,7 @@ Generated: 2026-07-24T15:12:07.274Z
 
 ## 2. palisades fire rebuild permit timeline
 
-- Score: 27
+- Score: 26
 - Area: Pacific Palisades
 - Service: Fire Rebuild
 - Suggested title: Pacific Palisades Fire Rebuild Update: Despite tax credits, filming in L.A. is still sluggish - Los Angeles Times
@@ -26,33 +26,9 @@ Generated: 2026-07-24T15:12:07.274Z
 - Link: https://news.google.com/rss/articles/CBMivAFBVV95cUxOMkFzcGl6ci1BalRqUDU3NGJsOTBTUjIxdmp4LUlCUzhLUTJVZzQyenlQNVJRWWczMml2VTR0UDFVUlZFUklGNTNFY0dqcGx2YTNFanNFajJvR1lZTVhmTDZqWDdZekdWZFhIeXdaR0NwbmZ6RGdITnFkeFA0Sld2TklPalY4ZWRkV013YTUwSWhBUnVNUDJxeWhmNjdnN3ZZRGF2TTV5UWFEcEFZOHo2eXpyZ0JJQ2lxdVB0NA?oc=5
 - Why now: Fresh web coverage connected to Pacific Palisades and Fire Rebuild creates a timely angle for ranking on palisades fire rebuild permit timeline.
 
-## 3. altadena fire rebuild cost
+## 3. palisades fire rebuild permit timeline
 
-- Score: 27
-- Area: Altadena
-- Service: Fire Rebuild
-- Suggested title: Altadena Fire Rebuild Update: Graffiti towers set to be cleared for cleanup and sale - Los Angeles Times
-- Suggested slug: altadena-fire-rebuild-update-graffiti-towers-set-to-be-cleared-for-cleanup-and-s
-- Source headline: Graffiti towers set to be cleared for cleanup and sale - Los Angeles Times
-- Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMiogFBVV95cUxPQjVPQnRJbUJVUk44bk9XdlVUOTF6NWdRXzA3SG41Zy0tWVhKdEdOdG5lYVg5ajVvNlA5VlBWOENTNHFMN1RHV0d4d1FrZW1DUG82dmQ0bXdYUDlncnBCTFBDVFFpaVlTMGllUG5hemNtaXFvRTRmQ3JwMFdieXc4MHVta0tlelN5RmlZbUlOYTdGdV9RT2M5M1RzUlRsNkdnSHc?oc=5
-- Why now: Fresh web coverage connected to Altadena and Fire Rebuild creates a timely angle for ranking on altadena fire rebuild cost.
-
-## 4. altadena fire rebuild cost
-
-- Score: 27
-- Area: Altadena
-- Service: Fire Rebuild
-- Suggested title: Altadena Fire Rebuild Update: Pixar and National Geographic hit in latest round of Disney layoffs - Los Angeles Times
-- Suggested slug: altadena-fire-rebuild-update-pixar-and-national-geographic-hit-in-latest-round-o
-- Source headline: Pixar and National Geographic hit in latest round of Disney layoffs - Los Angeles Times
-- Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMizAFBVV95cUxNOGh4MzdMX240QXc0ckpFSnFhc3pUeFBmaUdnUnc0UE80Q3VnbEtvVGl0YXNZRk82VW5LckRDcXFCN3ZiNmFNNTlaSXhDdVhJQ0tLUklKRWNJYzdKRjdaeU1scEdhTHhhbUxWc25xYWdoZjdpdU1PUlR1THhYbU9MdGM5VUEwZF9WRTdFOHhTN3RPTTR0dDVXR3NUZ0RXQXAtN3g1NVUwR1I2ZVhQYi1DQUU5NThmbXZwTUR3QXlrUVNWNFBMTnRNa09vRFo?oc=5
-- Why now: Fresh web coverage connected to Altadena and Fire Rebuild creates a timely angle for ranking on altadena fire rebuild cost.
-
-## 5. palisades fire rebuild permit timeline
-
-- Score: 26
+- Score: 25
 - Area: Pacific Palisades
 - Service: Fire Rebuild
 - Suggested title: Pacific Palisades Fire Rebuild Update: Want cheaper car insurance? You might get it under a bill that allows insurers to track your driving habits - Los Angeles Times
@@ -62,7 +38,7 @@ Generated: 2026-07-24T15:12:07.274Z
 - Link: https://news.google.com/rss/articles/CBMitAFBVV95cUxNTWZqcWVTenBGbmlxRFZRbHUxYTFKSENqNWdqM1NuYjNNY0ptc2ZqVEJ5eW9ZY2xXV3JyOEswYTJtbk91eWwzdmZXOElidDNHMEZnZUJkS1N1dDhmWjMtME9DNnBIRkhrdEJXYmwzTFhNUVBHc0I3MUxTbUlFN0JHQy02YzZ4V1k4RFRjSEthdDFwRnk4WlozckljT09jMG1KZURJUFlpM1BJN3pRR2VtZVhGUkc?oc=5
 - Why now: Fresh web coverage connected to Pacific Palisades and Fire Rebuild creates a timely angle for ranking on palisades fire rebuild permit timeline.
 
-## 6. palisades fire rebuild permit timeline
+## 4. palisades fire rebuild permit timeline
 
 - Score: 25
 - Area: Pacific Palisades
@@ -74,9 +50,9 @@ Generated: 2026-07-24T15:12:07.274Z
 - Link: https://news.google.com/rss/articles/CBMikgFBVV95cUxON2UwMF9HSVczcWJXY0FLczBZbVhYa1ZmSVRBLVBWRXZPbEVPcVNDa0tIT3ZNZ0dfc2pITkdvRXVWR0lUZjcyWWZvTWs1VDZWM3NPVHB3cjQ4djlzX05obGh5eVBKc1VBc0xrYWNDODJ4RHdNMnA2SXkwT0RNYWVtTUt1UkRUR2R4dTJSekxmZUZYZw?oc=5
 - Why now: Fresh web coverage connected to Pacific Palisades and Fire Rebuild creates a timely angle for ranking on palisades fire rebuild permit timeline.
 
-## 7. malibu rebuild code requirements
+## 5. malibu rebuild code requirements
 
-- Score: 25
+- Score: 24
 - Area: Malibu
 - Service: Fire Rebuild
 - Suggested title: Malibu Fire Rebuild Update: Californians are subsidizing mansion wildfire insurance as FAIR risk explodes - Los Angeles Times
@@ -86,31 +62,31 @@ Generated: 2026-07-24T15:12:07.274Z
 - Link: https://news.google.com/rss/articles/CBMixgFBVV95cUxNT1hRdmdWQmh0MzZtUVZObzQ5VW56OWJIbWZlS0dHWEJsaTZpdzZwZUZzaHp2OG9OYmZLYWpOcW1JQVhpNnVIQnlCSFM0dFhUMlZmMEVBSVdMR3Zac3hWbHFPQzQ0Smg2MUhtMEZLSHJMTmJkSUVROGpETTFfOXYyUDdLVHE0cGFnNW5PczN0VFkyMmtCYVVhTXVnaEhGZ0xWUEw0VXp2Y2VaRFFRb1VDNzFReTh6Sm5ISmRLbnVfd3o3MUk3QUE?oc=5
 - Why now: Fresh web coverage connected to Malibu and Fire Rebuild creates a timely angle for ranking on malibu rebuild code requirements.
 
-## 8. santa monica hillside construction
+## 6. altadena fire rebuild cost
 
-- Score: 21
-- Area: Santa Monica
-- Service: Custom Homes
-- Suggested title: Santa Monica Custom Homes Update: Californians are subsidizing mansion wildfire insurance as FAIR risk explodes - Los Angeles Times
-- Suggested slug: santa-monica-custom-homes-update-californians-are-subsidizing-mansion-wildfire-i
-- Source headline: Californians are subsidizing mansion wildfire insurance as FAIR risk explodes - Los Angeles Times
-- Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMixgFBVV95cUxNT1hRdmdWQmh0MzZtUVZObzQ5VW56OWJIbWZlS0dHWEJsaTZpdzZwZUZzaHp2OG9OYmZLYWpOcW1JQVhpNnVIQnlCSFM0dFhUMlZmMEVBSVdMR3Zac3hWbHFPQzQ0Smg2MUhtMEZLSHJMTmJkSUVROGpETTFfOXYyUDdLVHE0cGFnNW5PczN0VFkyMmtCYVVhTXVnaEhGZ0xWUEw0VXp2Y2VaRFFRb1VDNzFReTh6Sm5ISmRLbnVfd3o3MUk3QUE?oc=5
-- Why now: Fresh web coverage connected to Santa Monica and Custom Homes creates a timely angle for ranking on santa monica hillside construction.
-
-## 9. malibu rebuild code requirements
-
-- Score: 20
-- Area: Malibu
+- Score: 23
+- Area: Altadena
 - Service: Fire Rebuild
-- Suggested title: Malibu Fire Rebuild Update: The dark side of making daylight saving time permanent in California: How late would our sunrises get? - Los Angeles Times
-- Suggested slug: malibu-fire-rebuild-update-the-dark-side-of-making-daylight-saving-time-permanen
-- Source headline: The dark side of making daylight saving time permanent in California: How late would our sunrises get? - Los Angeles Times
+- Suggested title: Altadena Fire Rebuild Update: Home Page | LADBS - City of Los Angeles (.gov)
+- Suggested slug: altadena-fire-rebuild-update-home-page-ladbs-city-of-los-angeles-gov
+- Source headline: Home Page | LADBS - City of Los Angeles (.gov)
 - Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMiqAFBVV95cUxNUllaQ2FUblhaM1BFMWdKakZIVzFuZnZzZGFOV0VpMGNDQjFSTDJjQnI0R3dZTXRla1N2LXZMS2VzNzVxTEVUdjc3ZW8xUXFrSzgtQWFXTkI2TmdKSlkzLWpwTWswSHVaeW9fVEJMVG16YjFPSml1TUx6VFBSQ1pyTXZwS0lpSVhxZ2dVODR0bUkwTTRVZEllNi05bFJOOWtHVmh5djFYdUw?oc=5
-- Why now: Fresh web coverage connected to Malibu and Fire Rebuild creates a timely angle for ranking on malibu rebuild code requirements.
+- Link: https://news.google.com/rss/articles/CBMiO0FVX3lxTE1UZDNKZ0RpVnNWUjdNRERQaFRVZDdXQ1VvcHZIV1VlUFFGVW1ZN2RURURCdVpsTFFLQjY4?oc=5
+- Why now: Fresh web coverage connected to Altadena and Fire Rebuild creates a timely angle for ranking on altadena fire rebuild cost.
 
-## 10. los angeles adu permit changes
+## 7. altadena fire rebuild cost
+
+- Score: 23
+- Area: Altadena
+- Service: Fire Rebuild
+- Suggested title: Altadena Fire Rebuild Update: Home | City of Los Angeles - City of Los Angeles (.gov)
+- Suggested slug: altadena-fire-rebuild-update-home-city-of-los-angeles-city-of-los-angeles-gov
+- Source headline: Home | City of Los Angeles - City of Los Angeles (.gov)
+- Source: Unknown publisher
+- Link: https://news.google.com/rss/articles/CBMiNkFVX3lxTFBXcVZyMFhpLWJMc2lOVDVvVFJGd0UxT0dCVGVUeEdDV0JlVmhySThxSklaTXFKZw?oc=5
+- Why now: Fresh web coverage connected to Altadena and Fire Rebuild creates a timely angle for ranking on altadena fire rebuild cost.
+
+## 8. los angeles adu permit changes
 
 - Score: 19
 - Area: Los Angeles
@@ -122,7 +98,7 @@ Generated: 2026-07-24T15:12:07.274Z
 - Link: https://news.google.com/rss/articles/CBMikgFBVV95cUxON2UwMF9HSVczcWJXY0FLczBZbVhYa1ZmSVRBLVBWRXZPbEVPcVNDa0tIT3ZNZ0dfc2pITkdvRXVWR0lUZjcyWWZvTWs1VDZWM3NPVHB3cjQ4djlzX05obGh5eVBKc1VBc0xrYWNDODJ4RHdNMnA2SXkwT0RNYWVtTUt1UkRUR2R4dTJSekxmZUZYZw?oc=5
 - Why now: Fresh web coverage connected to Los Angeles and Home Additions creates a timely angle for ranking on los angeles adu permit changes.
 
-## 11. beverly hills custom home permit
+## 9. beverly hills custom home permit
 
 - Score: 18
 - Area: Beverly Hills
@@ -134,14 +110,38 @@ Generated: 2026-07-24T15:12:07.274Z
 - Link: https://news.google.com/rss/articles/CBMiakFVX3lxTE9BQzFsSWdGeDJsdW5Vajg3X3B5SWFRekpUTWYyM1dGYmJxQ1Y4c29HV0dXNXU1RHlvNlRxN09IUFR4Q3pzeG9PVXhWajdBWS1wX2VzZ1dwSEZqQ3EyOERMMXk3WjJWZk9jaUE?oc=5
 - Why now: Fresh web coverage connected to Beverly Hills and Custom Homes creates a timely angle for ranking on beverly hills custom home permit.
 
+## 10. malibu rebuild code requirements
+
+- Score: 17
+- Area: Malibu
+- Service: Fire Rebuild
+- Suggested title: Malibu Fire Rebuild Update: More than six years after wildfires destroyed their Malibu homes, many still struggle to rebuild - Los Angeles Times
+- Suggested slug: malibu-fire-rebuild-update-more-than-six-years-after-wildfires-destroyed-their-m
+- Source headline: More than six years after wildfires destroyed their Malibu homes, many still struggle to rebuild - Los Angeles Times
+- Source: Unknown publisher
+- Link: https://news.google.com/rss/articles/CBMiywFBVV95cUxOX2R6M09IVTdWTWtXbnJpT1lBdkRLSVFyaXFhMS1rTU95Z01nbGdvTTNmdmhVVzhfLV91NFhHdDFsSk03MHA0V2VGNk1iYk5NcmFlZi1aOE9wRnItRmxBaGdQd1p1OFJZanZkXy1ITTZ1Y3p3N2UxaF9OZWR5cWdTcnhmUUFrcTN6X2d4UkhGYjZGYWU1cDR0bkpZN01pSXV3QnpidDBKSmVkbWQ0OWhCRk14N0tuejN4RG1NeTZ5X2lQajZWMEFTS0N0Yw?oc=5
+- Why now: Fresh web coverage connected to Malibu and Fire Rebuild creates a timely angle for ranking on malibu rebuild code requirements.
+
+## 11. malibu rebuild code requirements
+
+- Score: 17
+- Area: Malibu
+- Service: Fire Rebuild
+- Suggested title: Malibu Fire Rebuild Update: Malibu wanted to crack down on huge mansions. But fire losses could bring even bigger homes - Los Angeles Times
+- Suggested slug: malibu-fire-rebuild-update-malibu-wanted-to-crack-down-on-huge-mansions-but-fire
+- Source headline: Malibu wanted to crack down on huge mansions. But fire losses could bring even bigger homes - Los Angeles Times
+- Source: Unknown publisher
+- Link: https://news.google.com/rss/articles/CBMirwFBVV95cUxOS2JucVdHQmVpOWNnNXdPLWpvLURyUWhLd1ozVVVVUDduVG5PQ3JadnQ5ekc4ZjhwRVF3M2pSa3hCV2tDR3ZEU1VMQnRxYWUtbnNWVDRRY0FOYkwwZFc1WWhNcGtRSElhWm5PZ1oweHdxcVdydmZ2TURMR1hFNXgwbTI4cFZmdFJzUXNxaWFhRVpFXy1qN0lqb25zak5DNDBlUzVRSmdjOGpJY0JjVWxr?oc=5
+- Why now: Fresh web coverage connected to Malibu and Fire Rebuild creates a timely angle for ranking on malibu rebuild code requirements.
+
 ## 12. santa monica hillside construction
 
-- Score: 18
+- Score: 17
 - Area: Santa Monica
 - Service: Custom Homes
-- Suggested title: Santa Monica Custom Homes Update: Wildfire survivors angered as utility-funded group claims to represent them - Los Angeles Times
-- Suggested slug: santa-monica-custom-homes-update-wildfire-survivors-angered-as-utility-funded-gr
-- Source headline: Wildfire survivors angered as utility-funded group claims to represent them - Los Angeles Times
+- Suggested title: Santa Monica Custom Homes Update: Commentary: In L.A.'s underground, the public servants are 80, 90 and 100. It's tough getting old - Los Angeles Times
+- Suggested slug: santa-monica-custom-homes-update-commentary-in-l-a-s-underground-the-public-serv
+- Source headline: Commentary: In L.A.'s underground, the public servants are 80, 90 and 100. It's tough getting old - Los Angeles Times
 - Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMiwwFBVV95cUxPVi1TX09ueVB6Ry0zVl9GNllxVDJRWjh2T0JBb3hudXBsZHVMbngtM0dKSVh5a3ZNcU9PdDh1T3N3RUo3dW8wMXNNd2J6Q3lyNHg5LUlpajBybGEybV9aSEhiVHNiM3F0ak1zVTcyY0tKU1BXNnZ0VzRaM0FPXzVUNWFvOFJRVUN1X1BTZFZrX20wQVRKMzNwQjUwbV81dUhqdndhMzYwQmZQVXczZFdRTnM5T2xTT3JXV185TEZ2VkZuZVE?oc=5
+- Link: https://news.google.com/rss/articles/CBMisgFBVV95cUxNYjlFS1ZvNUt2dm9VN2R1UmlYRHVpdjNFX1kxd3N3YmhaYnFCYW1GRDExRkJVc2sxVFM3WlR5NDJqVGh2bnVoZF9XVjA4cmVaUVNFeGV3VTRoYzI5aE5TX2VBZ0VFNGM0UVJhR0tzUHE5TTlld2xwMGVoaDJHVXdqZU5wSGFCOGJnVUVQbHB1MHdTdjAzazVfRGxVeWJ5SUVZTEZ5T2t3NXJoRXdUeTRBRHVR?oc=5
 - Why now: Fresh web coverage connected to Santa Monica and Custom Homes creates a timely angle for ranking on santa monica hillside construction.
