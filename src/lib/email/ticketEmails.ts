@@ -120,6 +120,42 @@ export async function notifyDrewDecision(
     .catch((err) => console.error("[ticketEmails] notifyDrewDecision failed:", err));
 }
 
+export async function notifyOverdueTicket(tickets: TicketForEmail[]) {
+  if (!tickets.length) return;
+  const resend = getResend();
+  if (!resend) return;
+
+  const subject =
+    tickets.length === 1
+      ? `Overdue: #REQ-${tickets[0].ref_number}: ${tickets[0].title}`
+      : `${tickets.length} Overdue Support Tickets`;
+
+  const rows = tickets
+    .map(
+      (t) => `
+        <tr>
+          <td style="padding:10px 0;border-bottom:1px solid #e5e2db;">
+            <a href="${ticketUrl(t)}" style="color:#1a1a1a;font-weight:600;text-decoration:none;">#REQ-${t.ref_number}: ${t.title}</a>
+            <div style="font-size:12px;color:#666;margin-top:2px;">${t.category} &middot; ${t.priority} priority &middot; due ${t.due_date}</div>
+          </td>
+        </tr>`
+    )
+    .join("");
+
+  await resend.emails
+    .send({
+      from: FROM,
+      to: DREW_EMAIL,
+      subject,
+      html: wrap(
+        subject,
+        `<p style="font-size:14px;margin:0 0 16px;">${tickets.length} ticket${tickets.length === 1 ? " is" : "s are"} past due date:</p>
+         <table style="width:100%;border-collapse:collapse;margin-bottom:8px;">${rows}</table>`
+      ),
+    })
+    .catch((err) => console.error("[ticketEmails] notifyOverdueTicket failed:", err));
+}
+
 export async function notifyNewComment(
   ticket: TicketForEmail,
   actor: string,
@@ -127,7 +163,10 @@ export async function notifyNewComment(
 ) {
   const resend = getResend();
   if (!resend) return;
-  const recipient = actor === "Frank" ? DREW_EMAIL : FRANK_EMAIL;
+  // Phase 1 switched actor to the logged-in user's real full name (e.g.
+  // "Frank Neimroozi"), so an exact match against "Frank" never fires —
+  // startsWith keeps this working without needing the actor's email here.
+  const recipient = actor.startsWith("Frank") ? DREW_EMAIL : FRANK_EMAIL;
   const subject = `New note on #REQ-${ticket.ref_number}: ${ticket.title}`;
   await resend.emails
     .send({

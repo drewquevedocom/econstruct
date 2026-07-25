@@ -62,13 +62,38 @@ function Badge({ text, tone }: { text: string; tone: string }) {
   );
 }
 
-export default async function SupportPage() {
+const CATEGORY_FILTERS = [
+  { value: "all", label: "All" },
+  { value: "front_end", label: "Front End" },
+  { value: "back_end", label: "Back End" },
+  { value: "mobile_app", label: "Mobile App" },
+  { value: "other", label: "Other" },
+];
+
+export default async function SupportPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string }>;
+}) {
+  const { category } = await searchParams;
+  const activeCategory =
+    category && CATEGORY_FILTERS.some((f) => f.value === category) ? category : "all";
+
   const supabase = createServiceClient();
 
-  const { data, error } = await supabase
-    .from("support_tickets")
-    .select("id, ref_number, title, category, priority, status, due_date, created_at")
-    .order("created_at", { ascending: false });
+  // Not a reassigned `let query` — that pattern hits a "Type instantiation
+  // is excessively deep" TS error on the current @supabase/supabase-js
+  // (see export-new-builds/route.ts). Each branch builds its own query.
+  const baseQuery = () =>
+    supabase
+      .from("support_tickets")
+      .select("id, ref_number, title, category, priority, status, due_date, created_at")
+      .order("created_at", { ascending: false });
+
+  const { data, error } =
+    activeCategory === "all"
+      ? await baseQuery()
+      : await baseQuery().eq("category", activeCategory);
 
   if (error) {
     return (
@@ -121,6 +146,26 @@ export default async function SupportPage() {
         <StatCard label="Completed This Week" value={completedThisWeek} icon={CheckCircle2} tone="green" />
       </div>
 
+      <div className="flex flex-wrap gap-1.5">
+        {CATEGORY_FILTERS.map((f) => {
+          const active = f.value === activeCategory;
+          const href = f.value === "all" ? "/crm/support" : `/crm/support?category=${f.value}`;
+          return (
+            <Link
+              key={f.value}
+              href={href}
+              className={`rounded-full px-4 py-2 text-xs font-bold transition-colors ${
+                active
+                  ? "bg-[#B8963E] text-white"
+                  : "bg-white text-[#1C1C1E] border border-[#E8E4DC] hover:border-[#B8963E]"
+              }`}
+            >
+              {f.label}
+            </Link>
+          );
+        })}
+      </div>
+
       <div className="overflow-hidden rounded-2xl border border-[#E8E4DC] bg-white">
         <table className="w-full text-sm">
           <thead>
@@ -137,7 +182,9 @@ export default async function SupportPage() {
             {tickets.length === 0 ? (
               <tr>
                 <td colSpan={6} className="px-5 py-10 text-center text-sm text-gray-400">
-                  No tickets yet — create the first one above.
+                  {activeCategory === "all"
+                    ? "No tickets yet — create the first one above."
+                    : `No ${CATEGORY_LABEL[activeCategory] ?? activeCategory} tickets.`}
                 </td>
               </tr>
             ) : (
