@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Calendar, Eye, Home, Inbox, Mail, MapPin, Send, Users } from "lucide-react";
+import { Calendar, Eye, Home, Inbox, Mail, MapPin, Send, Users, LifeBuoy } from "lucide-react";
 import { createServiceClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
@@ -67,6 +67,12 @@ type EventRow = {
   notes: string | null;
 };
 
+type TicketRow = {
+  status: string;
+  due_date: string | null;
+  created_at: string;
+};
+
 async function fetchInstantlyStats(): Promise<{
   opens: number; sent: number; replies: number; activeCampaigns: number;
 }> {
@@ -121,6 +127,7 @@ export default async function DashboardPage() {
     newBuildsMailReadyRes,
     newBuildsEnrichedRes,
     newBuildsTopRes,
+    ticketsRes,
     instantly,
   ] = await Promise.all([
     supabase.from("partner_leads").select("id", { count: "exact", head: true }).eq("last_contact_date", todayPT),
@@ -132,6 +139,7 @@ export default async function DashboardPage() {
     supabase.from("leads").select("id", { count: "exact", head: true }).eq("source", "ladbs_permits").eq("owner_type", "entity").not("owner_mailing_address", "is", null),
     supabase.from("leads").select("id", { count: "exact", head: true }).eq("source", "ladbs_permits").not("owner_name", "is", null),
     supabase.from("leads").select("id, address, zip_code, owner_name, owner_mailing_address, owner_type, property_value, subsource").eq("source", "ladbs_permits").not("owner_name", "is", null).order("property_value", { ascending: false, nullsFirst: false }).limit(8),
+    supabase.from("support_tickets").select("status, due_date, created_at"),
     fetchInstantlyStats(),
   ]);
 
@@ -158,6 +166,19 @@ export default async function DashboardPage() {
   const openRate = instantly.sent > 0 ? Math.round((instantly.opens / instantly.sent) * 1000) / 10 : 0;
   const replyRate = instantly.sent > 0 ? Math.round((instantly.replies / instantly.sent) * 1000) / 10 : 0;
 
+  // Same 4 stats as /crm/support — mirrored here for the dashboard summary card.
+  const tickets = (ticketsRes.data ?? []) as TicketRow[];
+  const todayISO = new Date().toISOString().slice(0, 10);
+  const weekAgoISO = new Date(Date.now() - 7 * 864e5).toISOString();
+  const ticketsOpen = tickets.filter((t) => t.status !== "verified_complete").length;
+  const ticketsAwaitingReview = tickets.filter((t) => t.status === "review").length;
+  const ticketsOverdue = tickets.filter(
+    (t) => t.due_date && t.due_date < todayISO && t.status !== "verified_complete"
+  ).length;
+  const ticketsCompletedThisWeek = tickets.filter(
+    (t) => t.status === "verified_complete" && t.created_at >= weekAgoISO
+  ).length;
+
   return (
     <div className="space-y-5">
       <div className="flex items-baseline justify-between">
@@ -166,11 +187,35 @@ export default async function DashboardPage() {
       </div>
 
       {/* ══════════════════════════════════════════════════════════════
+          ROW 0 — Support Tickets (most active part of the CRM)
+      ══════════════════════════════════════════════════════════════ */}
+      <section className="rounded-2xl border border-[#E8E4DC] bg-white p-4 shadow-sm">
+        <div className="mb-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <LifeBuoy size={15} className="text-[#B8963E]" />
+            <h2 className="text-sm font-black uppercase tracking-wide text-[#1C1C1E]">Support</h2>
+          </div>
+          <Link href="/crm/support" className="rounded-lg bg-[#1C1C1E] px-3 py-1 text-[11px] font-bold text-white hover:bg-[#B8963E]">Open</Link>
+        </div>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          <MiniStat value={ticketsOpen} label="Open" accent="blue" />
+          <MiniStat value={ticketsAwaitingReview} label="Awaiting Review" accent="amber" />
+          <MiniStat value={ticketsOverdue} label="Overdue" accent="red" />
+          <MiniStat value={ticketsCompletedThisWeek} label="Completed This Week" accent="green" />
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════
           ROW 1 — Partner Pipeline (compact) | Engagement Signal
       ══════════════════════════════════════════════════════════════ */}
+      <div className="mb-1 mt-2 flex items-center gap-2 px-0.5">
+        <span className="h-px flex-1 bg-[#E8E4DC]" />
+        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Partners &amp; Outreach</p>
+        <span className="h-px flex-1 bg-[#E8E4DC]" />
+      </div>
       <section className="grid grid-cols-1 gap-4 xl:grid-cols-[1fr_1fr]">
         {/* Partner Pipeline */}
-        <div className="rounded-2xl border border-[#E8E4DC] bg-white p-4">
+        <div className="rounded-2xl border border-[#E8E4DC] bg-white p-4 shadow-sm">
           <div className="mb-3 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Users size={15} className="text-[#B8963E]" />
@@ -253,7 +298,7 @@ export default async function DashboardPage() {
         </div>
 
         {/* Direct Mail Pipeline */}
-        <div className="rounded-2xl border border-[#E8E4DC] bg-white p-5">
+        <div className="rounded-2xl border border-[#E8E4DC] bg-white p-5 shadow-sm">
           <div className="mb-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Mail size={15} className="text-[#B8963E]" />
@@ -283,7 +328,7 @@ export default async function DashboardPage() {
       ══════════════════════════════════════════════════════════════ */}
       <section className="grid grid-cols-1 gap-4 xl:grid-cols-2">
         {/* Partner Network */}
-        <div className="rounded-2xl border border-[#E8E4DC] bg-white p-5">
+        <div className="rounded-2xl border border-[#E8E4DC] bg-white p-5 shadow-sm">
           <div className="mb-4 flex items-center justify-between">
             <div>
               <h2 className="text-base font-black text-[#1C1C1E]">Partner Network</h2>
@@ -324,7 +369,7 @@ export default async function DashboardPage() {
         </div>
 
         {/* Homeowner Network */}
-        <div className="rounded-2xl border border-[#E8E4DC] bg-white p-5">
+        <div className="rounded-2xl border border-[#E8E4DC] bg-white p-5 shadow-sm">
           <div className="mb-4 flex items-center justify-between">
             <div>
               <h2 className="text-base font-black text-[#1C1C1E]">Homeowner Network</h2>
@@ -376,9 +421,14 @@ export default async function DashboardPage() {
       {/* ══════════════════════════════════════════════════════════════
           ROW 4 — Upcoming Events | Jump To
       ══════════════════════════════════════════════════════════════ */}
+      <div className="mb-1 mt-2 flex items-center gap-2 px-0.5">
+        <span className="h-px flex-1 bg-[#E8E4DC]" />
+        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Activity &amp; Quick Links</p>
+        <span className="h-px flex-1 bg-[#E8E4DC]" />
+      </div>
       <section className="grid grid-cols-1 gap-4 xl:grid-cols-[1.6fr_1fr]">
         {/* Events */}
-        <div className="rounded-2xl border border-[#E8E4DC] bg-white p-5">
+        <div className="rounded-2xl border border-[#E8E4DC] bg-white p-5 shadow-sm">
           <div className="mb-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Calendar size={15} className="text-[#B8963E]" />
@@ -396,9 +446,10 @@ export default async function DashboardPage() {
         </div>
 
         {/* Jump To */}
-        <div className="rounded-2xl border border-[#E8E4DC] bg-white p-5">
+        <div className="rounded-2xl border border-[#E8E4DC] bg-white p-5 shadow-sm">
           <h3 className="mb-3 text-sm font-black text-[#1C1C1E]">Jump To</h3>
           <div className="flex flex-col gap-2">
+            <QuickLink href="/crm/support" label="Support" sub="Tickets · queue · reminders" />
             <QuickLink href="/crm/partners" label="Partners" sub="Kanban · follow-ups · active" />
             <QuickLink href="/crm/new-builds" label="New Builds" sub="LADBS permits · mail list" />
             <QuickLink href="/crm/import" label="Import CSV" sub="Drag-drop Apollo export" />
@@ -412,9 +463,9 @@ export default async function DashboardPage() {
   );
 }
 
-function MiniStat({ value, label, accent }: { value: number; label: string; accent: "gold" | "emerald" | "sky" | "amber" | "blue" | "green" }) {
-  const color = accent === "gold" ? "text-[#B8963E]" : accent === "emerald" ? "text-emerald-700" : accent === "amber" ? "text-amber-700" : accent === "blue" ? "text-sky-700" : accent === "green" ? "text-emerald-600" : "text-sky-700";
-  const bg    = accent === "gold" ? "bg-amber-50" : accent === "emerald" ? "bg-emerald-50" : accent === "amber" ? "bg-amber-50" : accent === "blue" ? "bg-sky-50" : accent === "green" ? "bg-emerald-50" : "bg-sky-50";
+function MiniStat({ value, label, accent }: { value: number; label: string; accent: "gold" | "emerald" | "sky" | "amber" | "blue" | "green" | "red" }) {
+  const color = accent === "gold" ? "text-[#B8963E]" : accent === "emerald" ? "text-emerald-700" : accent === "amber" ? "text-amber-700" : accent === "blue" ? "text-sky-700" : accent === "green" ? "text-emerald-600" : accent === "red" ? "text-red-600" : "text-sky-700";
+  const bg    = accent === "gold" ? "bg-amber-50" : accent === "emerald" ? "bg-emerald-50" : accent === "amber" ? "bg-amber-50" : accent === "blue" ? "bg-sky-50" : accent === "green" ? "bg-emerald-50" : accent === "red" ? "bg-red-50" : "bg-sky-50";
   return (
     <div className={`rounded-lg ${bg} p-2.5 text-center`}>
       <p className={`text-2xl font-black tabular-nums ${color}`}>{value.toLocaleString()}</p>
