@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { createClient } from "@supabase/supabase-js";
+import {
+  checkRateLimit,
+  flagSolicitation,
+  getClientIp,
+  isDisposableEmail,
+  verifyTurnstile,
+} from "@/lib/spam-protection";
 
 const NOTIFY_TO = "info@econstructinc.com";
 const NOTIFY_CC: string[] = [
@@ -26,12 +33,61 @@ export async function POST(req: NextRequest) {
       timeline,
       details,
       source, // optional: "contact_form" | "consultation_cta"
+      turnstileToken,
+      hp_field: honeypot, // hidden field — real users never populate this
     } = body;
+
+    // Honeypot: real users never see or fill this field (display:none, not
+    // type="hidden", so unsophisticated bots that skip hidden-type inputs
+    // still get caught). Populated -> return fake success without saving or
+    // emailing, but log server-side so a drop is never fully invisible.
+    if (honeypot) {
+      console.warn(
+        `[contact/route] Honeypot triggered — dropping silently. email=${email ?? "unknown"} ip=${getClientIp(req) ?? "unknown"}`
+      );
+      return NextResponse.json({ success: true }, { status: 200 });
+    }
 
     // Basic validation
     if (!firstName || !lastName || !email) {
       return NextResponse.json(
         { error: "Missing required fields." },
+        { status: 400 }
+      );
+    }
+
+    const clientIp = getClientIp(req);
+
+    // Rate limit: 5 submissions/hour per IP. Best-effort in-memory (fails
+    // open for unknown IPs and across isolate restarts — see spam-protection.ts).
+    const rateLimit = checkRateLimit(clientIp);
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { error: "Too many submissions. Please try again later, or call us directly at (310) 740-9999." },
+        {
+          status: 429,
+          headers: rateLimit.retryAfterSeconds
+            ? { "Retry-After": String(rateLimit.retryAfterSeconds) }
+            : undefined,
+        }
+      );
+    }
+
+    // Turnstile: fails CLOSED on a confident signal (no token, or Cloudflare
+    // explicitly rejects it) — fails OPEN on infra uncertainty (missing
+    // secret key config, network/timeout calling siteverify).
+    const turnstile = await verifyTurnstile(turnstileToken, clientIp);
+    if (!turnstile.ok) {
+      return NextResponse.json(
+        { error: "Verification failed. Please try again, or call us directly at (310) 740-9999." },
+        { status: 400 }
+      );
+    }
+
+    // Disposable email domains: confident block, not an infra uncertainty.
+    if (isDisposableEmail(email)) {
+      return NextResponse.json(
+        { error: "Please use a permanent email address so we can reach you back." },
         { status: 400 }
       );
     }
@@ -79,9 +135,11 @@ export async function POST(req: NextRequest) {
       const resend = new Resend(process.env.RESEND_API_KEY);
       const normalizedProjectType = projectType || "General Inquiry";
       const isConsultation = source === "consultation_cta" || source === "free_consultation";
+      const solicitationCheck = flagSolicitation(details);
+      const subjectPrefix = solicitationCheck.flagged ? "[Possible Solicitation] " : "";
       const subject = isConsultation
-        ? `New Consultation Request - ${fullName}`
-        : `New Contact Form Submission - ${fullName}`;
+        ? `${subjectPrefix}New Consultation Request - ${fullName}`
+        : `${subjectPrefix}New Contact Form Submission - ${fullName}`;
 
       await resend.emails.send({
         from: "econstruct Website <no-reply@econstructinc.com>",

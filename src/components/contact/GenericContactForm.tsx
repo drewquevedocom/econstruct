@@ -3,6 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { Loader2, CheckCircle2, Mail, Phone } from "lucide-react";
+import TurnstileWidget from "./TurnstileWidget";
 
 const inquiryTypes = [
   "General Inquiry",
@@ -23,6 +24,8 @@ export default function GenericContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [honeypot, setHoneypot] = useState("");
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -52,6 +55,8 @@ export default function GenericContactForm() {
           projectType: formData.inquiryType,
           details: formData.message,
           source: leadSource,
+          turnstileToken,
+          hp_field: honeypot,
         }),
       });
 
@@ -117,6 +122,16 @@ export default function GenericContactForm() {
       onSubmit={handleSubmit}
       className="rounded-[32px] border border-gray-100 bg-white p-8 shadow-2xl md:p-12"
     >
+      <input
+        type="text"
+        name="hp_field"
+        value={honeypot}
+        onChange={(e) => setHoneypot(e.target.value)}
+        style={{ display: "none" }}
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+      />
       <div className="mb-8">
         <h3 className="text-3xl font-bold text-brand-dark">Send a Message</h3>
         <p className="mt-3 text-gray-500">
@@ -202,6 +217,10 @@ export default function GenericContactForm() {
           {error}
         </div>
       )}
+
+      <div className="mt-5">
+        <TurnstileWidget onToken={setTurnstileToken} />
+      </div>
 
       <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
         <button

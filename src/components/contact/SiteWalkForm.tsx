@@ -3,6 +3,7 @@
 import { useState, type FormEvent, type MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft, CheckCircle2, Loader2, Building2, Phone } from "lucide-react";
+import TurnstileWidget from "./TurnstileWidget";
 
 const facilityTypes = [
   "Food Distribution Center",
@@ -45,6 +46,8 @@ export default function SiteWalkForm() {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [honeypot, setHoneypot] = useState("");
 
   const [formData, setFormData] = useState({
     facilityType: "",
@@ -103,6 +106,8 @@ export default function SiteWalkForm() {
           timeline: formData.timeline,
           details: detailsText,
           source: "site_walk_commercial",
+          turnstileToken,
+          hp_field: honeypot,
         }),
       });
 
@@ -314,6 +319,16 @@ export default function SiteWalkForm() {
               onSubmit={handleSubmit}
               className="flex flex-col gap-6"
             >
+              <input
+                type="text"
+                name="hp_field"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                style={{ display: "none" }}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+              />
               <div>
                 <p className="text-xs font-bold text-accent-gold uppercase tracking-widest mb-1">Step 3 of 3</p>
                 <h3 className="text-2xl font-bold text-brand-dark">Site status & timing</h3>
@@ -365,6 +380,8 @@ export default function SiteWalkForm() {
                   {submitError}
                 </div>
               )}
+
+              <TurnstileWidget onToken={setTurnstileToken} />
 
               <div className="flex gap-4 mt-2">
                 <button
