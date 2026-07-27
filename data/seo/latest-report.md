@@ -1,44 +1,8 @@
 # Daily SEO Opportunities
 
-Generated: 2026-07-26T14:47:09.832Z
+Generated: 2026-07-27T15:57:20.512Z
 
-## 1. altadena fire rebuild cost
-
-- Score: 26
-- Area: Altadena
-- Service: Fire Rebuild
-- Suggested title: Altadena Fire Rebuild Update: Wildfire survivors angered as utility-funded group claims to represent them - Los Angeles Times
-- Suggested slug: altadena-fire-rebuild-update-wildfire-survivors-angered-as-utility-funded-group-
-- Source headline: Wildfire survivors angered as utility-funded group claims to represent them - Los Angeles Times
-- Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMiwwFBVV95cUxPVi1TX09ueVB6Ry0zVl9GNllxVDJRWjh2T0JBb3hudXBsZHVMbngtM0dKSVh5a3ZNcU9PdDh1T3N3RUo3dW8wMXNNd2J6Q3lyNHg5LUlpajBybGEybV9aSEhiVHNiM3F0ak1zVTcyY0tKU1BXNnZ0VzRaM0FPXzVUNWFvOFJRVUN1X1BTZFZrX20wQVRKMzNwQjUwbV81dUhqdndhMzYwQmZQVXczZFdRTnM5T2xTT3JXV185TEZ2VkZuZVE?oc=5
-- Why now: Fresh web coverage connected to Altadena and Fire Rebuild creates a timely angle for ranking on altadena fire rebuild cost.
-
-## 2. palisades fire rebuild permit timeline
-
-- Score: 25
-- Area: Pacific Palisades
-- Service: Fire Rebuild
-- Suggested title: Pacific Palisades Fire Rebuild Update: Despite tax credits, filming in L.A. is still sluggish - Los Angeles Times
-- Suggested slug: pacific-palisades-fire-rebuild-update-despite-tax-credits-filming-in-l-a-is-stil
-- Source headline: Despite tax credits, filming in L.A. is still sluggish - Los Angeles Times
-- Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMivAFBVV95cUxOMkFzcGl6ci1BalRqUDU3NGJsOTBTUjIxdmp4LUlCUzhLUTJVZzQyenlQNVJRWWczMml2VTR0UDFVUlZFUklGNTNFY0dqcGx2YTNFanNFajJvR1lZTVhmTDZqWDdZekdWZFhIeXdaR0NwbmZ6RGdITnFkeFA0Sld2TklPalY4ZWRkV013YTUwSWhBUnVNUDJxeWhmNjdnN3ZZRGF2TTV5UWFEcEFZOHo2eXpyZ0JJQ2lxdVB0NA?oc=5
-- Why now: Fresh web coverage connected to Pacific Palisades and Fire Rebuild creates a timely angle for ranking on palisades fire rebuild permit timeline.
-
-## 3. palisades fire rebuild permit timeline
-
-- Score: 25
-- Area: Pacific Palisades
-- Service: Fire Rebuild
-- Suggested title: Pacific Palisades Fire Rebuild Update: Express Permits - City of Los Angeles (.gov)
-- Suggested slug: pacific-palisades-fire-rebuild-update-express-permits-city-of-los-angeles-gov
-- Source headline: Express Permits - City of Los Angeles (.gov)
-- Source: Unknown publisher
-- Link: https://news.google.com/rss/articles/CBMikgFBVV95cUxON2UwMF9HSVczcWJXY0FLczBZbVhYa1ZmSVRBLVBWRXZPbEVPcVNDa0tIT3ZNZ0dfc2pITkdvRXVWR0lUZjcyWWZvTWs1VDZWM3NPVHB3cjQ4djlzX05obGh5eVBKc1VBc0xrYWNDODJ4RHdNMnA2SXkwT0RNYWVtTUt1UkRUR2R4dTJSekxmZUZYZw?oc=5
-- Why now: Fresh web coverage connected to Pacific Palisades and Fire Rebuild creates a timely angle for ranking on palisades fire rebuild permit timeline.
-
-## 4. palisades fire rebuild permit timeline
+## 1. palisades fire rebuild permit timeline
 
 - Score: 25
 - Area: Pacific Palisades
@@ -48,6 +12,42 @@ Generated: 2026-07-26T14:47:09.832Z
 - Source headline: Six months after fires, more than 800 homeowners in Palisades, Altadena have sought permits to rebuild - Los Angeles Times
 - Source: Unknown publisher
 - Link: https://news.google.com/rss/articles/CBMirAFBVV95cUxOcHBkZDVJd1l6Yi12LXA1am1XSzFEWmlqamtHaGFUYXVKcWxzVGRKRnFneGxxaUNZTUZLYWVrUWpHYjRfOU14SXBjbUJLNU9OaS1FN09FUEtNNmVyQXVXV1RDMXg5N2R0WjZaSTRPbWt0eVQ0STdlOUFpT0NmT0lHSFZiNVNkV3JaRGhBTFVEWHY2Wms3QnNKcFNwNWdMTE01QVhyaklWRFZGNy1a?oc=5
+- Why now: Fresh web coverage connected to Pacific Palisades and Fire Rebuild creates a timely angle for ranking on palisades fire rebuild permit timeline.
+
+## 2. palisades fire rebuild permit timeline
+
+- Score: 25
+- Area: Pacific Palisades
+- Service: Fire Rebuild
+- Suggested title: Pacific Palisades Fire Rebuild Update: In Palisades visit, Trump officials vow to speed up permits for fire rebuilding - Los Angeles Times
+- Suggested slug: pacific-palisades-fire-rebuild-update-in-palisades-visit-trump-officials-vow-to-
+- Source headline: In Palisades visit, Trump officials vow to speed up permits for fire rebuilding - Los Angeles Times
+- Source: Unknown publisher
+- Link: https://news.google.com/rss/articles/CBMiywFBVV95cUxPRC1NUE5ZYWJlc2xIaGhlZm5UVl9raXNEajBjenQtcE9iMmJ1YlBwaVVlMjZlRmhFU2pNaVRCbTlWTHh0c19yUnIzNG5ZRm5rNTFfSW54WGpSRkE1SGJsTkRhM3hibnd0cXduRlBSM21JU1FBSWZqWjdfa1p1dV95SVowT2Z4bVlQeXo5OWxWUWxwaGdWQWlBQW9kYmZJZjBZZ05GVTFOVjZLVXdlemdwZTFtbVFXSUl3TlRiY3VIbDA2clUyejVFVzBabw?oc=5
+- Why now: Fresh web coverage connected to Pacific Palisades and Fire Rebuild creates a timely angle for ranking on palisades fire rebuild permit timeline.
+
+## 3. altadena fire rebuild cost
+
+- Score: 25
+- Area: Altadena
+- Service: Fire Rebuild
+- Suggested title: Altadena Fire Rebuild Update: Wildfire survivors angered as utility-funded group claims to represent them - Los Angeles Times
+- Suggested slug: altadena-fire-rebuild-update-wildfire-survivors-angered-as-utility-funded-group-
+- Source headline: Wildfire survivors angered as utility-funded group claims to represent them - Los Angeles Times
+- Source: Unknown publisher
+- Link: https://news.google.com/rss/articles/CBMiwwFBVV95cUxPVi1TX09ueVB6Ry0zVl9GNllxVDJRWjh2T0JBb3hudXBsZHVMbngtM0dKSVh5a3ZNcU9PdDh1T3N3RUo3dW8wMXNNd2J6Q3lyNHg5LUlpajBybGEybV9aSEhiVHNiM3F0ak1zVTcyY0tKU1BXNnZ0VzRaM0FPXzVUNWFvOFJRVUN1X1BTZFZrX20wQVRKMzNwQjUwbV81dUhqdndhMzYwQmZQVXczZFdRTnM5T2xTT3JXV185TEZ2VkZuZVE?oc=5
+- Why now: Fresh web coverage connected to Altadena and Fire Rebuild creates a timely angle for ranking on altadena fire rebuild cost.
+
+## 4. palisades fire rebuild permit timeline
+
+- Score: 24
+- Area: Pacific Palisades
+- Service: Fire Rebuild
+- Suggested title: Pacific Palisades Fire Rebuild Update: Want cheaper car insurance? You might get it under a bill that allows insurers to track your driving habits - Los Angeles Times
+- Suggested slug: pacific-palisades-fire-rebuild-update-want-cheaper-car-insurance-you-might-get-i
+- Source headline: Want cheaper car insurance? You might get it under a bill that allows insurers to track your driving habits - Los Angeles Times
+- Source: Unknown publisher
+- Link: https://news.google.com/rss/articles/CBMitAFBVV95cUxNTWZqcWVTenBGbmlxRFZRbHUxYTFKSENqNWdqM1NuYjNNY0ptc2ZqVEJ5eW9ZY2xXV3JyOEswYTJtbk91eWwzdmZXOElidDNHMEZnZUJkS1N1dDhmWjMtME9DNnBIRkhrdEJXYmwzTFhNUVBHc0I3MUxTbUlFN0JHQy02YzZ4V1k4RFRjSEthdDFwRnk4WlozckljT09jMG1KZURJUFlpM1BJN3pRR2VtZVhGUkc?oc=5
 - Why now: Fresh web coverage connected to Pacific Palisades and Fire Rebuild creates a timely angle for ranking on palisades fire rebuild permit timeline.
 
 ## 5. altadena fire rebuild cost
@@ -76,7 +76,7 @@ Generated: 2026-07-26T14:47:09.832Z
 
 ## 7. malibu rebuild code requirements
 
-- Score: 23
+- Score: 21
 - Area: Malibu
 - Service: Fire Rebuild
 - Suggested title: Malibu Fire Rebuild Update: Californians are subsidizing mansion wildfire insurance as FAIR risk explodes - Los Angeles Times
