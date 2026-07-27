@@ -14,9 +14,11 @@ updatedAt: "2026-07-31"
 authorSlug: "frank-neimroozi"
 reviewedBy: "Reviewed by econstruct editorial team"
 factCheckedBy: "Fact-checked by econstruct project development team"
-heroImage: "/blog/family-office-contractor-selection-hero.png"
+# TEMP STOPGAP (2026-07-27): real hero/og image for this post was never
+# generated/uploaded. Reusing an existing image until a proper one exists.
+heroImage: "/blog/platinum-triangle-construction-review-20260622.jpeg"
 heroImageAlt: "Family office contractor evaluation and selection for high-value real estate in Los Angeles"
-ogImage: "/blog/family-office-contractor-selection-hero.png"
+ogImage: "/blog/platinum-triangle-construction-review-20260622.jpeg"
 excerpt: "Family offices managing real estate assets on behalf of high-net-worth principals need contractors who operate at the same professional standard as the rest of their advisory team. Here is the evaluation framework."
 targetKeyword: "family office contractor selection Los Angeles real estate"
 takeaways:

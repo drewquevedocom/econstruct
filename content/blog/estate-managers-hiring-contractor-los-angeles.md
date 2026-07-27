@@ -13,9 +13,11 @@ updatedAt: "2026-07-28"
 authorSlug: "frank-neimroozi"
 reviewedBy: "Reviewed by econstruct editorial team"
 factCheckedBy: "Fact-checked by econstruct project development team"
-heroImage: "/blog/estate-managers-hiring-contractor-hero.png"
+# TEMP STOPGAP (2026-07-27): real hero/og image for this post was never
+# generated/uploaded. Reusing an existing image until a proper one exists.
+heroImage: "/blog/draft-bel-air-planning.jpeg"
 heroImageAlt: "Estate managers coordinating construction projects in Los Angeles luxury properties"
-ogImage: "/blog/estate-managers-hiring-contractor-hero.png"
+ogImage: "/blog/draft-bel-air-planning.jpeg"
 excerpt: "Estate managers in Los Angeles are often the first call when a principal wants construction or renovation work done. Here is a field-tested framework for managing that process without absorbing the liability."
 targetKeyword: "estate manager hiring contractor Los Angeles"
 takeaways:

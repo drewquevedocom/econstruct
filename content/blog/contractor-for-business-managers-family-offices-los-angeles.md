@@ -14,9 +14,11 @@ updatedAt: "2026-07-24"
 authorSlug: "frank-neimroozi"
 reviewedBy: "Reviewed by econstruct editorial team"
 factCheckedBy: "Fact-checked by econstruct project development team"
-heroImage: "/blog/contractor-business-managers-family-offices-hero.png"
+# TEMP STOPGAP (2026-07-27): real hero/og image for this post was never
+# generated/uploaded. Reusing an existing image until a proper one exists.
+heroImage: "/blog/beverly-hills-estate-review-20260622.jpeg"
 heroImageAlt: "Business managers and family offices referring contractors in Los Angeles"
-ogImage: "/blog/contractor-business-managers-family-offices-hero.png"
+ogImage: "/blog/beverly-hills-estate-review-20260622.jpeg"
 excerpt: "When a business manager or family office refers a contractor to a high-net-worth client, they are not just making a recommendation — they are putting their reputation on the line. Here is how the best ones protect it."
 targetKeyword: "luxury contractor Los Angeles family office referral"
 takeaways:
