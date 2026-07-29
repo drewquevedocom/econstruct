@@ -54,39 +54,51 @@ Our [custom home construction](/services/custom-home-construction-los-angeles) t
 
 ## Phase One: Design
 
-Before a single permit is filed, the design phase establishes the floor plan, structural approach, and material direction for the entire project.
+Before a single permit is filed, the design phase establishes the floor plan, structural approach, and material direction for the entire project. For a genuinely custom home, this phase alone often runs several months to close to a year, depending on design complexity, how many revisions the owner wants to work through, and how quickly key decisions get made.
 
 ### Schematic design through construction documents
 
-Design typically moves through conceptual planning, more detailed schematic design, and then fully engineered construction documents. Each stage benefits from owner input and, ideally, contractor cost feedback before moving to the next.
+Design typically moves through conceptual planning, more detailed schematic design, and then fully engineered construction documents. Each stage benefits from owner input and, ideally, contractor cost feedback before moving to the next. Structural, mechanical, electrical, plumbing, and — where relevant — geotechnical and civil engineering all need to be coordinated into a single construction document set before that set goes to plan check, and gaps in that coordination are one of the most common causes of correction cycles once the project reaches the permitting phase.
 
 ### Site conditions can extend this phase
 
-Geotechnical investigation, survey work, and utility verification can surface issues — soil conditions, easements, capacity constraints — that require design adjustments. Resolving these early, rather than after design is "finished," is what actually protects the overall schedule.
+Geotechnical investigation, survey work, and utility verification can surface issues — soil conditions, easements, capacity constraints — that require design adjustments. Resolving these early, rather than after design is "finished," is what actually protects the overall schedule. A boundary or topographic survey commissioned at the very start of design, before the architect finalizes the floor plan, routinely reveals easements, encroachments, or grade conditions that would otherwise force a redesign mid-plan-check.
+
+### Design decisions owners underestimate the time cost of
+
+Selecting an architect, going through multiple rounds of schematic revisions, and finalizing structural and material decisions all take real calendar time — and every additional revision cycle, even a seemingly minor one, ripples through the engineering and construction document phases that follow it. Owners who make firm decisions early in design consistently see faster overall timelines than owners who continue refining the floor plan deep into construction document development.
 
 ## Phase Two: Permitting
 
-Once design is complete, the project enters plan check — often the least predictable phase of the entire timeline.
+Once design is complete, the project enters plan check — often the least predictable phase of the entire timeline. For a full custom home, plan check timelines in Los Angeles commonly run several months for a first review cycle, and it is rare for a project of real complexity to clear plan check without at least one round of correction comments to address.
 
 ### Completeness drives speed
 
-A complete, well-coordinated submission with structural, architectural, and any required specialty engineering aligned moves through review more efficiently than a submission that generates multiple rounds of correction comments.
+A complete, well-coordinated submission with structural, architectural, and any required specialty engineering aligned moves through review more efficiently than a submission that generates multiple rounds of correction comments. Each correction cycle can add weeks to a month or more to the timeline, depending on department workload and how quickly the design team can turn around a response.
 
 ### Site-specific review adds time on complex lots
 
-Hillside, coastal, or fire hazard severity zone properties often require additional review layers beyond standard plan check, which owners should factor into their expectations from the start rather than discover partway through.
+Hillside, coastal, or fire hazard severity zone properties often require additional review layers beyond standard plan check, which owners should factor into their expectations from the start rather than discover partway through. A hillside lot requiring LADBS Grading Division review, for instance, effectively runs two parallel plan check processes — grading and building — that both need to clear before permits issue.
+
+### Utility company coordination happens in parallel
+
+Electrical service upgrades, new gas service, or water connection changes often require coordination with the utility company alongside the building permit process, and utility scheduling can move on its own timeline independent of LADBS. Submitting utility applications early, rather than waiting until the building permit is close to issuance, avoids a utility connection becoming the pacing item at the end of the project.
 
 ## Phase Three: Construction
 
-Once permitted, construction proceeds through a sequence that is more predictable than design and permitting, though still subject to real-world variables.
+Once permitted, construction proceeds through a sequence that is more predictable than design and permitting, though still subject to real-world variables. A full custom home of significant scope typically takes a year or more of active construction once permits are in hand, with site conditions, weather, and material lead times all factoring into the actual pace.
 
 ### Foundation and framing set the pace
 
-Site work, foundation, and framing form the structural backbone of the schedule. Inspections gate progress at each major phase, which is a feature of the process, not a delay to be avoided.
+Site work, foundation, and framing form the structural backbone of the schedule. Inspections gate progress at each major phase, which is a feature of the process, not a delay to be avoided. Foundation work on a hillside or geotechnically complex lot — caissons, grade beams, extensive shoring — typically takes meaningfully longer than a standard slab-on-grade foundation on a flat, stable lot.
 
 ### Systems, finishes, and final inspection
 
-Once the structure is enclosed, rough electrical, plumbing, and HVAC proceed, followed by insulation, drywall, and finish work. Final inspections and utility connections close out the project before occupancy.
+Once the structure is enclosed, rough electrical, plumbing, and HVAC proceed, followed by insulation, drywall, and finish work. Final inspections and utility connections close out the project before occupancy. Long-lead custom items — imported stone, custom millwork, specialty windows and doors, home automation infrastructure — need to be ordered well before they're needed on-site, since lead times on these items can run months and are a common source of schedule slippage if not ordered early in the construction phase.
+
+### Material lead times deserve their own line item
+
+Custom cabinetry, specialty tile, imported natural stone, and architectural windows and doors routinely carry lead times of several months from order to delivery, and some specialty items run longer. We build material procurement into the schedule as its own tracked item from the start of construction, rather than treating it as something that happens automatically alongside the trade work.
 
 ## Setting Realistic Expectations From the Start
 
@@ -94,10 +106,14 @@ The single most useful thing an owner can do is understand the full timeline —
 
 ### Build in contingency, not optimism
 
-A schedule built on best-case assumptions for every phase is not a realistic schedule. Reasonable contingency for permit review and site-condition surprises protects the project from feeling constantly behind.
+A schedule built on best-case assumptions for every phase is not a realistic schedule. Reasonable contingency for permit review and site-condition surprises protects the project from feeling constantly behind. We typically build contingency into both the permitting phase and the construction phase separately, since the risk factors driving delay in each phase are genuinely different.
 
 ### A good project team communicates timeline honestly throughout
 
-The most useful timeline is not the one presented at the very start of a project — it is the one that gets updated honestly as design, permitting, and construction actually unfold.
+The most useful timeline is not the one presented at the very start of a project — it is the one that gets updated honestly as design, permitting, and construction actually unfold. A monthly schedule review that compares actual progress against the baseline schedule, and explains any variance, keeps owners informed without surprises at the end of a phase.
+
+## Why Owners Consistently Underestimate the Total Timeline
+
+Most owners anchor their expectations on the construction phase alone, often based on a neighbor's or friend's experience that may not reflect their own site conditions, design complexity, or the current plan check environment. Design and permitting together frequently equal or exceed construction time on a genuinely custom home, which means a project an owner expects to take a year from decision to move-in can realistically take considerably longer once every phase is accounted for honestly. Setting this expectation at the very first meeting, backed by a phase-by-phase schedule rather than a single headline number, is one of the most valuable things a good contractor does before a design is even finalized.
 
 If you are planning a custom home in Los Angeles and want a realistic timeline for your specific site, [contact econstruct](/contact) to start the conversation.
