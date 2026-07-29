@@ -36,12 +36,21 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogIndexPage() {
+export default async function BlogIndexPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const { page: pageParam } = await searchParams;
   const posts = getAllBlogPosts();
   const featuredPost = posts[0];
   const remainingPosts = posts.slice(1);
-  const pagedPosts = paginatePosts(remainingPosts, 1);
   const totalPages = getBlogIndexPages(posts.length);
+  const requestedPage = Number.parseInt(pageParam ?? "1", 10);
+  const currentPage = Number.isFinite(requestedPage)
+    ? Math.min(Math.max(requestedPage, 1), totalPages)
+    : 1;
+  const pagedPosts = paginatePosts(remainingPosts, currentPage);
 
   const breadcrumbSchema = generateBlogBreadcrumbSchema([
     { name: "Home", url: "https://econstructhomes.com" },
@@ -143,12 +152,31 @@ export default function BlogIndexPage() {
 
           {totalPages > 1 ? (
             <nav className="mt-12 flex items-center justify-between">
-              <Link rel="prev" href="/blog" className="text-sm font-bold text-body-text">
-                Previous
-              </Link>
-              <Link rel="next" href="/blog?page=2" className="text-sm font-bold text-brand-dark">
-                Next
-              </Link>
+              {currentPage > 1 ? (
+                <Link
+                  rel="prev"
+                  href={currentPage - 1 === 1 ? "/blog" : `/blog?page=${currentPage - 1}`}
+                  className="text-sm font-bold text-brand-dark"
+                >
+                  Previous
+                </Link>
+              ) : (
+                <span />
+              )}
+              <span className="text-sm font-medium text-body-text/70">
+                Page {currentPage} of {totalPages}
+              </span>
+              {currentPage < totalPages ? (
+                <Link
+                  rel="next"
+                  href={`/blog?page=${currentPage + 1}`}
+                  className="text-sm font-bold text-brand-dark"
+                >
+                  Next
+                </Link>
+              ) : (
+                <span />
+              )}
             </nav>
           ) : null}
         </Container>
