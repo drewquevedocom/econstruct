@@ -39,6 +39,7 @@ const PRIORITY_TONE: Record<string, string> = {
 };
 
 const STATUS_LABEL: Record<string, string> = {
+  pending: "Pending",
   new: "New",
   in_progress: "In Progress",
   review: "Awaiting Review",
@@ -47,6 +48,7 @@ const STATUS_LABEL: Record<string, string> = {
 };
 
 const STATUS_TONE: Record<string, string> = {
+  pending: "bg-gray-100 text-gray-600",
   new: "bg-blue-50 text-blue-700",
   in_progress: "bg-amber-50 text-amber-700",
   review: "bg-violet-50 text-violet-700",

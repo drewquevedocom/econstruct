@@ -18,6 +18,7 @@ export default function NewTicketForm() {
   const [category, setCategory] = useState("front_end");
   const [priority, setPriority] = useState("normal");
   const [dueDate, setDueDate] = useState("");
+  const [notReadyYet, setNotReadyYet] = useState(false);
   const [screenshot, setScreenshot] = useState<File | null>(null);
 
   function resetForm() {
@@ -26,6 +27,7 @@ export default function NewTicketForm() {
     setCategory("front_end");
     setPriority("normal");
     setDueDate("");
+    setNotReadyYet(false);
     setScreenshot(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
     setError(null);
@@ -40,7 +42,8 @@ export default function NewTicketForm() {
         description,
         category,
         priority,
-        due_date: dueDate || undefined,
+        due_date: notReadyYet ? undefined : dueDate || undefined,
+        pending: notReadyYet,
       });
       if (result.error) {
         setError(result.error);
@@ -174,17 +177,35 @@ export default function NewTicketForm() {
                 </div>
               )}
 
-              <div>
-                <label className="mb-1 block text-xs font-bold uppercase tracking-wide text-gray-500">
-                  Due Date
+              <div className="rounded-lg border border-[#E8E4DC] bg-[#FAF9F6] p-3">
+                <label className="flex items-start gap-2 text-sm font-semibold text-[#1C1C1E]">
+                  <input
+                    type="checkbox"
+                    checked={notReadyYet}
+                    onChange={(e) => setNotReadyYet(e.target.checked)}
+                    className="mt-0.5 h-4 w-4 rounded border-[#E8E4DC] text-[#B8963E] focus:ring-[#B8963E]"
+                  />
+                  Not ready to move forward yet — mark as Pending
                 </label>
-                <input
-                  type="date"
-                  value={dueDate}
-                  onChange={(e) => setDueDate(e.target.value)}
-                  className="w-full rounded-lg border border-[#E8E4DC] px-3 py-2 text-sm focus:border-[#B8963E] focus:outline-none"
-                />
+                <p className="mt-1 pl-6 text-xs text-gray-500">
+                  Logs the ticket without notifying Drew or requiring a due date. Flip it to
+                  &quot;New&quot; from the ticket page whenever it&apos;s ready to start.
+                </p>
               </div>
+
+              {!notReadyYet && (
+                <div>
+                  <label className="mb-1 block text-xs font-bold uppercase tracking-wide text-gray-500">
+                    Due Date
+                  </label>
+                  <input
+                    type="date"
+                    value={dueDate}
+                    onChange={(e) => setDueDate(e.target.value)}
+                    className="w-full rounded-lg border border-[#E8E4DC] px-3 py-2 text-sm focus:border-[#B8963E] focus:outline-none"
+                  />
+                </div>
+              )}
 
               {error && <p className="text-sm font-semibold text-red-600">{error}</p>}
 

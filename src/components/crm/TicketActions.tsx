@@ -2,7 +2,13 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { setInProgress, submitForReview, approveTicket, sendBack } from "@/app/crm/support/actions";
+import {
+  setInProgress,
+  submitForReview,
+  approveTicket,
+  sendBack,
+  markReadyToStart,
+} from "@/app/crm/support/actions";
 
 export default function TicketActions({
   ticketId,
@@ -27,6 +33,21 @@ export default function TicketActions({
       }
       router.refresh();
     });
+  }
+
+  if (status === "pending") {
+    return (
+      <div>
+        <button
+          onClick={() => run(() => markReadyToStart(ticketId))}
+          disabled={pending}
+          className="rounded-lg bg-[#B8963E] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#1C1C1E] disabled:opacity-50"
+        >
+          {pending ? "Moving..." : "Ready to Start"}
+        </button>
+        {error && <p className="mt-2 text-sm font-semibold text-red-600">{error}</p>}
+      </div>
+    );
   }
 
   if (status === "new" || status === "reopened") {

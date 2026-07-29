@@ -55,6 +55,7 @@ export async function createTicket(input: {
   category: string;
   priority: string;
   due_date?: string;
+  pending?: boolean;
 }) {
   if (!input.title?.trim()) return { error: "Title is required" };
   if (!VALID_CATEGORIES.includes(input.category)) return { error: "Invalid category" };
@@ -66,6 +67,10 @@ export async function createTicket(input: {
     developerName(supabase),
   ]);
 
+  // Pending tickets are logged but not yet ready to start — no due date
+  // needed, and Drew isn't notified until it's moved to New.
+  const status = input.pending ? "pending" : "new";
+
   const { data, error } = await supabase
     .from("support_tickets")
     .insert({
@@ -74,7 +79,7 @@ export async function createTicket(input: {
       category: input.category,
       priority: input.priority,
       due_date: input.due_date || null,
-      status: "new",
+      status,
       submitted_by: submittedBy,
       assigned_to: assignedTo,
     })
@@ -83,11 +88,31 @@ export async function createTicket(input: {
 
   if (error) return { error: error.message };
 
-  const ticket = await fetchTicketForEmail(supabase, data.id);
-  if (ticket) await notifyDrewNewTicket(ticket);
+  if (status === "new") {
+    const ticket = await fetchTicketForEmail(supabase, data.id);
+    if (ticket) await notifyDrewNewTicket(ticket);
+  }
 
   revalidatePath("/crm/support");
   return { success: true, id: data.id };
+}
+
+/** Moves a pending ticket to New — notifies Drew, same as a fresh ticket
+ * would have if it hadn't been created as pending. */
+export async function markReadyToStart(ticketId: string) {
+  const supabase = createServiceClient();
+  const { error } = await supabase
+    .from("support_tickets")
+    .update({ status: "new" })
+    .eq("id", ticketId);
+  if (error) return { error: error.message };
+
+  const ticket = await fetchTicketForEmail(supabase, ticketId);
+  if (ticket) await notifyDrewNewTicket(ticket);
+
+  revalidatePath("/crm/support");
+  revalidatePath(`/crm/support/${ticketId}`);
+  return { success: true };
 }
 
 export async function setInProgress(ticketId: string) {
