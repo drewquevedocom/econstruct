@@ -5,10 +5,17 @@ name: Publish Scheduled Posts
 # Aug-Sep 2026 batch (13 posts, Tue/Fri cadence) so those posts stay
 # hidden (existing `draft` filter in src/lib/blog/index.ts) until their
 # scheduled date instead of going live immediately on commit.
+#
+# PAUSED (2026-07-29): Frank has not yet approved the written article
+# content for this batch (only titles were approved previously). The
+# `schedule:` trigger is intentionally removed so no post can auto-flip
+# to draft:false before content review is done, regardless of its
+# publishedAt date. Run manually via workflow_dispatch only if a specific
+# approved post needs to be published ahead of the automatic schedule.
+# Restore the `schedule:` block once Frank approves and re-enable is
+# requested.
 
 on:
-  schedule:
-    - cron: "0 14 * * *"
   workflow_dispatch:
 
 jobs:
