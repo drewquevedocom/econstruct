@@ -16,10 +16,16 @@ export default function CRMLoginPage() {
     setError(null);
     startTransition(async () => {
       const supabase = createBrowserClient();
+      // shouldCreateUser: false — this is an invite-only internal tool.
+      // Without it, any email typed here silently auto-creates a fresh
+      // auth user with no profiles row, which then fails the profile
+      // check at sign-in with a misleading "link expired" error (this is
+      // exactly how Katie's account got orphaned).
       const { error: otpError } = await supabase.auth.signInWithOtp({
         email,
         options: {
           emailRedirectTo: "https://econstructhomes.com/crm/auth/callback",
+          shouldCreateUser: false,
         },
       });
       if (otpError) {

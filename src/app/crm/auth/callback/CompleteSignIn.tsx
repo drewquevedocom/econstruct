@@ -26,7 +26,12 @@ export default function CompleteSignIn({
       // by Next.js). A returned value here means it did NOT redirect, i.e.
       // it failed.
       const result = await completeSignIn(code);
-      if (result?.error) {
+      if (result?.error === "not_invited") {
+        // The link itself worked — the account has no active CRM profile.
+        // Showing "link expired" here sends people in circles requesting
+        // new links that will all fail the same way.
+        setError("Your account isn't set up for CRM access — contact Drew to get added.");
+      } else if (result?.error) {
         setError("Link expired or already used — request a new one.");
       }
     });
