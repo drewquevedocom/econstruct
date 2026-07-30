@@ -20,6 +20,7 @@ type Ticket = {
   due_date: string | null;
   completed_at: string | null;
   verified_at: string | null;
+  archived_at: string | null;
   created_at: string;
 };
 
@@ -170,7 +171,7 @@ export default async function TicketDetailPage({
           )}
         </div>
 
-        <TicketActions ticketId={t.id} status={t.status} />
+        <TicketActions ticketId={t.id} status={t.status} archivedAt={t.archived_at} />
       </div>
 
       <div className="rounded-2xl border border-[#E8E4DC] bg-white p-6">

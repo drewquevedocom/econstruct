@@ -185,6 +185,56 @@ export async function sendBack(ticketId: string, note: string) {
   return { success: true };
 }
 
+/** Only Verified Complete tickets can be archived -- enforced here, not
+ * just in the UI, since this is a real invariant, not a suggestion. */
+export async function archiveTicket(ticketId: string) {
+  const supabase = createServiceClient();
+  const { data: current, error: fetchError } = await supabase
+    .from("support_tickets")
+    .select("status")
+    .eq("id", ticketId)
+    .single();
+  if (fetchError) return { error: fetchError.message };
+  if (current.status !== "verified_complete") {
+    return { error: "Only Verified Complete tickets can be archived." };
+  }
+
+  const { error } = await supabase
+    .from("support_tickets")
+    .update({ archived_at: new Date().toISOString() })
+    .eq("id", ticketId);
+  if (error) return { error: error.message };
+
+  await supabase.from("ticket_activity").insert({
+    ticket_id: ticketId,
+    actor: await currentActorName(),
+    action: "archived",
+  });
+
+  revalidatePath("/crm/support");
+  revalidatePath(`/crm/support/${ticketId}`);
+  return { success: true };
+}
+
+export async function unarchiveTicket(ticketId: string) {
+  const supabase = createServiceClient();
+  const { error } = await supabase
+    .from("support_tickets")
+    .update({ archived_at: null })
+    .eq("id", ticketId);
+  if (error) return { error: error.message };
+
+  await supabase.from("ticket_activity").insert({
+    ticket_id: ticketId,
+    actor: await currentActorName(),
+    action: "unarchived",
+  });
+
+  revalidatePath("/crm/support");
+  revalidatePath(`/crm/support/${ticketId}`);
+  return { success: true };
+}
+
 export async function addTicketNote(ticketId: string, note: string, attachmentUrl?: string) {
   if (!note?.trim() && !attachmentUrl) return { error: "Note or attachment is required" };
 

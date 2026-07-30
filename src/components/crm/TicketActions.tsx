@@ -8,14 +8,18 @@ import {
   approveTicket,
   sendBack,
   markReadyToStart,
+  archiveTicket,
+  unarchiveTicket,
 } from "@/app/crm/support/actions";
 
 export default function TicketActions({
   ticketId,
   status,
+  archivedAt,
 }: {
   ticketId: string;
   status: string;
+  archivedAt?: string | null;
 }) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
@@ -132,6 +136,31 @@ export default function TicketActions({
         )}
 
         {error && <p className="text-sm font-semibold text-red-600">{error}</p>}
+      </div>
+    );
+  }
+
+  if (status === "verified_complete") {
+    return (
+      <div>
+        {archivedAt ? (
+          <button
+            onClick={() => run(() => unarchiveTicket(ticketId))}
+            disabled={pending}
+            className="rounded-lg border border-[#E8E4DC] px-5 py-2.5 text-sm font-bold text-[#1C1C1E] hover:bg-[#FAF9F6] disabled:opacity-50"
+          >
+            {pending ? "Restoring..." : "Unarchive"}
+          </button>
+        ) : (
+          <button
+            onClick={() => run(() => archiveTicket(ticketId))}
+            disabled={pending}
+            className="rounded-lg border border-[#E8E4DC] px-5 py-2.5 text-sm font-bold text-[#1C1C1E] hover:bg-[#FAF9F6] disabled:opacity-50"
+          >
+            {pending ? "Archiving..." : "Archive"}
+          </button>
+        )}
+        {error && <p className="mt-2 text-sm font-semibold text-red-600">{error}</p>}
       </div>
     );
   }

@@ -15,6 +15,7 @@ type TicketRow = {
   status: string;
   due_date: string | null;
   created_at: string;
+  archived_at: string | null;
 };
 
 const CATEGORY_LABEL: Record<string, string> = {
@@ -72,14 +73,59 @@ const CATEGORY_FILTERS = [
   { value: "other", label: "Other" },
 ];
 
+const SORT_OPTIONS = [
+  { value: "smart", label: "Default" },
+  { value: "priority", label: "Priority" },
+  { value: "due_date", label: "Due Date" },
+];
+
+const PRIORITY_RANK: Record<string, number> = { urgent: 0, high: 1, normal: 2, low: 3 };
+
+function sortTickets(tickets: TicketRow[], sort: string, todayISO: string): TicketRow[] {
+  const byCreatedDesc = (a: TicketRow, b: TicketRow) => (a.created_at < b.created_at ? 1 : -1);
+
+  if (sort === "priority") {
+    return [...tickets].sort((a, b) => {
+      const rankDiff = (PRIORITY_RANK[a.priority] ?? 9) - (PRIORITY_RANK[b.priority] ?? 9);
+      return rankDiff !== 0 ? rankDiff : byCreatedDesc(a, b);
+    });
+  }
+
+  if (sort === "due_date") {
+    return [...tickets].sort((a, b) => {
+      if (!a.due_date && !b.due_date) return byCreatedDesc(a, b);
+      if (!a.due_date) return 1; // no due date sorts last
+      if (!b.due_date) return -1;
+      return a.due_date < b.due_date ? -1 : a.due_date > b.due_date ? 1 : byCreatedDesc(a, b);
+    });
+  }
+
+  // Default "smart" sort: open tickets before closed, overdue first within
+  // open, otherwise most recent first. Answers "what's on fire" on load
+  // instead of requiring a manual sort every time.
+  return [...tickets].sort((a, b) => {
+    const aOpen = a.status !== "verified_complete";
+    const bOpen = b.status !== "verified_complete";
+    if (aOpen !== bOpen) return aOpen ? -1 : 1;
+
+    const aOverdue = Boolean(a.due_date && a.due_date < todayISO && aOpen);
+    const bOverdue = Boolean(b.due_date && b.due_date < todayISO && bOpen);
+    if (aOverdue !== bOverdue) return aOverdue ? -1 : 1;
+
+    return byCreatedDesc(a, b);
+  });
+}
+
 export default async function SupportPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string; view?: string; sort?: string }>;
 }) {
-  const { category } = await searchParams;
+  const { category, view, sort } = await searchParams;
   const activeCategory =
     category && CATEGORY_FILTERS.some((f) => f.value === category) ? category : "all";
+  const showArchived = view === "archived";
+  const activeSort = SORT_OPTIONS.some((s) => s.value === sort) ? (sort as string) : "smart";
 
   const supabase = createServiceClient();
 
@@ -89,13 +135,17 @@ export default async function SupportPage({
   const baseQuery = () =>
     supabase
       .from("support_tickets")
-      .select("id, ref_number, title, category, priority, status, due_date, created_at")
+      .select("id, ref_number, title, category, priority, status, due_date, created_at, archived_at")
       .order("created_at", { ascending: false });
 
-  const { data, error } =
-    activeCategory === "all"
-      ? await baseQuery()
-      : await baseQuery().eq("category", activeCategory);
+  // Archived is its own view, not combinable with category filtering —
+  // it's a small, deliberately-curated list, not something you browse by
+  // category.
+  const { data, error } = showArchived
+    ? await baseQuery().not("archived_at", "is", null)
+    : activeCategory === "all"
+      ? await baseQuery().is("archived_at", null)
+      : await baseQuery().is("archived_at", null).eq("category", activeCategory);
 
   if (error) {
     return (
@@ -116,9 +166,9 @@ export default async function SupportPage({
     );
   }
 
-  const tickets = (data ?? []) as TicketRow[];
   const todayISO = new Date().toISOString().slice(0, 10);
   const weekAgoISO = new Date(Date.now() - 7 * 864e5).toISOString();
+  const tickets = sortTickets((data ?? []) as TicketRow[], activeSort, todayISO);
 
   const open = tickets.filter((t) => t.status !== "verified_complete").length;
   const awaitingReview = tickets.filter((t) => t.status === "review").length;
@@ -148,24 +198,66 @@ export default async function SupportPage({
         <StatCard label="Completed This Week" value={completedThisWeek} icon={CheckCircle2} tone="green" />
       </div>
 
-      <div className="flex flex-wrap gap-1.5">
-        {CATEGORY_FILTERS.map((f) => {
-          const active = f.value === activeCategory;
-          const href = f.value === "all" ? "/crm/support" : `/crm/support?category=${f.value}`;
-          return (
-            <Link
-              key={f.value}
-              href={href}
-              className={`rounded-full px-4 py-2 text-xs font-bold transition-colors ${
-                active
-                  ? "bg-[#B8963E] text-white"
-                  : "bg-white text-[#1C1C1E] border border-[#E8E4DC] hover:border-[#B8963E]"
-              }`}
-            >
-              {f.label}
-            </Link>
-          );
-        })}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-wrap gap-1.5">
+          {CATEGORY_FILTERS.map((f) => {
+            const active = !showArchived && f.value === activeCategory;
+            const params = new URLSearchParams();
+            if (f.value !== "all") params.set("category", f.value);
+            if (activeSort !== "smart") params.set("sort", activeSort);
+            const qs = params.toString();
+            const href = qs ? `/crm/support?${qs}` : "/crm/support";
+            return (
+              <Link
+                key={f.value}
+                href={href}
+                className={`rounded-full px-4 py-2 text-xs font-bold transition-colors ${
+                  active
+                    ? "bg-[#B8963E] text-white"
+                    : "bg-white text-[#1C1C1E] border border-[#E8E4DC] hover:border-[#B8963E]"
+                }`}
+              >
+                {f.label}
+              </Link>
+            );
+          })}
+          <Link
+            href={`/crm/support?view=archived${activeSort !== "smart" ? `&sort=${activeSort}` : ""}`}
+            className={`rounded-full px-4 py-2 text-xs font-bold transition-colors ${
+              showArchived
+                ? "bg-[#1C1C1E] text-white"
+                : "bg-white text-gray-500 border border-[#E8E4DC] hover:border-[#1C1C1E]"
+            }`}
+          >
+            Archived
+          </Link>
+        </div>
+
+        <div className="flex items-center gap-1.5">
+          <span className="text-[11px] font-bold uppercase tracking-wide text-gray-400">Sort</span>
+          {SORT_OPTIONS.map((s) => {
+            const active = s.value === activeSort;
+            const params = new URLSearchParams();
+            if (showArchived) params.set("view", "archived");
+            if (!showArchived && activeCategory !== "all") params.set("category", activeCategory);
+            if (s.value !== "smart") params.set("sort", s.value);
+            const qs = params.toString();
+            const href = qs ? `/crm/support?${qs}` : "/crm/support";
+            return (
+              <Link
+                key={s.value}
+                href={href}
+                className={`rounded-full px-3 py-1.5 text-xs font-bold transition-colors ${
+                  active
+                    ? "bg-[#1C1C1E] text-white"
+                    : "bg-white text-[#1C1C1E] border border-[#E8E4DC] hover:border-[#B8963E]"
+                }`}
+              >
+                {s.label}
+              </Link>
+            );
+          })}
+        </div>
       </div>
 
       <div className="overflow-hidden rounded-2xl border border-[#E8E4DC] bg-white">
@@ -184,9 +276,11 @@ export default async function SupportPage({
             {tickets.length === 0 ? (
               <tr>
                 <td colSpan={6} className="px-5 py-10 text-center text-sm text-gray-400">
-                  {activeCategory === "all"
-                    ? "No tickets yet — create the first one above."
-                    : `No ${CATEGORY_LABEL[activeCategory] ?? activeCategory} tickets.`}
+                  {showArchived
+                    ? "No archived tickets yet."
+                    : activeCategory === "all"
+                      ? "No tickets yet — create the first one above."
+                      : `No ${CATEGORY_LABEL[activeCategory] ?? activeCategory} tickets.`}
                 </td>
               </tr>
             ) : (
