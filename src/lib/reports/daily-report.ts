@@ -314,6 +314,13 @@ function recommendation(report: DailyReportData): { tone: "good" | "watch" | "ac
       body: "Check the failures section below. The system held off on sending to avoid bad data — once the failure is resolved, partners will auto-enroll on the next cron.",
     };
   }
+  if (h.coldEmailsSentToday === 0 && s.partnersNewLead === 0) {
+    return {
+      tone: "act",
+      title: "Lead queue is empty — nothing left to send.",
+      body: "The weekly Apollo refresh is returning almost all duplicates (source exhausted for these titles in LA). Load a new lead source or broaden the search criteria to resume sending.",
+    };
+  }
   if (h.coldEmailsSentToday === 0 && s.partnersNewLead > 0) {
     return {
       tone: "act",
@@ -324,7 +331,7 @@ function recommendation(report: DailyReportData): { tone: "good" | "watch" | "ac
   if (h.coldEmailsSentToday >= 50 && y.repliesReceived === 0) {
     return {
       tone: "watch",
-      title: `${h.coldEmailsSentToday} emails out, no replies yet.`,
+      title: `${h.coldEmailsSentToday} contacts enrolled, no replies yet.`,
       body: "Normal for the first 24-48h. Watch reply rate after day 3. If still 0 by day 5, audit copy or sender reputation.",
     };
   }
@@ -338,8 +345,8 @@ function recommendation(report: DailyReportData): { tone: "good" | "watch" | "ac
   if (h.coldEmailsSentToday > 0) {
     return {
       tone: "good",
-      title: `${h.coldEmailsSentToday} cold emails sent today.`,
-      body: `Partner sends: ${h.partnerColdEmailsSentToday}. New-customer sends: ${h.customerColdEmailsSentToday}. ${s.partnersNewLead} more partners are queued for the next sends.`,
+      title: `${h.coldEmailsSentToday} contacts enrolled into campaigns today.`,
+      body: `Partner enrollments: ${h.partnerColdEmailsSentToday}. New-customer enrollments: ${h.customerColdEmailsSentToday}. ${s.partnersNewLead} more partners are queued for the next sends.`,
     };
   }
   return {
@@ -355,9 +362,9 @@ export function renderDailyReportHtml(report: DailyReportData): string {
   const recBg = rec.tone === "good" ? "#E6F5EF" : rec.tone === "watch" ? "#FAF1D5" : "#FBE7E6";
 
   const movementRows = [
-    { label: "Cold emails sent", value: report.yesterday.coldEmailsEnrolled, icon: "📨" },
-    { label: "Partner cold emails sent", value: report.hero.partnerColdEmailsSentToday, icon: "🤝" },
-    { label: "New customer cold emails sent", value: report.hero.customerColdEmailsSentToday, icon: "🏠" },
+    { label: "Contacts enrolled into campaigns", value: report.yesterday.coldEmailsEnrolled, icon: "📨" },
+    { label: "Partner contacts enrolled", value: report.hero.partnerColdEmailsSentToday, icon: "🤝" },
+    { label: "New customer contacts enrolled", value: report.hero.customerColdEmailsSentToday, icon: "🏠" },
     { label: "Replies received", value: report.yesterday.repliesReceived, icon: "💬" },
     { label: "Interested replies (hot)", value: report.yesterday.interestedReplies, icon: "🔥" },
     { label: "New partner leads loaded", value: report.yesterday.newPartnerLeads, icon: "🤝" },
@@ -396,9 +403,9 @@ export function renderDailyReportHtml(report: DailyReportData): string {
       <!-- HERO: Total cold emails sent today -->
       <tr>
         <td style="background:#1C1C1E;padding:32px 28px 40px 28px;text-align:center;border-top:1px solid #2B2B2D;">
-          <p style="margin:0;font-size:12px;font-weight:bold;letter-spacing:0.28em;text-transform:uppercase;color:#D4B96A;">Cold Emails Sent Today</p>
-          <p style="margin:8px 0 0 0;font-size:84px;font-weight:900;line-height:1;color:#FFF8E7;font-variant-numeric:tabular-nums;letter-spacing:-2px;">${(report.hero.coldEmailsSentToday + report.hero.instantlyDripSinceLastReport).toLocaleString()}</p>
-          <p style="margin:10px 0 0 0;font-size:12px;color:#F2E8C9;line-height:1.4;"><strong style="color:#FFF8E7;">${report.hero.coldEmailsSentToday}</strong> new enrollments today · <strong style="color:#FFF8E7;">${report.hero.instantlyDripSinceLastReport}</strong> from Instantly drip queue since last report</p>
+          <p style="margin:0;font-size:12px;font-weight:bold;letter-spacing:0.28em;text-transform:uppercase;color:#D4B96A;">Cold Emails Sent (24h)</p>
+          <p style="margin:8px 0 0 0;font-size:84px;font-weight:900;line-height:1;color:#FFF8E7;font-variant-numeric:tabular-nums;letter-spacing:-2px;">${report.hero.instantlyDripSinceLastReport.toLocaleString()}</p>
+          <p style="margin:10px 0 0 0;font-size:12px;color:#F2E8C9;line-height:1.4;">Actual Instantly deliveries since last report · <strong style="color:#FFF8E7;">${report.hero.coldEmailsSentToday}</strong> new contacts enrolled into campaigns today (queued, not yet sent)</p>
           <p style="margin:6px 0 0 0;font-size:11px;color:#8a8079;">${report.hero.instantlyActiveCampaigns} active campaigns · ${report.hero.instantlyTotalSent.toLocaleString()} total cold emails sent all-time</p>
           ${
             Object.keys(report.hero.byType).length

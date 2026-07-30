@@ -205,11 +205,24 @@ async function upsertPartnerIntelLead(params: {
 }
 
 // ── Classify reply sentiment using Claude ────────────────────────────────────
+// Cheap OOO/auto-reply detector that runs BEFORE the AI call: it works even
+// when ANTHROPIC_API_KEY is missing/out of credits (where classifyReply
+// returns 'unknown' and vacation responders used to be treated — and
+// counted — as real replies).
+function looksLikeAutoReply(text: string): boolean {
+  return /\b(out of (the )?office|automatic reply|auto-?reply|auto-?response|away from (the )?office|on vacation|on holiday|annual leave|parental leave|maternity leave|paternity leave|back in (the )?office|will (be )?return(ing)?( on| to)?|limited access to (my )?email|currently (out|away|traveling|travelling))\b/i.test(
+    text
+  );
+}
+
 async function classifyReply(replyText: string): Promise<{
   sentiment: 'interested' | 'not_interested' | 'question' | 'out_of_office' | 'unknown';
   confidence: number;
   summary: string;
 }> {
+  if (looksLikeAutoReply(replyText)) {
+    return { sentiment: 'out_of_office', confidence: 95, summary: 'Auto-reply / out-of-office message.' };
+  }
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     console.warn('ANTHROPIC_API_KEY not set — skipping AI classification');
@@ -338,9 +351,11 @@ async function notifyHotLead(lead: {
 
   const supabase = getSupabase();
   if (supabase) {
+    // 'handoff_hot_lead' is what the daily report counts as "Interested
+    // replies (hot)" — only log it when the AI actually said interested.
     await supabase.from('lead_events').insert([{
       lead_email: lead.email,
-      event_type: 'handoff_hot_lead',
+      event_type: isInterested ? 'handoff_hot_lead' : 'reply_notified',
       payload: {
         notify_emails: HOT_LEAD_NOTIFY_EMAILS,
         sentiment: lead.sentiment,
@@ -526,16 +541,44 @@ export async function POST(req: NextRequest) {
 
       const classification = await classifyReply(replyText);
       console.log('AI classification:', classification);
+      const isAutoReply = classification.sentiment === 'out_of_office';
 
-      // Log classification
+      // Log the reply. Event type matters: the daily report counts
+      // 'reply_received' as "Replies received", so OOO/vacation responders
+      // get their own type and never inflate that number.
       if (supabase) {
-        await supabase.from('lead_events').insert([{
+        const { error } = await supabase.from('lead_events').insert([{
           lead_email: leadEmail,
-          event_type: 'ai_classification',
+          event_type: isAutoReply ? 'auto_reply_received' : 'reply_received',
           campaign_id: campaignId,
           payload: { ...classification, reply_preview: replyText.slice(0, 500) },
           created_at: new Date().toISOString(),
         }]);
+        if (error) console.error('lead_events reply log error:', error);
+      }
+
+      if (isAutoReply) {
+        // Don't flip the partner to "Replied", don't create a review task,
+        // and don't email Frank — a vacation responder is not a response.
+        // Leave a breadcrumb on the partner record and stop here.
+        if (supabase && partnerLeadId) {
+          const today = new Date().toISOString().slice(0, 10);
+          const { data: partner } = await supabase
+            .from('partner_leads')
+            .select('notes')
+            .eq('id', partnerLeadId)
+            .maybeSingle();
+          await supabase
+            .from('partner_leads')
+            .update({
+              notes: [partner?.notes, `${today}: auto-reply (out of office) received — not counted as a response.`]
+                .filter(Boolean)
+                .join('\n'),
+              updated_at: new Date().toISOString(),
+            })
+            .eq('id', partnerLeadId);
+        }
+        return NextResponse.json({ success: true, event: eventType, handled: 'auto_reply' });
       }
 
       if (supabase && partnerLeadId) {

@@ -301,11 +301,26 @@ async function insertPartnerLeads(params: {
   let inserted = 0;
   for (let i = 0; i < rows.length; i += 200) {
     const batch = rows.slice(i, i + 200);
-    const { error, count } = await params.supabase
-      .from("partner_leads")
-      .insert(batch, { count: "exact" });
-    if (error) throw new Error(`Partner insert failed: ${error.message}`);
-    inserted += count ?? batch.length;
+    // partner_id comes from a sequence DEFAULT with a UNIQUE constraint, and
+    // historical imports wrote explicit partner_id values without advancing
+    // the sequence — so nextval can collide and fail the whole batch. Failed
+    // attempts still advance the sequence (nextval survives rollback), so a
+    // bounded retry walks it past the collision zone instead of discarding
+    // every fetched lead. Permanent fix is a one-time setval() on the sequence.
+    let attempt = 0;
+    for (;;) {
+      const { error, count } = await params.supabase
+        .from("partner_leads")
+        .insert(batch, { count: "exact" });
+      if (!error) {
+        inserted += count ?? batch.length;
+        break;
+      }
+      const partnerIdCollision = error.message.includes("partner_leads_partner_id_key");
+      if (!partnerIdCollision || ++attempt >= 8) {
+        throw new Error(`Partner insert failed: ${error.message}`);
+      }
+    }
   }
 
   return { inserted, duplicates, skippedMissingEmail };

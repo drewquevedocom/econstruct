@@ -10,7 +10,18 @@ import {
   markReadyToStart,
   archiveTicket,
   unarchiveTicket,
+  reopenTicket,
+  setTicketStatus,
 } from "@/app/crm/support/actions";
+
+const STATUS_OPTIONS: Array<{ value: string; label: string }> = [
+  { value: "pending", label: "Pending" },
+  { value: "new", label: "New" },
+  { value: "in_progress", label: "In Progress" },
+  { value: "review", label: "Awaiting Review" },
+  { value: "verified_complete", label: "Verified Complete" },
+  { value: "reopened", label: "Reopened" },
+];
 
 export default function TicketActions({
   ticketId,
@@ -26,6 +37,8 @@ export default function TicketActions({
   const [error, setError] = useState<string | null>(null);
   const [showSendBack, setShowSendBack] = useState(false);
   const [sendBackNote, setSendBackNote] = useState("");
+  const [showOverride, setShowOverride] = useState(false);
+  const [overrideStatus, setOverrideStatus] = useState(status);
 
   function run(action: () => Promise<{ success?: boolean; error?: string }>) {
     setError(null);
@@ -39,53 +52,46 @@ export default function TicketActions({
     });
   }
 
+  let workflow: React.ReactNode = null;
+
   if (status === "pending") {
-    return (
-      <div>
-        <button
-          onClick={() => run(() => markReadyToStart(ticketId))}
-          disabled={pending}
-          className="rounded-lg bg-[#B8963E] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#1C1C1E] disabled:opacity-50"
-        >
-          {pending ? "Moving..." : "Ready to Start"}
-        </button>
-        {error && <p className="mt-2 text-sm font-semibold text-red-600">{error}</p>}
-      </div>
+    workflow = (
+      <button
+        onClick={() => run(() => markReadyToStart(ticketId))}
+        disabled={pending}
+        className="rounded-lg bg-[#B8963E] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#1C1C1E] disabled:opacity-50"
+      >
+        {pending ? "Moving..." : "Ready to Start"}
+      </button>
     );
   }
 
   if (status === "new" || status === "reopened") {
-    return (
-      <div>
-        <button
-          onClick={() => run(() => setInProgress(ticketId))}
-          disabled={pending}
-          className="rounded-lg bg-[#B8963E] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#1C1C1E] disabled:opacity-50"
-        >
-          {pending ? "Starting..." : "Start Work"}
-        </button>
-        {error && <p className="mt-2 text-sm font-semibold text-red-600">{error}</p>}
-      </div>
+    workflow = (
+      <button
+        onClick={() => run(() => setInProgress(ticketId))}
+        disabled={pending}
+        className="rounded-lg bg-[#B8963E] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#1C1C1E] disabled:opacity-50"
+      >
+        {pending ? "Starting..." : "Start Work"}
+      </button>
     );
   }
 
   if (status === "in_progress") {
-    return (
-      <div>
-        <button
-          onClick={() => run(() => submitForReview(ticketId))}
-          disabled={pending}
-          className="rounded-lg bg-[#B8963E] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#1C1C1E] disabled:opacity-50"
-        >
-          {pending ? "Submitting..." : "Mark Ready for Review"}
-        </button>
-        {error && <p className="mt-2 text-sm font-semibold text-red-600">{error}</p>}
-      </div>
+    workflow = (
+      <button
+        onClick={() => run(() => submitForReview(ticketId))}
+        disabled={pending}
+        className="rounded-lg bg-[#B8963E] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#1C1C1E] disabled:opacity-50"
+      >
+        {pending ? "Submitting..." : "Mark Ready for Review"}
+      </button>
     );
   }
 
   if (status === "review") {
-    return (
+    workflow = (
       <div className="space-y-3">
         <div className="flex gap-3">
           <button
@@ -134,36 +140,77 @@ export default function TicketActions({
             </button>
           </div>
         )}
-
-        {error && <p className="text-sm font-semibold text-red-600">{error}</p>}
       </div>
     );
   }
 
   if (status === "verified_complete") {
-    return (
-      <div>
-        {archivedAt ? (
-          <button
-            onClick={() => run(() => unarchiveTicket(ticketId))}
-            disabled={pending}
-            className="rounded-lg border border-[#E8E4DC] px-5 py-2.5 text-sm font-bold text-[#1C1C1E] hover:bg-[#FAF9F6] disabled:opacity-50"
-          >
-            {pending ? "Restoring..." : "Unarchive"}
-          </button>
-        ) : (
-          <button
-            onClick={() => run(() => archiveTicket(ticketId))}
-            disabled={pending}
-            className="rounded-lg border border-[#E8E4DC] px-5 py-2.5 text-sm font-bold text-[#1C1C1E] hover:bg-[#FAF9F6] disabled:opacity-50"
-          >
-            {pending ? "Archiving..." : "Archive"}
-          </button>
-        )}
-        {error && <p className="mt-2 text-sm font-semibold text-red-600">{error}</p>}
+    workflow = archivedAt ? (
+      <button
+        onClick={() => run(() => unarchiveTicket(ticketId))}
+        disabled={pending}
+        className="rounded-lg border border-[#E8E4DC] px-5 py-2.5 text-sm font-bold text-[#1C1C1E] hover:bg-[#FAF9F6] disabled:opacity-50"
+      >
+        {pending ? "Restoring..." : "Unarchive"}
+      </button>
+    ) : (
+      <div className="flex gap-3">
+        <button
+          onClick={() => run(() => reopenTicket(ticketId))}
+          disabled={pending}
+          className="rounded-lg bg-[#B8963E] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#1C1C1E] disabled:opacity-50"
+        >
+          {pending ? "Reopening..." : "Reopen (back to In Progress)"}
+        </button>
+        <button
+          onClick={() => run(() => archiveTicket(ticketId))}
+          disabled={pending}
+          className="rounded-lg border border-[#E8E4DC] px-5 py-2.5 text-sm font-bold text-[#1C1C1E] hover:bg-[#FAF9F6] disabled:opacity-50"
+        >
+          {pending ? "Archiving..." : "Archive"}
+        </button>
       </div>
     );
   }
 
-  return null;
+  return (
+    <div>
+      {workflow}
+
+      {/* Manual override for when a ticket is in the wrong state (e.g. an
+          accidental approve). No notification emails — just sets the status. */}
+      <div className={workflow ? "mt-4 border-t border-[#E8E4DC] pt-3" : ""}>
+        <button
+          onClick={() => setShowOverride((v) => !v)}
+          className="text-xs font-bold uppercase tracking-wide text-gray-400 hover:text-[#B8963E]"
+        >
+          {showOverride ? "▾ Fix status manually" : "▸ Fix status manually"}
+        </button>
+        {showOverride && (
+          <div className="mt-2 flex items-center gap-2">
+            <select
+              value={overrideStatus}
+              onChange={(e) => setOverrideStatus(e.target.value)}
+              className="rounded-lg border border-[#E8E4DC] px-3 py-2 text-sm focus:border-[#B8963E] focus:outline-none"
+            >
+              {STATUS_OPTIONS.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
+            </select>
+            <button
+              onClick={() => run(() => setTicketStatus(ticketId, overrideStatus))}
+              disabled={pending || overrideStatus === status}
+              className="rounded-lg border border-[#E8E4DC] px-4 py-2 text-sm font-bold text-[#1C1C1E] hover:bg-[#FAF9F6] disabled:opacity-50"
+            >
+              {pending ? "Saving..." : "Set Status"}
+            </button>
+          </div>
+        )}
+      </div>
+
+      {error && <p className="mt-2 text-sm font-semibold text-red-600">{error}</p>}
+    </div>
+  );
 }

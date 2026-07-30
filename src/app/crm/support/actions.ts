@@ -16,6 +16,7 @@ const DEV_EMAIL = "dq@drewquevedo.com";
 
 const VALID_CATEGORIES = ["front_end", "back_end", "mobile_app", "other"];
 const VALID_PRIORITIES = ["low", "normal", "high", "urgent"];
+const VALID_STATUSES = ["pending", "new", "in_progress", "review", "verified_complete", "reopened"];
 
 /** Real name of whoever is logged in. Falls back to a generic (honest, not
  * fabricated) label during the CRM_PASSWORD rollout fallback, where there's
@@ -179,6 +180,69 @@ export async function sendBack(ticketId: string, note: string) {
 
   const ticket = await fetchTicketForEmail(supabase, ticketId);
   if (ticket) await notifyDrewDecision(ticket, "Sent Back");
+
+  revalidatePath("/crm/support");
+  revalidatePath(`/crm/support/${ticketId}`);
+  return { success: true };
+}
+
+/** Manual status override — the corrective tool for tickets stuck in the
+ * wrong state (e.g. accidentally approved). Sends no notification emails,
+ * unlike the workflow actions; the DB trigger still logs the status_change
+ * to the activity feed. Clears archived_at when leaving verified_complete
+ * so the "only Verified Complete tickets are archived" invariant holds. */
+export async function setTicketStatus(ticketId: string, status: string) {
+  if (!VALID_STATUSES.includes(status)) return { error: "Invalid status" };
+
+  const supabase = createServiceClient();
+  const { data: current, error: fetchError } = await supabase
+    .from("support_tickets")
+    .select("status, archived_at")
+    .eq("id", ticketId)
+    .single();
+  if (fetchError) return { error: fetchError.message };
+  if (current.status === status) return { success: true };
+
+  const update: Record<string, unknown> = { status };
+  if (current.archived_at && status !== "verified_complete") {
+    update.archived_at = null;
+  }
+
+  const { error } = await supabase
+    .from("support_tickets")
+    .update(update)
+    .eq("id", ticketId);
+  if (error) return { error: error.message };
+
+  revalidatePath("/crm/support");
+  revalidatePath(`/crm/support/${ticketId}`);
+  return { success: true };
+}
+
+/** Undo an accidental completion: Verified Complete → In Progress. Guarded
+ * server-side like archiveTicket. Archived tickets must be unarchived first
+ * so a reopened ticket is never invisible in the default list. The DB
+ * trigger logs the status_change activity row. */
+export async function reopenTicket(ticketId: string) {
+  const supabase = createServiceClient();
+  const { data: current, error: fetchError } = await supabase
+    .from("support_tickets")
+    .select("status, archived_at")
+    .eq("id", ticketId)
+    .single();
+  if (fetchError) return { error: fetchError.message };
+  if (current.status !== "verified_complete") {
+    return { error: "Only Verified Complete tickets can be reopened." };
+  }
+  if (current.archived_at) {
+    return { error: "Unarchive this ticket first, then reopen it." };
+  }
+
+  const { error } = await supabase
+    .from("support_tickets")
+    .update({ status: "in_progress" })
+    .eq("id", ticketId);
+  if (error) return { error: error.message };
 
   revalidatePath("/crm/support");
   revalidatePath(`/crm/support/${ticketId}`);
