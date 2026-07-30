@@ -148,19 +148,34 @@ export default async function SupportPage({
       : await baseQuery().is("archived_at", null).eq("category", activeCategory);
 
   if (error) {
+    // Show the real database error instead of assuming the table itself is
+    // missing -- a missing column from a not-yet-run later migration (or
+    // any other query error) hits this same path, and guessing the wrong
+    // cause wastes time.
+    const missingColumn = /column .* does not exist/i.test(error.message);
     return (
       <div className="max-w-lg rounded-2xl border border-[#E8E4DC] bg-white p-8">
         <p className="text-xs font-bold uppercase tracking-widest text-[#B8963E] mb-2">
           Support Tickets
         </p>
-        <h1 className="text-xl font-bold text-[#1C1C1E] mb-3">Table not found yet</h1>
+        <h1 className="text-xl font-bold text-[#1C1C1E] mb-3">Couldn&apos;t load tickets</h1>
+        <p className="mb-3 rounded-lg bg-red-50 px-3 py-2 font-mono text-xs text-red-700">
+          {error.message}
+        </p>
         <p className="text-sm text-gray-600 leading-relaxed">
-          The <code className="rounded bg-gray-100 px-1.5 py-0.5 text-xs">support_tickets</code>{" "}
-          table doesn&apos;t exist yet. Run{" "}
-          <code className="rounded bg-gray-100 px-1.5 py-0.5 text-xs">
-            supabase/migrations/20260723_support_tickets.sql
-          </code>{" "}
-          in the Supabase SQL Editor, then refresh this page.
+          {missingColumn
+            ? "This usually means a migration adding a column hasn't been run yet — check supabase/migrations/ for the most recent .sql file and run it in the Supabase SQL Editor."
+            : error.code === "42P01"
+              ? <>
+                  The <code className="rounded bg-gray-100 px-1.5 py-0.5 text-xs">support_tickets</code>{" "}
+                  table doesn&apos;t exist yet. Run{" "}
+                  <code className="rounded bg-gray-100 px-1.5 py-0.5 text-xs">
+                    supabase/migrations/20260723_support_tickets.sql
+                  </code>{" "}
+                  in the Supabase SQL Editor.
+                </>
+              : "Check the Supabase SQL Editor for pending migrations in supabase/migrations/."}
+          {" "}Then refresh this page.
         </p>
       </div>
     );
