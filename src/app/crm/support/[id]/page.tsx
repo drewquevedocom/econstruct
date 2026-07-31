@@ -2,8 +2,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { createServiceClient } from "@/lib/supabase/server";
+import { getCurrentRole } from "@/lib/auth/getCurrentRole";
 import TicketActions from "@/components/crm/TicketActions";
 import TicketNoteForm from "@/components/crm/TicketNoteForm";
+import EditableTicketNote from "@/components/crm/EditableTicketNote";
 
 export const dynamic = "force-dynamic";
 
@@ -33,6 +35,7 @@ type Activity = {
   note: string | null;
   attachment_url: string | null;
   created_at: string;
+  edited_at?: string | null;
 };
 
 const CATEGORY_LABEL: Record<string, string> = {
@@ -87,13 +90,14 @@ export default async function TicketDetailPage({
   const { id } = await params;
   const supabase = createServiceClient();
 
-  const [{ data: ticket, error: ticketError }, { data: activityRows }] = await Promise.all([
+  const [{ data: ticket, error: ticketError }, { data: activityRows }, { fullName: viewerName }] = await Promise.all([
     supabase.from("support_tickets").select("*").eq("id", id).single(),
     supabase
       .from("ticket_activity")
       .select("*")
       .eq("ticket_id", id)
       .order("created_at", { ascending: false }),
+    getCurrentRole(),
   ]);
 
   if (ticketError || !ticket) notFound();
@@ -194,9 +198,12 @@ export default async function TicketDetailPage({
                       {formatDateTime(a.created_at)}
                     </p>
                   </div>
-                  {a.note && (
-                    <p className="mt-1.5 whitespace-pre-wrap text-sm text-gray-700">{a.note}</p>
-                  )}
+                  <EditableTicketNote
+                    activityId={a.id}
+                    note={a.note}
+                    editedAt={a.edited_at ?? null}
+                    canEdit={a.action === "comment" && !!viewerName && a.actor === viewerName}
+                  />
                   {a.attachment_url && (
                     <a
                       href={a.attachment_url}

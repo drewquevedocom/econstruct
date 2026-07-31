@@ -320,6 +320,41 @@ export async function addTicketNote(ticketId: string, note: string, attachmentUr
   return { success: true };
 }
 
+/** Edit your own comment. Author-only (matched on actor name) and comments
+ * only — status changes and system rows stay immutable. Stamps edited_at so
+ * the feed shows "(edited)" to anyone who read the original. */
+export async function updateTicketNote(activityId: string, note: string) {
+  if (!note?.trim()) return { error: "Note cannot be empty" };
+
+  const actor = await currentActorName();
+  const supabase = createServiceClient();
+  const { data: row, error: fetchError } = await supabase
+    .from("ticket_activity")
+    .select("id, ticket_id, action, actor")
+    .eq("id", activityId)
+    .single();
+  if (fetchError) return { error: fetchError.message };
+  if (row.action !== "comment") return { error: "Only comments can be edited." };
+  if (row.actor !== actor) return { error: "You can only edit your own notes." };
+
+  let { error } = await supabase
+    .from("ticket_activity")
+    .update({ note: note.trim(), edited_at: new Date().toISOString() })
+    .eq("id", activityId);
+  // Pre-migration fallback: if the edited_at column hasn't been added yet,
+  // still save the edit — just without the "(edited)" stamp.
+  if (error && error.message.includes("edited_at")) {
+    ({ error } = await supabase
+      .from("ticket_activity")
+      .update({ note: note.trim() })
+      .eq("id", activityId));
+  }
+  if (error) return { error: error.message };
+
+  revalidatePath(`/crm/support/${row.ticket_id}`);
+  return { success: true };
+}
+
 async function ensureAttachmentBucket(supabase: ReturnType<typeof createServiceClient>) {
   const { data: buckets } = await supabase.storage.listBuckets();
   const exists = buckets?.some((b) => b.name === ATTACHMENT_BUCKET);
