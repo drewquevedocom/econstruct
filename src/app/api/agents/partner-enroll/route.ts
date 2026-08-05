@@ -92,12 +92,15 @@ function mapVerifyStatus(raw: string | undefined): VerifyOutcome | "pending" {
 
 // Instantly verification is async: the initial POST usually answers
 // "pending" and the result lands on a follow-up GET a moment later.
+// Every response also carries the account's remaining verification credits
+// (`credits`) — daily-report.ts reads that back from this run's agent_runs
+// metadata instead of spending its own credit just to check the balance.
 async function verifyEmail(
   email: string,
   httpStatuses: Record<string, number>
-): Promise<VerifyOutcome> {
+): Promise<{ outcome: VerifyOutcome; credits: number | null }> {
   const apiKey = process.env.INSTANTLY_API_KEY;
-  if (!apiKey) return "unknown";
+  if (!apiKey) return { outcome: "unknown", credits: null };
   try {
     const res = await fetch(`${INSTANTLY_API}/email-verification`, {
       method: "POST",
@@ -109,9 +112,10 @@ async function verifyEmail(
       signal: AbortSignal.timeout(6000),
     });
     httpStatuses[String(res.status)] = (httpStatuses[String(res.status)] || 0) + 1;
-    if (!res.ok) return "unknown";
-    let data = (await res.json()) as { verification_status?: string };
+    if (!res.ok) return { outcome: "unknown", credits: null };
+    let data = (await res.json()) as { verification_status?: string; credits?: number | null };
     let outcome = mapVerifyStatus(data.verification_status);
+    let credits = typeof data.credits === "number" ? data.credits : null;
 
     for (let attempt = 0; outcome === "pending" && attempt < 3; attempt++) {
       await new Promise((r) => setTimeout(r, 2000));
@@ -122,14 +126,15 @@ async function verifyEmail(
           signal: AbortSignal.timeout(6000),
         }
       );
-      if (!poll.ok) return "unknown";
-      data = (await poll.json()) as { verification_status?: string };
+      if (!poll.ok) return { outcome: "unknown", credits };
+      data = (await poll.json()) as { verification_status?: string; credits?: number | null };
       outcome = mapVerifyStatus(data.verification_status);
+      if (typeof data.credits === "number") credits = data.credits;
     }
 
-    return outcome === "pending" ? "unknown" : outcome;
+    return { outcome: outcome === "pending" ? "unknown" : outcome, credits };
   } catch {
-    return "unknown";
+    return { outcome: "unknown", credits: null };
   }
 }
 
@@ -305,10 +310,18 @@ export async function POST(req: Request) {
     // loop stays inside the Worker wall clock.
     const verifyHttpStatuses: Record<string, number> = {};
     const verdicts = new Map<string, VerifyOutcome>();
+    // Batch runs in parallel, so calls don't resolve in spend order — the
+    // lowest credits value seen is the closest estimate of the true balance
+    // after the whole batch (every response reports the balance *after*
+    // its own deduction; the lowest one reflects the most credits spent).
+    let creditsRemaining: number | null = null;
     await Promise.all(
       partners.map(async (p) => {
-        if (p.contact_email) {
-          verdicts.set(p.id, await verifyEmail(p.contact_email, verifyHttpStatuses));
+        if (!p.contact_email) return;
+        const { outcome, credits } = await verifyEmail(p.contact_email, verifyHttpStatuses);
+        verdicts.set(p.id, outcome);
+        if (credits !== null) {
+          creditsRemaining = creditsRemaining === null ? credits : Math.min(creditsRemaining, credits);
         }
       })
     );
@@ -398,6 +411,7 @@ export async function POST(req: Request) {
         enrolledByType,
         skippedNoCampaign,
         verification: { ...verifyCounts, blockedInvalid, http: verifyHttpStatuses },
+        verification_credits_remaining: creditsRemaining,
       },
     };
   });

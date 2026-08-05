@@ -81,15 +81,21 @@ export async function POST(req: Request) {
     const cc = parseList(process.env.DAILY_REPORT_CC, DEFAULT_CC);
     const { report, response } = await sendDailyReport(to, cc);
     return {
-      records_pulled: report.snapshot.totalLeads,
+      records_pulled: report.pipeline.queueDepth ?? 0,
       records_updated: 1,
       metadata: {
         to,
         cc,
         resend_id: response?.id ?? null,
         date: report.date,
+        status: report.status,
+        headline: report.headline,
+        issues: report.issues,
         yesterday: report.yesterday,
-        snapshot: report.snapshot,
+        last7Days: report.last7Days,
+        pipeline: report.pipeline,
+        sendingAutoPaused: report.sendingAutoPaused,
+        pausedCampaigns: report.pausedCampaigns,
         forced: force,
       },
     };
