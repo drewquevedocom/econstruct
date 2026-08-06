@@ -50,7 +50,8 @@ export async function POST(req: Request) {
       source: "Cold Outreach",
       status: "New Lead",
       referral_agreement_status: "Not Started",
-      referral_fee: 5000,
+      // No fee until a real agreement exists — see 20260805_referral_fee_compliance.sql.
+      referral_fee: null,
       assigned_to: "Drew Quevedo",
       notes: lead.notes ?? "Email verified via SMTP pattern matching",
       created_at: nowIso,

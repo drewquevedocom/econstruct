@@ -168,6 +168,30 @@ async function fetchVerificationCredits(
   return null;
 }
 
+// ── Verification halt — Phase 1 fail-closed check ──────────────────────
+// partner-enroll now refuses to enroll anyone when verification is down for
+// a whole batch and marks its own run "failed" with reason
+// "verification_unavailable" (see AgentHaltError in lib/agents/runner.ts).
+// That's a specific, known cause for zero partner sends — worth naming
+// directly instead of letting it fall through to the generic "something is
+// broken" message.
+async function checkVerificationHalted(
+  supabase: ReturnType<typeof createServiceClient>,
+  dayBounds: { startIso: string; endIso: string }
+): Promise<boolean> {
+  const { data, error } = await supabase
+    .from("agent_runs")
+    .select("metadata")
+    .eq("agent_name", "partner-enroll")
+    .eq("status", "failed")
+    .gte("started_at", dayBounds.startIso)
+    .lt("started_at", dayBounds.endIso);
+  if (error || !data) return false;
+  return data.some(
+    (run) => (run.metadata as Record<string, unknown> | null)?.reason === "verification_unavailable"
+  );
+}
+
 // ── DNS auth check (SPF / DKIM / DMARC) via DNS-over-HTTPS ────────────────
 // Instantly's API has no live "is this domain's DNS configured right now"
 // field — the only real source of truth is the DNS itself, so we query it
@@ -227,6 +251,7 @@ export async function buildDailyReport(): Promise<DailyReportData> {
     oooTodayRes,
     replies7dRes,
     verificationCredits,
+    verificationHalted,
     dnsResults,
     partnersEligibleRes,
     newBuildEligibleRes,
@@ -254,6 +279,7 @@ export async function buildDailyReport(): Promise<DailyReportData> {
       .gte("created_at", sevenDayStartBounds.startIso)
       .lt("created_at", todayBounds.endIso),
     fetchVerificationCredits(supabase, todayBounds),
+    checkVerificationHalted(supabase, todayBounds),
     Promise.all(SENDING_DOMAINS.map(checkDomainAuth)),
     // queue_depth: leads actually eligible to enroll right now — the exact
     // WHERE clause partner-enroll/campaign-enroll use to pull their batch,
@@ -361,8 +387,17 @@ export async function buildDailyReport(): Promise<DailyReportData> {
       message: "We couldn't check how many people are left to email.",
     });
   }
+  if (verificationHalted) {
+    // Specific and takes priority over the generic "something is broken"
+    // below — partner-enroll refused to send because it couldn't confirm
+    // addresses were real, exactly as designed.
+    issues.push({
+      severity: "RED",
+      message: "We couldn't check if partner addresses were safe to email, so none went out. Fix the address checker.",
+    });
+  }
   if (queueDepth !== null && queueDepth > 0) {
-    if (emailsSentToday === 0) {
+    if (emailsSentToday === 0 && !verificationHalted) {
       issues.push({ severity: "RED", message: "Nothing went out today — something is broken." });
     } else if (emailsSentToday === null) {
       issues.push({

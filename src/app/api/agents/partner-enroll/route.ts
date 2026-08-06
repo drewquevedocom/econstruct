@@ -1,5 +1,6 @@
-import { runAgent, validateCronSecret } from "@/lib/agents/runner";
+import { runAgent, validateCronSecret, AgentHaltError } from "@/lib/agents/runner";
 import { createServiceClient } from "@/lib/supabase/server";
+import { getSuppressedEmails } from "@/lib/suppression";
 
 export const maxDuration = 60;
 
@@ -284,10 +285,23 @@ export async function POST(req: Request) {
       [...enabledTop, ...enabledRest],
       BATCH_SIZE - fromTop.length - fromRest.length
     );
-    const partners: PartnerRow[] = [...fromTop, ...fromRest, ...backfill];
+    const drawn: PartnerRow[] = [...fromTop, ...fromRest, ...backfill];
+
+    if (!drawn.length) {
+      return { records_pulled: 0, records_updated: 0 };
+    }
+
+    // Suppression check before verification — no sense spending a
+    // verification credit on an address that's unsubscribed/bounced/complained.
+    const suppressed = await getSuppressedEmails(
+      supabase,
+      drawn.map((p) => p.contact_email).filter((e): e is string => Boolean(e))
+    );
+    const partners = drawn.filter((p) => !p.contact_email || !suppressed.has(p.contact_email.toLowerCase()));
+    const skippedSuppressed = drawn.length - partners.length;
 
     if (!partners.length) {
-      return { records_pulled: 0, records_updated: 0 };
+      return { records_pulled: drawn.length, records_updated: 0, metadata: { skippedSuppressed } };
     }
 
     let enrolled = 0;
@@ -326,6 +340,22 @@ export async function POST(req: Request) {
       })
     );
 
+    // Fail-closed, whole-batch: if verification couldn't complete for every
+    // single lead in this batch, that's not coincidence — it means the
+    // verification API is down (credits exhausted, 403, timeout, etc). The
+    // 2026-07-10 incident happened because this case fell through silently:
+    // every lead "verified" as unknown, fail-open let them all send anyway,
+    // and it took three weeks to notice. Halt before enrolling anyone and
+    // let runAgent mark this run failed so it can't go unnoticed again.
+    const unknownCount = partners.filter((p) => (verdicts.get(p.id) ?? "unknown") === "unknown").length;
+    if (unknownCount === partners.length) {
+      throw new AgentHaltError(
+        `Verification unavailable for the entire batch (${partners.length} leads) — refusing to enroll unverified.`,
+        { reason: "verification_unavailable", batchSize: partners.length, http: verifyHttpStatuses }
+      );
+    }
+
+    let skippedUnverified = 0;
     for (const p of partners) {
       try {
         if (!p.contact_email) continue;
@@ -343,6 +373,13 @@ export async function POST(req: Request) {
             })
             .eq("id", p.id);
           blockedInvalid++;
+          continue;
+        }
+        if (verdict === "unknown") {
+          // Fail-closed: verification didn't complete reliably for this
+          // specific lead. Left as "New Lead" (not retired) so it's picked
+          // up again once verification is working — never enrolled unverified.
+          skippedUnverified++;
           continue;
         }
 
@@ -403,15 +440,16 @@ export async function POST(req: Request) {
     await Promise.all(Object.keys(enrolledByCampaign).map(activateCampaign));
 
     return {
-      records_pulled: partners.length,
+      records_pulled: drawn.length,
       records_updated: enrolled,
       errors,
       metadata: {
         enrolledByCampaign,
         enrolledByType,
         skippedNoCampaign,
-        verification: { ...verifyCounts, blockedInvalid, http: verifyHttpStatuses },
+        verification: { ...verifyCounts, blockedInvalid, skippedUnverified, http: verifyHttpStatuses },
         verification_credits_remaining: creditsRemaining,
+        skippedSuppressed,
       },
     };
   });

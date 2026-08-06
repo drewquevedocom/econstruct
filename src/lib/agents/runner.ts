@@ -13,6 +13,21 @@ export interface AgentContext {
   agentName: string;
 }
 
+/** Throw this to stop an agent run before it takes any action, while still
+ * recording *why* on the failed run — e.g. "verification was unavailable for
+ * the whole batch, refused to enroll unverified." A plain Error would still
+ * mark the run failed and alert, but its context would be lost; this carries
+ * structured metadata through to agent_runs so other agents (like the daily
+ * report) can read the reason, not just "something failed." */
+export class AgentHaltError extends Error {
+  metadata?: Record<string, unknown>;
+  constructor(message: string, metadata?: Record<string, unknown>) {
+    super(message);
+    this.name = "AgentHaltError";
+    this.metadata = metadata;
+  }
+}
+
 async function createAgentRun(agentName: string): Promise<string> {
   const supabase = createServiceClient();
   const staleBefore = new Date(Date.now() - 15 * 60 * 1000).toISOString();
@@ -46,6 +61,10 @@ async function completeAgentRun(
   result: { status: string; duration_ms: number } & AgentResult
 ) {
   const supabase = createServiceClient();
+  // metadata was previously accepted on AgentResult but never written here —
+  // every run's metadata (verification credit balance, halt reasons, per-type
+  // breakdowns, etc.) was silently discarded. Anything reading it back later
+  // (daily-report.ts) was always getting null.
   await supabase
     .from("agent_runs")
     .update({
@@ -56,6 +75,7 @@ async function completeAgentRun(
       records_created: result.records_created ?? 0,
       records_updated: result.records_updated ?? 0,
       errors: result.errors ?? [],
+      metadata: result.metadata ?? null,
     })
     .eq("id", runId);
 }
@@ -105,6 +125,7 @@ export async function runAgent<T extends AgentResult>(
       status: "failed",
       duration_ms,
       errors: [message],
+      metadata: err instanceof AgentHaltError ? err.metadata : undefined,
     });
     await notifyAgentFailure(agentName, `FAILED after ${duration_ms}ms: ${message}`);
 

@@ -122,7 +122,7 @@ type PartnerInsert = {
   contact_phone: string | null;
   linkedin_url: string | null;
   referral_agreement_status: string;
-  referral_fee: number;
+  referral_fee: number | null;
   notes: string;
   assigned_to: string;
   status: string;
@@ -161,7 +161,8 @@ function mapRow(
     contact_phone: phone,
     linkedin_url: linkedin,
     referral_agreement_status: "Not Started",
-    referral_fee: 5000,
+    // No fee until a real agreement exists — see 20260805_referral_fee_compliance.sql.
+    referral_fee: null,
     notes: notesParts.join(" | "),
     assigned_to: "Drew Quevedo",
     status: "New Lead",

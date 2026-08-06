@@ -1,5 +1,6 @@
 import { runAgent, validateCronSecret } from "@/lib/agents/runner";
 import { createServiceClient } from "@/lib/supabase/server";
+import { getSuppressedEmails } from "@/lib/suppression";
 
 export const maxDuration = 60;
 
@@ -107,7 +108,17 @@ export async function POST(req: Request) {
     const enrolledLeadIds = new Set(
       existingActivities?.map((activity) => activity.lead_id) ?? []
     );
-    const eligibleLeads = leads.filter((lead) => !enrolledLeadIds.has(lead.id));
+    const notYetEnrolled = leads.filter((lead) => !enrolledLeadIds.has(lead.id));
+
+    // Suppression check — unsubscribed/bounced/complained on either track
+    // must never be re-enrolled, regardless of which track suppressed them.
+    const suppressed = await getSuppressedEmails(
+      supabase,
+      notYetEnrolled.map((lead) => lead.email).filter((e): e is string => Boolean(e))
+    );
+    const eligibleLeads = notYetEnrolled.filter(
+      (lead) => !lead.email || !suppressed.has(lead.email.toLowerCase())
+    );
     if (!eligibleLeads.length) {
       return { records_pulled: leads.length, records_updated: 0 };
     }

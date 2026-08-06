@@ -164,7 +164,8 @@ export async function POST(req: NextRequest) {
       contact_phone: m.phone,
       linkedin_url: m.linkedin,
       referral_agreement_status: "Not Started",
-      referral_fee: 5000,
+      // No fee until a real agreement exists — see 20260805_referral_fee_compliance.sql.
+      referral_fee: null,
       notes: notesParts.join(" | "),
       assigned_to: "Drew Quevedo",
       status: "New Lead",

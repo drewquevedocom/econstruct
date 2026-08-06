@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { suppressEmail } from '@/lib/suppression';
 
 const INSTANTLY_API = 'https://api.instantly.ai/api/v2';
 // Hot-lead notifications go to every address listed in HOT_LEAD_NOTIFY_EMAILS
@@ -410,8 +411,22 @@ async function handleUnsubscribe(params: {
 
   if (!partner) {
     console.warn(`Unsubscribe: no partner found for email=${leadEmail} id=${partnerLeadId}`);
+    // No partner_leads match — still suppress the address globally so a
+    // future enrollment on either track never re-sends to it. Check the
+    // homeowner table for the real track; default to 'partner' (today's
+    // near-total volume) only if neither table has a match.
+    if (leadEmail) {
+      const { data: homeownerLead } = await supabase
+        .from('leads')
+        .select('id')
+        .eq('email', leadEmail.toLowerCase())
+        .maybeSingle();
+      await suppressEmail(supabase, leadEmail, 'unsubscribed', homeownerLead ? 'homeowner' : 'partner');
+    }
     return;
   }
+
+  await suppressEmail(supabase, partner.contact_email || leadEmail, 'unsubscribed', 'partner');
 
   const notes = [
     partner.notes,
@@ -441,6 +456,66 @@ async function handleUnsubscribe(params: {
     partnerType: partner.partner_type || 'Unknown',
     campaignName,
   });
+}
+
+// ── Hard bounce handler ─────────────────────────────────────────────────────
+// Instantly's public webhook docs for `email_bounced` don't document a
+// hard/soft distinction field (checked 2026-08-05 against the live API docs
+// — only a generic {timestamp, event_type, campaign_name, workspace,
+// campaign_id} shape, plus unspecified "additional fields based on
+// availability"). This defensively checks a few plausible field names in
+// case Instantly does send one; if none is present (the documented, common
+// case), every email_bounced event is treated as a hard bounce. Deliberate,
+// disclosed judgment call — at ~4-5 emails/day of one-time cold outreach,
+// the cost of over-suppressing an occasional soft bounce is far lower than
+// repeatedly hammering a dead mailbox and burning sender reputation.
+function isSoftBounce(payload: Record<string, unknown>): boolean {
+  const raw = String(payload.bounce_type ?? payload.bounceType ?? '').toLowerCase();
+  if (raw === 'soft') return true;
+  if (payload.is_hard_bounce === false || payload.is_hard === false) return true;
+  return false;
+}
+
+async function handleHardBounce(params: { supabase: SupabaseClient; leadEmail: string }) {
+  const { supabase, leadEmail } = params;
+  if (!leadEmail) return;
+  const email = leadEmail.toLowerCase();
+  const today = new Date().toISOString().slice(0, 10);
+
+  const { data: partner } = await supabase
+    .from('partner_leads')
+    .select('id, notes')
+    .eq('contact_email', email)
+    .maybeSingle();
+
+  if (partner) {
+    await supabase
+      .from('partner_leads')
+      .update({
+        status: 'Inactive',
+        notes: [partner.notes, `${today}: hard bounce via Instantly. Status set to Inactive. Do not re-contact.`]
+          .filter(Boolean)
+          .join('\n'),
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', partner.id);
+    await suppressEmail(supabase, email, 'hard_bounce', 'partner');
+    return;
+  }
+
+  const { data: homeownerLead } = await supabase.from('leads').select('id').eq('email', email).maybeSingle();
+  if (homeownerLead) {
+    await supabase
+      .from('leads')
+      .update({ dnc: true, updated_at: new Date().toISOString() })
+      .eq('id', homeownerLead.id);
+    await suppressEmail(supabase, email, 'hard_bounce', 'homeowner');
+    return;
+  }
+
+  // No match in either table — still suppress globally so neither track can
+  // ever enroll it later. Default track reflects today's near-all-partner volume.
+  await suppressEmail(supabase, email, 'hard_bounce', 'partner');
 }
 
 async function notifyUnsubscribe(params: {
@@ -533,6 +608,46 @@ export async function POST(req: NextRequest) {
         });
       }
       return NextResponse.json({ success: true, event: eventType, handled: 'unsubscribe' });
+    }
+
+    // Hard bounce events — suppress the address on whichever track it
+    // belongs to so neither partner-enroll nor campaign-enroll ever sends
+    // to it again. Previously unhandled entirely (only logged to lead_events).
+    if (eventType === 'email_bounced') {
+      const soft = isSoftBounce(payload);
+      if (supabase) {
+        // The generic log above already stores event_type='email_bounced' +
+        // raw payload for every event, but this row records what our code
+        // actually *decided* — the isSoftBounce() classification is a
+        // reasoned judgment (no documented field distinguishes hard/soft),
+        // not a verified fact. Querying this event type in a month shows
+        // exactly which fields were checked, what the raw payload actually
+        // contained, and how many bounces (if any) were ever classified
+        // soft — the evidence needed to revisit the call instead of
+        // re-guessing it.
+        await supabase.from('lead_events').insert([{
+          lead_email: leadEmail,
+          event_type: soft ? 'bounce_classified_soft' : 'bounce_classified_hard',
+          campaign_id: campaignId,
+          payload: {
+            classified_as: soft ? 'soft' : 'hard',
+            checked_fields: {
+              bounce_type: payload.bounce_type ?? null,
+              bounceType: payload.bounceType ?? null,
+              is_hard_bounce: payload.is_hard_bounce ?? null,
+              is_hard: payload.is_hard ?? null,
+            },
+            raw: payload,
+          },
+          created_at: new Date().toISOString(),
+        }]).then(({ error }) => {
+          if (error) console.error('lead_events bounce classification log error:', error);
+        });
+      }
+      if (supabase && leadEmail && !soft) {
+        await handleHardBounce({ supabase, leadEmail });
+      }
+      return NextResponse.json({ success: true, event: eventType, handled: soft ? 'soft_bounce' : 'bounce' });
     }
 
     // Only process reply events for AI classification

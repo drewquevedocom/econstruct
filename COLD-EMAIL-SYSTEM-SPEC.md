@@ -8,6 +8,65 @@
 
 ---
 
+## CURRENT STATUS — READ THIS FIRST
+
+**Last session ended:** 2026-08-05
+
+| Phase | Status |
+|---|---|
+| **Phase 0** — Daily report rewrite | ✅ **DONE.** Committed `1b273bf` |
+| **Phase 1** — Deliverability floor | 🔵 **IN PROGRESS** — see next action |
+| **Phase 2** — Sequence engine | ⬜ Not started |
+| **Phase 3** — LADBS sourcing | ⬜ Not started |
+
+### NEXT ACTION — Phase 1 DNS (unblocked, highest leverage)
+
+**Do this first. Nothing is blocking it. No approval needed from Frank.**
+
+Two of three sending domains are missing **DKIM/DMARC**. They have been failing Google and Yahoo authentication requirements since **Feb 2024** (Microsoft since May 2025). Mail from them is being filtered before anyone sees it.
+
+**Until this is fixed, everything downstream is wasted effort** — verified addresses still land in spam, better copy never gets read, new leads never see us.
+
+Steps:
+1. Instantly → **Accounts** → select each unauthenticated domain
+2. It displays the exact DNS records needed and flags which are missing
+3. Paste those records into **Cloudflare DNS**
+4. Wait ~30 min to propagate, re-check in Instantly until all green
+
+**Do this BEFORE buying verification credits.** No point paying to send clean mail through a broken pipe.
+
+### Phase 1 remaining
+
+| Item | Owner | Status |
+|---|---|---|
+| DMARC/DKIM on 2 domains | Drew | ⬜ **NEXT — do first** |
+| $30 Instantly verification credits (existing account, not a new vendor) | Drew | ⬜ After DNS |
+| Fail-closed verification | Antigravity | 🔵 Prompt sent 8/5 |
+| Unified suppression list | Antigravity | 🔵 Prompt sent 8/5 |
+| Strip `referral_fee: 5000` from data layer | Antigravity | 🔵 Prompt sent 8/5 |
+| Bounce circuit breaker + auto-pause | — | ✅ Delivered in Phase 0 |
+
+### Decisions made during Phase 1 build (8/5)
+
+**All bounces treated as hard bounces → permanent suppression.**
+Instantly's `email_bounced` webhook has **no documented field** distinguishing hard from soft bounces (verified against their live API docs). Rather than guess, we suppress on every bounce.
+
+Rationale: at ~4–5 emails/day of one-time cold outreach, wrongly suppressing a soft bounce costs **one address**. Repeatedly hammering a dead mailbox costs **sender reputation** — the scarce asset. Asymmetric risk, so we take the conservative side.
+
+*This is a judgment call, not a verified fact.* Raw bounce payloads are logged to `lead_events` so it can be revisited with real evidence rather than re-guessed.
+
+**Bug found: `completeAgentRun()` never persisted metadata.**
+The `metadata` field was accepted and silently discarded on every agent run. This means Phase 0's `verification_credits_remaining` write path **was broken from the start and never worked**. Fixed in Phase 1 along with a migration ensuring `agent_runs.metadata` exists.
+
+**Referral fee removal was wider than one file.** `referral_fee` was `NOT NULL DEFAULT 5000` at the column level — removing it from the insert alone would have had zero effect, the default would silently reapply. Fixed across 4 bulk-ingestion paths (`partner-refresh`, `apollo-enrich-batch`, `verified-leads-insert`, `import-partners`). Existing rows nulled **only** where `referral_fee = 5000 AND referral_agreement_status = 'Not Started'`, preserving real negotiated deals. Frank's manual partner form is deliberately untouched — that's a human entering a real term.
+
+### Also open
+
+- **REQ-22** — Google Postmaster Tools integration (spam complaint visibility). Phase 1 nice-to-have, not blocking.
+- **First fixed daily report** fires 5:05pm PT. If it comes back RED with "No one left to email," that is correct behavior — the queue genuinely is empty. That is the system telling the truth for the first time.
+
+---
+
 ## LOCKED DECISIONS
 
 These were decided with real numbers. Do not re-open without new data.
@@ -108,7 +167,7 @@ Captured so these stop being re-proposed. Revisit only if reply volume justifies
 | `bounces_today` | Instantly bounce events | — |
 | `bounce_rate_7d` | bounces ÷ sends, rolling 7d | Lifetime average |
 | `queue_depth` | Count of leads eligible to enroll **right now** | Total leads in table |
-| `verification_credits` | Verifier API balance | Cached/assumed value |
+| `verification_credits` | `agent_runs.metadata.verification_credits_remaining` — captured by `partner-enroll` during its own real verification calls (lowest value in batch, since credits only decrease). Prints `unavailable` if no verification ran that day | A live ping just to read the balance — that burns a credit per report (~365/yr) |
 | `campaign_status` | Instantly campaign state per campaign | Assumed "active" |
 | `new_leads_sourced_7d` | Rows inserted into lead tables, last 7d | — |
 
@@ -127,7 +186,22 @@ Captured so these stop being re-proposed. Revisit only if reply volume justifies
 | 7 | Any domain failing SPF/DKIM/DMARC | RED | "One of our email addresses isn't set up right." |
 | 8 | All clear | GREEN | "Everything running normally." |
 
-RED conditions 3 and 4 must **auto-pause sending**, not just warn.
+RED condition 3 must **auto-pause sending**, not just warn. (Condition 4 is not implemented — see KNOWN GAP below.)
+
+##### Auto-pause resume policy — MANUAL ONLY
+
+**Decided 8/5. Do not change to auto-resume without reading this.**
+
+A bounce-triggered pause is **never** lifted automatically.
+
+**Why:** a paused campaign's 7-day bounce rate falls simply because it stopped sending — not because the underlying problem (dead addresses, no verification credits) was fixed. Auto-resuming on a recovered rate would walk straight back into the same spike. The metric recovers before the cause does.
+
+**Behavior:**
+- The RED issue **persists every day** a campaign sits paused, even after the rate looks healthy
+- Two distinct messages: rate *still actively bad*, vs *recovered but still paused*
+- The report can never go GREEN while sending is silently off
+
+Resume is a deliberate human action taken after confirming the actual cause is fixed — credits topped up, verification passing, bad addresses purged.
 
 ##### Output format — plain language, 30-second read
 
