@@ -13,10 +13,29 @@ export type TicketForEmail = {
   description: string | null;
   category: string;
   priority: string;
+  website: string | null;
   due_date: string | null;
   submitted_by: string;
   assigned_to: string;
 };
+
+const WEBSITE_TAG: Record<string, string> = {
+  inc: "INC",
+  homes: "HOMES",
+  crm: "CRM",
+};
+
+const WEBSITE_FULL: Record<string, string> = {
+  inc: "INC — econstructinc.com",
+  homes: "HOMES — econstructhomes.com",
+  crm: "CRM / Internal",
+};
+
+/** "[HOMES] " subject prefix, or empty for legacy tickets without a site. */
+function siteTag(ticket: TicketForEmail) {
+  const tag = ticket.website ? WEBSITE_TAG[ticket.website] : undefined;
+  return tag ? `[${tag}] ` : "";
+}
 
 function getResend(): Resend | null {
   if (!process.env.RESEND_API_KEY) {
@@ -48,6 +67,7 @@ function wrap(subject: string, bodyHtml: string) {
 function ticketTable(ticket: TicketForEmail) {
   return `
     <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
+      ${ticket.website ? `<tr><td style="padding:8px 0;font-size:13px;color:#666;width:35%;font-weight:600;">Website</td><td style="padding:8px 0;font-size:14px;font-weight:700;">${WEBSITE_FULL[ticket.website] ?? ticket.website}</td></tr>` : ""}
       <tr><td style="padding:8px 0;font-size:13px;color:#666;width:35%;font-weight:600;">Category</td><td style="padding:8px 0;font-size:14px;">${ticket.category}</td></tr>
       <tr><td style="padding:8px 0;font-size:13px;color:#666;font-weight:600;">Priority</td><td style="padding:8px 0;font-size:14px;">${ticket.priority}</td></tr>
       ${ticket.due_date ? `<tr><td style="padding:8px 0;font-size:13px;color:#666;font-weight:600;">Due Date</td><td style="padding:8px 0;font-size:14px;">${ticket.due_date}</td></tr>` : ""}
@@ -63,7 +83,7 @@ function ctaButton(url: string, label: string) {
 export async function notifyDrewNewTicket(ticket: TicketForEmail) {
   const resend = getResend();
   if (!resend) return;
-  const subject = `New Support Ticket #REQ-${ticket.ref_number}: ${ticket.title}`;
+  const subject = `${siteTag(ticket)}New Support Ticket #REQ-${ticket.ref_number}: ${ticket.title}`;
   await resend.emails
     .send({
       from: FROM,
@@ -80,7 +100,7 @@ export async function notifyDrewNewTicket(ticket: TicketForEmail) {
 export async function notifyFrankForReview(ticket: TicketForEmail) {
   const resend = getResend();
   if (!resend) return;
-  const subject = `Ready for Your Review — #REQ-${ticket.ref_number}: ${ticket.title}`;
+  const subject = `${siteTag(ticket)}Ready for Your Review — #REQ-${ticket.ref_number}: ${ticket.title}`;
   await resend.emails
     .send({
       from: FROM,

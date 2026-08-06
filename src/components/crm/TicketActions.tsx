@@ -12,6 +12,8 @@ import {
   unarchiveTicket,
   reopenTicket,
   setTicketStatus,
+  setTicketPriority,
+  setTicketDueDate,
 } from "@/app/crm/support/actions";
 
 const STATUS_OPTIONS: Array<{ value: string; label: string }> = [
@@ -23,13 +25,26 @@ const STATUS_OPTIONS: Array<{ value: string; label: string }> = [
   { value: "reopened", label: "Reopened" },
 ];
 
+// Real enum values on the priority column (low/normal/high/urgent) — not
+// Low/Medium/High/Urgent.
+const PRIORITY_OPTIONS: Array<{ value: string; label: string }> = [
+  { value: "low", label: "Low" },
+  { value: "normal", label: "Normal" },
+  { value: "high", label: "High" },
+  { value: "urgent", label: "Urgent" },
+];
+
 export default function TicketActions({
   ticketId,
   status,
+  priority,
+  dueDate,
   archivedAt,
 }: {
   ticketId: string;
   status: string;
+  priority: string;
+  dueDate: string | null;
   archivedAt?: string | null;
 }) {
   const router = useRouter();
@@ -39,6 +54,10 @@ export default function TicketActions({
   const [sendBackNote, setSendBackNote] = useState("");
   const [showOverride, setShowOverride] = useState(false);
   const [overrideStatus, setOverrideStatus] = useState(status);
+  const [showPriorityOverride, setShowPriorityOverride] = useState(false);
+  const [overridePriority, setOverridePriority] = useState(priority);
+  const [showDueDateOverride, setShowDueDateOverride] = useState(false);
+  const [overrideDueDate, setOverrideDueDate] = useState(dueDate ?? "");
 
   function run(action: () => Promise<{ success?: boolean; error?: string }>) {
     setError(null);
@@ -206,6 +225,78 @@ export default function TicketActions({
             >
               {pending ? "Saving..." : "Set Status"}
             </button>
+          </div>
+        )}
+      </div>
+
+      {/* Manual priority override — same pattern as the status override:
+          no workflow gating, works on closed tickets. */}
+      <div>
+        <button
+          onClick={() => setShowPriorityOverride((v) => !v)}
+          className="text-xs font-bold uppercase tracking-wide text-gray-400 hover:text-[#B8963E]"
+        >
+          {showPriorityOverride ? "▾ Fix priority manually" : "▸ Fix priority manually"}
+        </button>
+        {showPriorityOverride && (
+          <div className="mt-2 flex items-center gap-2">
+            <select
+              value={overridePriority}
+              onChange={(e) => setOverridePriority(e.target.value)}
+              className="rounded-lg border border-[#E8E4DC] px-3 py-2 text-sm focus:border-[#B8963E] focus:outline-none"
+            >
+              {PRIORITY_OPTIONS.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
+            </select>
+            <button
+              onClick={() => run(() => setTicketPriority(ticketId, overridePriority))}
+              disabled={pending || overridePriority === priority}
+              className="rounded-lg border border-[#E8E4DC] px-4 py-2 text-sm font-bold text-[#1C1C1E] hover:bg-[#FAF9F6] disabled:opacity-50"
+            >
+              {pending ? "Saving..." : "Set Priority"}
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Manual due-date override — supports clearing back to no date and
+          accepts past dates on purpose (backdating a wrong deadline). */}
+      <div>
+        <button
+          onClick={() => setShowDueDateOverride((v) => !v)}
+          className="text-xs font-bold uppercase tracking-wide text-gray-400 hover:text-[#B8963E]"
+        >
+          {showDueDateOverride ? "▾ Fix due date manually" : "▸ Fix due date manually"}
+        </button>
+        {showDueDateOverride && (
+          <div className="mt-2 flex items-center gap-2">
+            <input
+              type="date"
+              value={overrideDueDate}
+              onChange={(e) => setOverrideDueDate(e.target.value)}
+              className="rounded-lg border border-[#E8E4DC] px-3 py-2 text-sm focus:border-[#B8963E] focus:outline-none"
+            />
+            <button
+              onClick={() =>
+                run(() => setTicketDueDate(ticketId, overrideDueDate || null))
+              }
+              disabled={pending || (overrideDueDate || null) === (dueDate ?? null)}
+              className="rounded-lg border border-[#E8E4DC] px-4 py-2 text-sm font-bold text-[#1C1C1E] hover:bg-[#FAF9F6] disabled:opacity-50"
+            >
+              {pending ? "Saving..." : "Set Due Date"}
+            </button>
+            {overrideDueDate && (
+              <button
+                onClick={() => setOverrideDueDate("")}
+                disabled={pending}
+                className="text-xs font-bold text-gray-400 hover:text-red-600 disabled:opacity-50"
+              >
+                Clear
+              </button>
+            )}
           </div>
         )}
       </div>

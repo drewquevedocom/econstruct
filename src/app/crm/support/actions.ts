@@ -15,6 +15,7 @@ const ATTACHMENT_BUCKET = "ticket-attachments";
 const DEV_EMAIL = "dq@drewquevedo.com";
 
 const VALID_CATEGORIES = ["front_end", "back_end", "mobile_app", "other"];
+const VALID_WEBSITES = ["inc", "homes", "crm"];
 const VALID_PRIORITIES = ["low", "normal", "high", "urgent"];
 const VALID_STATUSES = ["pending", "new", "in_progress", "review", "verified_complete", "reopened"];
 
@@ -44,7 +45,7 @@ async function fetchTicketForEmail(
 ): Promise<TicketForEmail | null> {
   const { data } = await supabase
     .from("support_tickets")
-    .select("id, ref_number, title, description, category, priority, due_date, submitted_by, assigned_to")
+    .select("id, ref_number, title, description, category, priority, website, due_date, submitted_by, assigned_to")
     .eq("id", ticketId)
     .single();
   return data as TicketForEmail | null;
@@ -55,12 +56,16 @@ export async function createTicket(input: {
   description?: string;
   category: string;
   priority: string;
+  website: string;
   due_date?: string;
   pending?: boolean;
 }) {
   if (!input.title?.trim()) return { error: "Title is required" };
   if (!VALID_CATEGORIES.includes(input.category)) return { error: "Invalid category" };
   if (!VALID_PRIORITIES.includes(input.priority)) return { error: "Invalid priority" };
+  if (!VALID_WEBSITES.includes(input.website)) {
+    return { error: "Pick which website this ticket is for" };
+  }
 
   const supabase = createServiceClient();
   const [submittedBy, assignedTo] = await Promise.all([
@@ -79,6 +84,7 @@ export async function createTicket(input: {
       description: input.description?.trim() || null,
       category: input.category,
       priority: input.priority,
+      website: input.website,
       due_date: input.due_date || null,
       status,
       submitted_by: submittedBy,
@@ -186,6 +192,40 @@ export async function sendBack(ticketId: string, note: string) {
   return { success: true };
 }
 
+/** Set or change which website a ticket is for. Exists mainly so tickets
+ * created before the website column (or mislabeled ones) can be fixed from
+ * the ticket page. Logs the change to the activity feed; no emails. */
+export async function setTicketWebsite(ticketId: string, website: string) {
+  if (!VALID_WEBSITES.includes(website)) return { error: "Invalid website" };
+
+  const supabase = createServiceClient();
+  const { data: current, error: fetchError } = await supabase
+    .from("support_tickets")
+    .select("website")
+    .eq("id", ticketId)
+    .single();
+  if (fetchError) return { error: fetchError.message };
+  if (current.website === website) return { success: true };
+
+  const { error } = await supabase
+    .from("support_tickets")
+    .update({ website })
+    .eq("id", ticketId);
+  if (error) return { error: error.message };
+
+  await supabase.from("ticket_activity").insert({
+    ticket_id: ticketId,
+    actor: await currentActorName(),
+    action: "website_change",
+    old_value: current.website,
+    new_value: website,
+  });
+
+  revalidatePath("/crm/support");
+  revalidatePath(`/crm/support/${ticketId}`);
+  return { success: true };
+}
+
 /** Manual status override — the corrective tool for tickets stuck in the
  * wrong state (e.g. accidentally approved). Sends no notification emails,
  * unlike the workflow actions; the DB trigger still logs the status_change
@@ -213,6 +253,72 @@ export async function setTicketStatus(ticketId: string, status: string) {
     .update(update)
     .eq("id", ticketId);
   if (error) return { error: error.message };
+
+  revalidatePath("/crm/support");
+  revalidatePath(`/crm/support/${ticketId}`);
+  return { success: true };
+}
+
+/** Manual priority override — same shape as setTicketStatus (no workflow
+ * gating, works on any ticket including closed ones), but priority has no
+ * DB trigger logging changes, so this logs to ticket_activity itself. */
+export async function setTicketPriority(ticketId: string, priority: string) {
+  if (!VALID_PRIORITIES.includes(priority)) return { error: "Invalid priority" };
+
+  const supabase = createServiceClient();
+  const { data: current, error: fetchError } = await supabase
+    .from("support_tickets")
+    .select("priority")
+    .eq("id", ticketId)
+    .single();
+  if (fetchError) return { error: fetchError.message };
+  if (current.priority === priority) return { success: true };
+
+  const { error } = await supabase
+    .from("support_tickets")
+    .update({ priority })
+    .eq("id", ticketId);
+  if (error) return { error: error.message };
+
+  await supabase.from("ticket_activity").insert({
+    ticket_id: ticketId,
+    actor: await currentActorName(),
+    action: "priority_change",
+    old_value: current.priority,
+    new_value: priority,
+  });
+
+  revalidatePath("/crm/support");
+  revalidatePath(`/crm/support/${ticketId}`);
+  return { success: true };
+}
+
+/** Manual due-date override. Accepts null to clear the date and accepts
+ * past dates on purpose (backdating a wrong deadline is the whole point of
+ * a manual override) — no validation against today. */
+export async function setTicketDueDate(ticketId: string, dueDate: string | null) {
+  const supabase = createServiceClient();
+  const { data: current, error: fetchError } = await supabase
+    .from("support_tickets")
+    .select("due_date")
+    .eq("id", ticketId)
+    .single();
+  if (fetchError) return { error: fetchError.message };
+  if (current.due_date === dueDate) return { success: true };
+
+  const { error } = await supabase
+    .from("support_tickets")
+    .update({ due_date: dueDate })
+    .eq("id", ticketId);
+  if (error) return { error: error.message };
+
+  await supabase.from("ticket_activity").insert({
+    ticket_id: ticketId,
+    actor: await currentActorName(),
+    action: "due_date_change",
+    old_value: current.due_date,
+    new_value: dueDate,
+  });
 
   revalidatePath("/crm/support");
   revalidatePath(`/crm/support/${ticketId}`);

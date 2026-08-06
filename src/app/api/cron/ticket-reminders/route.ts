@@ -27,7 +27,7 @@ async function handleReminderRun(req: Request) {
   const { data: overdue, error } = await supabase
     .from("support_tickets")
     .select(
-      "id, ref_number, title, description, category, priority, due_date, submitted_by, assigned_to, last_reminder_sent_at"
+      "id, ref_number, title, description, category, priority, website, due_date, submitted_by, assigned_to, last_reminder_sent_at"
     )
     .lt("due_date", todayIso)
     .neq("status", "verified_complete")
@@ -53,6 +53,7 @@ async function handleReminderRun(req: Request) {
     description: t.description,
     category: t.category,
     priority: t.priority,
+    website: t.website,
     due_date: t.due_date,
     submitted_by: t.submitted_by,
     assigned_to: t.assigned_to,

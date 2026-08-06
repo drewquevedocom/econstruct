@@ -17,6 +17,8 @@ export default function NewTicketForm() {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("front_end");
   const [priority, setPriority] = useState("normal");
+  // No default on purpose — every ticket must say which site it's for.
+  const [website, setWebsite] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [notReadyYet, setNotReadyYet] = useState(false);
   const [screenshot, setScreenshot] = useState<File | null>(null);
@@ -26,6 +28,7 @@ export default function NewTicketForm() {
     setDescription("");
     setCategory("front_end");
     setPriority("normal");
+    setWebsite("");
     setDueDate("");
     setNotReadyYet(false);
     setScreenshot(null);
@@ -36,12 +39,17 @@ export default function NewTicketForm() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
+    if (!website) {
+      setError("Pick which website this ticket is for.");
+      return;
+    }
     startTransition(async () => {
       const result = await createTicket({
         title,
         description,
         category,
         priority,
+        website,
         due_date: notReadyYet ? undefined : dueDate || undefined,
         pending: notReadyYet,
       });
@@ -98,6 +106,35 @@ export default function NewTicketForm() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="mb-1 block text-xs font-bold uppercase tracking-wide text-gray-500">
+                  Which Website? <span className="text-red-500">*</span>
+                </label>
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { value: "inc", label: "INC", domain: "econstructinc.com", active: "border-indigo-600 bg-indigo-600 text-white" },
+                    { value: "homes", label: "HOMES", domain: "econstructhomes.com", active: "border-[#B8963E] bg-[#B8963E] text-white" },
+                    { value: "crm", label: "CRM", domain: "internal / app", active: "border-gray-600 bg-gray-600 text-white" },
+                  ].map((site) => (
+                    <button
+                      key={site.value}
+                      type="button"
+                      onClick={() => setWebsite(site.value)}
+                      className={`rounded-lg border px-2 py-2.5 text-center transition-colors ${
+                        website === site.value
+                          ? site.active
+                          : "border-[#E8E4DC] bg-white text-[#1C1C1E] hover:border-[#B8963E]"
+                      }`}
+                    >
+                      <span className="block text-sm font-black tracking-wide">{site.label}</span>
+                      <span className={`block text-[10px] ${website === site.value ? "text-white/80" : "text-gray-400"}`}>
+                        {site.domain}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <div>
                 <label className="mb-1 block text-xs font-bold uppercase tracking-wide text-gray-500">
                   Title <span className="text-red-500">*</span>

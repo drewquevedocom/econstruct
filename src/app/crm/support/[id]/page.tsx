@@ -6,6 +6,7 @@ import { getCurrentRole } from "@/lib/auth/getCurrentRole";
 import TicketActions from "@/components/crm/TicketActions";
 import TicketNoteForm from "@/components/crm/TicketNoteForm";
 import EditableTicketNote from "@/components/crm/EditableTicketNote";
+import TicketWebsiteSelect from "@/components/crm/TicketWebsiteSelect";
 
 export const dynamic = "force-dynamic";
 
@@ -17,6 +18,7 @@ type Ticket = {
   category: string;
   priority: string;
   status: string;
+  website: string | null;
   submitted_by: string;
   assigned_to: string;
   due_date: string | null;
@@ -43,6 +45,18 @@ const CATEGORY_LABEL: Record<string, string> = {
   back_end: "Back End",
   mobile_app: "Mobile App",
   other: "Other",
+};
+
+const WEBSITE_LABEL: Record<string, string> = {
+  inc: "INC",
+  homes: "HOMES",
+  crm: "CRM",
+};
+
+const WEBSITE_TONE: Record<string, string> = {
+  inc: "bg-indigo-600 text-white",
+  homes: "bg-[#B8963E] text-white",
+  crm: "bg-gray-600 text-white",
 };
 
 const STATUS_LABEL: Record<string, string> = {
@@ -78,6 +92,17 @@ function activityLabel(a: Activity) {
     return `${a.actor} changed status: ${STATUS_LABEL[a.old_value ?? ""] ?? a.old_value} → ${
       STATUS_LABEL[a.new_value ?? ""] ?? a.new_value
     }`;
+  }
+  if (a.action === "website_change") {
+    const from = a.old_value ? WEBSITE_LABEL[a.old_value] ?? a.old_value : "not set";
+    const to = WEBSITE_LABEL[a.new_value ?? ""] ?? a.new_value;
+    return `${a.actor} set website: ${from} → ${to}`;
+  }
+  if (a.action === "priority_change") {
+    return `${a.actor} changed priority: ${a.old_value ?? "—"} → ${a.new_value ?? "—"}`;
+  }
+  if (a.action === "due_date_change") {
+    return `${a.actor} changed due date: ${a.old_value ?? "none"} → ${a.new_value ?? "none"}`;
   }
   return `${a.actor} left a note`;
 }
@@ -118,9 +143,20 @@ export default async function TicketDetailPage({
       <div className="rounded-2xl border border-[#E8E4DC] bg-white p-6">
         <div className="mb-4 flex flex-wrap items-start justify-between gap-4">
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-[#B8963E]">
-              #REQ-{t.ref_number}
-            </p>
+            <div className="flex items-center gap-2">
+              <p className="text-xs font-bold uppercase tracking-widest text-[#B8963E]">
+                #REQ-{t.ref_number}
+              </p>
+              {t.website && (
+                <span
+                  className={`rounded-md px-2.5 py-0.5 text-[11px] font-black tracking-wider ${
+                    WEBSITE_TONE[t.website] ?? "bg-gray-600 text-white"
+                  }`}
+                >
+                  {WEBSITE_LABEL[t.website] ?? t.website}
+                </span>
+              )}
+            </div>
             <h1 className="mt-1 text-2xl font-black text-[#1C1C1E]">{t.title}</h1>
           </div>
           <span
@@ -139,6 +175,12 @@ export default async function TicketDetailPage({
         )}
 
         <div className="mb-5 grid grid-cols-2 gap-4 rounded-xl bg-[#FAF9F6] p-4 text-sm sm:grid-cols-4">
+          <div>
+            <p className="mb-1 text-[10px] font-bold uppercase tracking-wide text-gray-400">
+              Website
+            </p>
+            <TicketWebsiteSelect ticketId={t.id} website={t.website} />
+          </div>
           <div>
             <p className="text-[10px] font-bold uppercase tracking-wide text-gray-400">Category</p>
             <p className="mt-0.5 font-semibold text-[#1C1C1E]">
@@ -175,7 +217,13 @@ export default async function TicketDetailPage({
           )}
         </div>
 
-        <TicketActions ticketId={t.id} status={t.status} archivedAt={t.archived_at} />
+        <TicketActions
+          ticketId={t.id}
+          status={t.status}
+          priority={t.priority}
+          dueDate={t.due_date}
+          archivedAt={t.archived_at}
+        />
       </div>
 
       <div className="rounded-2xl border border-[#E8E4DC] bg-white p-6">

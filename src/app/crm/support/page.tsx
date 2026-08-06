@@ -13,9 +13,25 @@ type TicketRow = {
   category: string;
   priority: string;
   status: string;
+  website: string | null;
   due_date: string | null;
   created_at: string;
+  verified_at: string | null;
   archived_at: string | null;
+};
+
+const WEBSITE_LABEL: Record<string, string> = {
+  inc: "INC",
+  homes: "HOMES",
+  crm: "CRM",
+};
+
+// Solid chips on purpose — every other badge on this table is pastel, so the
+// site label reads first, as requested.
+const WEBSITE_TONE: Record<string, string> = {
+  inc: "bg-indigo-600 text-white",
+  homes: "bg-[#B8963E] text-white",
+  crm: "bg-gray-600 text-white",
 };
 
 const CATEGORY_LABEL: Record<string, string> = {
@@ -73,6 +89,13 @@ const CATEGORY_FILTERS = [
   { value: "other", label: "Other" },
 ];
 
+const SITE_FILTERS = [
+  { value: "all", label: "All Sites" },
+  { value: "inc", label: "INC" },
+  { value: "homes", label: "HOMES" },
+  { value: "crm", label: "CRM" },
+];
+
 const SORT_OPTIONS = [
   { value: "smart", label: "Default" },
   { value: "priority", label: "Priority" },
@@ -119,13 +142,14 @@ function sortTickets(tickets: TicketRow[], sort: string, todayISO: string): Tick
 export default async function SupportPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string; view?: string; sort?: string }>;
+  searchParams: Promise<{ category?: string; view?: string; sort?: string; site?: string }>;
 }) {
-  const { category, view, sort } = await searchParams;
+  const { category, view, sort, site } = await searchParams;
   const activeCategory =
     category && CATEGORY_FILTERS.some((f) => f.value === category) ? category : "all";
   const showArchived = view === "archived";
   const activeSort = SORT_OPTIONS.some((s) => s.value === sort) ? (sort as string) : "smart";
+  const activeSite = site && SITE_FILTERS.some((f) => f.value === site) ? site : "all";
 
   const supabase = createServiceClient();
 
@@ -135,7 +159,7 @@ export default async function SupportPage({
   const baseQuery = () =>
     supabase
       .from("support_tickets")
-      .select("id, ref_number, title, category, priority, status, due_date, created_at, archived_at")
+      .select("id, ref_number, title, category, priority, status, website, due_date, created_at, verified_at, archived_at")
       .order("created_at", { ascending: false });
 
   // Archived is its own view, not combinable with category filtering —
@@ -181,17 +205,30 @@ export default async function SupportPage({
     );
   }
 
-  const todayISO = new Date().toISOString().slice(0, 10);
+  // "Today" in LA time, not UTC — otherwise tickets due today start showing
+  // as overdue at 5pm PT when the UTC date rolls over. en-CA = YYYY-MM-DD.
+  const todayISO = new Date().toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" });
   const weekAgoISO = new Date(Date.now() - 7 * 864e5).toISOString();
-  const tickets = sortTickets((data ?? []) as TicketRow[], activeSort, todayISO);
+  // Site filter applied in JS, not the query builder — adding another .eq()
+  // branch to the ternary chain above re-triggers the deep-instantiation TS
+  // error, and the ticket list is small enough that this costs nothing.
+  const allRows = (data ?? []) as TicketRow[];
+  const filteredRows =
+    activeSite === "all" ? allRows : allRows.filter((t) => t.website === activeSite);
+  const tickets = sortTickets(filteredRows, activeSort, todayISO);
 
   const open = tickets.filter((t) => t.status !== "verified_complete").length;
   const awaitingReview = tickets.filter((t) => t.status === "review").length;
   const overdue = tickets.filter(
     (t) => t.due_date && t.due_date < todayISO && t.status !== "verified_complete"
   ).length;
+  // Was comparing created_at (when the ticket was FILED) to "one week ago" —
+  // so a ticket filed a month ago and just now completed never counted,
+  // which is exactly what was reported. verified_at is stamped by the DB
+  // trigger the moment a ticket enters verified_complete, so it reflects
+  // when the work actually finished.
   const completedThisWeek = tickets.filter(
-    (t) => t.status === "verified_complete" && t.created_at >= weekAgoISO
+    (t) => t.status === "verified_complete" && t.verified_at && t.verified_at >= weekAgoISO
   ).length;
 
   return (
@@ -213,6 +250,36 @@ export default async function SupportPage({
         <StatCard label="Completed This Week" value={completedThisWeek} icon={CheckCircle2} tone="green" />
       </div>
 
+      <div className="flex flex-wrap gap-1.5">
+        {SITE_FILTERS.map((f) => {
+          const active = f.value === activeSite;
+          const params = new URLSearchParams();
+          if (showArchived) params.set("view", "archived");
+          if (!showArchived && activeCategory !== "all") params.set("category", activeCategory);
+          if (activeSort !== "smart") params.set("sort", activeSort);
+          if (f.value !== "all") params.set("site", f.value);
+          const qs = params.toString();
+          const href = qs ? `/crm/support?${qs}` : "/crm/support";
+          const activeTone =
+            f.value === "all"
+              ? "bg-[#1C1C1E] text-white"
+              : `${WEBSITE_TONE[f.value]} shadow-sm`;
+          return (
+            <Link
+              key={f.value}
+              href={href}
+              className={`rounded-full px-4 py-2 text-xs font-black tracking-wide transition-colors ${
+                active
+                  ? activeTone
+                  : "bg-white text-[#1C1C1E] border border-[#E8E4DC] hover:border-[#B8963E]"
+              }`}
+            >
+              {f.label}
+            </Link>
+          );
+        })}
+      </div>
+
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap gap-1.5">
           {CATEGORY_FILTERS.map((f) => {
@@ -220,6 +287,7 @@ export default async function SupportPage({
             const params = new URLSearchParams();
             if (f.value !== "all") params.set("category", f.value);
             if (activeSort !== "smart") params.set("sort", activeSort);
+            if (activeSite !== "all") params.set("site", activeSite);
             const qs = params.toString();
             const href = qs ? `/crm/support?${qs}` : "/crm/support";
             return (
@@ -237,7 +305,7 @@ export default async function SupportPage({
             );
           })}
           <Link
-            href={`/crm/support?view=archived${activeSort !== "smart" ? `&sort=${activeSort}` : ""}`}
+            href={`/crm/support?view=archived${activeSort !== "smart" ? `&sort=${activeSort}` : ""}${activeSite !== "all" ? `&site=${activeSite}` : ""}`}
             className={`rounded-full px-4 py-2 text-xs font-bold transition-colors ${
               showArchived
                 ? "bg-[#1C1C1E] text-white"
@@ -256,6 +324,7 @@ export default async function SupportPage({
             if (showArchived) params.set("view", "archived");
             if (!showArchived && activeCategory !== "all") params.set("category", activeCategory);
             if (s.value !== "smart") params.set("sort", s.value);
+            if (activeSite !== "all") params.set("site", activeSite);
             const qs = params.toString();
             const href = qs ? `/crm/support?${qs}` : "/crm/support";
             return (
@@ -280,6 +349,7 @@ export default async function SupportPage({
           <thead>
             <tr className="border-b border-[#E8E4DC] bg-[#FAF9F6] text-left text-[11px] font-black uppercase tracking-wide text-gray-400">
               <th className="px-5 py-3">Ref</th>
+              <th className="px-5 py-3">Site</th>
               <th className="px-5 py-3">Title</th>
               <th className="px-5 py-3">Category</th>
               <th className="px-5 py-3">Priority</th>
@@ -290,7 +360,7 @@ export default async function SupportPage({
           <tbody>
             {tickets.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-5 py-10 text-center text-sm text-gray-400">
+                <td colSpan={7} className="px-5 py-10 text-center text-sm text-gray-400">
                   {showArchived
                     ? "No archived tickets yet."
                     : activeCategory === "all"
@@ -311,6 +381,19 @@ export default async function SupportPage({
                       >
                         #REQ-{t.ref_number}
                       </Link>
+                    </td>
+                    <td className="px-5 py-3">
+                      {t.website ? (
+                        <span
+                          className={`inline-block rounded-md px-2.5 py-1 text-[11px] font-black tracking-wider ${
+                            WEBSITE_TONE[t.website] ?? "bg-gray-600 text-white"
+                          }`}
+                        >
+                          {WEBSITE_LABEL[t.website] ?? t.website}
+                        </span>
+                      ) : (
+                        <span className="text-xs text-gray-300">—</span>
+                      )}
                     </td>
                     <td className="px-5 py-3">
                       <Link href={`/crm/support/${t.id}`} className="text-[#1C1C1E] hover:text-[#B8963E]">
