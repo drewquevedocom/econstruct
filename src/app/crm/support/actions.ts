@@ -39,15 +39,27 @@ async function developerName(supabase: ReturnType<typeof createServiceClient>): 
   return data?.full_name || "Drew";
 }
 
+function isMissingWebsiteColumn(message: string | undefined): boolean {
+  return !!message && /column .*\bwebsite\b.* does not exist/i.test(message);
+}
+
 async function fetchTicketForEmail(
   supabase: ReturnType<typeof createServiceClient>,
   ticketId: string
 ): Promise<TicketForEmail | null> {
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("support_tickets")
     .select("id, ref_number, title, description, category, priority, website, due_date, submitted_by, assigned_to")
     .eq("id", ticketId)
     .single();
+  if (error && isMissingWebsiteColumn(error.message)) {
+    const { data: fallback } = await supabase
+      .from("support_tickets")
+      .select("id, ref_number, title, description, category, priority, due_date, submitted_by, assigned_to")
+      .eq("id", ticketId)
+      .single();
+    return fallback ? ({ ...fallback, website: null } as TicketForEmail) : null;
+  }
   return data as TicketForEmail | null;
 }
 
@@ -77,23 +89,36 @@ export async function createTicket(input: {
   // needed, and Drew isn't notified until it's moved to New.
   const status = input.pending ? "pending" : "new";
 
-  const { data, error } = await supabase
+  const baseFields = {
+    title: input.title.trim(),
+    description: input.description?.trim() || null,
+    category: input.category,
+    priority: input.priority,
+    due_date: input.due_date || null,
+    status,
+    submitted_by: submittedBy,
+    assigned_to: assignedTo,
+  };
+
+  let { data, error } = await supabase
     .from("support_tickets")
-    .insert({
-      title: input.title.trim(),
-      description: input.description?.trim() || null,
-      category: input.category,
-      priority: input.priority,
-      website: input.website,
-      due_date: input.due_date || null,
-      status,
-      submitted_by: submittedBy,
-      assigned_to: assignedTo,
-    })
+    .insert({ ...baseFields, website: input.website })
     .select("id")
     .single();
 
+  // Migration lag safety net: don't lose a ticket someone is actively
+  // filing just because the website column hasn't been added yet. The tag
+  // can be set later from the ticket page once the migration runs.
+  if (error && isMissingWebsiteColumn(error.message)) {
+    ({ data, error } = await supabase
+      .from("support_tickets")
+      .insert(baseFields)
+      .select("id")
+      .single());
+  }
+
   if (error) return { error: error.message };
+  if (!data) return { error: "Ticket insert returned no data" };
 
   if (status === "new") {
     const ticket = await fetchTicketForEmail(supabase, data.id);

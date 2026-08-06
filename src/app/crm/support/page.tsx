@@ -165,11 +165,32 @@ export default async function SupportPage({
   // Archived is its own view, not combinable with category filtering —
   // it's a small, deliberately-curated list, not something you browse by
   // category.
-  const { data, error } = showArchived
+  let { data, error } = showArchived
     ? await baseQuery().not("archived_at", "is", null)
     : activeCategory === "all"
       ? await baseQuery().is("archived_at", null)
       : await baseQuery().is("archived_at", null).eq("category", activeCategory);
+
+  // A migration lagging a deploy took the whole page down on 2026-08-06
+  // (website column queried before its migration ran). If that exact error
+  // recurs, degrade to the pre-website-column shape instead of hard-failing
+  // — every ticket just shows unlabeled until the migration is applied.
+  const websiteColumnMissing =
+    error && /column .*\bwebsite\b.* does not exist/i.test(error.message);
+  if (websiteColumnMissing) {
+    const fallbackQuery = () =>
+      supabase
+        .from("support_tickets")
+        .select("id, ref_number, title, category, priority, status, due_date, created_at, verified_at, archived_at")
+        .order("created_at", { ascending: false });
+    const fallbackResult = showArchived
+      ? await fallbackQuery().not("archived_at", "is", null)
+      : activeCategory === "all"
+        ? await fallbackQuery().is("archived_at", null)
+        : await fallbackQuery().is("archived_at", null).eq("category", activeCategory);
+    data = fallbackResult.data?.map((row) => ({ ...row, website: null })) ?? null;
+    error = fallbackResult.error;
+  }
 
   if (error) {
     // Show the real database error instead of assuming the table itself is
