@@ -27,11 +27,26 @@ export async function POST(req: Request) {
   if (ticketError) return Response.json({ error: ticketError.message }, { status: 500 });
   if (!ticket) return Response.json({ ok: true, ticketFound: false });
 
-  const { data: activity, error: activityError } = await supabase
+  // edited_at (20260731_ticket_note_edits.sql) may not be applied yet in
+  // every environment — fall back to the pre-migration column set rather
+  // than failing the whole diagnostic on it, same defensive pattern as
+  // updateTicketNote().
+  let { data: activity, error: activityError } = await supabase
     .from("ticket_activity")
     .select("id, actor, action, note, edited_at, created_at")
     .eq("ticket_id", id)
     .order("created_at", { ascending: false });
+  const edited_atMissing =
+    activityError && /column .*\bedited_at\b.* does not exist/i.test(activityError.message);
+  if (edited_atMissing) {
+    const fallback = await supabase
+      .from("ticket_activity")
+      .select("id, actor, action, note, created_at")
+      .eq("ticket_id", id)
+      .order("created_at", { ascending: false });
+    activity = fallback.data?.map((r) => ({ ...r, edited_at: null })) ?? null;
+    activityError = fallback.error;
+  }
   if (activityError) return Response.json({ error: activityError.message }, { status: 500 });
 
   const rows = activity ?? [];
@@ -40,6 +55,7 @@ export async function POST(req: Request) {
   return Response.json({
     ok: true,
     ticketFound: true,
+    editedAtColumnMissing: Boolean(edited_atMissing),
     ticket,
     activityRowCount: rows.length,
     commentCount: comments.length,
