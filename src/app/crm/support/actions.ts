@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { createServiceClient } from "@/lib/supabase/server";
 import { getCurrentRole } from "@/lib/auth/getCurrentRole";
+import { canEditTicketNote } from "@/lib/tickets/noteOwnership";
 import {
   notifyDrewNewTicket,
   notifyFrankForReview,
@@ -466,7 +467,9 @@ export async function updateTicketNote(activityId: string, note: string) {
     .single();
   if (fetchError) return { error: fetchError.message };
   if (row.action !== "comment") return { error: "Only comments can be edited." };
-  if (row.actor !== actor) return { error: "You can only edit your own notes." };
+  if (!canEditTicketNote(row.actor, actor)) {
+    return { error: "You can only edit your own notes." };
+  }
 
   let { error } = await supabase
     .from("ticket_activity")

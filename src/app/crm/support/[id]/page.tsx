@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { createServiceClient } from "@/lib/supabase/server";
 import { getCurrentRole } from "@/lib/auth/getCurrentRole";
+import { canEditTicketNote } from "@/lib/tickets/noteOwnership";
 import TicketActions from "@/components/crm/TicketActions";
 import TicketNoteForm from "@/components/crm/TicketNoteForm";
 import EditableTicketNote from "@/components/crm/EditableTicketNote";
@@ -250,7 +251,7 @@ export default async function TicketDetailPage({
                     activityId={a.id}
                     note={a.note}
                     editedAt={a.edited_at ?? null}
-                    canEdit={a.action === "comment" && !!viewerName && a.actor === viewerName}
+                    canEdit={a.action === "comment" && canEditTicketNote(a.actor, viewerName)}
                   />
                   {a.attachment_url && (
                     <a
