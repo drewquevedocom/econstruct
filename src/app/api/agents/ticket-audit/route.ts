@@ -14,10 +14,28 @@ export async function POST(req: Request) {
 
   const url = new URL(req.url);
   const id = url.searchParams.get("id");
-  const viewer = url.searchParams.get("viewer");
+  const viewerEmail = url.searchParams.get("viewer_email");
   if (!id) return Response.json({ error: "id required" }, { status: 400 });
 
   const supabase = createServiceClient();
+
+  // Resolve the viewer's real profile name rather than trust a passed-in
+  // guess — canEditTicketNote matches on exactly what getCurrentRole()
+  // returns for the signed-in session, and that may not match what it looks
+  // like on paper (nickname, missing seed row, shared-password fallback).
+  let viewer: string | null = null;
+  let viewerProfile: { full_name: string; active: boolean; role: string } | null = null;
+  if (viewerEmail) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("full_name, active, role")
+      .eq("email", viewerEmail)
+      .maybeSingle();
+    viewerProfile = profile ?? null;
+    // getCurrentRole() only returns a name for an active profile; inactive
+    // or missing rows fall back to the shared-password path (fullName: null).
+    viewer = profile?.active ? profile.full_name : null;
+  }
 
   const { data: ticket, error: ticketError } = await supabase
     .from("support_tickets")
@@ -56,6 +74,9 @@ export async function POST(req: Request) {
     ok: true,
     ticketFound: true,
     editedAtColumnMissing: Boolean(edited_atMissing),
+    viewerEmail,
+    viewerProfile,
+    resolvedViewerName: viewer,
     ticket,
     activityRowCount: rows.length,
     commentCount: comments.length,
