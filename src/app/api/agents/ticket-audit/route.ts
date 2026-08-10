@@ -70,6 +70,10 @@ export async function POST(req: Request) {
   const rows = activity ?? [];
   const comments = rows.filter((r) => r.action === "comment");
 
+  const { data: allProfiles } = await supabase
+    .from("profiles")
+    .select("email, full_name, role, active");
+
   return Response.json({
     ok: true,
     ticketFound: true,
@@ -77,6 +81,7 @@ export async function POST(req: Request) {
     viewerEmail,
     viewerProfile,
     resolvedViewerName: viewer,
+    allProfiles,
     ticket,
     activityRowCount: rows.length,
     commentCount: comments.length,
