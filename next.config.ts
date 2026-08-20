@@ -28,7 +28,24 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: "/:path*",
+        // Split from a single "/:path*" rule: on this deployment, the
+        // zero-or-more wildcard fails to interpolate an empty match, so a
+        // bare "www.econstructhomes.com/" redirected to the literal
+        // unsubstituted "https://econstructhomes.com/:path*" (404). Exact
+        // root case first, then a one-or-more match for everything else —
+        // neither ever asks the wildcard to substitute zero segments.
+        source: "/",
+        has: [
+          {
+            type: "host",
+            value: "www.econstructhomes.com",
+          },
+        ],
+        destination: "https://econstructhomes.com/",
+        permanent: true,
+      },
+      {
+        source: "/:path+",
         has: [
           {
             type: "host",
