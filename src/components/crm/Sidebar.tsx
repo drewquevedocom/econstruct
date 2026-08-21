@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Users, Bot, Mail, PanelLeftClose, PanelLeft, Send, Handshake, Building2, LifeBuoy } from "lucide-react";
+import { LayoutDashboard, Users, Bot, Mail, PanelLeftClose, PanelLeft, Send, Handshake, Building2, LifeBuoy, Signature } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getCurrentRole } from "@/lib/auth/getCurrentRole";
 
@@ -15,11 +15,18 @@ const navItems = [
   { href: "/crm/partners", label: "Partners", icon: Handshake },
   { href: "/crm/sequences", label: "Sequences", icon: Mail },
   { href: "/crm/agents", label: "Agents", icon: Bot },
+  { href: "/tools/signature-generator", label: "Email Signature", icon: Signature },
 ];
 
 // Mirrors the middleware's STAFF_ALLOWED_PREFIXES — this only controls what's
 // shown, not what's reachable (that's enforced server-side in middleware).
-const STAFF_VISIBLE_HREFS = new Set(["/crm/support", "/crm/leads", "/crm/new-builds"]);
+// The signature generator carries no CRM data, so it's visible to staff too.
+const STAFF_VISIBLE_HREFS = new Set([
+  "/crm/support",
+  "/crm/leads",
+  "/crm/new-builds",
+  "/tools/signature-generator",
+]);
 
 interface SidebarProps {
   pinned: boolean;
