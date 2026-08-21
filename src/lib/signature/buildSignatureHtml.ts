@@ -93,16 +93,31 @@ function iconRow(
   iconSrc: string,
   size: number,
   inner: string,
-  opts: { align?: string; color?: string } = {}
+  opts: { align?: string; color?: string; fontSize?: number } = {}
 ): string {
   const valign = opts.align ?? "middle";
   return (
     `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr>` +
     `<td valign="${valign}" style="padding:0 9px 0 0;line-height:0;">` +
     `<img src="${iconSrc}" width="${size}" height="${size}" alt="" style="display:block;border:0;outline:none;text-decoration:none;" /></td>` +
-    `<td valign="${valign}" style="font-family:${FONT_STACK};font-size:11.5px;line-height:1.5;color:${opts.color ?? TEXT};">${inner}</td>` +
+    `<td valign="${valign}" style="font-family:${FONT_STACK};font-size:${opts.fontSize ?? 11.5}px;line-height:1.5;color:${opts.color ?? TEXT};">${inner}</td>` +
     `</tr></table>`
   );
+}
+
+/**
+ * Forces a break after the street portion instead of leaving it to the
+ * email client's own text wrap — table-cell wrapping is unreliable across
+ * clients (Outlook in particular), so this splits on the first comma
+ * ("25350 Magic Mountain Pkwy #300," / "Valencia, CA 91355") rather than
+ * trusting the container width.
+ */
+function addressWithLineBreak(address: string): string {
+  const commaIndex = address.indexOf(",");
+  if (commaIndex === -1) return address;
+  const line1 = address.slice(0, commaIndex + 1);
+  const line2 = address.slice(commaIndex + 1).trim();
+  return `${line1}<br />${line2}`;
 }
 
 export interface BuildOptions {
@@ -134,7 +149,7 @@ export function buildSignatureHtml(input: SignatureInput, options: BuildOptions 
   ).join("");
 
   const brandColumn =
-    `<img src="${assets}/econstruct-logo.png" width="150" height="50" alt="econstruct" style="display:block;border:0;outline:none;text-decoration:none;margin:0 auto;" />` +
+    `<img src="${assets}/econstruct-logo.png" width="113" height="38" alt="econstruct" style="display:block;border:0;outline:none;text-decoration:none;margin:0 auto;" />` +
     `<div style="font-family:${FONT_STACK};font-size:10.5px;line-height:1.55;color:${ACCENT};padding:11px 6px 0 6px;">${TAGLINE}</div>`;
 
   // ---- column 2: identity ----------------------------------------------
@@ -147,7 +162,12 @@ export function buildSignatureHtml(input: SignatureInput, options: BuildOptions 
     : "";
 
   const addressBlock = address
-    ? `<div style="padding:15px 0 0 0;">${iconRow(`${assets}/icon-pin.png`, 14, address, { align: "top" })}</div>`
+    ? `<div style="padding:15px 0 0 0;">${iconRow(
+        `${assets}/icon-pin.png`,
+        14,
+        addressWithLineBreak(address),
+        { align: "top", fontSize: 10 }
+      )}</div>`
     : "";
 
   const identityColumn =
