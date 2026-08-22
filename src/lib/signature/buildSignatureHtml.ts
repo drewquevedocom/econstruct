@@ -161,22 +161,20 @@ export function buildSignatureHtml(input: SignatureInput, options: BuildOptions 
     ? `<div style="font-family:${FONT_STACK};font-size:12.5px;line-height:1.4;color:${ACCENT};padding:3px 0 0 0;">${jobTitle}</div>`
     : "";
 
-  const addressBlock = address
-    ? `<div style="padding:15px 0 0 0;">${iconRow(
-        `${assets}/icon-pin.png`,
-        14,
-        addressLines(address),
-        { align: "top", fontSize: 10 }
-      )}</div>`
-    : "";
+  // Social row now sits under name/title, where the address used to be.
+  const socialBlock =
+    `<div style="padding:15px 0 0 0;">` +
+    `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr>${socialIcons}</tr></table>` +
+    `</div>`;
 
   const identityColumn =
     departmentBlock +
     `<div style="font-family:${FONT_STACK};font-size:19px;line-height:1.25;font-weight:bold;color:${BRAND_DARK};">${fullName}</div>` +
     titleBlock +
-    addressBlock;
+    socialBlock;
 
   // ---- column 3: contact stack -----------------------------------------
+  // Address now sits at the bottom of this stack, where social used to be.
   const contactRows = [
     phone
       ? iconRow(
@@ -197,19 +195,16 @@ export function buildSignatureHtml(input: SignatureInput, options: BuildOptions 
       18,
       `<a href="${SITE_URL}" target="_blank" style="color:${TEXT};text-decoration:none;">econstructhomes.com</a>`
     ),
+    address
+      ? iconRow(`${assets}/icon-pin.png`, 14, addressLines(address), { align: "top", fontSize: 10 })
+      : "",
   ]
     .filter(Boolean)
     .map((row, i) => `<tr><td style="padding:${i === 0 ? "0" : "10px"} 0 0 0;">${row}</td></tr>`)
     .join("");
 
-  // Social row sits beneath the contact stack, aligned to the ring icons.
-  const socialRow =
-    `<tr><td style="padding:14px 0 0 0;">` +
-    `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr>${socialIcons}</tr></table>` +
-    `</td></tr>`;
-
   const contactColumn =
-    `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">${contactRows}${socialRow}</table>`;
+    `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">${contactRows}</table>`;
 
   // Rules are drawn as cell borders rather than spacer cells — Outlook
   // collapses narrow cells but honours td borders.
