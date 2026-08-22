@@ -65,7 +65,7 @@ export const SIGNATURE_DEFAULTS: SignatureInput = {
   jobTitle: "",
   email: "",
   phone: "310.740.9999",
-  address: "25350 Magic Mountain Pkwy #300, Valencia, CA 91355",
+  address: "25350 Magic Mountain Pkwy.\nSuite 300\nValencia, CA 91355",
   includeConfidentiality: true,
 };
 
@@ -106,18 +106,18 @@ function iconRow(
 }
 
 /**
- * Forces a break after the street portion instead of leaving it to the
- * email client's own text wrap — table-cell wrapping is unreliable across
- * clients (Outlook in particular), so this splits on the first comma
- * ("25350 Magic Mountain Pkwy #300," / "Valencia, CA 91355") rather than
- * trusting the container width.
+ * Renders each newline in the address as its own line (street, suite,
+ * city/state/zip) via an explicit <br />, rather than leaving line breaks to
+ * the email client's own text wrap — table-cell wrapping is unreliable
+ * across clients, Outlook especially. Input comes from a <textarea>, so a
+ * newline per line is exactly what the form produces.
  */
-function addressWithLineBreak(address: string): string {
-  const commaIndex = address.indexOf(",");
-  if (commaIndex === -1) return address;
-  const line1 = address.slice(0, commaIndex + 1);
-  const line2 = address.slice(commaIndex + 1).trim();
-  return `${line1}<br />${line2}`;
+function addressLines(address: string): string {
+  return address
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .join("<br />");
 }
 
 export interface BuildOptions {
@@ -165,7 +165,7 @@ export function buildSignatureHtml(input: SignatureInput, options: BuildOptions 
     ? `<div style="padding:15px 0 0 0;">${iconRow(
         `${assets}/icon-pin.png`,
         14,
-        addressWithLineBreak(address),
+        addressLines(address),
         { align: "top", fontSize: 10 }
       )}</div>`
     : "";

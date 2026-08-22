@@ -38,6 +38,31 @@ function Field({ label, value, onChange, placeholder, hint, type = "text", upper
   );
 }
 
+interface TextAreaFieldProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  hint?: string;
+  rows?: number;
+}
+
+function TextAreaField({ label, value, onChange, hint, rows = 3 }: TextAreaFieldProps) {
+  return (
+    <label className="block">
+      <span className="mb-1.5 block text-xs font-bold tracking-wider text-brand-dark uppercase">
+        {label}
+      </span>
+      <textarea
+        value={value}
+        rows={rows}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full resize-none rounded-md border border-black/15 bg-white px-3 py-2.5 text-sm leading-relaxed text-brand-dark outline-none transition focus:border-accent-gold focus:ring-2 focus:ring-accent-gold/25"
+      />
+      {hint ? <span className="mt-1 block text-xs text-body-text">{hint}</span> : null}
+    </label>
+  );
+}
+
 /**
  * Copies the signature as rich HTML so that pasting into Gmail's signature box
  * yields a rendered signature rather than visible markup. Falls back to a DOM
@@ -159,10 +184,11 @@ export default function SignatureGenerator() {
             onChange={(v) => set("phone", v)}
             hint="Replace with your direct line if you have one."
           />
-          <Field
+          <TextAreaField
             label="Address"
             value={input.address}
             onChange={(v) => set("address", v)}
+            hint="One line each: street, suite, city/state/zip."
           />
 
           <label className="flex cursor-pointer items-start gap-3 rounded-md border border-black/10 bg-secondary px-4 py-3.5">
